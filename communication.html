@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolution Education | Communication Templates</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .document-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+        .document-header h1 {
+            color: #667eea;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .document-header .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .section {
+            margin-bottom: 35px;
+        }
+        .section-title {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+        .subsection {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .subsection-title {
+            color: #333;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .communication-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+        .communication-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+        .communication-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        .communication-item p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .communication-content {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border-left: 3px solid #667eea;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            color: #333;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        .copy-btn:hover {
+            background: #5568d3;
+            transform: translateY(-1px);
+        }
+        .copy-btn:active {
+            transform: translateY(0);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            background: #f0f4ff;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: #667eea;
+            color: white;
+        }
+        .level-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .level-2 {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .level-3 {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px;">
+    <div class="document-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="document-header">
+            <h1>EVOLUTION EDUCATION</h1>
+            <div class="subtitle">COMMUNICATION TEMPLATES</div>
+            <div class="subtitle" style="margin-top: 10px; font-size: 0.95rem;">Behaviour Contracts – Level 2 & Level 3</div>
+        </div>
+
+        <!-- Level 2 Communications -->
+        <div class="section">
+            <div class="section-title">Level 2 – Intervention Stage Communications</div>
+            
+            <div class="communication-item">
+                <span class="level-badge level-2">Level 2</span>
+                <h4>Pre-Meeting Email to School</h4>
+                <p>Email template to send to the parent school before the Level 2 contract meeting.</p>
+                <button class="copy-btn" onclick="copyToClipboard('l2-pre-meeting')">Copy Template</button>
+                <div class="communication-content" id="l2-pre-meeting">
+Subject: Level 2 Behaviour Contract Meeting – [Student Name]
+
+Dear [School Contact Name],
+
+I am writing to inform you that [Student Name] has reached Level 2 of Evolution Education's Behaviour Levels Framework and requires a Behaviour Contract meeting.
+
+We would like to schedule a meeting to discuss:
+• The reasons for escalation to Level 2
+• The proposed SMART targets and support measures
+• The contract terms and review process
+• How we can work together to support the student
+
+Please let us know your availability for the week of [Date]. We can arrange this meeting via video call or in person at your convenience.
+
+If you have any questions before the meeting, please do not hesitate to contact me.
+
+Best regards,
+[Pathway Lead Name]
+Evolution Education
+[Contact Details]
+                </div>
+            </div>
+
+            <div class="communication-item">
+                <span class="level-badge level-2">Level 2</span>
+                <h4>Post-Meeting Email to School</h4>
+                <p>Email template to send to the parent school after the Level 2 contract meeting.</p>
+                <button class="copy-btn" onclick="copyToClipboard('l2-post-meeting')">Copy Template</button>
+                <div class="communication-content" id="l2-post-meeting">
+Subject: Level 2 Behaviour Contract Confirmed – [Student Name]
+
+Dear [School Contact Name],
+
+Thank you for attending today's meeting regarding [Student Name]'s Level 2 Behaviour Contract.
+
+As discussed, the contract has been issued with the following key points:
+• Contract duration: [X] weeks (minimum 4 weeks)
+• Review date: [Date]
+• SMART targets have been agreed and documented
+• Weekly reviews will be conducted with progress updates shared
+
+A copy of the signed contract will be uploaded to Bromcom and shared with you.
+
+We will provide weekly updates on progress and will contact you immediately if there are any concerns or if escalation to Level 3 becomes necessary.
+
+If you have any questions, please do not hesitate to contact me.
+
+Best regards,
+[Pathway Lead Name]
+Evolution Education
+[Contact Details]
+                </div>
+            </div>
+
+            <div class="communication-item">
+                <span class="level-badge level-2">Level 2</span>
+                <h4>Parent Letter</h4>
+                <p>Letter template to send to parents/carers regarding the Level 2 Behaviour Contract.</p>
+                <button class="copy-btn" onclick="copyToClipboard('l2-parent-letter')">Copy Template</button>
+                <div class="communication-content" id="l2-parent-letter">
+Dear [Parent/Carer Name],
+
+RE: Level 2 Behaviour Contract – [Student Name]
+
+I am writing to inform you that [Student Name] has reached Level 2 of Evolution Education's Behaviour Levels Framework. This means we need to implement a structured Behaviour Contract to support their progress.
+
+Why has this contract been issued?
+[Student Name] has been escalated to Level 2 following [brief reason – e.g., "unsuccessful completion of Level 1" or "persistent behavioural concerns"].
+
+What does this mean?
+• A formal Behaviour Contract will be put in place for a minimum of 4 weeks
+• Weekly mentoring and reviews will be provided
+• Clear SMART targets will be set and monitored
+• Regular communication with you and the parent school
+
+What support will be provided?
+• Weekly 1:1 mentoring sessions
+• Weekly review meetings with the Pathway Lead
+• Access to counselling or Thrive/Boxall support where appropriate
+• Daily engagement checks and monitoring
+
+What we need from you:
+• Support and reinforcement of expectations at home
+• Attendance at review meetings when requested
+• Open communication about any concerns or changes
+
+Next steps:
+We will be arranging a meeting with the parent school to discuss the contract. You will receive a copy of the signed contract once it is finalised, and this will also be uploaded to Bromcom.
+
+If you have any questions or concerns, please do not hesitate to contact me on [Contact Number] or [Email Address].
+
+Yours sincerely,
+[Pathway Lead Name]
+Pathway Lead
+Evolution Education
+                </div>
+            </div>
+        </div>
+
+        <!-- Level 3 Communications -->
+        <div class="section">
+            <div class="section-title">Level 3 – Final Warning Communications</div>
+            
+            <div class="communication-item">
+                <span class="level-badge level-3">Level 3</span>
+                <h4>Pre-Meeting Email to School</h4>
+                <p>Email template to send to the parent school before the Level 3 contract meeting.</p>
+                <button class="copy-btn" onclick="copyToClipboard('l3-pre-meeting')">Copy Template</button>
+                <div class="communication-content" id="l3-pre-meeting">
+Subject: URGENT: Level 3 Final Warning Contract Meeting – [Student Name]
+
+Dear [School Contact Name],
+
+I am writing to inform you that [Student Name] has reached Level 3 (Final Warning) of Evolution Education's Behaviour Levels Framework. This is a serious stage requiring immediate action.
+
+We need to schedule an urgent meeting to discuss:
+• The reasons for escalation to Level 3
+• The final warning contract terms and expectations
+• The serious consequences of non-compliance
+• The support measures that will be put in place
+• Potential outcomes including placement review
+
+This meeting should take place as soon as possible, ideally within 48 hours. Please let us know your earliest availability.
+
+Given the seriousness of this stage, it is important that we work together closely to support the student and prevent placement breakdown.
+
+Please contact me urgently to arrange this meeting.
+
+Best regards,
+[Pathway Lead Name]
+Evolution Education
+[Contact Details]
+                </div>
+            </div>
+
+            <div class="communication-item">
+                <span class="level-badge level-3">Level 3</span>
+                <h4>Post-Meeting Email to School</h4>
+                <p>Email template to send to the parent school after the Level 3 contract meeting.</p>
+                <button class="copy-btn" onclick="copyToClipboard('l3-post-meeting')">Copy Template</button>
+                <div class="communication-content" id="l3-post-meeting">
+Subject: Level 3 Final Warning Contract Confirmed – [Student Name]
+
+Dear [School Contact Name],
+
+Thank you for attending today's urgent meeting regarding [Student Name]'s Level 3 Final Warning Contract.
+
+As discussed, this is the final stage of our Behaviour Framework. The contract has been issued with the following critical points:
+• Contract duration: [X] weeks (minimum 4 weeks)
+• Review date: [Date]
+• Final warning status – failure to meet conditions may result in referral to CEO and termination of placement
+• Enhanced monitoring and support measures
+• Daily check-ins and weekly case reviews
+
+A copy of the signed contract will be uploaded to Bromcom and shared with you immediately.
+
+We will provide:
+• Daily updates on behaviour and engagement
+• Weekly case reviews with you and the parent/carer
+• Immediate notification if there are serious concerns
+• A 4-week review to assess progress
+
+Given the seriousness of this stage, we must work together closely. If there is insufficient improvement, this may result in referral to the CEO for placement review, which could lead to termination of placement or temporary remote learning.
+
+If you have any questions or concerns, please contact me immediately.
+
+Best regards,
+[Pathway Lead Name]
+Evolution Education
+[Contact Details]
+                </div>
+            </div>
+
+            <div class="communication-item">
+                <span class="level-badge level-3">Level 3</span>
+                <h4>Parent Letter</h4>
+                <p>Letter template to send to parents/carers regarding the Level 3 Final Warning Contract.</p>
+                <button class="copy-btn" onclick="copyToClipboard('l3-parent-letter')">Copy Template</button>
+                <div class="communication-content" id="l3-parent-letter">
+Dear [Parent/Carer Name],
+
+RE: Level 3 Final Warning Contract – [Student Name]
+
+I am writing to inform you that [Student Name] has reached Level 3 (Final Warning) of Evolution Education's Behaviour Framework. This is the most serious stage and requires immediate attention.
+
+Why has this contract been issued?
+[Student Name] has been escalated to Level 3 following [brief reason – e.g., "unsuccessful completion of Level 2" or "a serious breach of health, safety, or safeguarding expectations"].
+
+This is a FINAL WARNING. This means:
+• This is the last stage before potential termination of placement
+• Failure to meet the conditions may result in referral to the CEO and termination of placement
+• The student must demonstrate immediate and sustained improvement
+• All expectations are non-negotiable
+
+What support will be provided?
+• Daily check-in/check-out with SLT or Pathway Lead
+• Enhanced SEMH monitoring and targeted mentoring
+• Weekly case review with you and the parent school
+• Risk assessment reviewed and updated weekly
+• All incidents recorded and reviewed daily
+
+What we need from you:
+• Immediate support and reinforcement of expectations at home
+• Attendance at all review meetings
+• Open and honest communication about any concerns
+• Understanding of the seriousness of this stage
+
+Potential outcomes:
+• Successful completion: contract lifted, return to Level 2 or full reintegration
+• Extension: further 4-week period with revised support
+• Referral to CEO: if insufficient improvement, leading to possible termination of placement or temporary remote learning
+
+Next steps:
+We have arranged an urgent meeting with the parent school. You will receive a copy of the signed contract once it is finalised, and this will be uploaded to Bromcom.
+
+This is a critical time for [Student Name]. We need to work together to ensure they understand the seriousness of this situation and support them to make the necessary changes.
+
+If you have any questions or concerns, please contact me immediately on [Contact Number] or [Email Address].
+
+Yours sincerely,
+[Pathway Lead Name]
+Pathway Lead
+Evolution Education
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center;">
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(id) {
+            const content = document.getElementById(id);
+            const text = content.textContent || content.innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#667eea';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy. Please select and copy manually.');
+            });
+        }
+
+    </script>
+</body>
+</html>
+

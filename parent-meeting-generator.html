@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parent / Carer Meeting – Bromcom Note Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 30px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 25px;
+      color: #333;
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 10px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 15px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .form-section {
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .form-section h2 {
+      font-size: 1rem;
+      margin-bottom: 15px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="time"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .radio-group {
+      display: flex;
+      gap: 20px;
+      margin-top: 5px;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .radio-item input[type="radio"] {
+      width: auto;
+    }
+
+    .tooltip-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip-icon {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      background: #9ca3af;
+      color: white;
+      border-radius: 50%;
+      font-size: 11px;
+      margin-left: 5px;
+      cursor: help;
+      vertical-align: middle;
+    }
+
+    .tooltip {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      margin-bottom: 5px;
+      padding: 8px 12px;
+      background: #374151;
+      color: white;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      width: 250px;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .tooltip-wrapper:hover .tooltip {
+      display: block;
+    }
+
+    .button-group {
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+    }
+
+    .btn-secondary {
+      background: #6b7280;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #4b5563;
+    }
+
+    .output-section {
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 2px solid #667eea;
+      display: none;
+    }
+
+    .output-section.show {
+      display: block;
+    }
+
+    .output-section h2 {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    .output-textarea {
+      width: 100%;
+      min-height: 400px;
+      padding: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-family: 'Courier New', monospace;
+      line-height: 1.6;
+      background: #f9fafb;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .success-message {
+      display: none;
+      padding: 10px 15px;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 4px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      .radio-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .tooltip {
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+    <h1>Parent / Carer Meeting – Bromcom Note Generator</h1>
+
+    <form id="meetingForm">
+      <section class="form-section">
+        <h2>Section 1 – Meeting Details</h2>
+        
+        <div class="form-group">
+          <label for="studentName">Student Name *</label>
+          <input type="text" id="studentName" name="studentName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="school">School *</label>
+          <select id="school" name="school" required>
+            <option value="">Select school...</option>
+            <option value="All Saints">All Saints</option>
+            <option value="Barking Abbey">Barking Abbey</option>
+            <option value="Dagenham Park">Dagenham Park</option>
+            <option value="Eastbrook">Eastbrook</option>
+            <option value="Eastbury">Eastbury</option>
+            <option value="Goresbrook">Goresbrook</option>
+            <option value="Greatfields">Greatfields</option>
+            <option value="JRCS">JRCS</option>
+            <option value="Robert Clack">Robert Clack</option>
+            <option value="Sydney Russell">Sydney Russell</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="meetingDate">Date of Meeting *</label>
+          <input type="date" id="meetingDate" name="meetingDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="meetingTime">Time of Meeting *</label>
+          <input type="time" id="meetingTime" name="meetingTime" required>
+        </div>
+
+        <div class="form-group">
+          <label for="meetingType">Meeting Type *
+            <div class="tooltip-wrapper">
+              <span class="tooltip-icon">ⓘ</span>
+              <div class="tooltip">Select the type of meeting to provide context for the record</div>
+            </div>
+          </label>
+          <select id="meetingType" name="meetingType" required>
+            <option value="">Select...</option>
+            <option value="Reset Meeting" data-tooltip="Used to re-establish expectations following concerns">Reset Meeting</option>
+            <option value="Behaviour Review" data-tooltip="Review of behaviour patterns and interventions">Behaviour Review</option>
+            <option value="Attendance" data-tooltip="Discussion regarding attendance concerns or improvement">Attendance</option>
+            <option value="Safeguarding" data-tooltip="Meeting relating to safeguarding matters">Safeguarding</option>
+            <option value="Reintegration" data-tooltip="Planning or reviewing reintegration into school/provision">Reintegration</option>
+            <option value="Progress Review" data-tooltip="Academic / pastoral progress check">Progress Review</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Section 2 – Attendees</h2>
+
+        <div class="form-group">
+          <label for="parentCarerName">Parent / Carer Name(s)</label>
+          <input type="text" id="parentCarerName" name="parentCarerName">
+        </div>
+
+        <div class="form-group">
+          <label>Student Present? *</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input type="radio" id="studentPresentYes" name="studentPresent" value="Yes" required>
+              <label for="studentPresentYes">Yes</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="studentPresentNo" name="studentPresent" value="No" required>
+              <label for="studentPresentNo">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="schoolRepresentative">School Representative (Optional)</label>
+          <input type="text" id="schoolRepresentative" name="schoolRepresentative">
+        </div>
+
+        <div class="form-group">
+          <label for="evolutionStaff">Evolution Education Staff *</label>
+          <input type="text" id="evolutionStaff" name="evolutionStaff" required>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Section 3 – Key Discussion Points</h2>
+
+        <div class="form-group">
+          <label for="discussionPoints">Key Discussion Points *</label>
+          <textarea id="discussionPoints" name="discussionPoints" required></textarea>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Section 4 – Agreed Actions</h2>
+
+        <div class="form-group">
+          <label for="agreedActions">Agreed Actions (Meeting Summary) *</label>
+          <textarea id="agreedActions" name="agreedActions" required></textarea>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Section 5 – Outcome & Review</h2>
+
+        <div class="form-group">
+          <label for="outcome">Outcome *</label>
+          <select id="outcome" name="outcome" required>
+            <option value="">Select...</option>
+            <option value="Positive">Positive</option>
+            <option value="Neutral">Neutral</option>
+            <option value="Concern Remains">Concern Remains</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nextReviewDate">Next Review Date</label>
+          <input type="date" id="nextReviewDate" name="nextReviewDate">
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2>Section 6 – Safeguarding</h2>
+
+        <div class="form-group">
+          <label>Safeguarding Concern Raised? *</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input type="radio" id="safeguardingYes" name="safeguardingConcern" value="Yes" required>
+              <label for="safeguardingYes">Yes</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="safeguardingNo" name="safeguardingConcern" value="No" required>
+              <label for="safeguardingNo">No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="safeguardingNotesGroup" style="display: none;">
+          <label for="safeguardingNotes">Safeguarding Notes</label>
+          <textarea id="safeguardingNotes" name="safeguardingNotes"></textarea>
+        </div>
+      </section>
+
+      <div class="button-group">
+        <button type="button" id="generateBtn" class="btn-primary">Generate Note</button>
+        <button type="reset" class="btn-secondary">Clear Form</button>
+      </div>
+    </form>
+
+    <div class="output-section" id="outputSection">
+      <h2>Generated Note (Ready for Bromcom)</h2>
+      <textarea id="outputText" class="output-textarea" readonly></textarea>
+      <div class="button-group">
+        <button type="button" id="copyBtn" class="btn-primary">Copy for Bromcom</button>
+      </div>
+      <div id="successMessage" class="success-message">Note copied to clipboard</div>
+    </div>
+  </div>
+
+  <script>
+    // Set default date to today
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('meetingDate').value = today;
+
+      // Show/hide safeguarding notes field
+      const safeguardingRadio = document.querySelectorAll('input[name="safeguardingConcern"]');
+      const safeguardingNotesGroup = document.getElementById('safeguardingNotesGroup');
+
+      safeguardingRadio.forEach(radio => {
+        radio.addEventListener('change', function() {
+          if (this.value === 'Yes') {
+            safeguardingNotesGroup.style.display = 'block';
+          } else {
+            safeguardingNotesGroup.style.display = 'none';
+            document.getElementById('safeguardingNotes').value = '';
+          }
+        });
+      });
+
+      // Reset form also hides output
+      document.getElementById('meetingForm').addEventListener('reset', function() {
+        document.getElementById('outputSection').classList.remove('show');
+        document.getElementById('successMessage').classList.remove('show');
+      });
+    });
+
+    // Format date as DD/MM/YYYY
+    function formatDate(dateString) {
+      if (!dateString) return 'Not set';
+      const date = new Date(dateString + 'T00:00:00');
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    // Format time as HH:MM
+    function formatTime(timeString) {
+      if (!timeString) return '';
+      return timeString.substring(0, 5); // Extract HH:MM from HH:MM:SS
+    }
+
+    // Generate the note
+    document.getElementById('generateBtn').addEventListener('click', function() {
+      const form = document.getElementById('meetingForm');
+      const formData = new FormData(form);
+
+      const studentName = formData.get('studentName') || 'N/A';
+      const school = formData.get('school') || 'N/A';
+      const meetingDate = formatDate(formData.get('meetingDate'));
+      const meetingTime = formatTime(formData.get('meetingTime'));
+      const meetingType = formData.get('meetingType') || 'N/A';
+      const parentCarerName = formData.get('parentCarerName') || 'N/A';
+      const studentPresent = formData.get('studentPresent') || 'N/A';
+      const schoolRepresentative = formData.get('schoolRepresentative') || 'N/A';
+      const evolutionStaff = formData.get('evolutionStaff') || 'N/A';
+      const discussionPoints = formData.get('discussionPoints') || 'N/A';
+      const agreedActions = formData.get('agreedActions') || 'N/A';
+      const outcome = formData.get('outcome') || 'N/A';
+      const nextReviewDate = formatDate(formData.get('nextReviewDate'));
+      const safeguardingConcern = formData.get('safeguardingConcern');
+      const safeguardingNotes = formData.get('safeguardingNotes') || '';
+
+      let safeguardingText;
+      if (safeguardingConcern === 'Yes') {
+        safeguardingText = safeguardingNotes.trim() ? 
+          `Concern raised: ${safeguardingNotes.trim()}` : 
+          'Concern raised';
+      } else {
+        safeguardingText = 'No concerns raised';
+      }
+
+      const output = `Parent / Carer Meeting Record
+
+Student: ${studentName}
+School: ${school}
+Date: ${meetingDate}
+Time: ${meetingTime}
+Meeting Type: ${meetingType}
+
+Attendees
+Parent / Carer: ${parentCarerName}
+
+Student Present: ${studentPresent}
+
+School Representative: ${schoolRepresentative}
+
+Evolution Education: ${evolutionStaff}
+
+Key Discussion Points
+${discussionPoints}
+
+Agreed Actions
+${agreedActions}
+
+Outcome
+${outcome}
+
+Next Review Date
+${nextReviewDate}
+
+Safeguarding
+${safeguardingText}`;
+
+      document.getElementById('outputText').value = output;
+      document.getElementById('outputSection').classList.add('show');
+      document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Copy to clipboard
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      const outputText = document.getElementById('outputText');
+      outputText.select();
+      outputText.setSelectionRange(0, 99999); // For mobile devices
+
+      navigator.clipboard.writeText(outputText.value).then(function() {
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.add('show');
+        setTimeout(function() {
+          successMessage.classList.remove('show');
+        }, 3000);
+      }).catch(function(err) {
+        // Fallback for older browsers
+        try {
+          document.execCommand('copy');
+          const successMessage = document.getElementById('successMessage');
+          successMessage.classList.add('show');
+          setTimeout(function() {
+            successMessage.classList.remove('show');
+          }, 3000);
+        } catch (e) {
+          alert('Failed to copy. Please select and copy manually.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JRCS Wednesday Timetable — Evolution Education</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #667eea;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: 10px;
+      padding: 15px;
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      border-radius: 4px;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 16px;
+      background: #f0f4ff;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: #667eea;
+      color: white;
+    }
+
+    .timetable-container {
+      overflow-x: auto;
+      margin: 30px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: white;
+    }
+
+    th {
+      background: #667eea;
+      color: white;
+      padding: 12px 10px;
+      text-align: left;
+      font-weight: 600;
+      border: 1px solid #5568d3;
+      position: sticky;
+      top: 0;
+    }
+
+    td {
+      padding: 12px 10px;
+      border: 1px solid #e5e7eb;
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    tr:hover {
+      background: #f0f4ff;
+    }
+
+    .time-col {
+      font-weight: 600;
+      color: #667eea;
+      min-width: 120px;
+    }
+
+    .period-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .break-row {
+      background: #fff3cd !important;
+    }
+
+    .break-row td {
+      padding: 8px 10px;
+      font-weight: 600;
+      color: #856404;
+      text-align: center;
+    }
+
+    .period5-contingency {
+      background: #fee2e2;
+      border: 3px solid #dc2626;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 30px 0;
+    }
+
+    .period5-contingency h3 {
+      color: #991b1b;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #dc2626;
+      padding-bottom: 10px;
+    }
+
+    .period5-contingency h4 {
+      color: #dc2626;
+      font-size: 1.1rem;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .period5-contingency .trigger-condition {
+      background: #fff3cd;
+      border-left: 4px solid #f59e0b;
+      padding: 12px 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+      font-weight: 600;
+      color: #92400e;
+    }
+
+    .period5-contingency ul {
+      margin-left: 25px;
+      margin-bottom: 15px;
+    }
+
+    .period5-contingency li {
+      margin-bottom: 8px;
+    }
+
+    .safeguarding-notes {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 4px;
+    }
+
+    .safeguarding-notes h4 {
+      color: #991b1b;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .safeguarding-notes ul {
+      margin-left: 25px;
+    }
+
+    .safeguarding-notes li {
+      margin-bottom: 6px;
+      color: #7f1d1d;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+      background-color: white;
+      margin: 2% auto;
+      padding: 0;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 900px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      background: #dc2626;
+      color: white;
+      padding: 20px 30px;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .close-modal {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .close-modal:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .modal-body {
+      padding: 30px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .week-section {
+      margin-bottom: 35px;
+      padding-bottom: 25px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .week-section:last-child {
+      border-bottom: none;
+    }
+
+    .week-section h3 {
+      color: #dc2626;
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      border-left: 4px solid #dc2626;
+      padding-left: 12px;
+    }
+
+    .video-link {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #fee2e2;
+      border: 2px solid #dc2626;
+      border-radius: 6px;
+      color: #991b1b;
+      text-decoration: none;
+      font-weight: 600;
+      margin: 10px 0;
+      transition: all 0.2s;
+    }
+
+    .video-link:hover {
+      background: #dc2626;
+      color: white;
+    }
+
+    .discussion-questions {
+      background: #f0f9ff;
+      border-left: 4px solid #3b82f6;
+      padding: 15px 20px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    .discussion-questions h4 {
+      color: #1e40af;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .discussion-questions ul {
+      margin: 0;
+      padding-left: 25px;
+    }
+
+    .discussion-questions li {
+      margin-bottom: 8px;
+      color: #1e3a8a;
+    }
+
+    .reflection-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 12px 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+    }
+
+    .reflection-box strong {
+      color: #92400e;
+    }
+
+    .session-structure {
+      background: #f8f9fa;
+      border: 2px solid #667eea;
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .session-structure h4 {
+      color: #667eea;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .session-structure ul {
+      margin: 0;
+      padding-left: 25px;
+    }
+
+    .session-structure li {
+      margin-bottom: 6px;
+      color: #4c1d95;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+      .container {
+        box-shadow: none;
+        padding: 20px;
+      }
+      .back-link {
+        display: none;
+      }
+      .modal {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Session Content Modal -->
+  <div id="sessionContentModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>SEMH Indoor Programme – Session Content</h2>
+        <button class="close-modal" id="closeModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="session-structure">
+          <h4>Session Structure (60 minutes)</h4>
+          <ul>
+            <li>Video stimulus (10–20 mins)</li>
+            <li>Guided discussion (30 mins)</li>
+            <li>Optional reflection / written task (10 mins)</li>
+            <li>Students may listen without speaking</li>
+          </ul>
+        </div>
+
+        <div class="week-section">
+          <h3>Week 1 – Knife Crime: Real Consequences</h3>
+          <div>
+            <strong>Video:</strong><br>
+            <a href="https://www.youtube.com/watch?v=DpRCj3fI4lk" target="_blank" class="video-link">Knife Epidemic in Britain – Real Stories →</a>
+          </div>
+          <div class="discussion-questions">
+            <h4>Discussion Questions:</h4>
+            <ul>
+              <li>What surprised you the most in the video?</li>
+              <li>What decision started things going wrong?</li>
+              <li>Who else is affected apart from the person involved?</li>
+            </ul>
+          </div>
+          <div class="reflection-box">
+            <strong>Optional Reflection:</strong> One thing young people often underestimate about consequences.
+          </div>
+        </div>
+
+        <div class="week-section">
+          <h3>Week 2 – Fear, Protection & Choice</h3>
+          <div>
+            <strong>Video:</strong><br>
+            <a href="https://www.youtube.com/watch?v=AUFNzLq3Cm4" target="_blank" class="video-link">We Have to Walk Round with Knives – BBC News →</a>
+          </div>
+          <div class="discussion-questions">
+            <h4>Discussion Questions:</h4>
+            <ul>
+              <li>Why do some young people feel unsafe?</li>
+              <li>Does carrying a weapon actually reduce danger?</li>
+              <li>What safer alternatives exist?</li>
+            </ul>
+          </div>
+          <div class="reflection-box">
+            <strong>Optional Reflection:</strong> List safe alternatives to carrying weapons.
+          </div>
+        </div>
+
+        <div class="week-section">
+          <h3>Week 3 – Prison Reality (No Glamour)</h3>
+          <div>
+            <strong>Video:</strong><br>
+            <a href="https://www.youtube.com/watch?v=FC6yaMXLwGo" target="_blank" class="video-link">Meeting London's Knife Crime Gang Members – Ross Kemp →</a>
+          </div>
+          <div class="discussion-questions">
+            <h4>Discussion Questions:</h4>
+            <ul>
+              <li>What stood out about prison life?</li>
+              <li>What freedoms are lost?</li>
+              <li>Was it worth it?</li>
+            </ul>
+          </div>
+          <div class="reflection-box">
+            <strong>Optional Reflection:</strong> One freedom people take for granted.
+          </div>
+        </div>
+
+        <div class="week-section">
+          <h3>Week 4 – Anger, Ego & Reputation</h3>
+          <div>
+            <strong>Video:</strong><br>
+            <a href="https://www.youtube.com/watch?v=6w93L24A6Ws" target="_blank" class="video-link">Knife Crime Awareness – Sean's Story →</a>
+          </div>
+          <div class="discussion-questions">
+            <h4>Discussion Questions:</h4>
+            <ul>
+              <li>What triggered the situation?</li>
+              <li>Where could it have stopped?</li>
+              <li>How does pride or reputation affect decisions?</li>
+            </ul>
+          </div>
+          <div class="reflection-box">
+            <strong>Optional Reflection:</strong> One warning sign before anger takes over.
+          </div>
+        </div>
+
+        <div class="week-section">
+          <h3>Week 5 – Leaving the Cycle</h3>
+          <div>
+            <strong>Video:</strong><br>
+            <a href="https://www.youtube.com/watch?v=2ukn3YSg-yM" target="_blank" class="video-link">Teen Runaway to Grown-Up: A Story of Resilience →</a>
+          </div>
+          <div class="discussion-questions">
+            <h4>Discussion Questions:</h4>
+            <ul>
+              <li>What helped this person change?</li>
+              <li>Who supported them?</li>
+              <li>What made change difficult?</li>
+            </ul>
+          </div>
+          <div class="reflection-box">
+            <strong>Optional Reflection:</strong> One positive support young people need.
+          </div>
+        </div>
+
+        <div class="week-section">
+          <h3>Week 6 – Futures & Hope</h3>
+          <div>
+            <strong>Video:</strong><br>
+            <a href="https://www.youtube.com/watch?v=0OC-a94BaUo" target="_blank" class="video-link">UK Knife Crime: Real Stories, Real Impact →</a>
+          </div>
+          <div class="discussion-questions">
+            <h4>Discussion Questions:</h4>
+            <ul>
+              <li>What future paths were lost or protected?</li>
+              <li>What does success really mean?</li>
+              <li>What choices protect future opportunities?</li>
+            </ul>
+          </div>
+          <div class="reflection-box">
+            <strong>Optional Reflection:</strong> Write one personal strength you already have.
+          </div>
+        </div>
+
+        <div class="safeguarding-notes" style="margin-top: 30px;">
+          <h4>Safeguarding & Recording (Mandatory)</h4>
+          <ul>
+            <li>Pause or stop content if students become dysregulated</li>
+            <li>No naming real people, gangs, or local incidents</li>
+            <li>Record attendance</li>
+            <li>Log engagement briefly</li>
+            <li>Report any disclosures immediately via safeguarding system</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+    <div class="header">
+      <h1>JRCS Wednesday Timetable – Staffing, Line Management & Provision</h1>
+      <div class="description">
+        <strong>Wednesday operational timetable including curriculum delivery, staffing, supervision, and line management.</strong> Period 5 includes an outdoor provision with a clearly defined indoor SEMH contingency in cases of poor weather.
+      </div>
+    </div>
+
+    <div class="timetable-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Time / Period</th>
+            <th>KS3 Activity</th>
+            <th>KS4 Activity</th>
+            <th>Lead Staff</th>
+            <th>Support Staff</th>
+            <th>Line Management</th>
+            <th>Staff Free</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-col">08:50 – 09:05</td>
+            <td colspan="6" class="period-label">Morning Registration</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Morning Registration</td>
+            <td>Morning Registration</td>
+            <td>All staff present and on duty</td>
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="6" style="font-size: 0.85rem; color: #666; font-style: italic;">Location: Downstairs at Jo Richardson</td>
+          </tr>
+
+          <tr>
+            <td class="time-col">09:05 – 10:00</td>
+            <td colspan="6" class="period-label">Period 1</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>AQA Unit (KS3 Reintegration)</td>
+            <td>Maths (KS4 / Flexi / Future Pathways)</td>
+            <td>De'juane (KS3), Sacha (KS4)</td>
+            <td>-</td>
+            <td>Lloyd ↔ Lorelle</td>
+            <td>Malikah</td>
+          </tr>
+
+          <tr class="break-row">
+            <td colspan="7">BREAK (10:00 – 10:15)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="6" style="font-size: 0.85rem; color: #666; font-style: italic;">All staff on duty (no lead)</td>
+          </tr>
+
+          <tr>
+            <td class="time-col">10:15 – 11:10</td>
+            <td colspan="6" class="period-label">Period 3</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>AQA (KS3)</td>
+            <td>English (KS4 / Flexi / Future Pathways)</td>
+            <td>De'juane (KS3), Lorelle (KS4)</td>
+            <td>-</td>
+            <td>Sacha ↔ Malikah</td>
+            <td>Lloyd</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="6" style="font-size: 0.85rem; color: #666; font-style: italic;">Note: Lloyd typically supports KS4, Flexi & Future Pathways during this period</td>
+          </tr>
+
+          <tr>
+            <td class="time-col">11:10 – 12:00</td>
+            <td colspan="6" class="period-label">Period 4</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>PSHE (KS3 + Future Pathways Combined)</td>
+            <td>PSHE (KS4 + Flexi Combined)</td>
+            <td>Sacha (KS3 + Future Pathways), Lorelle (KS4 + Flexi)</td>
+            <td>-</td>
+            <td>Lloyd ↔ De'juane</td>
+            <td>Malikah</td>
+          </tr>
+
+          <tr class="break-row">
+            <td colspan="7">LUNCH (12:00 – 12:30)</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan="6" style="font-size: 0.85rem; color: #666; font-style: italic;">All staff available</td>
+          </tr>
+
+          <tr>
+            <td class="time-col">12:30 – 14:00</td>
+            <td colspan="6" class="period-label">Period 5</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Period 5 Standard Provision -->
+      <div style="margin: 30px 0; padding: 20px; background: #f0f9ff; border-left: 4px solid #3b82f6; border-radius: 4px;">
+        <h3 style="color: #1e40af; margin-bottom: 15px; font-size: 1.2rem;">Period 5 – Standard Physical Activity (Weather Permitting)</h3>
+        <table>
+          <thead>
+            <tr>
+              <th style="background: #3b82f6;">Cohort</th>
+              <th style="background: #3b82f6;">Activity</th>
+              <th style="background: #3b82f6;">Lead Staff</th>
+              <th style="background: #3b82f6;">Support Staff</th>
+              <th style="background: #3b82f6;">Supervision</th>
+              <th style="background: #3b82f6;">Staff Free</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>KS3 & KS4 (Joint Group)</td>
+              <td>Physical Activity / Sports</td>
+              <td>De'juane</td>
+              <td>Sacha, Lorelle</td>
+              <td>Malikah</td>
+              <td>Lloyd</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Period 5 Contingency -->
+      <div class="period5-contingency">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <h3 style="margin: 0;">Period 5 – SEMH Indoor Programme (Wet Weather Contingency)</h3>
+          <button id="openSessionContent" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: background 0.2s;">View Session Content →</button>
+        </div>
+        
+        <div class="trigger-condition">
+          ⚠️ <strong>Trigger Condition:</strong> To be used when outdoor activity is unsafe or impractical due to weather.
+        </div>
+
+        <h4>Session Structure</h4>
+        <ul>
+          <li>Whole-group session (KS3 & KS4 together)</li>
+          <li>Video-based stimulus</li>
+          <li>Guided discussion</li>
+          <li>Optional reflection activity</li>
+        </ul>
+
+        <h4>Staffing</h4>
+        <table style="margin-top: 10px;">
+          <thead>
+            <tr>
+              <th style="background: #dc2626;">Role</th>
+              <th style="background: #dc2626;">Staff</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary Lead</strong></td>
+              <td>Malikah</td>
+            </tr>
+            <tr>
+              <td><strong>Secondary Lead</strong> <span style="font-size: 0.85rem; font-weight: normal;">(if Malikah unavailable)</span></td>
+              <td>De'juane</td>
+            </tr>
+            <tr>
+              <td><strong>Support Staff</strong></td>
+              <td>Sacha, Lorelle</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="safeguarding-notes">
+          <h4>Safeguarding Notes (Staff-Facing)</h4>
+          <ul>
+            <li>Students may listen without speaking</li>
+            <li>No naming real people, gangs, or local incidents</li>
+            <li>Pause or stop content if students become dysregulated</li>
+            <li>Keep discussion factual, calm, and guided</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+      <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1.1rem;">Staff Key</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; font-size: 0.9rem;">
+        <div><strong>LD</strong> – Lloyd</div>
+        <div><strong>DC</strong> – De'juane</div>
+        <div><strong>SA</strong> – Sacha</div>
+        <div><strong>LG</strong> – Lorelle</div>
+        <div><strong>Malikah</strong> – Student Support / Supervision</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal functionality
+    const modal = document.getElementById('sessionContentModal');
+    const openBtn = document.getElementById('openSessionContent');
+    const closeBtn = document.getElementById('closeModal');
+
+    if (openBtn) {
+      openBtn.addEventListener('click', function() {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+      });
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      });
+    }
+
+    // Close modal when clicking outside
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && modal.style.display === 'block') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+  </script>
+</body>
+</html>
+

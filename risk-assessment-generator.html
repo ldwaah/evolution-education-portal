@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Risk Assessment Generator — Evolution Education</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.4;
+    }
+
+    .header-bar {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      color: white;
+      padding: 20px 30px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 100;
+    }
+
+    .header-bar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: white;
+      color: #dc2626;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+
+    .btn-primary {
+      background: #22c55e;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #16a34a;
+    }
+
+    .btn-secondary {
+      background: #dc2626;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #b91c1c;
+    }
+
+    .main-container {
+      display: grid;
+      grid-template-columns: 450px 1fr;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    .input-panel {
+      background: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      height: fit-content;
+      position: sticky;
+      top: 180px;
+      max-height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+
+    .preview-panel {
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      min-height: 800px;
+      max-width: 1120px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .checkbox-group {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+    }
+
+    .checkbox-item label {
+      margin: 0;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    .risk-panel {
+      background: #fef2f2;
+      border: 2px solid #fca5a5;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    .risk-panel h4 {
+      color: #991b1b;
+      margin-bottom: 12px;
+      font-size: 1rem;
+    }
+
+    .risk-panel .form-group {
+      margin-bottom: 15px;
+    }
+
+    .preview-content {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .preview-header {
+      border-bottom: 3px solid #dc2626;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+
+    .preview-header h2 {
+      color: #dc2626;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .preview-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .risk-section {
+      margin-bottom: 35px;
+      page-break-inside: avoid;
+    }
+
+    .risk-section h3 {
+      color: #dc2626;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      border-left: 4px solid #dc2626;
+      padding-left: 12px;
+    }
+
+    .risk-section p {
+      margin-bottom: 10px;
+    }
+
+    .risk-section ul {
+      margin-left: 25px;
+      margin-bottom: 10px;
+    }
+
+    .risk-section li {
+      margin-bottom: 8px;
+    }
+
+    .risk-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.9rem;
+    }
+
+    .risk-table th {
+      background: #6b7280;
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      border: 1px solid #4b5563;
+    }
+
+    .risk-table td {
+      padding: 10px 12px;
+      border: 1px solid #e5e7eb;
+      background: white;
+    }
+
+    .risk-table tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    .risk-low {
+      color: #16a34a;
+      font-weight: 600;
+    }
+
+    .risk-medium {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    .risk-high {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .preview-placeholder {
+      text-align: center;
+      color: #999;
+      padding: 60px 20px;
+      font-style: italic;
+    }
+
+    .hint {
+      font-size: 0.85rem;
+      color: #666;
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    @media print {
+      .header-bar,
+      .input-panel,
+      .btn {
+        display: none !important;
+      }
+
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .preview-panel {
+        box-shadow: none;
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 1400px) {
+      .main-container {
+        grid-template-columns: 1fr;
+      }
+
+      .input-panel {
+        position: static;
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header-bar">
+    <h1>Evolution Education — Student Risk Assessment Generator</h1>
+    <div class="header-actions">
+      <button class="btn btn-primary" id="generateBtn" aria-label="Generate Risk Assessment from form inputs">Generate Assessment</button>
+      <button class="btn btn-secondary" id="exportPdfBtn" aria-label="Export Risk Assessment as Landscape PDF">Export Risk Assessment (Landscape PDF)</button>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <aside class="input-panel" role="complementary" aria-label="Risk Assessment input form">
+      <form id="riskForm">
+        <h3 style="color: #dc2626; margin-bottom: 20px; border-bottom: 2px solid #dc2626; padding-bottom: 10px;">Student Details</h3>
+
+        <div class="form-group">
+          <label for="studentName">Student Name *</label>
+          <input type="text" id="studentName" name="studentName" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="yearGroup">Year Group *</label>
+          <select id="yearGroup" name="yearGroup" required aria-required="true">
+            <option value="">Select year...</option>
+            <option value="Y7">Year 7</option>
+            <option value="Y8">Year 8</option>
+            <option value="Y9">Year 9</option>
+            <option value="Y10">Year 10</option>
+            <option value="Y11">Year 11</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="homeSchool">Home School *</label>
+          <select id="homeSchool" name="homeSchool" required aria-required="true">
+            <option value="">Select school...</option>
+            <option value="All Saints">All Saints</option>
+            <option value="Barking Abbey">Barking Abbey</option>
+            <option value="Dagenham Park">Dagenham Park</option>
+            <option value="Eastbrook">Eastbrook</option>
+            <option value="Eastbury">Eastbury</option>
+            <option value="Goresbrook">Goresbrook</option>
+            <option value="Greatfields">Greatfields</option>
+            <option value="JRCS">JRCS</option>
+            <option value="Robert Clack">Robert Clack</option>
+            <option value="Sydney Russell">Sydney Russell</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="provision">Provision *</label>
+          <input type="text" id="provision" name="provision" value="Evolution Education" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="pathway">Pathway *</label>
+          <select id="pathway" name="pathway" required aria-required="true">
+            <option value="">Select pathway...</option>
+            <option value="KS3">KS3</option>
+            <option value="KS4">KS4</option>
+            <option value="Future Pathways">Future Pathways</option>
+            <option value="Flexi">Flexi</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dateCompleted">Date Completed *</label>
+          <input type="date" id="dateCompleted" name="dateCompleted" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="reviewDate">Review Date *</label>
+          <input type="date" id="reviewDate" name="reviewDate" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="completedBy">Completed By *</label>
+          <input type="text" id="completedBy" name="completedBy" required aria-required="true">
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role *</label>
+          <input type="text" id="role" name="role" required aria-required="true">
+        </div>
+
+        <h3 style="color: #dc2626; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #dc2626; padding-bottom: 10px;">Risk Categories</h3>
+
+        <div class="form-group">
+          <label>Select Risk Categories *</label>
+          <div class="checkbox-group" role="group" aria-label="Select risk categories">
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskBullying" name="riskCategories" value="Bullying (in-person)">
+              <label for="riskBullying">Bullying (in-person)</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskCyber" name="riskCategories" value="Cyber Bullying / Online Misuse">
+              <label for="riskCyber">Cyber Bullying / Online Misuse</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskPhysical" name="riskCategories" value="Physical Fighting / Assault">
+              <label for="riskPhysical">Physical Fighting / Assault</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskNonPhysical" name="riskCategories" value="Non-Physical Aggression">
+              <label for="riskNonPhysical">Non-Physical Aggression (verbal threats, intimidation)</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskPeer" name="riskCategories" value="Peer Instigation / Conflict Escalation">
+              <label for="riskPeer">Peer Instigation / Conflict Escalation</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskDamage" name="riskCategories" value="Damage to Property / Equipment">
+              <label for="riskDamage">Damage to Property / Equipment</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskSEMH" name="riskCategories" value="Emotional Regulation / SEMH">
+              <label for="riskSEMH">Emotional Regulation / SEMH</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskSafeguarding" name="riskCategories" value="Safeguarding / External Threats">
+              <label for="riskSafeguarding">Safeguarding / External Threats</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskAttendance" name="riskCategories" value="Attendance & Transition Risks">
+              <label for="riskAttendance">Attendance & Transition Risks</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskOnlineLearning" name="riskCategories" value="Online Learning Risks">
+              <label for="riskOnlineLearning">Online Learning Risks</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskHealthSafety" name="riskCategories" value="Health & Safety Risks">
+              <label for="riskHealthSafety">Health & Safety Risks</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="riskOther" name="riskCategories" value="Other">
+              <label for="riskOther">Other</label>
+            </div>
+          </div>
+          <div id="riskPanelsContainer"></div>
+        </div>
+
+        <h3 style="color: #dc2626; margin-top: 30px; margin-bottom: 15px; border-bottom: 2px solid #dc2626; padding-bottom: 10px;">Control Measures (Optional)</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 15px;">Control measures will be auto-suggested based on selected risks. You can override by selecting/deselecting below.</p>
+
+        <div class="form-group">
+          <label>Current Controls</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlAwareness" name="currentControls" value="Staff awareness raised">
+              <label for="controlAwareness">Staff awareness raised</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlSupervision" name="currentControls" value="Enhanced supervision">
+              <label for="controlSupervision">Enhanced supervision</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlSeating" name="currentControls" value="Seating / peer group management">
+              <label for="controlSeating">Seating / peer group management</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlOnlineMonitoring" name="currentControls" value="Online learning monitoring">
+              <label for="controlOnlineMonitoring">Online learning monitoring</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlMentoring" name="currentControls" value="Mentoring in place">
+              <label for="controlMentoring">Mentoring in place</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlParent" name="currentControls" value="Parent informed">
+              <label for="controlParent">Parent informed</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlSafeguarding" name="currentControls" value="Safeguarding logged">
+              <label for="controlSafeguarding">Safeguarding logged</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlLiaison" name="currentControls" value="External school liaison">
+              <label for="controlLiaison">External school liaison</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlTimetable" name="currentControls" value="Temporary timetable adjustment">
+              <label for="controlTimetable">Temporary timetable adjustment</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlRemote" name="currentControls" value="Short-term remote learning">
+              <label for="controlRemote">Short-term remote learning</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Additional Controls</label>
+          <div class="checkbox-group">
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlTransport" name="additionalControls" value="Parent-led transport">
+              <label for="controlTransport">Parent-led transport</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlStaggered" name="additionalControls" value="Staggered start / finish">
+              <label for="controlStaggered">Staggered start / finish</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlRestricted" name="additionalControls" value="Restricted peer access">
+              <label for="controlRestricted">Restricted peer access</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlMediation" name="additionalControls" value="Increased adult mediation">
+              <label for="controlMediation">Increased adult mediation</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlAgency" name="additionalControls" value="Agency involvement">
+              <label for="controlAgency">Agency involvement</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlPolice" name="additionalControls" value="Police / safeguarding advice">
+              <label for="controlPolice">Police / safeguarding advice</label>
+            </div>
+            <div class="checkbox-item">
+              <input type="checkbox" id="controlOther" name="additionalControls" value="Other">
+              <label for="controlOther">Other</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="otherControlContainer" style="display: none;">
+          <label for="otherControl">Other Control Details</label>
+          <textarea id="otherControl" name="otherControl" rows="2"></textarea>
+        </div>
+      </form>
+    </aside>
+
+    <main class="preview-panel" role="main" aria-label="Risk Assessment preview">
+      <div id="previewContent" class="preview-content" aria-live="polite" aria-atomic="true">
+        <div class="preview-placeholder">
+          Fill in the form and click "Generate Assessment" to see the preview here.
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Risk categories and their detail options
+    const riskDetails = {
+      'Bullying (in-person)': {
+        nature: ['Physical bullying', 'Verbal bullying', 'Social exclusion', 'Intimidation', 'Repetitive harassment']
+      },
+      'Cyber Bullying / Online Misuse': {
+        nature: ['Social media harassment', 'Inappropriate content sharing', 'Online threats', 'Account impersonation', 'Unauthorised sharing']
+      },
+      'Physical Fighting / Assault': {
+        nature: ['Physical altercation', 'Aggressive physical contact', 'Violent behaviour', 'Weapon involvement', 'Repeated physical incidents']
+      },
+      'Non-Physical Aggression': {
+        nature: ['Verbal threats', 'Intimidation', 'Aggressive language', 'Threatening behaviour', 'Harassment']
+      },
+      'Peer Instigation / Conflict Escalation': {
+        nature: ['Instigating conflicts', 'Escalating disputes', 'Encouraging negative behaviour', 'Creating discord', 'Peer manipulation']
+      },
+      'Damage to Property / Equipment': {
+        nature: ['Intentional damage', 'Vandalism', 'Equipment misuse', 'Property destruction', 'Reckless behaviour']
+      },
+      'Emotional Regulation / SEMH': {
+        nature: ['Emotional dysregulation', 'Anger management difficulties', 'Anxiety-related behaviours', 'Mental health concerns', 'Crisis episodes']
+      },
+      'Safeguarding / External Threats': {
+        nature: ['External threat', 'Safeguarding concern', 'CSE risk', 'Criminal exploitation risk', 'Gang association']
+      },
+      'Attendance & Transition Risks': {
+        nature: ['Persistent absence', 'Unauthorised absence', 'Transition difficulties', 'Refusal to attend', 'Missing from education']
+      },
+      'Online Learning Risks': {
+        nature: ['Inappropriate online behaviour', 'Access to unsuitable content', 'Cyber safety concerns', 'Online grooming risk', 'Digital wellbeing']
+      },
+      'Health & Safety Risks': {
+        nature: ['Physical safety concern', 'Medical needs', 'Emergency procedures', 'Site safety', 'Environmental risk']
+      },
+      'Other': {
+        nature: ['Other concern']
+      }
+    };
+
+    // Set default dates
+    function initializePage() {
+      const dateCompleted = document.getElementById('dateCompleted');
+      const reviewDate = document.getElementById('reviewDate');
+      
+      if (dateCompleted) {
+        const today = new Date();
+        dateCompleted.value = today.toISOString().split('T')[0];
+      }
+      
+      if (reviewDate) {
+        const sixWeeksFromNow = new Date();
+        sixWeeksFromNow.setDate(sixWeeksFromNow.getDate() + 42);
+        reviewDate.value = sixWeeksFromNow.toISOString().split('T')[0];
+      }
+
+      // Handle risk category selection to show/hide panels
+      const riskCheckboxes = document.querySelectorAll('input[name="riskCategories"]');
+      riskCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          updateRiskPanels();
+          autoSelectControls(); // Auto-suggest controls when risks change
+        });
+      });
+
+      // Handle other control checkbox
+      const otherControlCheckbox = document.getElementById('controlOther');
+      const otherControlContainer = document.getElementById('otherControlContainer');
+      if (otherControlCheckbox && otherControlContainer) {
+        otherControlCheckbox.addEventListener('change', function() {
+          otherControlContainer.style.display = this.checked ? 'block' : 'none';
+        });
+      }
+    }
+
+    // Update risk detail panels
+    function updateRiskPanels() {
+      const container = document.getElementById('riskPanelsContainer');
+      if (!container) return;
+
+      const selectedRisks = Array.from(document.querySelectorAll('input[name="riskCategories"]:checked'))
+        .map(cb => cb.value);
+
+      container.innerHTML = '';
+
+      selectedRisks.forEach(risk => {
+        const panelId = 'riskPanel_' + risk.replace(/[^a-zA-Z0-9]/g, '_');
+        const panel = document.createElement('div');
+        panel.className = 'risk-panel';
+        panel.id = panelId;
+        
+        const details = riskDetails[risk] || riskDetails['Other'];
+        const isOtherRisk = risk === 'Other';
+        
+        panel.innerHTML = `
+          <h4>${risk}</h4>
+          ${isOtherRisk ? `
+          <div class="form-group">
+            <label>Brief Description (Optional)</label>
+            <input type="text" name="riskOtherDesc_${panelId}" placeholder="Brief description if needed...">
+          </div>
+          ` : ''}
+          <div class="form-group">
+            <label>Severity Level *</label>
+            <select name="riskSeverity_${panelId}" required>
+              <option value="">Select severity...</option>
+              <option value="Low">Low - Minimal concern, manageable</option>
+              <option value="Medium">Medium - Requires monitoring and support</option>
+              <option value="High">High - Significant concern, immediate action needed</option>
+            </select>
+            <div class="hint">Selecting severity level will auto-generate likelihood, impact, and appropriate controls</div>
+          </div>
+          <div class="form-group">
+            <label>Context Notes (Optional)</label>
+            <textarea name="riskContext_${panelId}" rows="2" placeholder="Add any specific details if needed..."></textarea>
+          </div>
+        `;
+
+        container.appendChild(panel);
+      });
+    }
+
+    // Gather form inputs
+    function gatherInputs() {
+      const form = document.getElementById('riskForm');
+      const formData = new FormData(form);
+      
+      const riskCategories = Array.from(form.querySelectorAll('input[name="riskCategories"]:checked')).map(cb => cb.value);
+      const currentControls = Array.from(form.querySelectorAll('input[name="currentControls"]:checked')).map(cb => cb.value);
+      const additionalControls = Array.from(form.querySelectorAll('input[name="additionalControls"]:checked')).map(cb => cb.value);
+      
+      const risks = [];
+      riskCategories.forEach(risk => {
+        const panelId = 'riskPanel_' + risk.replace(/[^a-zA-Z0-9]/g, '_');
+        const isOtherRisk = risk === 'Other';
+        const otherDesc = isOtherRisk ? formData.get(`riskOtherDesc_${panelId}`) : '';
+        const severity = formData.get(`riskSeverity_${panelId}`);
+        const context = formData.get(`riskContext_${panelId}`) || '';
+        
+        if (severity) {
+          // Auto-generate fields based on severity
+          const autoGen = generateRiskDetails(risk, severity, isOtherRisk, otherDesc);
+          
+          risks.push({
+            category: isOtherRisk && otherDesc ? otherDesc : risk,
+            nature: autoGen.nature,
+            role: autoGen.role,
+            frequency: autoGen.frequency,
+            likelihood: autoGen.likelihood,
+            impact: autoGen.impact,
+            context: context || autoGen.defaultContext
+          });
+        }
+      });
+      
+      const otherControl = formData.get('otherControl') || '';
+      if (additionalControls.includes('Other') && otherControl) {
+        additionalControls[additionalControls.indexOf('Other')] = `Other: ${otherControl}`;
+      }
+      
+      return {
+        studentName: formData.get('studentName') || '',
+        yearGroup: formData.get('yearGroup') || '',
+        homeSchool: formData.get('homeSchool') || '',
+        provision: formData.get('provision') || '',
+        pathway: formData.get('pathway') || '',
+        dateCompleted: formData.get('dateCompleted') || '',
+        reviewDate: formData.get('reviewDate') || '',
+        completedBy: formData.get('completedBy') || '',
+        role: formData.get('role') || '',
+        risks: risks,
+        currentControls: currentControls,
+        additionalControls: additionalControls
+      };
+    }
+
+    // Auto-generate risk details based on category and severity
+    function generateRiskDetails(riskCategory, severity, isOtherRisk, otherDesc) {
+      const details = riskDetails[riskCategory] || riskDetails['Other'];
+      
+      // Auto-select nature based on risk category (first option as default)
+      const nature = details.nature[0] || 'Concern identified';
+      
+      // Auto-determine role based on risk category
+      let role = 'Both';
+      if (riskCategory.includes('Bullying') || riskCategory.includes('Victim')) {
+        role = 'Victim';
+      } else if (riskCategory.includes('Fighting') || riskCategory.includes('Assault') || 
+                 riskCategory.includes('Damage') || riskCategory.includes('Instigation')) {
+        role = 'Instigator';
+      }
+      
+      // Auto-determine frequency based on severity
+      let frequency = 'Occasional';
+      if (severity === 'Low') frequency = 'Isolated';
+      if (severity === 'High') frequency = 'Persistent';
+      
+      // Auto-determine likelihood and impact based on severity
+      let likelihood = 'Medium';
+      let impact = 'Medium';
+      if (severity === 'Low') {
+        likelihood = 'Low';
+        impact = 'Low';
+      } else if (severity === 'High') {
+        likelihood = 'High';
+        impact = 'High';
+      }
+      
+      // Generate default context based on category and severity
+      const defaultContext = generateDefaultContext(riskCategory, severity, role);
+      
+      return {
+        nature: nature,
+        role: role,
+        frequency: frequency,
+        likelihood: likelihood,
+        impact: impact,
+        defaultContext: defaultContext
+      };
+    }
+
+    // Generate default context based on risk and severity
+    function generateDefaultContext(riskCategory, severity, role) {
+      const severityText = severity === 'High' ? 'significant' : severity === 'Medium' ? 'moderate' : 'minimal';
+      const severityLevel = severity === 'High' ? 'serious' : severity === 'Medium' ? 'ongoing' : 'minor';
+      const roleText = role === 'Instigator' ? 'The student engages in' : role === 'Victim' ? 'The student is subject to' : 'The student is involved in';
+      
+      const contextMap = {
+        'Bullying (in-person)': `${roleText} ${severityText} levels of bullying behaviour. This includes ${severityLevel} incidents that have been observed or reported within the provision. Staff are aware and monitoring interactions closely.`,
+        'Cyber Bullying / Online Misuse': `${roleText} ${severityText} online safety concerns and cyber bullying incidents. Digital interactions and online learning activities require enhanced monitoring to ensure student safety and appropriate online conduct.`,
+        'Physical Fighting / Assault': `${roleText} ${severityText} physical altercations and aggressive incidents. ${severity === 'High' ? 'Immediate intervention required to ensure safety of all students and staff.' : 'Staff are managing situations proactively with enhanced supervision.'}`,
+        'Non-Physical Aggression': `${roleText} ${severityText} verbal threats, intimidation, or aggressive behaviours. While no physical contact has occurred, the ${severityLevel} nature of the behaviour requires structured support and clear boundaries.`,
+        'Peer Instigation / Conflict Escalation': `${roleText} ${severityText} peer conflicts and escalation situations. The student's role in ${severityLevel} conflicts requires targeted intervention to prevent escalation and support positive peer interactions.`,
+        'Damage to Property / Equipment': `${roleText} ${severityText} incidents involving damage to property or equipment. ${severity === 'High' ? 'Repeated incidents require immediate intervention and consequences.' : 'Incidents are being monitored and addressed appropriately.'}`,
+        'Emotional Regulation / SEMH': `The student demonstrates ${severityText} emotional regulation difficulties and SEMH needs that impact on learning and social interactions. Support strategies are in place to help the student manage emotions and develop coping strategies.`,
+        'Safeguarding / External Threats': `${severityText.charAt(0).toUpperCase() + severityText.slice(1)} safeguarding concerns have been identified. ${severity === 'High' ? 'External threats or exploitation risks are present requiring immediate multi-agency involvement and protective measures.' : 'External factors may be impacting the student and require ongoing monitoring and support.'}`,
+        'Attendance & Transition Risks': `The student presents ${severityText} attendance and transition risks that impact on their educational engagement and continuity of learning. Barriers to attendance are being addressed through targeted support strategies.`,
+        'Online Learning Risks': `${roleText} ${severityText} online learning safety concerns. Enhanced monitoring and filtering are in place to ensure appropriate online behaviour and access to suitable content during digital learning activities.`,
+        'Health & Safety Risks': `The student presents ${severityText} health and safety risks requiring active management within the provision. Safety protocols and individual risk management plans are in place to ensure student and staff safety.`,
+        'Other': `A ${severityText} concern has been identified requiring monitoring and support. The specific nature of this risk requires targeted intervention and regular review to ensure appropriate management.`
+      };
+      
+      return contextMap[riskCategory] || `A ${severityText} concern has been identified with ${severityLevel} implications. Appropriate monitoring and support strategies are in place.`;
+    }
+
+    // Calculate residual risk
+    function calculateResidualRisk(likelihood, impact, controls) {
+      const riskMatrix = {
+        'Low-Low': 'Low',
+        'Low-Medium': 'Low',
+        'Low-High': 'Low',
+        'Medium-Low': 'Low',
+        'Medium-Medium': 'Medium',
+        'Medium-High': 'High',
+        'High-Low': 'Medium',
+        'High-Medium': 'High',
+        'High-High': 'High'
+      };
+      
+      const initialRisk = riskMatrix[`${likelihood}-${impact}`] || 'Medium';
+      
+      // Controls reduce risk
+      if (controls.length >= 5 && (likelihood === 'High' || impact === 'High')) {
+        if (initialRisk === 'High') return 'Medium';
+        if (initialRisk === 'Medium') return 'Low';
+      }
+      if (controls.length >= 3) {
+        if (initialRisk === 'High' && (likelihood === 'Medium' || impact === 'Medium')) return 'Medium';
+      }
+      
+      return initialRisk;
+    }
+
+    // Format date
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString + 'T00:00:00');
+      return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
+    // Auto-select control checkboxes based on selected risks
+    function autoSelectControls() {
+      const selectedRisks = Array.from(document.querySelectorAll('input[name="riskCategories"]:checked'))
+        .map(cb => cb.value);
+      
+      if (selectedRisks.length === 0) return;
+      
+      // Create temporary risk objects for suggestion logic
+      const tempRisks = selectedRisks.map(risk => ({
+        category: risk,
+        likelihood: 'Medium', // Default for suggestion
+        impact: 'Medium'
+      }));
+      
+      const suggested = suggestControls(tempRisks);
+      
+      // Auto-check suggested controls (only if not manually unchecked)
+      const allControls = document.querySelectorAll('input[name="currentControls"], input[name="additionalControls"]');
+      allControls.forEach(checkbox => {
+        if (suggested.includes(checkbox.value) && !checkbox.hasAttribute('data-manually-unchecked')) {
+          checkbox.checked = true;
+        }
+      });
+      
+      // Track manual unchecks
+      allControls.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          if (!this.checked) {
+            this.setAttribute('data-manually-unchecked', 'true');
+          } else {
+            this.removeAttribute('data-manually-unchecked');
+          }
+        });
+      });
+    }
+
+    // Auto-suggest control measures based on selected risks
+    function suggestControls(risks) {
+      const suggested = new Set();
+      
+      risks.forEach(risk => {
+        // Always include basic controls
+        suggested.add('Staff awareness raised');
+        suggested.add('Safeguarding logged');
+        
+        // Risk-specific suggestions
+        if (risk.category.includes('Bullying') || risk.category.includes('Peer')) {
+          suggested.add('Enhanced supervision');
+          suggested.add('Seating / peer group management');
+          suggested.add('Parent informed');
+        }
+        
+        if (risk.category.includes('Cyber') || risk.category.includes('Online')) {
+          suggested.add('Online learning monitoring');
+          suggested.add('Parent informed');
+        }
+        
+        if (risk.category.includes('Physical') || risk.category.includes('Assault')) {
+          suggested.add('Enhanced supervision');
+          suggested.add('Restricted peer access');
+          suggested.add('Increased adult mediation');
+        }
+        
+        if (risk.category.includes('Safeguarding') || risk.category.includes('External')) {
+          suggested.add('External school liaison');
+          suggested.add('Agency involvement');
+          if (risk.likelihood === 'High' || risk.impact === 'High') {
+            suggested.add('Police / safeguarding advice');
+          }
+        }
+        
+        if (risk.category.includes('Attendance')) {
+          suggested.add('External school liaison');
+          suggested.add('Parent informed');
+        }
+        
+        if (risk.category.includes('SEMH') || risk.category.includes('Emotional')) {
+          suggested.add('Mentoring in place');
+          suggested.add('Agency involvement');
+        }
+        
+        // High severity risks get additional controls
+        if (risk.likelihood === 'High' || risk.impact === 'High') {
+          suggested.add('Enhanced supervision');
+          suggested.add('Temporary timetable adjustment');
+        }
+      });
+      
+      return Array.from(suggested);
+    }
+
+    // Compose risk assessment
+    function composeAssessment(model) {
+      if (!model.studentName || !model.yearGroup || !model.risks || model.risks.length === 0) {
+        return '<div class="preview-placeholder">Please complete all required fields and select at least one risk category with severity level to generate the assessment.</div>';
+      }
+      
+      // Auto-suggest controls if none selected
+      if (model.currentControls.length === 0 && model.additionalControls.length === 0) {
+        const suggested = suggestControls(model.risks);
+        model.currentControls = suggested.slice(0, Math.min(8, suggested.length));
+        if (suggested.length > 8) {
+          model.additionalControls = suggested.slice(8);
+        }
+      }
+
+      const today = formatDate(model.dateCompleted) || new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      let html = `
+        <div class="preview-header">
+          <h2>Student Risk Assessment</h2>
+          <div class="preview-meta">
+            <div class="meta-item"><strong>Student:</strong> ${model.studentName}</div>
+            <div class="meta-item"><strong>Year:</strong> ${model.yearGroup}</div>
+            <div class="meta-item"><strong>Home School:</strong> ${model.homeSchool}</div>
+            <div class="meta-item"><strong>Provision:</strong> ${model.provision}</div>
+            <div class="meta-item"><strong>Pathway:</strong> ${model.pathway}</div>
+            <div class="meta-item"><strong>Date:</strong> ${today}</div>
+            <div class="meta-item"><strong>Review:</strong> ${formatDate(model.reviewDate)}</div>
+            <div class="meta-item"><strong>Completed By:</strong> ${model.completedBy} (${model.role})</div>
+          </div>
+        </div>
+
+        <div class="risk-section">
+          <h3>1. Purpose of Risk Assessment</h3>
+          <p>This risk assessment has been completed in accordance with:</p>
+          <ul>
+            <li>DfE Keeping Children Safe in Education (2024–2025)</li>
+            <li>Ofsted Education Inspection Framework (2025)</li>
+            <li>Alternative Provision safeguarding expectations</li>
+            <li>Evolution Education safeguarding policy and procedures</li>
+          </ul>
+          <p>The purpose of this assessment is to identify safeguarding, behaviour, and wellbeing risks to ${model.studentName} and/or others within the provision, and to ensure appropriate control measures are in place to mitigate identified risks.</p>
+        </div>
+
+        <div class="risk-section">
+          <h3>2. Student Context Summary</h3>
+          <p><strong>Student:</strong> ${model.studentName}</p>
+          <p><strong>Year Group:</strong> ${model.yearGroup}</p>
+          <p><strong>Home School:</strong> ${model.homeSchool}</p>
+          <p><strong>Provision:</strong> ${model.provision}</p>
+          <p><strong>Pathway:</strong> ${model.pathway}</p>
+          <p><strong>Assessment Date:</strong> ${today}</p>
+          <p><strong>Review Date:</strong> ${formatDate(model.reviewDate)}</p>
+          <p><strong>Assessment Completed By:</strong> ${model.completedBy} (${model.role})</p>
+          <p style="margin-top: 15px;">This risk assessment has been completed to identify and mitigate safeguarding, behaviour, and wellbeing risks for ${model.studentName} within the ${model.provision} setting. The assessment evaluates potential risks to the student and/or others within the provision and ensures appropriate control measures are documented and implemented.</p>
+        </div>
+
+        <div class="risk-section">
+          <h3>3. Identified Risks</h3>
+          <table class="risk-table">
+            <thead>
+              <tr>
+                <th>Risk Area</th>
+                <th>Description</th>
+                <th>Student Role</th>
+                <th>Frequency</th>
+                <th>Likelihood</th>
+                <th>Impact</th>
+                <th>Residual Risk</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${model.risks.map(risk => {
+                const residualRisk = calculateResidualRisk(risk.likelihood, risk.impact, [...model.currentControls, ...model.additionalControls]);
+                const riskClass = `risk-${residualRisk.toLowerCase()}`;
+                return `
+                  <tr>
+                    <td><strong>${risk.category}</strong></td>
+                    <td>${risk.nature}${risk.context ? '<br><em>' + risk.context + '</em>' : ''}</td>
+                    <td>${risk.role}</td>
+                    <td>${risk.frequency}</td>
+                    <td>${risk.likelihood}</td>
+                    <td>${risk.impact}</td>
+                    <td class="${riskClass}">${residualRisk}</td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="risk-section">
+          <h3>4. Control Measures in Place</h3>
+          <p>The following control measures have been identified and implemented to mitigate identified risks:</p>
+          ${model.currentControls.length > 0 ? `
+            <h4>Current Controls</h4>
+            <ul>
+              ${model.currentControls.map(control => {
+                const controlDescriptions = {
+                  'Staff awareness raised': 'All relevant staff have been informed of identified risks and appropriate response procedures.',
+                  'Enhanced supervision': 'Increased adult supervision in place during identified risk periods and situations.',
+                  'Seating / peer group management': 'Seating arrangements and peer group interactions actively managed to reduce risk.',
+                  'Online learning monitoring': 'Enhanced monitoring of online learning activities and digital interactions.',
+                  'Mentoring in place': 'Regular mentoring sessions provide additional support and monitoring.',
+                  'Parent informed': 'Parent/carer has been informed of identified risks and ongoing support strategies.',
+                  'Safeguarding logged': 'Safeguarding concerns logged on Bromcom and appropriate internal procedures followed.',
+                  'External school liaison': 'Regular liaison with home school to coordinate support and share relevant information.',
+                  'Temporary timetable adjustment': 'Timetable adjustments implemented to reduce exposure to risk situations.',
+                  'Short-term remote learning': 'Short-term remote learning arrangements where appropriate to manage risk.',
+                  'Parent-led transport': 'Parent-led transport arrangements in place to reduce transition risks.',
+                  'Staggered start / finish': 'Staggered start and finish times to reduce peer contact and transition risks.',
+                  'Restricted peer access': 'Restricted access to certain peer groups to prevent conflict escalation.',
+                  'Increased adult mediation': 'Increased adult mediation in place during peer interactions.',
+                  'Agency involvement': 'External agencies involved to provide additional support and monitoring.',
+                  'Police / safeguarding advice': 'Police and safeguarding advice sought and implemented where appropriate.'
+                };
+                const desc = controlDescriptions[control] || control;
+                return `<li><strong>${control}</strong> — ${desc}</li>`;
+              }).join('')}
+            </ul>
+          ` : ''}
+          ${model.additionalControls.length > 0 ? `
+            <h4>Additional Controls</h4>
+            <ul>
+              ${model.additionalControls.map(control => {
+                const controlDescriptions = {
+                  'Parent-led transport': 'Parent-led transport arrangements in place to reduce transition risks.',
+                  'Staggered start / finish': 'Staggered start and finish times to reduce peer contact and transition risks.',
+                  'Restricted peer access': 'Restricted access to certain peer groups to prevent conflict escalation.',
+                  'Increased adult mediation': 'Increased adult mediation in place during peer interactions.',
+                  'Agency involvement': 'External agencies involved to provide additional support and monitoring.',
+                  'Police / safeguarding advice': 'Police and safeguarding advice sought and implemented where appropriate.'
+                };
+                const desc = controlDescriptions[control] || control;
+                return `<li><strong>${control}</strong> — ${desc}</li>`;
+              }).join('')}
+            </ul>
+          ` : ''}
+          ${model.currentControls.length === 0 && model.additionalControls.length === 0 ? '<p><em>Control measures will be automatically generated based on identified risks.</em></p>' : ''}
+        </div>
+
+        <div class="risk-section">
+          <h3>5. Residual Risk Summary</h3>
+          ${(() => {
+            const riskCounts = { Low: 0, Medium: 0, High: 0 };
+            model.risks.forEach(risk => {
+              const residual = calculateResidualRisk(risk.likelihood, risk.impact, [...model.currentControls, ...model.additionalControls]);
+              riskCounts[residual]++;
+            });
+            
+            let summary = '<p><strong>Overall Risk Profile:</strong></p><ul>';
+            if (riskCounts.High > 0) {
+              summary += `<li class="risk-high">${riskCounts.High} High risk area(s) identified</li>`;
+            }
+            if (riskCounts.Medium > 0) {
+              summary += `<li class="risk-medium">${riskCounts.Medium} Medium risk area(s) identified</li>`;
+            }
+            if (riskCounts.Low > 0) {
+              summary += `<li class="risk-low">${riskCounts.Low} Low risk area(s) identified</li>`;
+            }
+            summary += '</ul>';
+            
+            if (riskCounts.High > 0) {
+              summary += '<p><strong>Action Required:</strong> High risk areas require immediate attention and enhanced monitoring. Senior leadership oversight and regular review essential.</p>';
+            } else if (riskCounts.Medium > 0) {
+              summary += '<p><strong>Action Required:</strong> Medium risk areas require ongoing monitoring and regular review to ensure control measures remain effective.</p>';
+            } else {
+              summary += '<p><strong>Action Required:</strong> Risk levels are manageable with current controls. Regular monitoring to be maintained.</p>';
+            }
+            
+            return summary;
+          })()}
+        </div>
+
+        <div class="risk-section">
+          <h3>6. Safeguarding Decision & Action Plan</h3>
+          <p>This risk assessment has been completed by ${model.completedBy} (${model.role}) on ${today} in accordance with DfE Keeping Children Safe in Education (2024–2025) and Ofsted Education Inspection Framework (2025) requirements.</p>
+          <p><strong>Assessment Outcome:</strong></p>
+          <p>All identified risks have been evaluated using a systematic approach considering likelihood, impact, and existing control measures. Appropriate control measures have been documented and will be implemented to mitigate identified risks. This assessment will be reviewed on ${formatDate(model.reviewDate)} or sooner if circumstances change, new risks emerge, or existing risks escalate.</p>
+          <p><strong>Immediate Actions:</strong></p>
+          <ul>
+            <li>Control measures documented in Section 4 will be implemented immediately and communicated to all relevant staff</li>
+            <li>All staff working with ${model.studentName} have been informed of identified risks and appropriate response procedures</li>
+            <li>Pathway Lead and DSL have been notified of this assessment and risk levels identified</li>
+            <li>This assessment has been stored on the student's file and will be uploaded to Bromcom</li>
+            <li>Home school (${model.homeSchool}) will be informed of relevant risk information and control measures where appropriate</li>
+            <li>Parent/carer will be informed as per safeguarding procedures and best practice</li>
+          </ul>
+          <p><strong>Ongoing Actions:</strong></p>
+          <ul>
+            <li>Regular monitoring of control measures effectiveness will be conducted</li>
+            <li>Staff will report any changes in risk levels or new concerns immediately</li>
+            <li>Review scheduled for ${formatDate(model.reviewDate)} will evaluate progress and update risk levels as appropriate</li>
+            <li>Evidence of implementation and monitoring will be documented on Bromcom and in student records</li>
+          </ul>
+        </div>
+
+        <div class="risk-section">
+          <h3>7. Monitoring & Review</h3>
+          <p><strong>Review Date:</strong> ${formatDate(model.reviewDate)}</p>
+          <p><strong>Monitoring Schedule:</strong></p>
+          <ul>
+            <li><strong>Daily:</strong> Staff observe and monitor student behaviour, interactions, and engagement. Any concerns or changes in risk levels are reported immediately to Pathway Lead and DSL.</li>
+            <li><strong>Weekly:</strong> Pathway Lead reviews progress against control measures, risk levels, and any incidents. Updates logged on Bromcom.</li>
+            <li><strong>Fortnightly:</strong> Formal review of control measures effectiveness and risk levels. Liaison with home school and parent/carer as appropriate.</li>
+            <li><strong>Review Date (${formatDate(model.reviewDate)}):</strong> Formal risk assessment review meeting to evaluate all identified risks, update risk levels, revise control measures as needed, and plan next steps.</li>
+          </ul>
+          <p><strong>Trigger Events for Immediate Review:</strong></p>
+          <ul>
+            <li>Change in circumstances that may affect risk levels</li>
+            <li>New risks identified or existing risks escalate</li>
+            <li>Control measures proving ineffective</li>
+            <li>Incidents or concerns raised by staff, students, or parents</li>
+            <li>Safeguarding concerns or external agency involvement</li>
+          </ul>
+          <p><strong>Monitoring Responsibility:</strong></p>
+          <ul>
+            <li><strong>Primary:</strong> ${model.completedBy} (${model.role})</li>
+            <li><strong>Oversight:</strong> Pathway Lead and DSL</li>
+            <li><strong>Quality Assurance:</strong> Senior Leadership Team</li>
+          </ul>
+          <p><strong>Evidence Collection:</strong></p>
+          <p>Monitoring evidence will be collected via:</p>
+          <ul>
+            <li>Daily observations and incident records on Bromcom</li>
+            <li>Staff feedback and lesson observations</li>
+            <li>Mentoring session notes and progress updates</li>
+            <li>Attendance and engagement data</li>
+            <li>Parent/carer contact logs</li>
+            <li>Home school liaison records</li>
+            <li>Agency involvement documentation (where applicable)</li>
+          </ul>
+        </div>
+      `;
+
+      return html;
+    }
+
+    // Render preview
+    function renderPreview(html) {
+      const previewContent = document.getElementById('previewContent');
+      previewContent.innerHTML = html;
+    }
+
+    // Export as Landscape PDF
+    function exportPDF() {
+      const previewContent = document.getElementById('previewContent');
+      const placeholder = previewContent.querySelector('.preview-placeholder');
+      if (placeholder) {
+        alert('Please generate an assessment first.');
+        return;
+      }
+
+      try {
+        const model = gatherInputs();
+        const studentName = model.studentName || 'Student';
+        
+        const originalTitle = document.title;
+        document.title = `Risk Assessment - ${studentName}`;
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <title>${document.title}</title>
+            <meta charset="UTF-8">
+            <style>
+              @page {
+                size: A4 landscape;
+                margin: 15mm 15mm;
+              }
+              body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+                color: #333;
+                font-size: 10pt;
+                line-height: 1.5;
+                margin: 0;
+                padding: 0;
+                background: #ffffff;
+              }
+              .brand-header {
+                border-bottom: 3px solid #dc2626;
+                padding-bottom: 12px;
+                margin-bottom: 20px;
+                page-break-after: avoid;
+              }
+              .brand-header h1 {
+                font-size: 18pt;
+                color: #dc2626;
+                margin: 0 0 8px 0;
+                font-weight: 700;
+              }
+              .preview-meta {
+                font-size: 9pt;
+                color: #666;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+              }
+              .risk-section {
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+              }
+              .risk-section h3 {
+                color: #dc2626;
+                font-size: 12pt;
+                margin-bottom: 10px;
+                border-left: 4px solid #dc2626;
+                padding-left: 10px;
+              }
+              .risk-section h4 {
+                color: #555;
+                font-size: 11pt;
+                margin-top: 15px;
+                margin-bottom: 8px;
+              }
+              .risk-section p {
+                margin-bottom: 8px;
+              }
+              .risk-section ul {
+                margin-left: 20px;
+                margin-bottom: 10px;
+              }
+              .risk-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 15px 0;
+                font-size: 9pt;
+              }
+              .risk-table th {
+                background: #6b7280;
+                color: white;
+                padding: 8px;
+                text-align: left;
+                font-weight: 600;
+                border: 1px solid #4b5563;
+              }
+              .risk-table td {
+                padding: 6px 8px;
+                border: 1px solid #e5e7eb;
+                background: white;
+              }
+              .risk-table tr:nth-child(even) td {
+                background: #f9fafb;
+              }
+              .risk-low {
+                color: #16a34a;
+                font-weight: 600;
+              }
+              .risk-medium {
+                color: #f59e0b;
+                font-weight: 600;
+              }
+              .risk-high {
+                color: #dc2626;
+                font-weight: 600;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="brand-header">
+              <h1>Evolution Education — Student Risk Assessment</h1>
+            </div>
+            ${previewContent.innerHTML}
+          </body>
+          </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+          printWindow.print();
+          document.title = originalTitle;
+        }, 250);
+      } catch (error) {
+        console.error('PDF export error:', error);
+        alert('Error generating PDF. Please try again.');
+      }
+    }
+
+    // Event listeners
+    function initializeEventListeners() {
+      const generateBtn = document.getElementById('generateBtn');
+      const exportPdfBtn = document.getElementById('exportPdfBtn');
+
+      if (generateBtn) {
+        generateBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          try {
+            const model = gatherInputs();
+            const html = composeAssessment(model);
+            renderPreview(html);
+          } catch (error) {
+            console.error('Error generating assessment:', error);
+            alert('Error generating assessment. Please check all required fields are completed.');
+          }
+        });
+      }
+
+      if (exportPdfBtn) {
+        exportPdfBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          try {
+            exportPDF();
+          } catch (error) {
+            console.error('Error exporting PDF:', error);
+            alert('Error exporting PDF. Please try again.');
+          }
+        });
+      }
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        initializePage();
+        initializeEventListeners();
+      });
+    } else {
+      initializePage();
+      initializeEventListeners();
+    }
+  </script>
+</body>
+</html>
+

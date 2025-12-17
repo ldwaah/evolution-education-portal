@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Individual Learning Plans — Evolution Education</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 40px; 
+      background: #fafafa; 
+      color: #333; 
+      line-height: 1.6;
+    }
+    h1, h2 { color: #004080; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .instructions-box {
+      background: #e7f3ff;
+      border-left: 4px solid #004080;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .instructions-box h3 {
+      margin-top: 0;
+      color: #004080;
+    }
+    .instructions-box ol {
+      margin-left: 20px;
+      padding-left: 0;
+    }
+    .instructions-box li {
+      margin: 12px 0;
+      line-height: 1.8;
+    }
+    .info-box {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .info-box ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    .info-box li {
+      margin: 8px 0;
+    }
+    .chatgpt-btn {
+      display: inline-block;
+      background: #10a37f;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+    .chatgpt-btn:hover {
+      background: #0d8f6e;
+    }
+    .prompt-box {
+      background: #f8f9fa;
+      border: 2px solid #004080;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+      position: relative;
+    }
+    .prompt-box h3 {
+      margin-top: 0;
+      color: #004080;
+    }
+    #ilpPrompt {
+      width: 100%;
+      min-height: 400px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      background: white;
+      resize: vertical;
+      box-sizing: border-box;
+    }
+    .copy-btn {
+      background: #004080;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    .copy-btn:hover {
+      background: #0066cc;
+    }
+    .copy-feedback {
+      margin-left: 10px;
+      color: #28a745;
+      font-weight: bold;
+      display: none;
+    }
+    .prompt-instructions {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .prompt-instructions p {
+      margin: 5px 0;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+<div class="container">
+  <h1>Individual Learning Plans</h1>
+  
+  <div class="instructions-box">
+    <h3>How to Generate an Individual Learning Plan using ChatGPT</h3>
+    <ol>
+      <li><strong>Open ChatGPT</strong> — Click the button below to open ChatGPT in a new tab, or go to <a href="https://chat.openai.com" target="_blank">chat.openai.com</a></li>
+      <li><strong>Gather all relevant documentation</strong> for the student, including:
+        <ul>
+          <li>Rapid response information</li>
+          <li>Termly reports</li>
+          <li>Mentoring sessions</li>
+          <li>Student passports</li>
+          <li>Any other relevant information about the student</li>
+        </ul>
+      </li>
+      <li><strong>Copy the prompt below</strong> — Use the "Copy Prompt" button to copy the ILP generation prompt</li>
+      <li><strong>Paste documentation and prompt into ChatGPT</strong> — First paste all the gathered documentation, then paste the prompt below it</li>
+      <li><strong>Review and refine</strong> — Review the generated ILP and ask ChatGPT to make any necessary adjustments or additions</li>
+    </ol>
+  </div>
+
+  <div class="info-box">
+    <h3>Information to Include</h3>
+    <p>When gathering documentation to paste into ChatGPT, make sure to include:</p>
+    <ul>
+      <li><strong>Rapid Response:</strong> Initial assessments, immediate concerns, urgent support needs</li>
+      <li><strong>Termly Reports:</strong> Academic progress, attendance, behaviour, SEMH progress, engagement, achievements</li>
+      <li><strong>Mentoring Sessions:</strong> Notes from mentoring sessions, progress updates, targets discussed</li>
+      <li><strong>Student Passports:</strong> Key information about the student's needs, preferences, and background</li>
+      <li><strong>Other Relevant Information:</strong> Parent/carer feedback, external agency involvement, previous ILP outcomes, specific learning needs, interests, strengths, barriers to learning</li>
+    </ul>
+  </div>
+
+  <div class="prompt-box">
+    <h3>Copy & Paste Prompt for ChatGPT</h3>
+    <div class="prompt-instructions">
+      <p><strong>Instructions:</strong> Copy this prompt and paste it into ChatGPT along with the student's documentation. This ensures the ILP follows Evolution Education's processes and aligns with the new Ofsted framework.</p>
+    </div>
+    <textarea id="ilpPrompt" readonly>Please create a comprehensive Individual Learning Plan (ILP) for the student based on the documentation provided above. The ILP must align with Evolution Education's processes and the new Ofsted framework (2024).
+
+REQUIREMENTS:
+
+1. **Student Profile Summary**
+   - Brief overview of the student's background, current placement, and pathway area
+   - Key strengths, interests, and achievements
+   - Current year group and academic context
+
+2. **Areas for Development**
+   - Specific learning needs identified from rapid response, termly reports, and mentoring sessions
+   - Barriers to learning (academic, behavioural, SEMH, attendance)
+   - Areas requiring targeted intervention and support
+
+3. **SMART Targets**
+   - Create 3-5 Specific, Measurable, Achievable, Relevant, Time-bound targets
+   - Targets should cover:
+     * Academic engagement and progress (Maths, English, and other studies)
+     * Behaviour, conduct, and emotional regulation
+     * Attendance and punctuality
+     * SEMH and wellbeing progress
+     * Reintegration/destination planning (where applicable)
+   - Each target must include success criteria and review dates
+
+4. **Support Strategies and Interventions**
+   - Specific teaching and learning strategies tailored to the student's needs
+   - Mentoring and SEMH support interventions
+   - Academic interventions (e.g., Purple Ruler, targeted support)
+   - Behaviour support strategies (e.g., Reflection+, behaviour contracts where applicable)
+   - Parent/carer engagement strategies
+   - Multi-agency support coordination (where relevant)
+
+5. **Ofsted Framework Alignment**
+   - Ensure the ILP demonstrates:
+     * High expectations and ambition for all students
+     * Quality of education (curriculum, teaching, assessment)
+     * Personal development (behaviour, attitudes, wider development)
+     * Safeguarding and welfare considerations
+     * Leadership and management (clear planning, monitoring, review)
+
+6. **Expected Outcomes**
+   - Short-term outcomes (next half-term)
+   - Medium-term outcomes (end of term/academic year)
+   - Long-term outcomes (reintegration, post-16 destinations, etc.)
+
+7. **Review and Monitoring**
+   - Review dates (minimum half-termly, aligned with termly reports)
+   - Success criteria for each target
+   - Monitoring mechanisms (Bromcom, Purple Ruler, mentoring notes)
+   - Staff responsible for review and implementation
+
+8. **Risk Assessment and Safeguarding**
+   - Any safeguarding considerations
+   - Risk factors and mitigation strategies
+   - Support for vulnerable students
+
+9. **Transition and Next Steps**
+   - Reintegration planning (KS3 students)
+   - Destination planning (KS4 students)
+   - Post-16 transition support (Year 11 students)
+
+FORMATTING REQUIREMENTS:
+- Use clear headings and subheadings
+- Use bullet points and numbered lists for clarity
+- Ensure professional language appropriate for sharing with schools and parents
+- Include dates, review periods, and responsible staff members
+- Make it practical and actionable for staff implementation
+
+Please ensure the ILP is:
+- Evidence-based (using all information from the documentation provided)
+- Tailored to the individual student's needs
+- Aligned with Evolution Education's Behaviour Levels Framework
+- Compliant with LBBD, Mayesbrook Park School, and Ofsted 2025 AP standards
+- Suitable for sharing with commissioning schools and parents/carers
+- Focused on positive outcomes and student progress</textarea>
+    <button class="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+    <span id="copyFeedback" class="copy-feedback">✓ Copied to clipboard!</span>
+  </div>
+
+  <a href="https://chat.openai.com" target="_blank" class="chatgpt-btn">Open ChatGPT →</a>
+</div>
+
+<script>
+  function copyPrompt() {
+    const prompt = document.getElementById('ilpPrompt');
+    prompt.select();
+    prompt.setSelectionRange(0, 99999);
+    
+    try {
+      document.execCommand('copy');
+      const feedback = document.getElementById('copyFeedback');
+      feedback.style.display = 'inline';
+      setTimeout(() => {
+        feedback.style.display = 'none';
+      }, 3000);
+    } catch (err) {
+      alert('Failed to copy. Please select and copy manually.');
+    }
+  }
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
+

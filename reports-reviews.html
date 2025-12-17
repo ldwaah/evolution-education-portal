@@ -1,0 +1,2105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Reports & Reviews — Evolution Education</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * { box-sizing: border-box; }
+    html,body { 
+      height:100%; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      padding: 20px;
+    }
+    a{ color: #667eea; text-decoration: none; }
+    h1,h2,h3 { margin: 0 0 .5rem 0; }
+    .wrap { max-width: 1200px; margin: 0 auto; }
+    .header { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      gap:12px; 
+      margin-bottom: 30px;
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .title { display:flex; flex-direction:column; gap:6px; }
+    .title h1{ 
+      font-size: 24px; 
+      color: #667eea;
+      font-weight: 600;
+      margin: 0;
+    }
+    .sub{ color: #666; font-size: 14px; }
+    .panels { display:grid; grid-template-columns: 1.1fr .9fr; gap:30px; }
+    @media (max-width: 980px){ .panels{ grid-template-columns: 1fr; } }
+
+    .card { 
+      background: white;
+      border-radius: 12px; 
+      padding: 30px; 
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .card h2 { 
+      font-size: 20px; 
+      color: #667eea;
+      font-weight: 600;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #667eea;
+    }
+    .card section + section { border-top: 1px dashed #e0e0e0; margin-top: 20px; padding-top: 20px; }
+    .card section h3 {
+      color: #667eea;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+      padding-left: 15px;
+    }
+
+    .grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap:12px; }
+    .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; }
+    .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; }
+    @media (max-width: 680px){ .grid-2,.grid-3,.grid-4{ grid-template-columns:1fr; } }
+
+    label { font-size:13px; color: #666; display:block; margin-bottom:6px; font-weight: 500; }
+    .form-label {
+      font-weight: bold;
+      text-decoration: underline;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .form-input, input[type="text"], input[type="date"], input[type="number"], select, textarea {
+      width:100%; 
+      background:#fff; 
+      color:#333; 
+      border:2px solid #e0e0e0;
+      border-radius:8px; 
+      padding:10px 12px; 
+      font-size:14px;
+      transition: border-color 0.3s ease;
+      margin-bottom: 12px;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    textarea { min-height: 84px; resize: vertical; }
+    .row { display:flex; gap:10px; align-items:center; flex-wrap: wrap; }
+    .chip { font-size:12px; padding:4px 8px; border-radius: 999px; border:1px solid #e0e0e0; color: #666; background: #f8f9fa; }
+    .hint { font-size:12px; color: #888; margin-top: 6px; font-style: italic;}
+    .sensitive { display:flex; align-items:center; gap:8px; font-size:12px; color: #dc3545; margin-top: 6px; }
+
+    .actions { display:flex; gap:10px; flex-wrap:wrap; }
+    button {
+      border: 2px solid #667eea; 
+      background: #667eea; 
+      color: white;
+      padding:12px 20px; 
+      border-radius: 8px; 
+      font-size:14px; 
+      cursor:pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    button.primary { 
+      background: #667eea; 
+      border-color: #667eea;
+      color: white;
+    }
+    button.primary:hover {
+      background: #5568d3;
+    }
+    button.success { 
+      background: #10b981; 
+      border-color: #10b981;
+      color: white;
+    }
+    button.success:hover {
+      background: #059669;
+    }
+    button.ghost { 
+      background: transparent; 
+      border-color: #e0e0e0;
+      color: #667eea;
+    }
+    button.warn { 
+      background: #ef4444; 
+      border-color: #ef4444;
+      color: white;
+    }
+    button.warn:hover {
+      background: #dc2626;
+    }
+
+    /* Report preview */
+    .preview { display:flex; flex-direction:column; gap:16px; }
+    .report { background:#fff; color:#111; border-radius: 12px; padding: 24px; border:1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .report header { display:flex; justify-content:space-between; align-items:center; gap:12px; border-bottom:2px solid #667eea; padding-bottom:12px; margin-bottom:16px; }
+    .report h3 { font-size: 18px; margin:0; color:#667eea; font-weight:600; }
+    .meta { font-size:12px; color:#6b7280; }
+    .report section { margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid #f3f4f6; }
+    .report section:last-child { border-bottom:none; }
+    .report section h4{ margin:0 0 12px 0; font-size:14px; color:#667eea; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; border-bottom:2px solid #e5e7eb; padding-bottom:6px; }
+    .report .kv { display:grid; grid-template-columns: 220px 1fr; gap:8px 16px; font-size: 12px; margin-bottom:8px; }
+    .report .kv > div:first-child { font-weight:600; color:#374151; }
+    .report .kv > div:last-child { color:#111; }
+    .report table { width:100%; border-collapse:collapse; margin:12px 0; font-size:12px; }
+    .report table th, .report table td { padding:10px; border:1px solid #e5e7eb; }
+    .report table th { background:#f3f4f6; font-weight:600; color:#111; }
+    .report table tr:nth-child(even) { background:#fafafa; }
+    .badge { display:inline-block; font-size:11px; padding:4px 10px; border-radius:12px; border:1px solid #e5e7eb; background:#f9fafb; color:#111; font-weight:500; }
+
+    .no-print button { }
+    
+    /* Sticky navigation */
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 43, 92, 0.05);
+      border-bottom: 1px solid var(--line);
+      padding: 8px 0;
+      margin: -16px -16px 16px -16px;
+      padding-left: 16px;
+      padding-right: 16px;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      backdrop-filter: blur(4px);
+    }
+    .sticky-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .sticky-nav a:hover {
+      background: rgba(102, 126, 234, 0.1);
+      color: var(--accent);
+    }
+    
+    /* Validation */
+    input:invalid, select:invalid {
+      border-color: var(--danger);
+    }
+    .validation-error {
+      color: var(--danger);
+      font-size: 11px;
+      margin-top: 4px;
+    }
+    .att-sum-check {
+      font-size: 11px;
+      margin-top: 4px;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    .att-sum-check.valid {
+      background: rgba(52, 211, 153, 0.1);
+      color: var(--accent-2);
+    }
+    .att-sum-check.invalid {
+      background: rgba(248, 113, 113, 0.1);
+      color: var(--danger);
+    }
+    
+    /* Progressive disclosure */
+    .conditional-field {
+      display: none;
+    }
+    .conditional-field.show {
+      display: block;
+    }
+    
+    @media print {
+      body { background: #fff; }
+      .no-print, .header, .panels .card:first-child { display:none !important; }
+      .report { break-inside: avoid; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div style="margin-bottom: 20px;">
+      <a href="index.html" style="display: inline-block; color: white; text-decoration: none; font-weight: 500; padding: 10px 20px; background: rgba(255,255,255,0.2); border-radius: 8px; transition: all 0.3s ease;">
+        ← Back to Home
+      </a>
+    </div>
+    <div class="header">
+      <div class="title">
+        <h1>Evolution Education — Reports & Reviews</h1>
+        <div class="sub">Half-Termly Student Behaviour &amp; Progress Report • Staff form → generates <span class="badge">School Report</span> &amp; <span class="badge">Parent Report</span></div>
+      </div>
+      <div class="actions no-print">
+        <button class="ghost" id="resetFormBtn">Reset</button>
+      </div>
+    </div>
+
+    <div class="panels">
+      <!-- =============== LEFT: FORM =============== -->
+      <div class="card" id="formCard">
+        <h2>Complete Report</h2>
+        <div class="sticky-nav no-print">
+          <a href="#section1">1. Student</a>
+          <a href="#section2">2. Attendance</a>
+          <a href="#section3">3. Academic</a>
+          <a href="#section4">4. Behaviour</a>
+          <a href="#section5">5. SEMH</a>
+          <a href="#section6">6. Parent/Agency</a>
+          <a href="#section7">7. Reintegration</a>
+          <a href="#section8">8. Progress Summary</a>
+          <a href="#section9">9. Next Steps</a>
+        </div>
+
+        <!-- 1. Student Details -->
+        <section id="section1">
+          <h3>1. Student Details</h3>
+          <div class="grid-3">
+            <div>
+              <label class="form-label"><strong><u>Student Name <span style="color:var(--danger)">*</span></u></strong></label>
+              <input id="studentName" type="text" class="form-input" placeholder="e.g., Harrison Jones" required>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Date of Birth <span style="color:var(--danger)">*</span></u></strong></label>
+              <input id="dob" type="date" class="form-input" required>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Year Group <span style="color:var(--danger)">*</span></u></strong></label>
+              <select id="yearGroup" class="form-input" required>
+                <option value="">Select…</option>
+                <option>Year 7</option><option>Year 8</option><option>Year 9</option><option>Year 10</option><option>Year 11</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-3" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Parent School <span style="color:var(--danger)">*</span></u></strong></label>
+              <select id="school" class="form-input" required>
+                <option value="">Select school…</option>
+                <option>All Saints</option>
+                <option>Barking Abbey</option>
+                <option>Dagenham Park</option>
+                <option>Eastbrook</option>
+                <option>Eastbury</option>
+                <option>Goresbrook</option>
+                <option>Greatfields</option>
+                <option>JRCS</option>
+                <option>Robert Clack</option>
+                <option>Sydney Russell</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Report Period <span style="color:var(--danger)">*</span></u></strong></label>
+              <select id="reportPeriod" class="form-input" required>
+                <option value="">Select…</option>
+                <option>Autumn 1</option><option>Autumn 2</option>
+                <option>Spring 1</option><option>Spring 2</option>
+                <option>Summer 1</option><option>Summer 2</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Lead Pathway Manager</u></strong></label>
+              <select id="pathwayLead" class="form-input">
+                <option value="">Select pathway lead…</option>
+                <option>Mr. D Taylor-Crossdale</option>
+                <option>Mr. L Dwaah</option>
+                <option>Ms. L Gavillet</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Assigned Mentor / Counsellor (if applicable)</u></strong></label>
+              <select id="mentor" class="form-input">
+                <option value="">Select…</option>
+                <option>MC</option>
+                <option>JC</option>
+                <option>DC</option>
+                <option>LD</option>
+                <option>AD</option>
+                <option>LG</option>
+                <option>SA</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Report Generated By</u></strong></label>
+              <select id="generatedBy" class="form-input">
+                <option value="">Select…</option>
+                <option>MC</option>
+                <option>JC</option>
+                <option>DC</option>
+                <option>LD</option>
+                <option>AD</option>
+                <option>LG</option>
+                <option>SA</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-top:12px">
+            <label class="form-label"><strong><u>DSL Overview (if applicable)</u></strong></label>
+            <textarea id="dslOverview" class="form-input" placeholder="Brief DSL note…"></textarea>
+            <div class="hint">Always excluded from Parent Report for safeguarding reasons.</div>
+          </div>
+        </section>
+
+        <!-- 2. Attendance Summary -->
+        <section id="section2">
+          <h3>2. Attendance Summary</h3>
+          <div class="grid-4">
+            <div>
+              <label class="form-label"><strong><u>Overall Attendance %</u></strong></label>
+              <input id="attOverall" type="number" min="0" max="100" step="0.1" placeholder="e.g., 91.4" class="form-input att-input">
+              <div class="hint">Enter any two values; third auto-calculates</div>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Authorised Absence %</u></strong></label>
+              <input id="attAuth" type="number" min="0" max="100" step="0.1" class="form-input att-input">
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Unauthorised Absence %</u></strong></label>
+              <input id="attUnauth" type="number" min="0" max="100" step="0.1" class="form-input att-input">
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Punctuality Concerns</u></strong></label>
+              <select id="punctuality" class="form-input">
+                <option>None</option><option>Minor</option><option>Significant</option>
+              </select>
+            </div>
+          </div>
+          <div id="attSumCheck" class="att-sum-check" style="display:none;"></div>
+          <div class="grid-2" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Key Attendance Barriers Identified</u></strong></label>
+              <input id="attBarriers" type="text" class="form-input" placeholder="e.g., transport, morning routine…">
+              <div class="hint">Barriers are summarised generically in Parent Report to protect privacy.</div>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Attendance Commentary</u></strong></label>
+              <textarea id="attComment" class="form-input" placeholder="Short summary of attendance this half-term…"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Academic Progress -->
+        <section id="section3">
+          <h3>3. Academic Progress — Core Subjects</h3>
+          <div class="grid-2">
+            <div>
+              <label class="form-label"><strong><u>Maths (Purple Ruler) — Engagement</u></strong></label>
+              <select id="mathsEng" class="form-input">
+                <option value="">Select…</option><option>Excellent</option><option>Good</option><option>Fair</option><option>Poor</option>
+              </select>
+              <label class="form-label"><strong><u>Maths — Progress</u></strong></label>
+              <select id="mathsProg" class="form-input">
+                <option value="">Select…</option><option>Above expected</option><option>Making expected progress</option><option>Below expected</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>English (Purple Ruler) — Engagement</u></strong></label>
+              <select id="engEng" class="form-input">
+                <option value="">Select…</option><option>Excellent</option><option>Good</option><option>Fair</option><option>Poor</option>
+              </select>
+              <label class="form-label"><strong><u>English — Progress</u></strong></label>
+              <select id="engProg" class="form-input">
+                <option value="">Select…</option><option>Above expected</option><option>Making expected progress</option><option>Below expected</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top:12px">
+            <label class="form-label"><strong><u>Personal Development & Other Studies (select all that apply)</u></strong></label>
+            <div class="row" id="otherStudies">
+              <label class="chip"><input type="checkbox" value="AQA Units"> AQA Units</label>
+              <label class="chip"><input type="checkbox" value="King's Trust"> King's Trust</label>
+              <label class="chip"><input type="checkbox" value="Sports Leaders"> Sports Leaders</label>
+              <label class="chip"><input type="checkbox" value="Duke of Edinburgh"> Duke of Edinburgh</label>
+              <label class="chip"><input type="checkbox" value="Vocational Courses (First Aid, Food Hygiene, Beauty, Safeguarding)"> Vocational Courses</label>
+              <label class="chip"><input type="checkbox" value="Art"> Art</label>
+              <label class="chip"><input type="checkbox" value="Cooking"> Cooking</label>
+            </div>
+            <label class="form-label" style="margin-top:10px"><strong><u>Core Subject Notes (Maths & English)</u></strong></label>
+            <textarea id="coreSubjectNotes" class="form-input" placeholder="Elaborate on engagement/progress in Maths and English…"></textarea>
+            <label class="form-label" style="margin-top:10px"><strong><u>Additional Notes (Personal Development & Other Studies)</u></strong></label>
+            <textarea id="academicNotes" class="form-input" placeholder="Add comments or feedback on vocational studies, creative subjects, or enrichment progress..."></textarea>
+          </div>
+        </section>
+
+        <!-- 4. Behaviour -->
+        <section id="section4">
+          <h3>4. Behaviour, Conduct & Emotional Regulation</h3>
+          <div class="grid-3">
+            <div>
+              <label class="form-label"><strong><u>Lesson Engagement</u></strong></label>
+              <select id="behLesson" class="form-input"><option value="">Select…</option><option>Excellent</option><option>Good</option><option>Inconsistent</option><option>Poor</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Respect & Conduct</u></strong></label>
+              <select id="behRespect" class="form-input"><option value="">Select…</option><option>Positive</option><option>Needs Support</option><option>Concern</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Peer Interaction</u></strong></label>
+              <select id="behPeer" class="form-input"><option value="">Select…</option><option>Positive</option><option>Variable</option><option>Concerning</option></select>
+            </div>
+          </div>
+          <div class="grid-3" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Staff Interaction</u></strong></label>
+              <select id="behStaff" class="form-input"><option value="">Select…</option><option>Positive</option><option>Variable</option><option>Concerning</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Use of Reflection+</u></strong></label>
+              <select id="behReflection" class="form-input"><option value="">Select…</option><option>Effective</option><option>Requires Reminder</option><option>Ineffective</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Safety / Risk Concerns</u></strong></label>
+              <select id="risk" class="form-input"><option value="">Select…</option><option>None</option><option>Low</option><option>Medium</option><option>High</option></select>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Behaviour Stage</u></strong></label>
+              <select id="behStage" class="form-input"><option>None</option><option>Report</option><option>Behaviour Contract</option><option>Final Warning</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Behaviour Commentary</u></strong></label>
+              <textarea id="behComment" class="form-input" placeholder="Brief factual summary…"></textarea>
+              <label class="sensitive"><input id="behIncludeParent" type="checkbox"> Include summarised version in Parent Report (default: excluded)</label>
+              <div class="hint">By default, behaviour commentary is excluded from parent reports. Check this box to include a parent-safe summary.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. SEMH -->
+        <section id="section5">
+          <h3>5. SEMH & Wellbeing Progress</h3>
+          <div class="grid-3">
+            <div>
+              <label class="form-label"><strong><u>Mentoring Overview</u></strong></label>
+              <select id="semhMentoring" class="form-input"><option value="">Select…</option><option>Regular weekly sessions</option><option>Occasional sessions</option><option>Not engaged</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Emotional Regulation</u></strong></label>
+              <select id="semhReg" class="form-input"><option value="">Select…</option><option>Improved</option><option>Stable</option><option>Declined</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Boxall Assessment Tool</u></strong></label>
+              <select id="boxallTool" class="form-input">
+                <option value="">Select…</option>
+                <option>Boxall Profile</option>
+                <option>Boxall Online</option>
+                <option>Other SEMH Tool</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Last Boxall/SEMH Assessment Date</u></strong></label>
+              <input id="boxallDate" type="date" class="form-input">
+            </div>
+            <div>
+              <label class="form-label"><strong><u>SEMH Summary</u></strong></label>
+              <textarea id="semhSummary" class="form-input" placeholder="High-level summary for parent report."></textarea>
+            </div>
+          </div>
+          <div class="conditional-field" id="semhFindingsField" style="margin-top:12px">
+            <label class="form-label"><strong><u>Boxall / SEMH Findings (Detailed - School Report Only)</u></strong></label>
+            <textarea id="semhFindings" class="form-input" placeholder="Detailed assessment findings…"></textarea>
+            <div class="hint">Always excluded from Parent Report. Only shown if mentoring is engaged.</div>
+          </div>
+        </section>
+
+        <!-- 6. Parent & Agency -->
+        <section id="section6">
+          <h3>6. Parent & Agency Engagement</h3>
+          <div class="grid-3">
+            <div>
+              <label class="form-label"><strong><u>Frequency of Parent Contact</u></strong></label>
+              <select id="parentContact" class="form-input"><option>Weekly</option><option>Fortnightly</option><option>Termly</option><option>None</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>External Agencies Involved</u></strong></label>
+              <input id="agencies" type="text" class="form-input" placeholder="e.g., CAMHS, Social Care">
+              <label class="sensitive"><input id="agenciesConsent" type="checkbox"> Parent has consented to share agency names (default: generic wording)</label>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Multi-agency Actions Completed</u></strong></label>
+              <input id="agencyActions" type="text" class="form-input" placeholder="e.g., TAF held, EHCP review scheduled">
+              <div class="hint">Specific actions are summarised at high level in Parent Report.</div>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Summary of Parent Feedback</u></strong></label>
+              <textarea id="parentFeedback" class="form-input" placeholder="Parent perspective / concerns / positives"></textarea>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Barriers / Challenges</u></strong></label>
+              <textarea id="barriers" class="form-input" placeholder="Any current blockers to progress"></textarea>
+              <label class="sensitive"><input id="barriersSensitive" type="checkbox"> Mark as sensitive (exclude from Parent Report)</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reintegration / Destination -->
+        <section id="section7">
+          <h3>7. Reintegration / Destination Planning</h3>
+          <div class="grid-2">
+            <div>
+              <label class="form-label"><strong><u>KS3 — Reintegration Progress</u></strong></label>
+              <select id="ks3Reint" class="form-input"><option value="">Select…</option><option>Steady</option><option>Partial</option><option>Completed</option></select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>KS4 — Destination & Career Planning</u></strong></label>
+              <select id="ks4Dest" class="form-input"><option value="">Select…</option><option>Exploring</option><option>Confirmed</option><option>Needs Support</option></select>
+            </div>
+          </div>
+          <div class="grid-3" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Target Date</u></strong></label>
+              <input id="reintTargetDate" type="date" class="form-input">
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Responsible Staff</u></strong></label>
+              <input id="reintStaff" type="text" class="form-input" placeholder="e.g., Pathway Lead, Careers Advisor">
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Review Date</u></strong></label>
+              <input id="reintReviewDate" type="date" class="form-input">
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. Progress Summary -->
+        <section id="section8">
+          <h3>8. Progress Summary</h3>
+          <div class="grid-3">
+            <div>
+              <label class="form-label"><strong><u>Attendance (Behaviour & Attitudes / Safeguarding)</u></strong></label>
+              <select id="judgAtt" class="form-input">
+                <option value="">Select…</option>
+                <option value="Secure">Secure</option>
+                <option value="Improving">Improving</option>
+                <option value="Requires Support">Requires Support</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Punctuality (Behaviour & Attitudes)</u></strong></label>
+              <select id="judgPunct" class="form-input">
+                <option value="">Select…</option>
+                <option value="Secure">Secure</option>
+                <option value="Developing">Developing</option>
+                <option value="Ongoing Concern">Ongoing Concern</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>Academic Engagement & Progress (Quality of Education – Impact)</u></strong></label>
+              <select id="judgAcad" class="form-input">
+                <option value="">Select…</option>
+                <option value="Secure">Secure</option>
+                <option value="Developing">Developing</option>
+                <option value="Requires Support">Requires Support</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="margin-top:12px">
+            <div>
+              <label class="form-label"><strong><u>Behaviour, Conduct & Emotional Regulation (Behaviour & Attitudes)</u></strong></label>
+              <select id="judgBeh" class="form-input">
+                <option value="">Select…</option>
+                <option value="Secure">Secure</option>
+                <option value="Developing">Developing</option>
+                <option value="Requires Support">Requires Support</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label"><strong><u>SEMH & Wellbeing (Personal Development)</u></strong></label>
+              <select id="judgSemh" class="form-input">
+                <option value="">Select…</option>
+                <option value="Secure">Secure</option>
+                <option value="Developing">Developing</option>
+                <option value="Requires Support">Requires Support</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8.5. Coordinator / Lead Overview -->
+        <section id="section8-5">
+          <h3>Coordinator / Lead Overview</h3>
+          <div>
+            <label class="form-label"><strong><u>Coordinator / Lead Overview</u></strong></label>
+            <textarea id="coordinatorOverview" class="form-input" placeholder="Add reflective notes on student progress…" style="min-height: 120px;"></textarea>
+          </div>
+        </section>
+
+        <!-- 9. Key Actions -->
+        <section id="section9">
+          <h3>9. Key Actions for Next Half Term</h3>
+          <div>
+            <label class="form-label"><strong><u>Key Actions</u></strong></label>
+            <textarea id="keyActions" class="form-input" placeholder="Enter key actions for the next half term..." style="min-height: 150px;"></textarea>
+          </div>
+        </section>
+
+        <div class="actions no-print" style="margin-top:14px;">
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+            <button class="primary" id="saveSchoolPDF">Save School Report as PDF</button>
+            <button class="success" id="exportSchoolWord">Export School Report as Word</button>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="primary" id="saveParentPDF">Save Parent Report as PDF</button>
+            <button class="success" id="exportParentWord">Export Parent Report as Word</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- =============== RIGHT: PREVIEW =============== -->
+      <div class="card">
+        <h2>Preview</h2>
+        <div class="preview">
+          <div id="schoolPreview" class="report" aria-live="polite">
+            <div id="schoolReport">
+              <header>
+                <h3>School Report Preview</h3>
+              </header>
+              <div id="schoolContent">Fill the form and click "Generate" to populate this preview.</div>
+            </div>
+          </div>
+
+          <div id="parentPreview" class="report" aria-live="polite">
+            <div id="parentReport">
+              <header>
+                <h3>Parent Report Preview</h3>
+              </header>
+              <div id="parentContent">Fill the form and click "Generate" to populate this preview.</div>
+            </div>
+          </div>
+        </div>
+        <div class="actions no-print" style="margin-top:10px">
+          <button class="warn" id="clearPreviews">Clear Previews</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Helper: get values ---
+    const $ = (id)=>document.getElementById(id);
+
+    function getChecks(containerId){
+      const node = document.getElementById(containerId);
+      return Array.from(node.querySelectorAll('input[type="checkbox"]:checked')).map(x=>x.value);
+    }
+
+    // --- Auto comment templates ---
+    function commentForEngagement(label, val){
+      if(!val) return "";
+      const map = {
+        "Excellent": `${label}: consistently high engagement; independently participates and completes tasks to a high standard.`,
+        "Good": `${label}: positive engagement; completes most tasks with occasional prompts.`,
+        "Fair": `${label}: variable engagement; benefits from reminders and structured guidance.`,
+        "Poor": `${label}: limited engagement; requires frequent prompts and close support to remain on task.`
+      };
+      return map[val] || "";
+    }
+    function commentForProgress(label, val){
+      if(!val) return "";
+      const map = {
+        "Above expected": `${label}: working above expected trajectory for this half term.`,
+        "Making expected progress": `${label}: progress in line with expectations for this half term.`,
+        "Below expected": `${label}: currently below expected trajectory; targeted intervention recommended.`
+      };
+      return map[val] || "";
+    }
+    function ragBadge(val){
+      if(!val) return "";
+      let gradeClass = "";
+      if (val === "Excellent") gradeClass = "grade-excellent";
+      else if (val === "Good") gradeClass = "grade-good";
+      else if (val === "Requires Improvement") gradeClass = "grade-ri";
+      else if (val === "Concern") gradeClass = "grade-concern";
+      return `<span class="badge ${gradeClass}">${val}</span>`;
+    }
+
+    // --- Build section blocks ---
+    function buildKV(obj){
+      const rows = Object.entries(obj).filter(([,v])=>v!=="" && v!=null)
+        .map(([k,v])=>`<div><div>${k}</div><div>${v}</div></div>`).join("");
+      return rows ? `<div class="kv">${rows}</div>` : "";
+    }
+
+    function sanitize(text){
+      return (text||"").toString()
+        .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+
+    // ========== CENTRAL SENSITIVITY GATE ==========
+    // Controls what renders into School vs Parent reports
+    function getParentSafeValue(field, rawValue, options = {}) {
+      if (!rawValue) return "";
+      
+      const {
+        alwaysExclude = false,
+        defaultExclude = false,
+        optIn = false,
+        parentFriendlyMap = null,
+        softReplacement = null,
+        genericReplacement = null
+      } = options;
+
+      // Always exclude (e.g., DSL Overview)
+      if (alwaysExclude) return null;
+
+      // Default exclude unless opt-in checked
+      if (defaultExclude && !optIn) return null;
+
+      // Apply parent-friendly mapping
+      if (parentFriendlyMap && parentFriendlyMap[rawValue]) {
+        return parentFriendlyMap[rawValue];
+      }
+
+      // Use soft replacement (e.g., for risk concerns)
+      if (softReplacement && rawValue && rawValue !== "None") {
+        return softReplacement;
+      }
+
+      // Use generic replacement (e.g., for agencies)
+      if (genericReplacement && rawValue) {
+        return genericReplacement;
+      }
+
+      return rawValue;
+    }
+
+    // Parent-friendly behaviour stage labels
+    function getParentFriendlyStage(stage) {
+      const map = {
+        "None": "",
+        "Report": "We are monitoring behaviour closely and providing additional support.",
+        "Behaviour Contract": "We have a structured support plan in place to help improve behaviour.",
+        "Final Warning": "We are providing intensive support to help maintain placement."
+      };
+      return map[stage] || "";
+    }
+
+    function buildReport({excludeSensitive=false}){
+      // Collect inputs
+      const studentName = sanitize($("studentName").value);
+      const dob = $("dob").value;
+      const yearGroup = $("yearGroup").value;
+      const school = sanitize($("school").value);
+      const reportPeriod = $("reportPeriod").value;
+      const pathwayLead = sanitize($("pathwayLead").value);
+      const mentor = sanitize($("mentor").value);
+      const generatedBy = sanitize($("generatedBy").value) || pathwayLead || "Staff";
+      const reportDate = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      const academicYear = "2025/26";
+
+      const dslOverview = sanitize($("dslOverview").value);
+      const attOverall = $("attOverall").value;
+      const attAuth = $("attAuth").value;
+      const attUnauth = $("attUnauth").value;
+      const punctuality = $("punctuality").value;
+      const attBarriers = sanitize($("attBarriers").value);
+      const attComment = sanitize($("attComment").value);
+
+      const mathsEng = $("mathsEng").value;
+      const mathsProg = $("mathsProg").value;
+      const engEng = $("engEng").value;
+      const engProg = $("engProg").value;
+      const studies = getChecks("otherStudies");
+      const coreSubjectNotes = sanitize($("coreSubjectNotes").value);
+      const academicNotes = sanitize($("academicNotes").value);
+
+      const behLesson = $("behLesson").value;
+      const behRespect = $("behRespect").value;
+      const behPeer = $("behPeer").value;
+      const behStaff = $("behStaff").value;
+      const behReflection = $("behReflection").value;
+      const risk = $("risk").value;
+      const behStage = $("behStage").value;
+      const behComment = sanitize($("behComment").value);
+      const behIncludeParent = $("behIncludeParent") ? $("behIncludeParent").checked : false;
+
+      const semhMentoring = $("semhMentoring").value;
+      const semhReg = $("semhReg").value;
+      const semhFindings = sanitize($("semhFindings").value);
+      const semhSummary = sanitize($("semhSummary").value);
+      const boxallTool = $("boxallTool").value;
+      const boxallDate = $("boxallDate").value;
+
+      const parentContact = $("parentContact").value;
+      const agencies = sanitize($("agencies").value);
+      const agenciesConsent = $("agenciesConsent") ? $("agenciesConsent").checked : false;
+      const agencyActions = sanitize($("agencyActions").value);
+      const parentFeedback = sanitize($("parentFeedback").value);
+      const barriers = sanitize($("barriers").value);
+      const barriersSensitive = $("barriersSensitive") ? $("barriersSensitive").checked : false;
+
+      const ks3Reint = $("ks3Reint").value;
+      const ks4Dest = $("ks4Dest").value;
+      const reintTargetDate = $("reintTargetDate").value;
+      const reintStaff = sanitize($("reintStaff").value);
+      const reintReviewDate = $("reintReviewDate").value;
+      const keyActions = sanitize($("keyActions").value);
+
+      const judgAtt = $("judgAtt").value;
+      const judgPunct = $("judgPunct").value;
+      const judgAcad = $("judgAcad").value;
+      const judgBeh = $("judgBeh").value;
+      const judgSemh = $("judgSemh").value;
+      const coordinatorOverview = sanitize($("coordinatorOverview").value);
+
+      // Auto text
+      const mathsAuto = [commentForEngagement("Maths engagement", mathsEng), commentForProgress("Maths progress", mathsProg)].filter(Boolean).join(" ");
+      const engAuto = [commentForEngagement("English engagement", engEng), commentForProgress("English progress", engProg)].filter(Boolean).join(" ");
+      const academicAuto = [mathsAuto, engAuto].filter(Boolean).join(" ");
+
+      // ========== SENSITIVITY GATE APPLIED ==========
+      
+      // Section 1: Student Details
+      const dslForParent = getParentSafeValue("dslOverview", dslOverview, { alwaysExclude: true });
+      const sec1Data = {
+        "Student Name": studentName,
+        "Date of Birth": dob || "",
+        "Year Group": yearGroup || "",
+        "School": school || "",
+        "Report Period": reportPeriod || "",
+        "Lead Pathway Manager": pathwayLead || "",
+        "Assigned Mentor / Counsellor (if applicable)": mentor || ""
+      };
+      if (!excludeSensitive && dslOverview) sec1Data["DSL Overview"] = dslOverview;
+      const sec1 = buildKV(sec1Data);
+
+      // Section 2: Attendance
+      const attBarriersForParent = getParentSafeValue("attBarriers", attBarriers, {
+        genericReplacement: attBarriers ? "We are working together to remove attendance barriers." : null
+      });
+      const sec2Data = {
+        "Overall Attendance": attOverall ? attOverall+"%" : "",
+        "Authorised Absence": attAuth ? attAuth+"%" : "",
+        "Unauthorised Absence": attUnauth ? attUnauth+"%" : "",
+        "Punctuality Concerns": punctuality || "",
+        "Attendance Commentary": attComment || ""
+      };
+      if (!excludeSensitive) {
+        if (attBarriers) sec2Data["Key Attendance Barriers Identified"] = attBarriers;
+      } else {
+        if (attBarriersForParent) sec2Data["Attendance Support"] = attBarriersForParent;
+      }
+      const sec2 = buildKV(sec2Data);
+
+      // Section 3: Academic
+      function getEngagementGradeClass(val) {
+        if (val === "Excellent") return "grade-excellent";
+        if (val === "Good") return "grade-good";
+        if (val === "Fair") return "grade-ri";
+        if (val === "Poor") return "grade-concern";
+        return "";
+      }
+      function getProgressGradeClass(val) {
+        if (val === "Above expected") return "grade-excellent";
+        if (val === "Making expected progress") return "grade-good";
+        if (val === "Below expected") return "grade-concern";
+        return "";
+      }
+      function getProgressDisplayText(val) {
+        if (val === "Above expected") return "Above expected progress";
+        return val || "";
+      }
+      
+      const sec3parts = [];
+      
+      // Core Subjects subheading and table
+      if (mathsEng || mathsProg || engEng || engProg) {
+        sec3parts.push(`<h4>Core Subjects (Maths & English)</h4>`);
+        const tableRows = [];
+        if (mathsEng || mathsProg) {
+          const engClass = getEngagementGradeClass(mathsEng);
+          const progClass = getProgressGradeClass(mathsProg);
+          const progText = getProgressDisplayText(mathsProg);
+          tableRows.push(`<tr>
+            <td>Maths</td>
+            <td class="${engClass}">${mathsEng || ""}</td>
+            <td class="${progClass}">${progText}</td>
+          </tr>`);
+        }
+        if (engEng || engProg) {
+          const engClass = getEngagementGradeClass(engEng);
+          const progClass = getProgressGradeClass(engProg);
+          const progText = getProgressDisplayText(engProg);
+          tableRows.push(`<tr>
+            <td>English</td>
+            <td class="${engClass}">${engEng || ""}</td>
+            <td class="${progClass}">${progText}</td>
+          </tr>`);
+        }
+        if (tableRows.length > 0) {
+          sec3parts.push(`<table class="academic-table">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Engagement</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows.join("")}
+            </tbody>
+          </table>`);
+        }
+      }
+      
+      // Core Subject Notes
+      if (coreSubjectNotes) {
+        sec3parts.push(`<div class="core-notes-container">
+          <label for="core-notes"><strong>Core Subject Notes (Maths & English)</strong></label>
+          <div>${coreSubjectNotes}</div>
+        </div>`);
+      }
+      
+      // Personal Development & Other Studies
+      if (studies.length) {
+        sec3parts.push(`<h4>Personal Development & Other Studies</h4>`);
+        const studiesList = studies.map(study => `<label><input type="checkbox" checked disabled> ${study}</label>`).join("");
+        sec3parts.push(`<div class="other-studies-container"><div class="study-options">${studiesList}</div></div>`);
+      }
+      
+      // Additional Notes for Personal Development
+      if (academicNotes) {
+        sec3parts.push(`<label for="other-notes"><strong>Additional Notes (Personal Development & Other Studies)</strong></label>
+        <div style="white-space: pre-wrap; line-height: 1.6; padding: 8px 0; margin-top: 8px;">${academicNotes}</div>`);
+      }
+      
+      const sec3 = sec3parts.length ? sec3parts.join("") : "";
+
+      // Section 4: Behaviour
+      const riskForParent = getParentSafeValue("risk", risk, {
+        softReplacement: risk && risk !== "None" ? "We are supporting safety and wellbeing needs." : null
+      });
+      const behStageForParent = getParentSafeValue("behStage", behStage, {
+        parentFriendlyMap: getParentFriendlyStage(behStage)
+      });
+      const behCommentForParent = getParentSafeValue("behComment", behComment, {
+        defaultExclude: true,
+        optIn: behIncludeParent
+      });
+      
+      const sec4Data = {
+        "Lesson Engagement": behLesson || "",
+        "Respect & Conduct": behRespect || "",
+        "Peer Interaction": behPeer || "",
+        "Staff Interaction": behStaff || "",
+        "Use of Reflection+": behReflection || ""
+      };
+      if (!excludeSensitive) {
+        if (risk) sec4Data["Safety / Risk Concerns"] = risk;
+        if (behStage) sec4Data["Behaviour Stage"] = behStage;
+        if (behComment) sec4Data["Behaviour Commentary"] = behComment;
+      } else {
+        if (riskForParent) sec4Data["Safety & Wellbeing"] = riskForParent;
+        if (behStageForParent) sec4Data["Behaviour Support"] = behStageForParent;
+        if (behCommentForParent) sec4Data["Behaviour Summary"] = behCommentForParent;
+      }
+      const sec4 = buildKV(sec4Data);
+
+      // Section 5: SEMH
+      const semhFindingsForParent = getParentSafeValue("semhFindings", semhFindings, {
+        alwaysExclude: true // Always exclude detailed findings
+      });
+      const sec5Data = {
+        "Mentoring Overview": semhMentoring || "",
+        "Emotional Regulation": semhReg || "",
+        "SEMH Summary": semhSummary || ""
+      };
+      if (!excludeSensitive) {
+        if (boxallTool) sec5Data["Boxall Assessment Tool"] = boxallTool;
+        if (boxallDate) sec5Data["Last Assessment Date"] = boxallDate;
+        if (semhFindings) sec5Data["Boxall/SEMH Findings (Detailed)"] = semhFindings;
+      }
+      const sec5 = buildKV(sec5Data);
+
+      // Section 6: Parent & Agency
+      const agenciesForParent = getParentSafeValue("agencies", agencies, {
+        genericReplacement: agencies && !agenciesConsent ? "We are liaising with relevant services to support your child." : agencies
+      });
+      const agencyActionsForParent = getParentSafeValue("agencyActions", agencyActions, {
+        genericReplacement: agencyActions ? "Multi-agency meetings and reviews are taking place to coordinate support." : null
+      });
+      const barriersForParent = getParentSafeValue("barriers", barriers, {
+        defaultExclude: true,
+        optIn: !barriersSensitive
+      });
+      
+      const sec6Data = {
+        "Frequency of Parent Contact": parentContact || "",
+        "Summary of Parent Feedback": parentFeedback || ""
+      };
+      if (!excludeSensitive) {
+        if (agencies) sec6Data["External Agencies Involved"] = agencies;
+        if (agencyActions) sec6Data["Multi-agency Actions Completed"] = agencyActions;
+        if (barriers && !barriersSensitive) sec6Data["Barriers / Challenges"] = barriers;
+      } else {
+        if (agenciesForParent) sec6Data["External Support"] = agenciesForParent;
+        if (agencyActionsForParent) sec6Data["Multi-agency Coordination"] = agencyActionsForParent;
+        if (barriersForParent) sec6Data["Support Areas"] = barriersForParent;
+      }
+      const sec6 = buildKV(sec6Data);
+
+      // Section 7: Reintegration
+      const sec7Data = {
+        "KS3 — Reintegration Progress": ks3Reint || "",
+        "KS4 — Destination & Career Planning": ks4Dest || ""
+      };
+      if (!excludeSensitive) {
+        if (reintTargetDate) sec7Data["Target Date"] = reintTargetDate;
+        if (reintStaff) sec7Data["Responsible Staff"] = reintStaff;
+        if (reintReviewDate) sec7Data["Review Date"] = reintReviewDate;
+      }
+      const sec7 = buildKV(sec7Data);
+
+      // Section 8: Progress Summary
+      function getGradeClass(val) {
+        if (val === "Secure" || val === "Excellent") return "grade-excellent";
+        if (val === "Developing" || val === "Improving" || val === "Good") return "grade-good";
+        if (val === "Requires Support" || val === "Requires Improvement") return "grade-ri";
+        if (val === "Ongoing Concern" || val === "Concern") return "grade-concern";
+        return "";
+      }
+      
+      function getProgressSummaryText(category, value, studentName) {
+        if (!value) return "";
+        
+        // Use student name if provided, otherwise fallback to "the student"
+        const name = studentName || "the student";
+        const namePossessive = name.endsWith("s") ? name + "'" : name + "'s";
+        
+        const texts = {
+          "Attendance": {
+            "Secure": `Attendance has been consistently secure during this reporting period. ${name} attends regularly and engages positively with the daily timetable, supporting safeguarding and continuity of learning.`,
+            "Improving": `Attendance has improved over time. ${name} is increasingly attending regularly, supported by consistent routines and staff intervention.`,
+            "Requires Support": "Attendance remains inconsistent. Appropriate support strategies are in place to improve regular attendance and engagement."
+          },
+          "Punctuality": {
+            "Secure": `${name} arrives on time and transitions calmly into learning, demonstrating positive routines and readiness to learn.`,
+            "Developing": "Minor punctuality concerns have been noted. These are being addressed through consistent expectations and support.",
+            "Ongoing Concern": `Punctuality concerns remain and continue to be monitored as part of ${namePossessive} behaviour support plan.`
+          },
+          "Academic Engagement & Progress": {
+            "Secure": `${name} engages consistently with learning and is able to sustain focus and complete tasks with minimal support, demonstrating positive learning behaviours.`,
+            "Developing": `${name} engages with learning with staff support and guidance. Progress is evident in engagement and task completion.`,
+            "Requires Support": `${name} requires regular support to engage with learning. Strategies are in place to develop focus, resilience and independence.`
+          },
+          "Behaviour, Conduct & Emotional Regulation": {
+            "Secure": `${name} demonstrates appropriate behaviour and responds positively to staff guidance. ${name} is increasingly able to regulate emotions and manage behaviour within the learning environment.`,
+            "Developing": `${name} generally manages behaviour appropriately, with occasional support required to regulate emotions.`,
+            "Requires Support": `${name} requires ongoing support to manage behaviour and emotional regulation. Behaviour support strategies are in place and reviewed regularly.`
+          },
+          "SEMH & Wellbeing": {
+            "Secure": `${name} is settled within the provision and demonstrates positive emotional regulation. ${name} is increasingly able to communicate needs appropriately and access support when required.`,
+            "Developing": `${name} is developing ${namePossessive} emotional regulation skills and is beginning to access support appropriately. Ongoing monitoring and support continue.`,
+            "Requires Support": `${name} requires ongoing support for emotional regulation and wellbeing. SEMH support strategies are in place and reviewed regularly.`
+          }
+        };
+        
+        return texts[category] && texts[category][value] ? texts[category][value] : "";
+      }
+      
+      const sec8Rows = [];
+      
+      if (judgAtt) {
+        const attText = getProgressSummaryText("Attendance", judgAtt, studentName);
+        sec8Rows.push(`<tr><th>Attendance (Behaviour & Attitudes / Safeguarding)</th><td class="${getGradeClass(judgAtt)}"><strong>${judgAtt}</strong><br>${attText}</td></tr>`);
+      }
+      
+      if (judgPunct) {
+        const punctText = getProgressSummaryText("Punctuality", judgPunct, studentName);
+        sec8Rows.push(`<tr><th>Punctuality (Behaviour & Attitudes)</th><td class="${getGradeClass(judgPunct)}"><strong>${judgPunct}</strong><br>${punctText}</td></tr>`);
+      }
+      
+      if (judgAcad) {
+        const acadText = getProgressSummaryText("Academic Engagement & Progress", judgAcad, studentName);
+        sec8Rows.push(`<tr><th>Academic Engagement & Progress (Quality of Education – Impact)</th><td class="${getGradeClass(judgAcad)}"><strong>${judgAcad}</strong><br>${acadText}</td></tr>`);
+      }
+      
+      if (judgBeh) {
+        const behText = getProgressSummaryText("Behaviour, Conduct & Emotional Regulation", judgBeh, studentName);
+        sec8Rows.push(`<tr><th>Behaviour, Conduct & Emotional Regulation (Behaviour & Attitudes)</th><td class="${getGradeClass(judgBeh)}"><strong>${judgBeh}</strong><br>${behText}</td></tr>`);
+      }
+      
+      if (judgSemh) {
+        const semhText = getProgressSummaryText("SEMH & Wellbeing", judgSemh, studentName);
+        if (!excludeSensitive) {
+          sec8Rows.push(`<tr><th>SEMH & Wellbeing (Personal Development)</th><td class="${getGradeClass(judgSemh)}"><strong>${judgSemh}</strong><br>${semhText}</td></tr>`);
+        }
+      }
+      
+      const sec8 = sec8Rows.length > 0 ? `<table class="judgement-table"><tbody>${sec8Rows.join("")}</tbody></table>` : "";
+
+      // Coordinator / Lead Overview
+      const secCoordinator = coordinatorOverview ? `<div style="white-space: pre-wrap; line-height: 1.6; padding: 8px 0;">${coordinatorOverview}</div>` : "";
+
+      // Section 9: Actions
+      const sec9 = keyActions ? `<div style="white-space: pre-wrap; line-height: 1.6; padding: 8px 0;">${keyActions}</div>` : "";
+
+      // Version footer (School Report only)
+      let versionFooter = "";
+      if (!excludeSensitive) {
+        versionFooter = `<div style="margin-top:24px; padding-top:16px; border-top:1px solid #e5e7eb; font-size:10px; color:#9ca3af; text-align:center;">
+          <div>v1.0 • Last updated: ${reportDate}</div>
+          <div style="margin-top:4px;">This report is shared under GDPR Article 6(1)(f) (legitimate interests) and Article 9(2)(g) (substantial public interest) for educational and safeguarding purposes.</div>
+        </div>`;
+      }
+
+      // Combine
+      const html = `
+        <section class="report-section"><h4>1. Student Details</h4>${sec1}</section>
+        <section class="report-section"><h4>2. Attendance Summary</h4>${sec2}</section>
+        <section class="report-section"><h3>3. Academic Progress</h3>${sec3}</section>
+        <section class="report-section"><h4>4. Behaviour, Conduct & Emotional Regulation</h4>${sec4}</section>
+        ${!excludeSensitive ? `<section class="report-section"><h4>5. SEMH & Wellbeing Progress</h4>${sec5}</section>` : ''}
+        ${!excludeSensitive ? `<section class="report-section"><h4>6. Parent & Agency Engagement</h4>${sec6}</section>` : ''}
+        <section class="report-section"><h4>${excludeSensitive ? '5' : '7'}. Reintegration / Destination Planning</h4>${sec7}</section>
+        <section class="report-section"><h4>${excludeSensitive ? '6' : '8'}. Progress Summary</h4>${sec8}</section>
+        ${!excludeSensitive && secCoordinator ? `<section class="report-section"><h4>Coordinator / Lead Overview</h4>${secCoordinator}</section>` : ''}
+        <section class="report-section"><h4>${excludeSensitive ? '7' : '9'}. Key Actions for Next Half Term</h4>${sec9}</section>
+        ${versionFooter}
+      `;
+
+      return html;
+    }
+
+    function generateReports(){
+      try {
+        const schoolHtml = buildReport({excludeSensitive: false});
+        const parentHtml = buildReport({excludeSensitive: true});
+        
+        if (!schoolHtml || !parentHtml) {
+          console.error("Report generation returned empty");
+          return;
+        }
+        
+        $("schoolContent").innerHTML = schoolHtml || "<p style='color:#999;'>No data entered yet.</p>";
+        $("parentContent").innerHTML = parentHtml || "<p style='color:#999;'>No data entered yet.</p>";
+        
+        const studentName = $("studentName").value || "Student";
+        const reportPeriod = $("reportPeriod").value || "Period";
+      } catch (error) {
+        console.error("Error generating reports:", error);
+        alert("Error generating reports. Please check the console for details.");
+      }
+    }
+    
+    // Initial generation on page load (if form has data)
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(generateReports, 500);
+      });
+    } else {
+      setTimeout(generateReports, 500);
+    }
+
+    function printReport(reportId){
+      const originalTitle = document.title;
+      const isSchoolReport = reportId === "schoolPreview";
+      document.title = isSchoolReport ? "School Report" : "Parent Report";
+      const report = $(reportId);
+      const studentName = $("studentName").value || "Student";
+      const school = $("school").value || "School";
+      const reportPeriod = $("reportPeriod").value || "Period";
+      const academicYear = "2025/26";
+      
+      const printWindow = window.open("", "_blank");
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>${document.title}</title>
+          <style>
+            @page {
+              size: A4;
+              margin: 20mm 15mm;
+            }
+            body {
+              font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+              color: #111;
+              font-size: 11pt;
+              line-height: 1.5;
+              margin: 0;
+              padding: 0;
+            }
+            .brand-header {
+              border-bottom: 3px solid #667eea;
+              padding-bottom: 12px;
+              margin-bottom: 20px;
+              page-break-after: avoid;
+            }
+            .brand-header h1 {
+              font-size: 20pt;
+              color: #667eea;
+              margin: 0 0 4px 0;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+            .brand-header .subtitle {
+              font-size: 10pt;
+              color: #666;
+              margin: 4px 0;
+            }
+            .brand-header .meta-line {
+              font-size: 9pt;
+              color: #888;
+              margin-top: 8px;
+              padding-top: 8px;
+              border-top: 1px solid #e5e7eb;
+            }
+            section {
+              page-break-inside: avoid;
+              margin-bottom: 16px;
+            }
+            section h4 {
+              font-size: 12pt;
+              color: #667eea;
+              margin: 16px 0 8px 0;
+              font-weight: 600;
+              border-bottom: 1px solid #e5e7eb;
+              padding-bottom: 4px;
+            }
+            .kv {
+              display: table;
+              width: 100%;
+              font-size: 15px;
+              margin-bottom: 10px;
+              border-collapse: collapse;
+            }
+            .kv > div {
+              display: table-row;
+            }
+            .kv > div > div:first-child {
+              display: table-cell;
+              width: 35%;
+              font-weight: 700;
+              text-decoration: underline;
+              background-color: #f3f5f8;
+              color: #002b5c;
+              padding: 6px 10px;
+              vertical-align: top;
+              border-bottom: 1px solid #ddd;
+            }
+            .kv > div > div:last-child {
+              display: table-cell;
+              padding: 6px 10px;
+              font-style: italic;
+              background-color: #fff;
+              border-bottom: 1px solid #ddd;
+            }
+            table {
+              width: 100%;
+              border-collapse: collapse;
+              font-size: 15px;
+              margin-bottom: 10px;
+            }
+            table th {
+              text-align: left;
+              width: 35%;
+              padding: 6px 10px;
+              vertical-align: top;
+              font-weight: 700;
+              text-decoration: underline;
+              background-color: #f3f5f8;
+              color: #002b5c;
+              border-bottom: 1px solid #ddd;
+            }
+            table td {
+              padding: 6px 10px;
+              font-style: italic;
+              background-color: #fff;
+              border-bottom: 1px solid #ddd;
+            }
+            .badge {
+              display: inline-block;
+              font-size: 9pt;
+              padding: 2px 8px;
+              border-radius: 999px;
+              border: 1px solid #e5e7eb;
+              background: #f9fafb;
+              color: #111;
+            }
+            .two-col {
+              display: grid;
+              grid-template-columns: 1fr 1fr;
+              gap: 16px;
+            }
+            @media print {
+              .two-col {
+                page-break-inside: avoid;
+              }
+              section {
+                page-break-inside: avoid;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+            }
+            .footer-note {
+              font-size: 8pt;
+              color: #9ca3af;
+              text-align: center;
+              margin-top: 24px;
+              padding-top: 12px;
+              border-top: 1px solid #e5e7eb;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="report-header">
+            <span>Evolution Education</span>
+          </div>
+          <div class="meta-line" style="font-size: 10pt; color: #6b7280; margin-top: 12px; padding-top: 12px; border-top: 2px solid #e5e7eb;">
+            <strong>${studentName}</strong> • ${school} • ${reportPeriod} • Academic Year ${academicYear}
+            ${isSchoolReport ? ' • School Report' : ' • Parent Report'}
+          </div>
+          ${report.innerHTML}
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      setTimeout(() => {
+        printWindow.print();
+        document.title = originalTitle;
+      }, 250);
+    }
+
+    // ========== VALIDATION & AUTO-CALCULATION ==========
+    
+    // Attendance auto-calculation
+    function calculateAttendance() {
+      const overall = parseFloat($("attOverall").value) || 0;
+      const auth = parseFloat($("attAuth").value) || 0;
+      const unauth = parseFloat($("attUnauth").value) || 0;
+      
+      const sum = overall + auth + unauth;
+      const checkEl = $("attSumCheck");
+      
+      if (overall && auth && !unauth) {
+        $("attUnauth").value = (100 - overall - auth).toFixed(1);
+      } else if (overall && !auth && unauth) {
+        $("attAuth").value = (100 - overall - unauth).toFixed(1);
+      } else if (!overall && auth && unauth) {
+        $("attOverall").value = (100 - auth - unauth).toFixed(1);
+      }
+      
+      // Validate sum
+      const newOverall = parseFloat($("attOverall").value) || 0;
+      const newAuth = parseFloat($("attAuth").value) || 0;
+      const newUnauth = parseFloat($("attUnauth").value) || 0;
+      const newSum = newOverall + newAuth + newUnauth;
+      
+      if (newSum > 0) {
+        checkEl.style.display = "block";
+        if (Math.abs(newSum - 100) < 0.1) {
+          checkEl.className = "att-sum-check valid";
+          checkEl.textContent = "✓ Total = 100%";
+        } else {
+          checkEl.className = "att-sum-check invalid";
+          checkEl.textContent = `⚠ Total = ${newSum.toFixed(1)}% (should be 100%)`;
+        }
+      } else {
+        checkEl.style.display = "none";
+      }
+    }
+    
+    // Clamp percentage inputs
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener("input", function() {
+        if (this.min === "0" && this.max === "100") {
+          let val = parseFloat(this.value);
+          if (val < 0) this.value = 0;
+          if (val > 100) this.value = 100;
+        }
+      });
+    });
+    
+    // Progressive disclosure for SEMH findings
+    function toggleSemhFindings() {
+      const mentoring = $("semhMentoring").value;
+      const findingsField = $("semhFindingsField");
+      if (mentoring && mentoring !== "Not engaged") {
+        findingsField.classList.add("show");
+      } else {
+        findingsField.classList.remove("show");
+      }
+    }
+    
+    $("semhMentoring").addEventListener("change", toggleSemhFindings);
+    toggleSemhFindings();
+    
+    // Attendance calculation listeners
+    $("attOverall").addEventListener("input", calculateAttendance);
+    $("attAuth").addEventListener("input", calculateAttendance);
+    $("attUnauth").addEventListener("input", calculateAttendance);
+
+    // ========== SAVE REPORT FUNCTIONS ==========
+    
+    function getReportHTML(isSchoolReport) {
+      return new Promise((resolve) => {
+        const studentName = $("studentName").value || "Student";
+        const school = $("school").value || "School";
+        const reportPeriod = $("reportPeriod").value || "Period";
+        const academicYear = "2025/26";
+        const reportType = isSchoolReport ? "School Report" : "Parent Report";
+        
+        // Get the report content
+        const contentId = isSchoolReport ? "schoolContent" : "parentContent";
+        const reportContent = document.getElementById(contentId);
+        
+        // Check if report needs to be generated
+        if (!reportContent || reportContent.innerHTML.includes("Fill the form") || reportContent.innerHTML.includes("No data entered")) {
+          generateReports();
+          // Wait for generation to complete
+          setTimeout(() => {
+            const content = document.getElementById(contentId).innerHTML;
+            resolve(buildFullReportHTML(content, studentName, school, reportPeriod, academicYear, reportType));
+          }, 300);
+        } else {
+          resolve(buildFullReportHTML(reportContent.innerHTML, studentName, school, reportPeriod, academicYear, reportType));
+        }
+      });
+    }
+    
+    function buildFullReportHTML(content, studentName, school, reportPeriod, academicYear, reportType) {
+      const isSchoolReport = reportType === "School Report";
+      return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>${reportType} - ${studentName}</title>
+          <meta charset="UTF-8">
+          <style>
+            @page {
+              size: A4;
+              margin: 20mm 15mm;
+            }
+            body {
+              font-family: "Segoe UI", Arial, sans-serif;
+              color: #222;
+              margin: 0;
+              padding: 0 20px;
+              background: #ffffff;
+            }
+            .brand-header {
+              border-bottom: 4px solid #667eea;
+              padding-bottom: 16px;
+              margin-bottom: 24px;
+              page-break-after: avoid;
+            }
+            .brand-header h1 {
+              font-size: 24pt;
+              color: #667eea;
+              margin: 0 0 8px 0;
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+            }
+            .brand-header .subtitle {
+              font-size: 12pt;
+              color: #4b5563;
+              margin: 4px 0;
+              font-weight: 500;
+            }
+            .brand-header .meta-line {
+              font-size: 10pt;
+              color: #6b7280;
+              margin-top: 12px;
+              padding-top: 12px;
+              border-top: 2px solid #e5e7eb;
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              gap: 8px;
+            }
+            .meta-line strong {
+              color: #111;
+            }
+            section {
+              page-break-inside: avoid;
+              margin-bottom: 20px;
+              padding: 12px 0;
+            }
+            section.report-section {
+              margin: 25px 0;
+              padding: 15px 20px;
+              border: 1px solid #e0e0e0;
+              border-radius: 6px;
+              background-color: #fafafa;
+            }
+            section.report-section h3 {
+              background-color: #002b5c;
+              color: #fff;
+              margin: -15px -20px 15px -20px;
+              padding: 10px 15px;
+              border-radius: 6px 6px 0 0;
+              font-size: 16px;
+            }
+            section.report-section h4 {
+              background-color: #002b5c;
+              color: #fff;
+              margin: -15px -20px 15px -20px;
+              padding: 10px 15px;
+              border-radius: 6px 6px 0 0;
+              font-size: 16px;
+            }
+            .kv {
+              display: table;
+              width: 100%;
+              font-size: 15px;
+              margin-bottom: 10px;
+              border-collapse: collapse;
+            }
+            .kv > div {
+              display: table-row;
+            }
+            .kv > div > div:first-child {
+              display: table-cell;
+              width: 35%;
+              font-weight: 700;
+              text-decoration: underline;
+              background-color: #f3f5f8;
+              color: #002b5c;
+              padding: 6px 10px;
+              vertical-align: top;
+              border-bottom: 1px solid #ddd;
+            }
+            .kv > div > div:last-child {
+              display: table-cell;
+              padding: 6px 10px;
+              font-style: italic;
+              background-color: #fff;
+              border-bottom: 1px solid #ddd;
+            }
+            .report-section table {
+              width: 100%;
+              border-collapse: collapse;
+              margin-bottom: 10px;
+              font-size: 15px;
+            }
+            .report-section th {
+              text-align: left;
+              width: 35%;
+              padding: 6px 10px;
+              vertical-align: top;
+              font-weight: 700;
+              text-decoration: underline;
+              background-color: #f3f5f8;
+              color: #002b5c;
+              border-bottom: 1px solid #ddd;
+            }
+            .report-section td {
+              padding: 6px 10px;
+              font-style: italic;
+              background-color: #fff;
+              border-bottom: 1px solid #ddd;
+            }
+            .badge {
+              display: inline-block;
+              font-size: 9pt;
+              padding: 4px 10px;
+              border-radius: 12px;
+              border: 1px solid #e5e7eb;
+              background: #f9fafb;
+              color: #111;
+              font-weight: 500;
+            }
+            /* RAG colour codes */
+            .grade-excellent {
+              background-color: #d4edda; /* Green */
+              color: #155724;
+              font-weight: 600;
+            }
+            .grade-good {
+              background-color: #fff3cd; /* Amber */
+              color: #856404;
+              font-weight: 600;
+            }
+            .grade-ri {
+              background-color: #ffeeba; /* Yellow */
+              color: #856404;
+              font-weight: 600;
+            }
+            .grade-concern {
+              background-color: #f8d7da; /* Red */
+              color: #721c24;
+              font-weight: 600;
+            }
+            /* Table styling */
+            .academic-table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 10px 0 20px;
+              font-size: 15px;
+            }
+            .academic-table th {
+              background-color: #002b5c;
+              color: white;
+              text-align: left;
+              padding: 8px;
+            }
+            .academic-table td {
+              border: 1px solid #ddd;
+              padding: 8px;
+            }
+            /* Notes box */
+            #core-notes {
+              width: 100%;
+              min-height: 80px;
+              margin-top: 8px;
+              padding: 8px;
+              border: 1px solid #ccc;
+              border-radius: 6px;
+              font-family: inherit;
+              resize: vertical;
+            }
+            .core-notes-container {
+              margin-top: 20px;
+              margin-bottom: 20px;
+              padding: 12px 0;
+              page-break-inside: avoid;
+            }
+            .core-notes-container label {
+              display: block;
+              font-weight: 700;
+              text-decoration: underline;
+              color: #002b5c;
+              margin-bottom: 8px;
+            }
+            .core-notes-container > div {
+              white-space: pre-wrap;
+              line-height: 1.6;
+              padding: 10px;
+              background-color: #fff;
+              border: 1px solid #e0e0e0;
+              border-radius: 4px;
+              min-height: 60px;
+            }
+            /* Other Studies list */
+            .other-studies {
+              list-style: none;
+              padding: 0;
+              margin: 10px 0 20px;
+            }
+            .other-studies li {
+              padding: 4px 0;
+              font-weight: 500;
+            }
+            .other-studies span {
+              margin-right: 6px;
+              color: #007bff;
+            }
+            /* Personal Development & Other Studies container */
+            .other-studies-container {
+              margin: 10px 0 20px;
+            }
+            .study-options {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 12px;
+            }
+            .study-options label {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              font-weight: 500;
+            }
+            .study-options input[type="checkbox"] {
+              margin: 0;
+            }
+            /* Section styling */
+            .report-section {
+              margin: 25px 0;
+              padding: 15px 20px;
+              border: 1px solid #e0e0e0;
+              border-radius: 6px;
+              background-color: #fafafa;
+            }
+            .report-section h3, .report-section h4 {
+              background-color: #002b5c;
+              color: #fff;
+              margin: -15px -20px 15px -20px;
+              padding: 10px 15px;
+              border-radius: 6px 6px 0 0;
+              font-size: 16px;
+            }
+            /* Header bar */
+            .report-header {
+              background-color: #002b5c;
+              color: white;
+              padding: 15px;
+              font-size: 18px;
+              font-weight: 600;
+              border-radius: 6px 6px 0 0;
+              text-align: center;
+            }
+            .report-header span {
+              display: inline-block;
+            }
+            /* Judgement table */
+            .judgement-table {
+              width: 100%;
+              border-collapse: collapse;
+            }
+            .judgement-table td, .judgement-table th {
+              border: 1px solid #ccc;
+              padding: 8px;
+              text-align: center;
+            }
+            .footer-note {
+              font-size: 9pt;
+              color: #6b7280;
+              text-align: center;
+              margin-top: 32px;
+              padding-top: 16px;
+              border-top: 2px solid #e5e7eb;
+              font-style: italic;
+            }
+            @media print {
+              body {
+                padding: 0;
+              }
+              section {
+                page-break-inside: avoid;
+              }
+              .page-break {
+                page-break-before: always;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="report-header">
+            <span>Evolution Education</span>
+          </div>
+          ${!isSchoolReport ? `<div class="meta-line" style="font-size: 10pt; color: #6b7280; margin-top: 12px; padding-top: 12px; border-top: 2px solid #e5e7eb;">
+            <div><strong>Student:</strong> ${studentName}</div>
+            <div><strong>School:</strong> ${school}</div>
+            <div><strong>Period:</strong> ${reportPeriod}</div>
+            <div><strong>Academic Year:</strong> ${academicYear}</div>
+            <div><strong>Report Type:</strong> ${reportType}</div>
+          </div>` : ''}
+          ${content}
+        </body>
+        </html>
+      `;
+    }
+    
+    async function saveAsPDF(isSchoolReport) {
+      try {
+        const html = await getReportHTML(isSchoolReport);
+        const printWindow = window.open("", "_blank");
+        printWindow.document.write(html);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => {
+          printWindow.print();
+        }, 300);
+      } catch (error) {
+        console.error("Error saving PDF:", error);
+        alert("Error generating PDF. Please try again.");
+      }
+    }
+    
+    async function exportAsWord(isSchoolReport) {
+      try {
+        const html = await getReportHTML(isSchoolReport);
+        const studentName = $("studentName").value || "Student";
+        const reportType = isSchoolReport ? "School" : "Parent";
+        const filename = `${studentName.replace(/\s+/g, '_')}_${reportType}_Report_${new Date().toISOString().split('T')[0]}.doc`;
+        
+        // Extract body content safely
+        const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        const bodyContent = bodyMatch ? bodyMatch[1] : html;
+        
+        // Create Word-compatible HTML with inline styles
+        const wordHTML = `
+          <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+          <head>
+            <meta charset='utf-8'>
+            <title>${reportType} Report</title>
+            <!--[if gte mso 9]>
+            <xml>
+              <w:WordDocument>
+                <w:View>Print</w:View>
+                <w:Zoom>90</w:Zoom>
+                <w:DoNotOptimizeForBrowser/>
+              </w:WordDocument>
+            </xml>
+            <![endif]-->
+            <style>
+              body { font-family: "Segoe UI", Arial, sans-serif; color: #222; margin: 0; padding: 0 20px; background: #ffffff; }
+              .brand-header { border-bottom: 4px solid #667eea; padding-bottom: 16px; margin-bottom: 24px; }
+              .brand-header h1 { font-size: 24pt; color: #667eea; margin: 0 0 8px 0; font-weight: 700; text-transform: uppercase; }
+              .brand-header .subtitle { font-size: 12pt; color: #4b5563; margin: 4px 0; }
+              .brand-header .meta-line { font-size: 10pt; color: #6b7280; margin-top: 12px; padding-top: 12px; border-top: 2px solid #e5e7eb; }
+              .report-section { margin: 25px 0; padding: 15px 20px; border: 1px solid #e0e0e0; border-radius: 6px; background-color: #fafafa; }
+              .report-section h3, .report-section h4 { background-color: #002b5c; color: #fff; margin: -15px -20px 15px -20px; padding: 10px 15px; border-radius: 6px 6px 0 0; font-size: 16px; }
+              .kv { display: table; width: 100%; font-size: 15px; margin-bottom: 10px; border-collapse: collapse; }
+              .kv > div { display: table-row; }
+              .kv > div > div:first-child { display: table-cell; width: 35%; font-weight: 700; text-decoration: underline; background-color: #f3f5f8; color: #002b5c; padding: 6px 10px; vertical-align: top; border-bottom: 1px solid #ddd; }
+              .kv > div > div:last-child { display: table-cell; padding: 6px 10px; font-style: italic; background-color: #fff; border-bottom: 1px solid #ddd; }
+              .report-section table { width: 100%; border-collapse: collapse; margin-bottom: 10px; font-size: 15px; }
+              .report-section th { text-align: left; width: 35%; padding: 6px 10px; vertical-align: top; font-weight: 700; text-decoration: underline; background-color: #f3f5f8; color: #002b5c; border-bottom: 1px solid #ddd; }
+              .report-section td { padding: 6px 10px; font-style: italic; background-color: #fff; border-bottom: 1px solid #ddd; }
+              .badge { display: inline-block; font-size: 9pt; padding: 4px 10px; border-radius: 12px; border: 1px solid #e5e7eb; background: #f9fafb; }
+              /* RAG colour codes */
+              .grade-excellent {
+                background-color: #d4edda; /* Green */
+                color: #155724;
+                font-weight: 600;
+              }
+              .grade-good {
+                background-color: #fff3cd; /* Amber */
+                color: #856404;
+                font-weight: 600;
+              }
+              .grade-ri {
+                background-color: #ffeeba; /* Yellow */
+                color: #856404;
+                font-weight: 600;
+              }
+              .grade-concern {
+                background-color: #f8d7da; /* Red */
+                color: #721c24;
+                font-weight: 600;
+              }
+              /* Table styling */
+              .academic-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 10px 0 20px;
+                font-size: 15px;
+              }
+              .academic-table th {
+                background-color: #002b5c;
+                color: white;
+                text-align: left;
+                padding: 8px;
+              }
+              .academic-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+              }
+              /* Notes box */
+              #core-notes {
+                width: 100%;
+                min-height: 80px;
+                margin-top: 8px;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-family: inherit;
+                resize: vertical;
+              }
+              .core-notes-container {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                padding: 12px 0;
+                page-break-inside: avoid;
+              }
+              .core-notes-container label {
+                display: block;
+                font-weight: 700;
+                text-decoration: underline;
+                color: #002b5c;
+                margin-bottom: 8px;
+              }
+              .core-notes-container > div {
+                white-space: pre-wrap;
+                line-height: 1.6;
+                padding: 10px;
+                background-color: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 4px;
+                min-height: 60px;
+              }
+              /* Other Studies list */
+              .other-studies {
+                list-style: none;
+                padding: 0;
+                margin: 10px 0 20px;
+              }
+              .other-studies li {
+                padding: 4px 0;
+                font-weight: 500;
+              }
+              .other-studies span {
+                margin-right: 6px;
+                color: #007bff;
+              }
+              /* Personal Development & Other Studies container */
+              .other-studies-container {
+                margin: 10px 0 20px;
+              }
+              .study-options {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+              }
+              .study-options label {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-weight: 500;
+              }
+              .study-options input[type="checkbox"] {
+                margin: 0;
+              }
+              /* Section styling */
+              .report-section {
+                border-left: 5px solid #007bff;
+                padding: 10px 20px;
+                margin: 15px 0;
+                border-radius: 6px;
+                background: #f9f9f9;
+              }
+              /* Header bar */
+              .report-header {
+                background-color: #002b5c;
+                color: white;
+                padding: 15px;
+                font-size: 18px;
+                font-weight: 600;
+                border-radius: 6px 6px 0 0;
+                text-align: center;
+              }
+              .report-header span {
+                display: inline-block;
+              }
+              /* Judgement table */
+              .judgement-table {
+                width: 100%;
+                border-collapse: collapse;
+              }
+              .judgement-table td, .judgement-table th {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: center;
+              }
+            </style>
+          </head>
+          <body>
+            ${bodyContent}
+          </body>
+          </html>
+        `;
+        
+        // Create blob and download
+        const blob = new Blob(['\ufeff', wordHTML], {
+          type: 'application/msword'
+        });
+        
+        const link = document.createElement('a');
+        if (link.download !== undefined) {
+          const url = URL.createObjectURL(blob);
+          link.setAttribute('href', url);
+          link.setAttribute('download', filename);
+          link.style.visibility = 'hidden';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        } else {
+          alert("Your browser doesn't support automatic downloads. Please use the PDF option instead.");
+        }
+      } catch (error) {
+        console.error("Error exporting Word:", error);
+        alert("Error exporting Word document: " + error.message);
+      }
+    }
+
+    // Event listeners - ensure buttons exist before attaching
+    function setupButtons() {
+      const saveSchoolPDF = document.getElementById("saveSchoolPDF");
+      const saveParentPDF = document.getElementById("saveParentPDF");
+      const exportSchoolWord = document.getElementById("exportSchoolWord");
+      const exportParentWord = document.getElementById("exportParentWord");
+      
+      if (saveSchoolPDF) {
+        saveSchoolPDF.addEventListener("click", function(e) {
+          e.preventDefault();
+          saveAsPDF(true);
+        });
+      }
+      
+      if (saveParentPDF) {
+        saveParentPDF.addEventListener("click", function(e) {
+          e.preventDefault();
+          saveAsPDF(false);
+        });
+      }
+      
+      if (exportSchoolWord) {
+        exportSchoolWord.addEventListener("click", function(e) {
+          e.preventDefault();
+          exportAsWord(true);
+        });
+      }
+      
+      if (exportParentWord) {
+        exportParentWord.addEventListener("click", function(e) {
+          e.preventDefault();
+          exportAsWord(false);
+        });
+      }
+    }
+    
+    // Setup buttons when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', setupButtons);
+    } else {
+      setupButtons();
+    }
+    $("clearPreviews").addEventListener("click", ()=>{
+      $("schoolContent").innerHTML = "Fill the form and click \"Generate\" to populate this preview.";
+      $("parentContent").innerHTML = "Fill the form and click \"Generate\" to populate this preview.";
+    });
+    $("resetFormBtn").addEventListener("click", ()=>{
+      document.querySelectorAll("#formCard input, #formCard select, #formCard textarea").forEach(el => {
+        if(el.type === "checkbox") el.checked = false;
+        else el.value = "";
+      });
+      $("clearPreviews").click();
+    });
+
+    // Auto-generate on input change (debounced)
+    let generateTimeout;
+    document.querySelectorAll("#formCard input, #formCard select, #formCard textarea").forEach(el => {
+      el.addEventListener("input", ()=>{
+        clearTimeout(generateTimeout);
+        generateTimeout = setTimeout(generateReports, 1000);
+      });
+      el.addEventListener("change", ()=>{
+        clearTimeout(generateTimeout);
+        generateTimeout = setTimeout(generateReports, 1000);
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+

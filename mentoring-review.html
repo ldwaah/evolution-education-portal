@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentoring Review — Evolution Education</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 40px; 
+      background: #fafafa; 
+      color: #333; 
+      line-height: 1.6;
+    }
+    h1, h2 { color: #004080; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .form-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-section {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-left: 4px solid #004080;
+      border-radius: 4px;
+    }
+    .form-section h3 {
+      margin-top: 0;
+      color: #004080;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"], input[type="date"], select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    textarea {
+      min-height: 100px;
+      font-family: Arial, sans-serif;
+    }
+    .info-box {
+      background: #e7f3ff;
+      border-left: 4px solid #004080;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .info-box p {
+      margin: 5px 0;
+      color: #004080;
+    }
+    button {
+      background: #004080;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0066cc;
+    }
+    .bromcom-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    #pdfContent {
+      display: none;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #pdfContent, #pdfContent * {
+        visibility: visible;
+      }
+      #pdfContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
+    .rating-group {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .rating-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+<div class="form-container">
+  <h1>Mentoring Review</h1>
+  
+  <div class="info-box">
+    <p><strong>Student Review Form:</strong> This form allows students to reflect on their mentoring experience, identify if mentoring has helped them, whether they've reached their targets, and suggest improvements.</p>
+  </div>
+
+  <form id="reviewForm">
+    <div class="form-section">
+      <h3>Student & Session Details</h3>
+      
+      <label>Student Name *</label>
+      <input type="text" id="studentName" required>
+      
+      <label>Year Group *</label>
+      <select id="yearGroup" required>
+        <option value="">Select…</option>
+        <option>Year 7</option>
+        <option>Year 8</option>
+        <option>Year 9</option>
+        <option>Year 10</option>
+        <option>Year 11</option>
+      </select>
+      
+      <label>Mentor Name *</label>
+      <select id="mentorName" required>
+        <option value="">Select…</option>
+        <option>MC</option>
+        <option>JC</option>
+        <option>DC</option>
+        <option>LD</option>
+        <option>AD</option>
+        <option>LG</option>
+        <option>SA</option>
+      </select>
+      
+      <label>Review Date *</label>
+      <input type="date" id="reviewDate" required>
+      
+      <label>Review Period *</label>
+      <select id="reviewPeriod" required>
+        <option value="">Select…</option>
+        <option>6-week review</option>
+        <option>12-week review</option>
+        <option>End of term review</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <h3>1. Has Mentoring Helped You?</h3>
+      
+      <label>Overall, has mentoring been helpful to you? *</label>
+      <select id="hasHelped" required>
+        <option value="">Select…</option>
+        <option>Yes, very helpful</option>
+        <option>Yes, somewhat helpful</option>
+        <option>Not sure</option>
+        <option>Not really</option>
+        <option>No, not helpful</option>
+      </select>
+      
+      <label>Please explain how mentoring has (or hasn't) helped you: *</label>
+      <textarea id="howHelped" placeholder="Describe what has been helpful, what you've learned, or what hasn't worked..." required></textarea>
+    </div>
+
+    <div class="form-section">
+      <h3>2. Targets & Goals</h3>
+      
+      <label>Have you reached the targets/goals you set with your mentor? *</label>
+      <select id="targetsReached" required>
+        <option value="">Select…</option>
+        <option>Yes, I've reached all my targets</option>
+        <option>Yes, I've reached some of my targets</option>
+        <option>I'm still working towards my targets</option>
+        <option>No, I haven't reached my targets</option>
+        <option>I didn't have clear targets</option>
+      </select>
+      
+      <label>Please tell us about your progress with your targets: *</label>
+      <textarea id="targetsProgress" placeholder="Describe which targets you've reached, which you're still working on, and any challenges you've faced..." required></textarea>
+      
+      <label>What targets or goals would you like to work on next?</label>
+      <textarea id="nextTargets" placeholder="What would you like to focus on in future mentoring sessions?"></textarea>
+    </div>
+
+    <div class="form-section">
+      <h3>3. What Has Worked Well?</h3>
+      
+      <label>What aspects of mentoring have worked well for you? *</label>
+      <textarea id="whatWorked" placeholder="For example: the way sessions are structured, the support you receive, specific activities or strategies, the relationship with your mentor..." required></textarea>
+    </div>
+
+    <div class="form-section">
+      <h3>4. What Could Be Improved?</h3>
+      
+      <label>What improvements would you like to see in your mentoring? *</label>
+      <textarea id="improvements" placeholder="What would make mentoring more helpful? For example: different activities, more/less frequent sessions, different focus areas, different approach..." required></textarea>
+    </div>
+
+    <div class="form-section">
+      <h3>5. Overall Experience</h3>
+      
+      <label>How would you rate your overall mentoring experience? *</label>
+      <select id="overallRating" required>
+        <option value="">Select…</option>
+        <option>Excellent</option>
+        <option>Good</option>
+        <option>Okay</option>
+        <option>Poor</option>
+      </select>
+      
+      <label>Any additional comments or feedback?</label>
+      <textarea id="additionalComments" placeholder="Is there anything else you'd like to share about your mentoring experience?"></textarea>
+    </div>
+
+    <button type="button" onclick="generateReview()">Generate Review</button>
+  </form>
+
+  <div id="outputSection">
+    <h2>Generated Mentoring Review</h2>
+    <textarea id="reviewOutput" readonly></textarea>
+    <div class="button-group">
+      <button class="pdf-btn" onclick="generatePDF()">Generate PDF</button>
+      <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" class="bromcom-btn">Go to Bromcom →</a>
+    </div>
+  </div>
+
+  <div id="pdfContent"></div>
+</div>
+
+<script>
+  function generatePDF() {
+    const student = document.getElementById('studentName').value.trim();
+    const year = document.getElementById('yearGroup').value;
+    const mentor = document.getElementById('mentorName').value;
+    const date = document.getElementById('reviewDate').value;
+    const period = document.getElementById('reviewPeriod').value;
+    const hasHelped = document.getElementById('hasHelped').value;
+    const howHelped = document.getElementById('howHelped').value.trim();
+    const targetsReached = document.getElementById('targetsReached').value;
+    const targetsProgress = document.getElementById('targetsProgress').value.trim();
+    const nextTargets = document.getElementById('nextTargets').value.trim();
+    const whatWorked = document.getElementById('whatWorked').value.trim();
+    const improvements = document.getElementById('improvements').value.trim();
+    const overallRating = document.getElementById('overallRating').value;
+    const additionalComments = document.getElementById('additionalComments').value.trim();
+
+    if (!student || !year || !mentor || !date || !period || !hasHelped || !howHelped || !targetsReached || !targetsProgress || !whatWorked || !improvements || !overallRating) {
+      alert("Please complete all required fields before generating PDF.");
+      return;
+    }
+
+    const dateObj = new Date(date + 'T00:00:00');
+    const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const pdfContent = document.getElementById('pdfContent');
+    pdfContent.innerHTML = `
+      <div style="padding: 40px; font-family: Arial, sans-serif; line-height: 1.8; color: #333;">
+        <h1 style="color: #004080; text-align: center; margin-bottom: 30px;">Mentoring Review</h1>
+        <div style="margin-bottom: 30px; text-align: center;">
+          <p><strong>Student:</strong> ${student} (${year})</p>
+          <p><strong>Mentor:</strong> ${mentor}</p>
+          <p><strong>Review Date:</strong> ${formattedDate}</p>
+          <p><strong>Review Period:</strong> ${period}</p>
+        </div>
+        
+        <h2 style="color: #004080; margin-top: 30px;">1. Has Mentoring Helped You?</h2>
+        <p><strong>Overall, has mentoring been helpful:</strong> ${hasHelped}</p>
+        <p><strong>How mentoring has (or hasn't) helped:</strong></p>
+        <p style="margin-left: 20px; white-space: pre-wrap;">${howHelped}</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">2. Targets & Goals</h2>
+        <p><strong>Have you reached your targets:</strong> ${targetsReached}</p>
+        <p><strong>Progress with targets:</strong></p>
+        <p style="margin-left: 20px; white-space: pre-wrap;">${targetsProgress}</p>
+        ${nextTargets ? `<p><strong>Targets/goals for next period:</strong></p><p style="margin-left: 20px; white-space: pre-wrap;">${nextTargets}</p>` : ''}
+        
+        <h2 style="color: #004080; margin-top: 30px;">3. What Has Worked Well?</h2>
+        <p style="white-space: pre-wrap;">${whatWorked}</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">4. What Could Be Improved?</h2>
+        <p style="white-space: pre-wrap;">${improvements}</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">5. Overall Experience</h2>
+        <p><strong>Overall rating:</strong> ${overallRating}</p>
+        ${additionalComments ? `<p><strong>Additional comments:</strong></p><p style="margin-left: 20px; white-space: pre-wrap;">${additionalComments}</p>` : ''}
+        
+        <div style="margin-top: 50px; border-top: 2px solid #004080; padding-top: 20px;">
+          <p><strong>Review completed by:</strong> ${student}</p>
+          <p><strong>Date:</strong> ${formattedDate}</p>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #777;">
+          <p>Evolution Education — Mentoring Review Document</p>
+        </div>
+      </div>
+    `;
+
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: `Mentoring_Review_${student.replace(/\s+/g, '_')}_${formattedDate.replace(/\s+/g, '_')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(pdfContent).save();
+  }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mentoring Induction — Evolution Education</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 40px; 
+      background: #fafafa; 
+      color: #333; 
+      line-height: 1.6;
+    }
+    h1, h2 { color: #004080; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .document-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .form-section {
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-left: 4px solid #004080;
+      border-radius: 4px;
+    }
+    .form-section h3 {
+      margin-top: 0;
+      color: #004080;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"], input[type="date"], select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .important-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .important-box h3 {
+      color: #856404;
+      margin-top: 0;
+    }
+    .important-box p {
+      color: #856404;
+      margin: 5px 0;
+    }
+    .content-box {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      line-height: 1.8;
+    }
+    .content-box p {
+      margin: 10px 0;
+    }
+    button {
+      background: #004080;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #0066cc;
+    }
+    .bromcom-btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    #pdfContent {
+      display: none;
+    }
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #pdfContent, #pdfContent * {
+        visibility: visible;
+      }
+      #pdfContent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+<div class="document-container">
+  <h1>Mentoring Induction</h1>
+  
+  <div class="important-box">
+    <h3>⚠️ Important</h3>
+    <p><strong>This induction must be read to the student before they begin mentoring sessions.</strong> It covers confidentiality, safeguarding, and mentoring expectations.</p>
+  </div>
+
+  <form id="inductionForm">
+    <div class="form-section">
+      <h3>Student & Mentor Details</h3>
+      
+      <label>Student Name *</label>
+      <input type="text" id="studentName" required>
+      
+      <label>Year Group *</label>
+      <select id="yearGroup" required>
+        <option value="">Select…</option>
+        <option>Year 7</option>
+        <option>Year 8</option>
+        <option>Year 9</option>
+        <option>Year 10</option>
+        <option>Year 11</option>
+      </select>
+      
+      <label>Mentor Name *</label>
+      <select id="mentorName" required>
+        <option value="">Select…</option>
+        <option>MC</option>
+        <option>JC</option>
+        <option>DC</option>
+        <option>LD</option>
+        <option>AD</option>
+        <option>LG</option>
+        <option>SA</option>
+      </select>
+      
+      <label>Date of Induction *</label>
+      <input type="date" id="inductionDate" required>
+    </div>
+  </form>
+
+  <div class="content-box">
+    <h2>Mentoring Induction Content</h2>
+    
+    <p><strong>Student:</strong> <span id="displayStudentName">[Student Name]</span></p>
+    <p><strong>Mentor:</strong> <span id="displayMentorName">[Mentor Name]</span></p>
+    <p><strong>Date:</strong> <span id="displayDate">[Date]</span></p>
+    
+    <h3 style="color: #004080; margin-top: 30px;">1. Introduction to Mentoring</h3>
+    <p>You are being mentored by <strong id="mentorIntro">[Mentor Name]</strong> at Evolution Education. Mentoring is a supportive relationship designed to help you achieve your goals, develop your skills, and support your wellbeing.</p>
+    
+    <h3 style="color: #004080; margin-top: 30px;">2. Confidentiality</h3>
+    <p><strong>What we keep private:</strong> Your mentoring sessions are confidential. This means that what you share with your mentor will generally stay between you and your mentor.</p>
+    <p><strong>When we need to share information:</strong> However, there are important exceptions to confidentiality:</p>
+    <ul>
+      <li><strong>Safeguarding concerns:</strong> If you or someone else is at risk of harm, we have a legal duty to share this information with appropriate professionals (e.g., Designated Safeguarding Lead, Social Services, Police).</li>
+      <li><strong>Child protection:</strong> Any concerns about abuse, neglect, or exploitation must be reported immediately.</li>
+      <li><strong>Risk to yourself or others:</strong> If you express thoughts of self-harm, suicide, or harming others, we will need to involve safeguarding and support services.</li>
+      <li><strong>Legal requirements:</strong> In certain legal situations, information may need to be shared with authorities.</li>
+    </ul>
+    <p><strong>What we share with school:</strong> General progress updates and achievements may be shared with your Pathway Lead and school, but specific personal details from sessions will remain confidential unless there is a safeguarding concern.</p>
+    
+    <h3 style="color: #004080; margin-top: 30px;">3. Safeguarding</h3>
+    <p>Your safety and wellbeing are our priority. If you have any concerns about:</p>
+    <ul>
+      <li>Your own safety or wellbeing</li>
+      <li>The safety of another student</li>
+      <li>Something that doesn't feel right</li>
+      <li>Any form of abuse, bullying, or harm</li>
+    </ul>
+    <p>Please speak to your mentor, any member of staff, or contact the Designated Safeguarding Lead immediately. You can also contact Childline (0800 1111) or the NSPCC if you need support.</p>
+    
+    <h3 style="color: #004080; margin-top: 30px;">4. Mentoring Expectations</h3>
+    <p><strong>What you can expect from your mentor:</strong></p>
+    <ul>
+      <li>Regular, scheduled mentoring sessions</li>
+      <li>A safe, non-judgmental space to talk</li>
+      <li>Support in setting and working towards goals</li>
+      <li>Help with problem-solving and developing strategies</li>
+      <li>Advocacy and support when needed</li>
+    </ul>
+    <p><strong>What we expect from you:</strong></p>
+    <ul>
+      <li>Attendance at scheduled mentoring sessions</li>
+      <li>Honest and open communication</li>
+      <li>Respect for your mentor and the mentoring process</li>
+      <li>Engagement with agreed actions and targets</li>
+    </ul>
+    
+    <h3 style="color: #004080; margin-top: 30px;">5. Recording Sessions</h3>
+    <p>Mentoring sessions are recorded in Bromcom (our student management system) to:</p>
+    <ul>
+      <li>Track your progress and achievements</li>
+      <li>Ensure continuity of support</li>
+      <li>Help plan future sessions</li>
+      <li>Share progress updates with your Pathway Lead (general updates only)</li>
+    </ul>
+    <p>Personal and sensitive information remains confidential unless there is a safeguarding concern.</p>
+    
+    <h3 style="color: #004080; margin-top: 30px;">6. Questions & Consent</h3>
+    <p>Do you have any questions about mentoring, confidentiality, or safeguarding?</p>
+    <p>By proceeding with mentoring, you understand:</p>
+    <ul>
+      <li>That mentoring sessions are confidential, except where safeguarding concerns require information to be shared</li>
+      <li>That your mentor will support you in a safe, respectful way</li>
+      <li>That sessions will be recorded in Bromcom for progress tracking</li>
+      <li>That you can raise any concerns at any time</li>
+    </ul>
+    
+    <p style="margin-top: 30px;"><strong>This induction has been read and understood by:</strong></p>
+    <p><strong>Student:</strong> <span id="finalStudentName">[Student Name]</span></p>
+    <p><strong>Mentor:</strong> <span id="finalMentorName">[Mentor Name]</span></p>
+    <p><strong>Date:</strong> <span id="finalDate">[Date]</span></p>
+  </div>
+
+  <button type="button" onclick="generatePDF()">Generate PDF</button>
+
+  <div id="pdfContent"></div>
+</div>
+
+<script>
+  function updateDisplay() {
+    const student = document.getElementById('studentName').value;
+    const mentor = document.getElementById('mentorName').value;
+    const date = document.getElementById('inductionDate').value;
+    
+    if (student) document.getElementById('displayStudentName').textContent = student;
+    if (mentor) document.getElementById('displayMentorName').textContent = mentor;
+    if (mentor) document.getElementById('mentorIntro').textContent = mentor;
+    if (date) {
+      const dateObj = new Date(date + 'T00:00:00');
+      const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('displayDate').textContent = formattedDate;
+    }
+    
+    if (student) document.getElementById('finalStudentName').textContent = student;
+    if (mentor) document.getElementById('finalMentorName').textContent = mentor;
+    if (date) {
+      const dateObj = new Date(date + 'T00:00:00');
+      const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('finalDate').textContent = formattedDate;
+    }
+  }
+
+  document.getElementById('studentName').addEventListener('input', updateDisplay);
+  document.getElementById('mentorName').addEventListener('change', updateDisplay);
+  document.getElementById('inductionDate').addEventListener('change', updateDisplay);
+
+  function generatePDF() {
+    const student = document.getElementById('studentName').value.trim();
+    const year = document.getElementById('yearGroup').value;
+    const mentor = document.getElementById('mentorName').value;
+    const date = document.getElementById('inductionDate').value;
+
+    if (!student || !year || !mentor || !date) {
+      alert("Please complete all required fields before generating PDF.");
+      return;
+    }
+
+    const dateObj = new Date(date + 'T00:00:00');
+    const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const pdfContent = document.getElementById('pdfContent');
+    pdfContent.innerHTML = `
+      <div style="padding: 40px; font-family: Arial, sans-serif; line-height: 1.8; color: #333;">
+        <h1 style="color: #004080; text-align: center; margin-bottom: 30px;">Mentoring Induction</h1>
+        <div style="margin-bottom: 30px; text-align: center;">
+          <p><strong>Student:</strong> ${student} (${year})</p>
+          <p><strong>Mentor:</strong> ${mentor}</p>
+          <p><strong>Date of Induction:</strong> ${formattedDate}</p>
+        </div>
+        
+        <h2 style="color: #004080; margin-top: 30px;">1. Introduction to Mentoring</h2>
+        <p>You are being mentored by <strong>${mentor}</strong> at Evolution Education. Mentoring is a supportive relationship designed to help you achieve your goals, develop your skills, and support your wellbeing.</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">2. Confidentiality</h2>
+        <p><strong>What we keep private:</strong> Your mentoring sessions are confidential. This means that what you share with your mentor will generally stay between you and your mentor.</p>
+        <p><strong>When we need to share information:</strong> However, there are important exceptions to confidentiality:</p>
+        <ul>
+          <li><strong>Safeguarding concerns:</strong> If you or someone else is at risk of harm, we have a legal duty to share this information with appropriate professionals (e.g., Designated Safeguarding Lead, Social Services, Police).</li>
+          <li><strong>Child protection:</strong> Any concerns about abuse, neglect, or exploitation must be reported immediately.</li>
+          <li><strong>Risk to yourself or others:</strong> If you express thoughts of self-harm, suicide, or harming others, we will need to involve safeguarding and support services.</li>
+          <li><strong>Legal requirements:</strong> In certain legal situations, information may need to be shared with authorities.</li>
+        </ul>
+        <p><strong>What we share with school:</strong> General progress updates and achievements may be shared with your Pathway Lead and school, but specific personal details from sessions will remain confidential unless there is a safeguarding concern.</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">3. Safeguarding</h2>
+        <p>Your safety and wellbeing are our priority. If you have any concerns about:</p>
+        <ul>
+          <li>Your own safety or wellbeing</li>
+          <li>The safety of another student</li>
+          <li>Something that doesn't feel right</li>
+          <li>Any form of abuse, bullying, or harm</li>
+        </ul>
+        <p>Please speak to your mentor, any member of staff, or contact the Designated Safeguarding Lead immediately. You can also contact Childline (0800 1111) or the NSPCC if you need support.</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">4. Mentoring Expectations</h2>
+        <p><strong>What you can expect from your mentor:</strong></p>
+        <ul>
+          <li>Regular, scheduled mentoring sessions</li>
+          <li>A safe, non-judgmental space to talk</li>
+          <li>Support in setting and working towards goals</li>
+          <li>Help with problem-solving and developing strategies</li>
+          <li>Advocacy and support when needed</li>
+        </ul>
+        <p><strong>What we expect from you:</strong></p>
+        <ul>
+          <li>Attendance at scheduled mentoring sessions</li>
+          <li>Honest and open communication</li>
+          <li>Respect for your mentor and the mentoring process</li>
+          <li>Engagement with agreed actions and targets</li>
+        </ul>
+        
+        <h2 style="color: #004080; margin-top: 30px;">5. Recording Sessions</h2>
+        <p>Mentoring sessions are recorded in Bromcom (our student management system) to:</p>
+        <ul>
+          <li>Track your progress and achievements</li>
+          <li>Ensure continuity of support</li>
+          <li>Help plan future sessions</li>
+          <li>Share progress updates with your Pathway Lead (general updates only)</li>
+        </ul>
+        <p>Personal and sensitive information remains confidential unless there is a safeguarding concern.</p>
+        
+        <h2 style="color: #004080; margin-top: 30px;">6. Questions & Consent</h2>
+        <p>Do you have any questions about mentoring, confidentiality, or safeguarding?</p>
+        <p>By proceeding with mentoring, you understand:</p>
+        <ul>
+          <li>That mentoring sessions are confidential, except where safeguarding concerns require information to be shared</li>
+          <li>That your mentor will support you in a safe, respectful way</li>
+          <li>That sessions will be recorded in Bromcom for progress tracking</li>
+          <li>That you can raise any concerns at any time</li>
+        </ul>
+        
+        <div style="margin-top: 50px; border-top: 2px solid #004080; padding-top: 20px;">
+          <p><strong>This induction has been read and understood by:</strong></p>
+          <p><strong>Student:</strong> ${student}</p>
+          <p><strong>Mentor:</strong> ${mentor}</p>
+          <p><strong>Date:</strong> ${formattedDate}</p>
+        </div>
+        
+        <div style="margin-top: 30px; text-align: center; font-size: 0.9em; color: #777;">
+          <p>Evolution Education — Mentoring Induction Document</p>
+        </div>
+      </div>
+    `;
+
+    const opt = {
+      margin: [10, 10, 10, 10],
+      filename: `Mentoring_Induction_${student.replace(/\s+/g, '_')}_${formattedDate.replace(/\s+/g, '_')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(pdfContent).save();
+  }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Safeguarding Form — Evolution Education</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 40px; 
+      background: #fafafa; 
+      color: #333; 
+      line-height: 1.6;
+    }
+    h1, h2 { color: #004080; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .warning-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .warning-box h3 {
+      margin-top: 0;
+      color: #856404;
+    }
+    .warning-box p {
+      color: #856404;
+      margin: 5px 0;
+    }
+    .info-box {
+      background: #dbeafe;
+      border-left: 4px solid #3b82f6;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .info-box h3 {
+      margin-top: 0;
+      color: #1e40af;
+    }
+    .info-box p {
+      color: #1e40af;
+      margin: 5px 0;
+    }
+    .form-group {
+      margin-bottom: 25px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .form-group label.required::after {
+      content: " *";
+      color: #dc3545;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="time"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #004080;
+    }
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+    .form-group small {
+      display: block;
+      margin-top: 5px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .checkbox-item input[type="checkbox"] {
+      width: auto;
+    }
+    .submit-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 4px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 20px;
+    }
+    .submit-btn:hover {
+      background: #c82333;
+    }
+    .submit-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .success-message {
+      background: #d4edda;
+      border: 1px solid #c3e6cb;
+      color: #155724;
+      padding: 15px;
+      border-radius: 4px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+<div class="container">
+  <h1>Safeguarding Form</h1>
+  
+  <div class="info-box" style="background: #e7f3ff; border-left-color: #004080;">
+    <h3>🛡️ Safeguarding Overview</h3>
+    
+    <h4 style="color: #004080; margin-top: 20px; margin-bottom: 10px;">Designated Safeguarding Team</h4>
+    <ul style="color: #1e40af; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+      <li><strong>DSL:</strong> E. Dwaah</li>
+      <li><strong>Deputy DSL:</strong> L. Dwaah</li>
+      <li><strong>SCR Manager:</strong> A. Dwaah</li>
+    </ul>
+    
+    <p style="color: #1e40af; margin-top: 15px; font-size: 0.95rem;">
+      <strong>Ultimate safeguarding accountability:</strong> Cathy Stygal (Headteacher, Mayesbrook Park School)
+    </p>
+    
+    <h4 style="color: #004080; margin-top: 25px; margin-bottom: 10px;">How to Report a Concern</h4>
+    <ol style="color: #1e40af; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+      <li><strong>Inform DSL or Deputy DSL immediately.</strong></li>
+      <li><strong>Record the concern factually on My Concern.</strong></li>
+      <li><strong>If urgent and no DSL is available:</strong>
+        <ul style="margin-top: 5px; padding-left: 20px;">
+          <li>Call MASH: <a href="tel:02082273811" style="color: #1e40af; text-decoration: underline;">020 8227 3811</a></li>
+          <li>Email: <a href="mailto:childrenss@lbbd.gov.uk" style="color: #1e40af; text-decoration: underline;">childrenss@lbbd.gov.uk</a></li>
+          <li>Complete a MARF</li>
+        </ul>
+      </li>
+      <li><strong>If a child is in immediate danger: Call 999.</strong></li>
+      <li><strong>Notify the DSL of any direct referral.</strong></li>
+    </ol>
+  </div>
+  
+  <div class="warning-box">
+    <h3>⚠️ Important: Urgent Safeguarding Concerns</h3>
+    <p><strong>If this is an immediate emergency, call 999.</strong></p>
+    <p>For urgent safeguarding concerns outside office hours, contact the Local Authority Designated Officer (LADO) or emergency services.</p>
+  </div>
+
+  <div class="info-box">
+    <h3>📧 Form Submission</h3>
+    <p><strong>This form will be automatically emailed to:</strong></p>
+    <ul style="color: #1e40af; margin: 10px 0; padding-left: 20px;">
+      <li>Designated Safeguarding Officer: edwaah@evolution-sportsgroup.com</li>
+      <li>Deputy Safeguarding Officer: ldwaah@evolution-sportsgroup.com</li>
+    </ul>
+    <p style="margin-top: 10px;">All information will be treated with the utmost confidentiality and in accordance with safeguarding procedures.</p>
+    <p style="margin-top: 10px; font-size: 0.9rem;"><strong>Note:</strong> After clicking submit, your email client will open with the form details. Please review and send the email.</p>
+  </div>
+
+  <form id="safeguardingForm">
+    <div class="form-group">
+      <label for="reporterName" class="required">Your Name</label>
+      <input type="text" id="reporterName" name="reporterName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="reporterRole" class="required">Your Role</label>
+      <select id="reporterRole" name="reporterRole" required>
+        <option value="">Please select...</option>
+        <option value="Pathway Lead">Pathway Lead</option>
+        <option value="Mentor">Mentor</option>
+        <option value="Teacher">Teacher</option>
+        <option value="Support Staff">Support Staff</option>
+        <option value="Senior Leadership">Senior Leadership</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="reporterEmail" class="required">Your Email</label>
+      <input type="text" id="reporterEmail" name="reporterEmail" required>
+      <small>For follow-up communication</small>
+    </div>
+
+    <div class="form-group">
+      <label for="reporterPhone">Your Phone Number</label>
+      <input type="text" id="reporterPhone" name="reporterPhone">
+      <small>Optional - for urgent matters</small>
+    </div>
+
+    <div class="form-group">
+      <label for="incidentDate" class="required">Date of Incident/Concern</label>
+      <input type="date" id="incidentDate" name="incidentDate" required>
+    </div>
+
+    <div class="form-group">
+      <label for="incidentTime">Time of Incident/Concern</label>
+      <input type="time" id="incidentTime" name="incidentTime">
+    </div>
+
+    <div class="form-group">
+      <label for="studentName" class="required">Student Name</label>
+      <input type="text" id="studentName" name="studentName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="studentYear">Student Year Group</label>
+      <select id="studentYear" name="studentYear">
+        <option value="">Please select...</option>
+        <option value="Year 7">Year 7</option>
+        <option value="Year 8">Year 8</option>
+        <option value="Year 9">Year 9</option>
+        <option value="Year 10">Year 10</option>
+        <option value="Year 11">Year 11</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="concernType" class="required">Type of Concern</label>
+      <div class="checkbox-group">
+        <div class="checkbox-item">
+          <input type="checkbox" id="physicalAbuse" name="concernType" value="Physical Abuse">
+          <label for="physicalAbuse">Physical Abuse</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="emotionalAbuse" name="concernType" value="Emotional Abuse">
+          <label for="emotionalAbuse">Emotional Abuse</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="sexualAbuse" name="concernType" value="Sexual Abuse">
+          <label for="sexualAbuse">Sexual Abuse</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="neglect" name="concernType" value="Neglect">
+          <label for="neglect">Neglect</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="bullying" name="concernType" value="Bullying">
+          <label for="bullying">Bullying</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="selfHarm" name="concernType" value="Self-Harm">
+          <label for="selfHarm">Self-Harm</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="mentalHealth" name="concernType" value="Mental Health">
+          <label for="mentalHealth">Mental Health</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="substanceAbuse" name="concernType" value="Substance Abuse">
+          <label for="substanceAbuse">Substance Abuse</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="onlineSafety" name="concernType" value="Online Safety">
+          <label for="onlineSafety">Online Safety</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="domesticViolence" name="concernType" value="Domestic Violence">
+          <label for="domesticViolence">Domestic Violence</label>
+        </div>
+        <div class="checkbox-item">
+          <input type="checkbox" id="other" name="concernType" value="Other">
+          <label for="other">Other</label>
+        </div>
+      </div>
+      <small>Select all that apply</small>
+    </div>
+
+    <div class="form-group">
+      <label for="urgency" class="required">Level of Urgency</label>
+      <select id="urgency" name="urgency" required>
+        <option value="">Please select...</option>
+        <option value="Immediate - Emergency">Immediate - Emergency (Call 999 if not already done)</option>
+        <option value="Urgent - Within 24 hours">Urgent - Within 24 hours</option>
+        <option value="High - Within 48 hours">High - Within 48 hours</option>
+        <option value="Standard - Within 5 working days">Standard - Within 5 working days</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="incidentDetails" class="required">Details of the Incident/Concern</label>
+      <textarea id="incidentDetails" name="incidentDetails" required placeholder="Provide a clear, factual account of what happened or what concerns you have. Include who was involved, what happened, when it happened, and where it happened."></textarea>
+      <small>Be as specific and factual as possible. Include dates, times, locations, and names of people involved.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="actionsTaken">Actions Already Taken</label>
+      <textarea id="actionsTaken" name="actionsTaken" placeholder="Describe any actions you have already taken in response to this concern."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="witnesses">Witnesses or Other People Involved</label>
+      <textarea id="witnesses" name="witnesses" placeholder="List any witnesses or other people involved in or aware of this incident."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="studentResponse">Student's Response/Statement</label>
+      <textarea id="studentResponse" name="studentResponse" placeholder="If the student has made a statement or disclosed information, include it here (use their exact words where possible)."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="parentContact">Has Parent/Carer Been Contacted?</label>
+      <select id="parentContact" name="parentContact">
+        <option value="">Please select...</option>
+        <option value="Yes - Informed">Yes - Informed</option>
+        <option value="Yes - Attempted but unable to reach">Yes - Attempted but unable to reach</option>
+        <option value="No - Not yet contacted">No - Not yet contacted</option>
+        <option value="No - Not appropriate at this stage">No - Not appropriate at this stage</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="additionalInfo">Additional Information</label>
+      <textarea id="additionalInfo" name="additionalInfo" placeholder="Any other relevant information, context, or background that may be helpful."></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" id="submitBtn">Submit Safeguarding Form</button>
+    
+    <div class="success-message" id="successMessage">
+      <strong>✓ Form submitted successfully!</strong> An email has been generated. Please check your email client to send it to the designated safeguarding officers.
+    </div>
+  </form>
+</div>
+
+<script>
+  document.getElementById('safeguardingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(this);
+    const data = {};
+    formData.forEach((value, key) => {
+      if (data[key]) {
+        // Handle multiple values (checkboxes)
+        if (Array.isArray(data[key])) {
+          data[key].push(value);
+        } else {
+          data[key] = [data[key], value];
+        }
+      } else {
+        data[key] = value;
+      }
+    });
+    
+    // Get checkbox values
+    const concernTypes = [];
+    document.querySelectorAll('input[name="concernType"]:checked').forEach(cb => {
+      concernTypes.push(cb.value);
+    });
+    data.concernType = concernTypes.join(', ');
+    
+    // Validate required fields
+    if (!data.reporterName || !data.reporterRole || !data.reporterEmail || 
+        !data.incidentDate || !data.studentName || !data.urgency || 
+        !data.incidentDetails || concernTypes.length === 0) {
+      alert('Please complete all required fields.');
+      return;
+    }
+    
+    // Build email content
+    const emailSubject = encodeURIComponent(`Safeguarding Concern - ${data.studentName} - ${data.incidentDate}`);
+    
+    let emailBody = `SAFEGUARDING CONCERN REPORT\n`;
+    emailBody += `================================\n\n`;
+    emailBody += `REPORTER INFORMATION\n`;
+    emailBody += `Name: ${data.reporterName}\n`;
+    emailBody += `Role: ${data.reporterRole}\n`;
+    emailBody += `Email: ${data.reporterEmail}\n`;
+    if (data.reporterPhone) emailBody += `Phone: ${data.reporterPhone}\n`;
+    emailBody += `\n`;
+    emailBody += `INCIDENT/CONCERN INFORMATION\n`;
+    emailBody += `Date: ${data.incidentDate}\n`;
+    if (data.incidentTime) emailBody += `Time: ${data.incidentTime}\n`;
+    emailBody += `Student Name: ${data.studentName}\n`;
+    if (data.studentYear) emailBody += `Year Group: ${data.studentYear}\n`;
+    emailBody += `Type of Concern: ${data.concernType}\n`;
+    emailBody += `Level of Urgency: ${data.urgency}\n`;
+    emailBody += `\n`;
+    emailBody += `DETAILS OF INCIDENT/CONCERN\n`;
+    emailBody += `${data.incidentDetails}\n`;
+    emailBody += `\n`;
+    if (data.actionsTaken) {
+      emailBody += `ACTIONS ALREADY TAKEN\n`;
+      emailBody += `${data.actionsTaken}\n`;
+      emailBody += `\n`;
+    }
+    if (data.witnesses) {
+      emailBody += `WITNESSES/OTHER PEOPLE INVOLVED\n`;
+      emailBody += `${data.witnesses}\n`;
+      emailBody += `\n`;
+    }
+    if (data.studentResponse) {
+      emailBody += `STUDENT'S RESPONSE/STATEMENT\n`;
+      emailBody += `${data.studentResponse}\n`;
+      emailBody += `\n`;
+    }
+    if (data.parentContact) {
+      emailBody += `PARENT/CARER CONTACT\n`;
+      emailBody += `${data.parentContact}\n`;
+      emailBody += `\n`;
+    }
+    if (data.additionalInfo) {
+      emailBody += `ADDITIONAL INFORMATION\n`;
+      emailBody += `${data.additionalInfo}\n`;
+      emailBody += `\n`;
+    }
+    emailBody += `\n`;
+    emailBody += `This form was submitted on ${new Date().toLocaleString('en-GB')}\n`;
+    emailBody += `\n`;
+    emailBody += `CONFIDENTIAL - SAFEGUARDING INFORMATION`;
+    
+    // Create mailto link with both safeguarding officers
+    const emailTo = 'edwaah@evolution-sportsgroup.com'; // Designated Safeguarding Officer
+    const emailCC = 'ldwaah@evolution-sportsgroup.com'; // Deputy Safeguarding Officer
+    
+    // Build mailto link - send to primary, CC to deputy
+    const mailtoLink = `mailto:${emailTo}?cc=${emailCC}&subject=${emailSubject}&body=${encodeURIComponent(emailBody)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    // Show success message
+    document.getElementById('successMessage').style.display = 'block';
+    document.getElementById('submitBtn').disabled = true;
+    
+    // Scroll to success message
+    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
+

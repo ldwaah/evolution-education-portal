@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Support & Mentoring — Evolution Education</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; color: #333; }
+    h1, h2 { color: #004080; }
+    form { background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 900px; }
+    label { display: block; margin-top: 15px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-top: 6px; border: 1px solid #ccc; border-radius: 4px; }
+    textarea { height: 80px; }
+    button { background: #004080; color: white; border: none; padding: 10px 16px; border-radius: 4px; margin-top: 20px; cursor: pointer; }
+    button:hover { background: #0066cc; }
+    footer { margin-top: 40px; font-size: 0.9em; color: #777; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+  <h1>Student Support / Mentoring Form</h1>
+
+  <p>Use this form to generate a formatted entry for Bromcom. Fill in the details below, then copy and paste the generated text into Bromcom.</p>
+
+  <form id="mentoringForm">
+
+    <h2>1. Student Details</h2>
+
+    <label>Student Name *</label>
+    <input type="text" id="studentName" required>
+
+    <label>Year Group *</label>
+    <select id="yearGroup" required>
+      <option value="">Select…</option>
+      <option>Year 7</option><option>Year 8</option><option>Year 9</option>
+      <option>Year 10</option><option>Year 11</option>
+    </select>
+
+    <label>Mentor Name *</label>
+    <select id="mentorName" required>
+      <option value="">Select…</option>
+      <option>MC</option><option>JC</option><option>DC</option>
+      <option>LD</option><option>AD</option><option>LG</option><option>SA</option>
+    </select>
+
+    <label>Key Stage / Pathway Area *</label>
+    <select id="pathwayLead" required>
+      <option value="">Select…</option>
+      <option value="KS4 & Future Pathways">KS4 & Future Pathways</option>
+      <option value="KS3">KS3</option>
+      <option value="Flexi">Flexi</option>
+    </select>
+
+    <h2>2. Session Details</h2>
+
+    <label>Session Date *</label>
+    <input type="date" id="sessionDate" required>
+
+    <label>Session Mode</label>
+    <select id="sessionMode">
+      <option>In Person</option><option>Online</option><option>Hybrid</option>
+    </select>
+
+    <label>Focus Area</label>
+    <input type="text" id="focusArea" placeholder="e.g., Attendance, Motivation, Emotional Regulation">
+
+    <h2>3. Mentoring Overview</h2>
+
+    <label>Engagement</label>
+    <select id="engagement">
+      <option>Excellent</option><option>Good</option><option>Variable</option><option>Low</option>
+    </select>
+
+    <label>Progress</label>
+    <select id="progress">
+      <option>Improving</option><option>Stable</option><option>Declined</option>
+    </select>
+
+    <label>Wellbeing / SEMH Notes</label>
+    <textarea id="semhNotes" placeholder="Brief summary of emotional wellbeing or support concerns..."></textarea>
+
+    <label>Actions / Targets</label>
+    <textarea id="actions" placeholder="Next steps, mentoring targets or interventions..."></textarea>
+
+    <h2>4. Next Steps / Support Required</h2>
+
+    <textarea id="supportNeeded" placeholder="Describe if any additional support, intervention or referral is needed..."></textarea>
+
+    <button type="button" id="generateBtn">Generate Bromcom Entry</button>
+
+  </form>
+
+  <div id="outputSection" style="display: none; margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 900px;">
+    <h2 style="color: #004080; margin-top: 0;">Generated Entry for Bromcom</h2>
+    <textarea id="bromcomOutput" readonly style="width: 100%; min-height: 200px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6;"></textarea>
+    <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <button type="button" onclick="copyToClipboard()" style="background: #004080; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer;">
+        Copy to Clipboard
+      </button>
+      <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" style="background: #28a745; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block;">
+        Go to Bromcom →
+      </a>
+    </div>
+    <span id="copyFeedback" style="margin-left: 10px; color: #28a745; font-weight: bold; display: none;">✓ Copied!</span>
+  </div>
+
+  <footer>
+    v1.1 • Last updated 10 December 2025 • Evolution Education
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const generateBtn = document.getElementById('generateBtn');
+      if (generateBtn) {
+        generateBtn.addEventListener('click', generateBromcomEntry);
+      }
+    });
+
+    function generateBromcomEntry(e) {
+      if (e) e.preventDefault();
+      
+      const student = document.getElementById('studentName').value.trim();
+      const year = document.getElementById('yearGroup').value;
+      const mentor = document.getElementById('mentorName').value;
+      const pathway = document.getElementById('pathwayLead').value;
+      const date = document.getElementById('sessionDate').value;
+      const mode = document.getElementById('sessionMode').value;
+      const focus = document.getElementById('focusArea').value.trim();
+      const engage = document.getElementById('engagement').value;
+      const progress = document.getElementById('progress').value;
+      const semh = document.getElementById('semhNotes').value.trim();
+      const actions = document.getElementById('actions').value.trim();
+      const support = document.getElementById('supportNeeded').value.trim();
+
+      if (!student || !year || !mentor || !pathway || !date) {
+        alert("Please complete all required fields (marked with *) before generating.");
+        return false;
+      }
+
+      // Format date for display
+      let formattedDate = date;
+      try {
+        const dateObj = new Date(date + 'T00:00:00');
+        if (!isNaN(dateObj.getTime())) {
+          formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+      } catch (err) {
+        // Use original date if formatting fails
+        formattedDate = date;
+      }
+
+      // Build the Bromcom entry text
+      let entry = `Completed mentoring session with ${student} (${year}).\n\n`;
+      
+      entry += `Session Date: ${formattedDate}\n`;
+      entry += `Session Mode: ${mode}\n`;
+      entry += `Mentor: ${mentor}\n`;
+      entry += `Pathway Area: ${pathway}\n\n`;
+      
+      if (focus) {
+        entry += `Areas of focus were: ${focus}\n\n`;
+      }
+      
+      entry += `Engagement: ${engage}\n`;
+      entry += `Progress: ${progress}\n\n`;
+      
+      if (semh) {
+        entry += `Wellbeing / SEMH Notes:\n${semh}\n\n`;
+      }
+      
+      if (actions) {
+        entry += `Actions / Targets:\n${actions}\n\n`;
+      }
+      
+      if (support) {
+        entry += `Additional Support Required:\n${support}\n\n`;
+      }
+
+      // Display the output
+      const outputElement = document.getElementById('bromcomOutput');
+      const outputSection = document.getElementById('outputSection');
+      
+      if (outputElement && outputSection) {
+        outputElement.value = entry;
+        outputSection.style.display = 'block';
+        
+        // Scroll to output
+        setTimeout(() => {
+          outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      } else {
+        alert('Error: Could not find output elements.');
+      }
+      
+      return false;
+    }
+
+    function copyToClipboard() {
+      const output = document.getElementById('bromcomOutput');
+      if (!output) {
+        alert('No text to copy.');
+        return;
+      }
+      
+      output.select();
+      output.setSelectionRange(0, 99999); // For mobile devices
+      
+      try {
+        const successful = document.execCommand('copy');
+        if (successful) {
+          const feedback = document.getElementById('copyFeedback');
+          if (feedback) {
+            feedback.style.display = 'inline';
+            setTimeout(() => {
+              feedback.style.display = 'none';
+            }, 2000);
+          }
+        } else {
+          alert('Copy command failed. Please select and copy manually (Ctrl+C or Cmd+C).');
+        }
+      } catch (err) {
+        alert('Failed to copy. Please select and copy manually (Ctrl+C or Cmd+C).');
+      }
+    }
+  </script>
+
+</body>
+</html>
+

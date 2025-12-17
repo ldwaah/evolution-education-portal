@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pathways</title>
+  <style>
+    :root{
+      --bg:#0f172a;           /* slate-900 */
+      --card:#111827;         /* gray-900 */
+      --muted:#93c5fd;        /* blue-300 */
+      --ink:#e5e7eb;          /* gray-200 */
+      --accent:#60a5fa;       /* blue-400 */
+      --accent-2:#2563eb;     /* blue-600 */
+      --ring: rgba(96,165,250,.45);
+      --ok:#22c55e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:linear-gradient(180deg,#0b1025,#0f172a 40%,#0b1025);
+      color:var(--ink); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      -webkit-font-smoothing:antialiased; line-height:1.45;
+    }
+    header{
+      padding:32px 20px 10px; text-align:center;
+    }
+    h1{margin:0 0 6px; font-size: clamp(22px, 3.5vw, 36px);}
+    p.sub{margin:0; color:#cbd5e1}
+    .wrap{max-width:1100px; margin:28px auto 56px; padding:0 16px;}
+    .grid{
+      display:grid; gap:18px;
+      grid-template-columns: repeat( auto-fit, minmax(240px, 1fr) );
+    }
+    .tile{
+      position:relative; border:1px solid #1f2937; background:linear-gradient(180deg,#0b1227, #0e162f);
+      border-radius:16px; padding:18px; transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      box-shadow:0 6px 22px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.03);
+      cursor:pointer; min-height:168px; display:flex; flex-direction:column; gap:14px; justify-content:space-between;
+      outline:none;
+    }
+    .tile:focus-visible{ box-shadow:0 0 0 4px var(--ring), 0 6px 22px rgba(0,0,0,.35); border-color:var(--accent); }
+    .tile:hover{ transform:translateY(-2px); border-color:#334155; }
+    .row{ display:flex; align-items:center; gap:14px;}
+    .badge{
+      width:64px; height:64px; border-radius:50%;
+      background: radial-gradient(40% 45% at 50% 35%, #8ab6ff, #5ea1ff) padding-box,
+                  conic-gradient(from 220deg, #1b2a52, #182447, #182447, #1b2a52) border-box;
+      border:2px solid #10234a; display:grid; place-items:center;
+      color:#0a1225; font-weight:800; font-size:18px; letter-spacing:.5px;
+      text-shadow:0 1px 0 rgba(255,255,255,.35);
+    }
+    .title{font-weight:700; font-size:18px}
+    .muted{color:#c7d2fe}
+    .cta{
+      align-self:flex-start; background:linear-gradient(180deg, var(--accent), var(--accent-2));
+      color:white; font-weight:700; border:0; border-radius:10px; padding:10px 12px; cursor:pointer;
+      transition: transform .15s ease, box-shadow .15s ease; box-shadow:0 6px 16px rgba(37,99,235,.35);
+    }
+    .cta:hover{ transform:translateY(-1px) }
+    .cta:focus-visible{ outline: 4px solid var(--ring)}
+    /* Drawer */
+    dialog{
+      width:min(860px, calc(100vw - 24px));
+      max-height:85vh; border:1px solid #1f2937; border-radius:16px; padding:0;
+      background:linear-gradient(180deg,#0d142c,#0b1226 55%, #0d142c);
+      color:var(--ink); box-shadow:0 18px 60px rgba(0,0,0,.55);
+    }
+    dialog::backdrop{ background: rgba(2,6,23,.6) }
+    .d-head{padding:18px 18px 12px; border-bottom:1px solid #1f2937; display:flex; align-items:center; gap:12px}
+    .d-title{font-size:18px; font-weight:800}
+    .d-body{padding:16px 18px 22px; overflow:auto}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px; font-size:13px; padding:6px 10px;
+      border:1px solid #26324a; border-radius:999px; color:#dbeafe; background:#0a1630;
+      margin:0 6px 8px 0;
+    }
+    .pill svg{width:14px;height:14px}
+    ul.check{
+      margin:14px 0 0 0; padding:0; list-style:none; display:grid; gap:10px;
+    }
+    ul.check li{
+      background:#0a142a; border:1px solid #1e293b; padding:10px 12px; border-radius:10px;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .tick{color:var(--ok); font-weight:900; margin-top:1px}
+    .fineprint{font-size:12px; color:#93a2c8; margin-top:14px}
+    .d-foot{display:flex; justify-content:flex-end; gap:10px; padding:12px 18px 18px; border-top:1px solid #1f2937}
+    .ghost{
+      background:transparent; border:1px solid #334155; color:#cbd5e1; border-radius:10px; padding:10px 12px; cursor:pointer;
+    }
+    a.inline{color:#93c5fd; text-decoration:underline dotted}
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      color: #93c5fd;
+      text-decoration: none;
+      padding: 8px 12px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .back-link:hover {
+      background: rgba(15, 23, 42, 0.95);
+      border-color: #60a5fa;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+  <header>
+    <h1>Pathways</h1>
+    <p class="sub">Click a pathway to see what students should achieve by year end.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="grid" aria-label="Pathway options">
+
+      <!-- KS3 Minimum Expectations -->
+      <button class="tile" data-dialog="ks3">
+        <div class="row">
+          <div class="badge" aria-hidden="true">KS3</div>
+          <div>
+            <div class="title">Key Stage 3</div>
+            <div class="muted">Minimum Expectations</div>
+          </div>
+        </div>
+        <span class="cta" aria-hidden="true">View outcomes</span>
+      </button>
+
+      <!-- KS3 Future Pathways -->
+      <button class="tile" data-dialog="ks3fp">
+        <div class="row">
+          <div class="badge" aria-hidden="true">KS3</div>
+          <div>
+            <div class="title">KS3 – Future Pathways</div>
+            <div class="muted">Year 9 Full-Time Programme</div>
+          </div>
+        </div>
+        <span class="cta" aria-hidden="true">View outcomes</span>
+      </button>
+
+      <!-- KS4 Year 10 -->
+      <button class="tile" data-dialog="y10">
+        <div class="row">
+          <div class="badge" aria-hidden="true">Y10</div>
+          <div>
+            <div class="title">KS4: Year 10</div>
+            <div class="muted">Flexi Pathway · Sports/Beauty</div>
+          </div>
+        </div>
+        <span class="cta" aria-hidden="true">View outcomes</span>
+      </button>
+
+      <!-- KS4 Year 11 -->
+      <button class="tile" data-dialog="y11">
+        <div class="row">
+          <div class="badge" aria-hidden="true">Y11</div>
+          <div>
+            <div class="title">KS4: Year 11</div>
+            <div class="muted">Flexi Pathway · Sports/Beauty</div>
+          </div>
+        </div>
+        <span class="cta" aria-hidden="true">View outcomes</span>
+      </button>
+
+    </section>
+  </main>
+
+  <!-- Dialog: KS3 Minimum Expectations -->
+  <dialog id="ks3" aria-labelledby="ks3title">
+    <div class="d-head">
+      <div class="badge" aria-hidden="true" style="width:42px;height:42px;font-size:14px">KS3</div>
+      <div class="d-title" id="ks3title">KS3 – Minimum Expectations</div>
+    </div>
+    <div class="d-body">
+      <div>
+        <span class="pill" title="AQA units"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Zm0 12l9 6-9 6-9-6" stroke="currentColor" stroke-width="1.6"/></svg>AQA Units</span>
+      </div>
+      <ul class="check">
+        <li><span class="tick">✓</span><span>AQA: Leadership in Sport</span></li>
+        <li><span class="tick">✓</span><span>AQA: Managing Anger</span></li>
+        <li><span class="tick">✓</span><span>AQA Art for Therapy — <em>Self Soothing</em></span></li>
+        <li><span class="tick">✓</span><span>AQA Art for Therapy — <em>Celebrating Me</em></span></li>
+        <li><span class="tick">✓</span><span>AQA Healthy Living — Food Groups & Life Skills</span></li>
+        <li><span class="tick">✓</span><span>AQA Life Skills — Cooking</span></li>
+        <li><span class="tick">✓</span><span>AQA: Teamwork in Sport</span></li>
+        <li><span class="tick">✓</span><span>AQA: Emotional Wellbeing</span></li>
+        <li><span class="tick">✓</span><span>AQA: Personal and Social Skills</span></li>
+      </ul>
+      <p class="fineprint">All KS3 students should achieve these minimum AQA units by the end of the academic year.</p>
+    </div>
+    <div class="d-foot">
+      <button class="ghost" onclick="document.getElementById('ks3').close()">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Dialog: KS3 Future Pathways -->
+  <dialog id="ks3fp" aria-labelledby="ks3fptitle">
+    <div class="d-head">
+      <div class="badge" aria-hidden="true" style="width:42px;height:42px;font-size:14px">KS3</div>
+      <div class="d-title" id="ks3fptitle">KS3 – Future Pathways</div>
+    </div>
+    <div class="d-body">
+      <p style="margin-bottom: 16px; color: #cbd5e1;"><strong>Programme context:</strong> Future Pathway (FP): Year 9 students who are on a full-time permanent programme with us (Sports/Beauty pathway).</p>
+      <div>
+        <span class="pill" title="AQA units"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Zm0 12l9 6-9 6-9-6" stroke="currentColor" stroke-width="1.6"/></svg>AQA Units</span>
+      </div>
+      <ul class="check">
+        <li><span class="tick">✓</span><span>AQA: Being a Responsible Citizen</span></li>
+        <li><span class="tick">✓</span><span>AQA: Managing Anger</span></li>
+        <li><span class="tick">✓</span><span>AQA Art for Therapy — <em>Self Soothing</em></span></li>
+        <li><span class="tick">✓</span><span>AQA Art for Therapy — <em>Celebrating Me</em></span></li>
+        <li><span class="tick">✓</span><span>AQA Healthy Living — Food Groups</span></li>
+        <li><span class="tick">✓</span><span>AQA Life Skills — Cooking</span></li>
+        <li><span class="tick">✓</span><span>AQA: Diversity</span></li>
+        <li><span class="tick">✓</span><span>AQA: Identity</span></li>
+        <li><span class="tick">✓</span><span>AQA: British Values</span></li>
+        <li><span class="tick">✓</span><span>AQA: Personal and Social Skills</span></li>
+        <li><span class="tick">✓</span><span>AQA: Leadership in Sport</span></li>
+        <li><span class="tick">✓</span><span>AQA: Teamwork in Sport</span></li>
+        <li><span class="tick">✓</span><span>AQA: Emotional Wellbeing</span></li>
+      </ul>
+      <p class="fineprint">All KS3 Future Pathways students should achieve these minimum AQA units by the end of the academic year.</p>
+    </div>
+    <div class="d-foot">
+      <button class="ghost" onclick="document.getElementById('ks3fp').close()">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Dialog: Year 10 -->
+  <dialog id="y10" aria-labelledby="y10title">
+    <div class="d-head">
+      <div class="badge" aria-hidden="true" style="width:42px;height:42px;font-size:14px">Y10</div>
+      <div class="d-title" id="y10title">KS4 – Year 10 Minimum Expectations</div>
+    </div>
+    <div class="d-body">
+      <p style="margin-bottom: 16px; color: #cbd5e1;"><strong>Programme context:</strong> Flexi Pathway (FP): Year 10 students who are on a full-time permanent programme with us (Sports/Beauty pathway).</p>
+      <div>
+        <span class="pill" title="Certificates and Units"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Zm0 12l9 6-9 6-9-6" stroke="currentColor" stroke-width="1.6"/></svg>Certificates & Units</span>
+      </div>
+      <ul class="check">
+        <li><span class="tick">✓</span><span>Health & Safety – Level 1 Certificate</span></li>
+        <li><span class="tick">✓</span><span>First Aid – Level 1 Certificate</span></li>
+        <li><span class="tick">✓</span><span>Safeguarding in Sport</span></li>
+        <li><span class="tick">✓</span><span>Kings Trust Certificate</span></li>
+        <li><span class="tick">✓</span><span>Sports Leaders – Level 1</span></li>
+        <li><span class="tick">✓</span><span>Duke of Edinburgh – 3 Units</span></li>
+      </ul>
+      <p class="fineprint">All Year 10 students on the Flexi Pathway must complete these certificates and units by the end of the academic year.</p>
+    </div>
+    <div class="d-foot">
+      <button class="ghost" onclick="document.getElementById('y10').close()">Close</button>
+    </div>
+  </dialog>
+
+  <!-- Dialog: Year 11 -->
+  <dialog id="y11" aria-labelledby="y11title">
+    <div class="d-head">
+      <div class="badge" aria-hidden="true" style="width:42px;height:42px;font-size:14px">Y11</div>
+      <div class="d-title" id="y11title">KS4 – Year 11 Minimum Expectations</div>
+    </div>
+    <div class="d-body">
+      <p style="margin-bottom: 16px; color: #cbd5e1;"><strong>Programme context:</strong> Flexi Pathway (FP): Year 11 students who are on a full-time permanent programme with us (Sports/Beauty pathway).</p>
+      <div>
+        <span class="pill" title="Awards and Qualifications"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 6-9 6-9-6 9-6Zm0 12l9 6-9 6-9-6" stroke="currentColor" stroke-width="1.6"/></svg>Awards & Qualifications</span>
+      </div>
+      <ul class="check">
+        <li><span class="tick">✓</span><span>Kings Trust Award</span></li>
+        <li><span class="tick">✓</span><span>Sports Leaders – Level 1</span></li>
+        <li><span class="tick">✓</span><span>Sports Leaders – Level 2</span></li>
+        <li><span class="tick">✓</span><span>Duke of Edinburgh – Certificate & Bronze</span></li>
+        <li><span class="tick">✓</span><span>PE Life Skills</span></li>
+        <li><span class="tick">✓</span><span>EE Playmaker</span></li>
+        <li><span class="tick">✓</span><span>Functional Skills – Maths</span></li>
+        <li><span class="tick">✓</span><span>GCSEs – English & Maths</span></li>
+      </ul>
+      <p class="fineprint">All Year 11 students on the Flexi Pathway must complete these awards and qualifications by the end of the academic year.</p>
+    </div>
+    <div class="d-foot">
+      <button class="ghost" onclick="document.getElementById('y11').close()">Close</button>
+    </div>
+  </dialog>
+
+  <script>
+    document.querySelectorAll('.tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        const dialogId = tile.getAttribute('data-dialog');
+        const dialog = document.getElementById(dialogId);
+        if (dialog) {
+          dialog.showModal();
+        }
+      });
+    });
+
+    // Close on Escape key
+    document.querySelectorAll('dialog').forEach(dialog => {
+      dialog.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          dialog.close();
+        }
+      });
+    });
+
+    // Close on backdrop click
+    document.querySelectorAll('dialog').forEach(dialog => {
+      dialog.addEventListener('click', (e) => {
+        if (e.target === dialog) {
+          dialog.close();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
+

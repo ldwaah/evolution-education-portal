@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student & Lesson Observation Record</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #e0e7ff;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 100%);
+      color: var(--gray-800);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(99, 102, 241, 0.15);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 30px 40px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .header .subtitle {
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 15px;
+      transition: opacity 0.2s;
+    }
+    
+    .back-link:hover {
+      opacity: 1;
+    }
+    
+    .form-body {
+      padding: 30px 40px;
+    }
+    
+    @media (max-width: 768px) {
+      body { padding: 10px; }
+      .header { padding: 20px; }
+      .header h1 { font-size: 1.4rem; }
+      .form-body { padding: 20px; }
+    }
+    
+    /* Sections */
+    .section {
+      margin-bottom: 35px;
+      padding-bottom: 30px;
+      border-bottom: 2px solid var(--gray-100);
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .section-number {
+      background: var(--primary);
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+    
+    /* Form Elements */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .form-grid-3 { grid-template-columns: 1fr; }
+    }
+    
+    .form-group {
+      margin-bottom: 18px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--gray-700);
+      font-size: 0.95rem;
+    }
+    
+    .form-group label.required::after {
+      content: " *";
+      color: var(--danger);
+    }
+    
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: white;
+    }
+    
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    
+    /* Checkbox Groups */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      background: var(--gray-50);
+      border: 2px solid var(--gray-200);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .checkbox-item:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+    
+    .checkbox-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    
+    .checkbox-item label {
+      font-weight: normal;
+      margin: 0;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    
+    /* Dynamic Student Inputs */
+    .student-inputs-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+    
+    .student-input-wrapper {
+      position: relative;
+    }
+    
+    .student-input-wrapper input {
+      padding-left: 40px;
+    }
+    
+    .student-number {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary);
+      color: white;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    
+    /* Spreadsheet-Style Tables */
+    .data-table-wrapper {
+      overflow-x: auto;
+      margin-top: 15px;
+      border: 2px solid var(--gray-200);
+      border-radius: 10px;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+    }
+    
+    .data-table th {
+      background: var(--gray-100);
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--gray-700);
+      border-bottom: 2px solid var(--gray-200);
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+    
+    .data-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: middle;
+    }
+    
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .data-table tr:hover {
+      background: var(--gray-50);
+    }
+    
+    .data-table .student-name-cell {
+      font-weight: 600;
+      color: var(--gray-800);
+      min-width: 150px;
+    }
+    
+    .data-table input,
+    .data-table select {
+      padding: 10px 12px;
+      font-size: 0.95rem;
+    }
+    
+    .data-table select {
+      min-width: 180px;
+    }
+    
+    .data-table .notes-input {
+      min-width: 200px;
+    }
+    
+    /* Engagement Level Colors */
+    .engagement-high { background: #dcfce7 !important; border-color: #22c55e !important; }
+    .engagement-moderate { background: #fef3c7 !important; border-color: #f59e0b !important; }
+    .engagement-low { background: #fee2e2 !important; border-color: #ef4444 !important; }
+    
+    /* Buttons */
+    .button-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+      padding-top: 25px;
+      border-top: 2px solid var(--gray-100);
+    }
+    
+    .btn {
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+    
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--primary-light);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
+    }
+    
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-600);
+      background: var(--gray-50);
+      border-radius: 10px;
+      border: 2px dashed var(--gray-300);
+    }
+    
+    .empty-state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+        padding: 10px;
+        font-size: 11pt;
+      }
+      
+      .container {
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+      }
+      
+      .form-body {
+        padding: 15px;
+      }
+      
+      .header {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 15px;
+      }
+      
+      .back-link,
+      .button-group,
+      .success-message,
+      .empty-state {
+        display: none !important;
+      }
+      
+      .section {
+        break-inside: avoid;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+      }
+      
+      .data-table-wrapper {
+        overflow: visible;
+        border: 1px solid #333;
+      }
+      
+      .data-table {
+        min-width: 0;
+        font-size: 10pt;
+      }
+      
+      .data-table th {
+        background: #f0f0f0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 8px;
+      }
+      
+      .data-table td {
+        padding: 8px;
+        border: 1px solid #ddd;
+      }
+      
+      .section-number {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .checkbox-item {
+        background: white !important;
+        border: 1px solid #ccc;
+        padding: 6px 10px;
+      }
+      
+      .checkbox-grid {
+        gap: 6px;
+      }
+      
+      /* Show form values in print */
+      input[type="text"],
+      input[type="number"],
+      input[type="date"],
+      select,
+      textarea {
+        border: 1px solid #999 !important;
+        background: #fafafa !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .form-grid, .form-grid-3 {
+        gap: 10px;
+      }
+      
+      .form-group {
+        margin-bottom: 12px;
+      }
+      
+      /* Student inputs */
+      .student-inputs-container {
+        gap: 8px;
+      }
+      
+      .student-input-wrapper input {
+        padding: 8px 8px 8px 35px;
+      }
+      
+      .student-number {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        width: 18px;
+        height: 18px;
+        font-size: 0.7rem;
+      }
+      
+      /* Print-specific value display */
+      .print-value {
+        display: block !important;
+        font-weight: 600;
+        padding: 8px;
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      
+      .screen-only {
+        display: none !important;
+      }
+    }
+    
+    /* Success Message */
+    .success-message {
+      background: #dcfce7;
+      border: 2px solid #22c55e;
+      color: #166534;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .success-message h4 {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <a href="index.html" class="back-link">← Back to Dashboard</a>
+    <h1>Student & Lesson Observation Record</h1>
+    <p class="subtitle">Purple Ruler / Sports / Generic Observation</p>
+  </div>
+  
+  <div class="form-body">
+    <form id="observationForm">
+      
+      <!-- Section 1: Observation Details -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">1</span>
+          <h2 class="section-title">Observation Details</h2>
+        </div>
+        
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="staffInitials" class="required">Staff Initials</label>
+            <select id="staffInitials" name="staffInitials" required>
+              <option value="">Select Staff</option>
+              <option value="LD">LD - Lloyd</option>
+              <option value="SA">SA - Sacha</option>
+              <option value="DJ">DJ - De'juane</option>
+              <option value="LR">LR - Lorelle</option>
+              <option value="MC">MC - Malikah</option>
+              <option value="JC">JC - Jeff</option>
+              <option value="AB">AB - Amy</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="observationDate" class="required">Date of Observation</label>
+            <input type="date" id="observationDate" name="observationDate" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="period" class="required">Period</label>
+            <select id="period" name="period" required>
+              <option value="">Select Period</option>
+              <option value="P1">P1</option>
+              <option value="P2">P2</option>
+              <option value="P3">P3</option>
+              <option value="P4">P4</option>
+              <option value="P5">P5</option>
+              <option value="P6">P6</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="keyStage" class="required">Key Stage</label>
+            <select id="keyStage" name="keyStage" required>
+              <option value="">Select Key Stage</option>
+              <option value="KS3">KS3</option>
+              <option value="KS4">KS4</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="sessionType" class="required">Subject / Session Type</label>
+            <select id="sessionType" name="sessionType" required>
+              <option value="">Select Type</option>
+              <option value="Maths">Maths</option>
+              <option value="English">English</option>
+              <option value="Sports">Sports</option>
+              <option value="Focused Learning Session">Focused Learning Session</option>
+              <option value="Intervention / Other">Intervention / Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 2: Students Present -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">2</span>
+          <h2 class="section-title">Students Present</h2>
+        </div>
+        
+        <p style="color: #6b7280; margin-bottom: 15px; font-size: 0.95rem;">
+          Enter the number of students, then type their names. All snapshot tables will automatically populate.
+        </p>
+        
+        <div class="form-group">
+          <label for="numStudents" class="required">Number of Students Present (max 12)</label>
+          <input type="number" id="numStudents" name="numStudents" min="1" max="12" placeholder="e.g. 5" style="max-width: 200px;">
+        </div>
+        
+        <div id="studentNamesContainer"></div>
+      </div>
+      
+      <!-- Section 3: Engagement Snapshot -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">3</span>
+          <h2 class="section-title">Engagement Snapshot</h2>
+        </div>
+        
+        <div id="engagementTableContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">👥</div>
+            <p>Enter the number of students above to see the engagement snapshot</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 4: Behaviour Snapshot -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">4</span>
+          <h2 class="section-title">Behaviour Snapshot</h2>
+        </div>
+        
+        <div id="behaviourTableContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">📋</div>
+            <p>Enter the number of students above to see the behaviour snapshot</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 5: Interventions Snapshot -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">5</span>
+          <h2 class="section-title">Interventions Snapshot</h2>
+        </div>
+        
+        <div id="interventionsTableContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">🛠️</div>
+            <p>Enter the number of students above to see the interventions snapshot</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 6: Barriers Snapshot -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">6</span>
+          <h2 class="section-title">Barriers Snapshot</h2>
+        </div>
+        
+        <div id="barriersTableContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">🚧</div>
+            <p>Enter the number of students above to see the barriers snapshot</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 7: Outcomes by End of Session -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">7</span>
+          <h2 class="section-title">Outcomes by End of Session (Per Student)</h2>
+        </div>
+        
+        <div id="outcomesTableContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">📊</div>
+            <p>Enter the number of students and their names above to see the outcomes table</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 8: Follow-Up Snapshot -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">8</span>
+          <h2 class="section-title">Follow-Up Snapshot</h2>
+        </div>
+        
+        <div id="followUpTableContainer">
+          <div class="empty-state">
+            <div class="empty-state-icon">📌</div>
+            <p>Enter the number of students above to see the follow-up snapshot</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Section 9: Staff Reflection -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-number">9</span>
+          <h2 class="section-title">Staff Reflection</h2>
+        </div>
+        
+        <div class="form-group">
+          <label for="supportAction" class="required">What did you actively do to support learning?</label>
+          <textarea id="supportAction" name="supportAction" required placeholder="Describe your active support during this session..."></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="nextSession">What will you do differently next session?</label>
+          <textarea id="nextSession" name="nextSession" placeholder="Reflect on improvements for next time..."></textarea>
+        </div>
+      </div>
+      
+      <!-- Actions -->
+      <div class="button-group">
+        <button type="button" class="btn btn-primary" onclick="generatePDF()">
+          📄 Generate PDF
+        </button>
+      </div>
+      
+      <p style="margin-top: 15px; color: #6b7280; font-size: 0.9rem; text-align: center;">
+        Click "Generate PDF" to save and upload to Google Drive
+      </p>
+      
+    </form>
+  </div>
+</div>
+
+<script>
+  // Set today's date as default
+  document.getElementById('observationDate').valueAsDate = new Date();
+  
+  // Store student names
+  let studentNames = [];
+  
+  // Function to generate student inputs
+  function generateStudentInputs() {
+    const numInput = document.getElementById('numStudents');
+    const num = Math.min(Math.max(parseInt(numInput.value) || 0, 0), 12);
+    const container = document.getElementById('studentNamesContainer');
+    
+    if (num === 0 || isNaN(num)) {
+      container.innerHTML = '';
+      updateEngagementTable([]);
+      updateOutcomesTable([]);
+      return;
+    }
+    
+    let html = '<div class="student-inputs-container">';
+    for (let i = 1; i <= num; i++) {
+      const existingName = studentNames[i-1] || '';
+      html += `
+        <div class="student-input-wrapper">
+          <span class="student-number">${i}</span>
+          <input type="text" 
+                 class="student-name-input" 
+                 data-index="${i-1}"
+                 placeholder="Student ${i} name" 
+                 value="${existingName}">
+        </div>
+      `;
+    }
+    html += '</div>';
+    container.innerHTML = html;
+    
+    // Add listeners to update tables when names change
+    document.querySelectorAll('.student-name-input').forEach(input => {
+      input.addEventListener('input', updateStudentNames);
+      input.addEventListener('change', updateStudentNames);
+      input.addEventListener('keyup', updateStudentNames);
+    });
+    
+    updateStudentNames();
+  }
+  
+  // Attach multiple event listeners for better compatibility
+  const numStudentsInput = document.getElementById('numStudents');
+  numStudentsInput.addEventListener('input', generateStudentInputs);
+  numStudentsInput.addEventListener('change', generateStudentInputs);
+  numStudentsInput.addEventListener('keyup', generateStudentInputs);
+  
+  // Update student names array and regenerate tables
+  function updateStudentNames() {
+    const inputs = document.querySelectorAll('.student-name-input');
+    studentNames = Array.from(inputs).map(input => input.value || `Student ${parseInt(input.dataset.index) + 1}`);
+    updateEngagementTable(studentNames);
+    updateBehaviourTable(studentNames);
+    updateInterventionsTable(studentNames);
+    updateBarriersTable(studentNames);
+    updateOutcomesTable(studentNames);
+    updateFollowUpTable(studentNames);
+  }
+  
+  // Generate engagement snapshot table
+  function updateEngagementTable(names) {
+    const container = document.getElementById('engagementTableContainer');
+    
+    if (names.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">👥</div>
+          <p>Enter the number of students above to see the engagement snapshot</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Engagement Level</th>
+              <th>Engagement Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    names.forEach((name, i) => {
+      html += `
+        <tr>
+          <td class="student-name-cell">${name}</td>
+          <td>
+            <select class="engagement-select" data-student="${i}" onchange="updateEngagementColor(this)">
+              <option value="">Select...</option>
+              <option value="high">🟢 High – focused and working</option>
+              <option value="moderate">🟠 Moderate – on/off task</option>
+              <option value="low">🔴 Low – disengaged / resistant</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="notes-input engagement-notes" data-student="${i}" placeholder="Notes...">
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+  
+  // Update engagement select color
+  function updateEngagementColor(select) {
+    select.classList.remove('engagement-high', 'engagement-moderate', 'engagement-low');
+    if (select.value === 'high') select.classList.add('engagement-high');
+    else if (select.value === 'moderate') select.classList.add('engagement-moderate');
+    else if (select.value === 'low') select.classList.add('engagement-low');
+  }
+  
+  // Generate behaviour snapshot table
+  function updateBehaviourTable(names) {
+    const container = document.getElementById('behaviourTableContainer');
+    
+    if (names.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <p>Enter the number of students above to see the behaviour snapshot</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Behaviour</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    names.forEach((name, i) => {
+      html += `
+        <tr>
+          <td class="student-name-cell">${name}</td>
+          <td>
+            <select class="behaviour-select" data-student="${i}" onchange="updateBehaviourColor(this)">
+              <option value="">Select...</option>
+              <option value="regulated">🟢 Calm & regulated</option>
+              <option value="restless">🟠 Restless / distracted</option>
+              <option value="avoidant">🟠 Avoidant behaviour</option>
+              <option value="disruptive">🔴 Low-level disruption</option>
+              <option value="reflection">🔴 Required reflection room</option>
+              <option value="positive">🟢 Positive behaviour noted</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="notes-input behaviour-notes" data-student="${i}" placeholder="Notes...">
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+  
+  // Update behaviour select color
+  function updateBehaviourColor(select) {
+    select.classList.remove('engagement-high', 'engagement-moderate', 'engagement-low');
+    if (select.value === 'regulated' || select.value === 'positive') select.classList.add('engagement-high');
+    else if (select.value === 'restless' || select.value === 'avoidant') select.classList.add('engagement-moderate');
+    else if (select.value === 'disruptive' || select.value === 'reflection') select.classList.add('engagement-low');
+  }
+  
+  // Generate interventions snapshot table
+  function updateInterventionsTable(names) {
+    const container = document.getElementById('interventionsTableContainer');
+    
+    if (names.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🛠️</div>
+          <p>Enter the number of students above to see the interventions snapshot</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Intervention</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    names.forEach((name, i) => {
+      html += `
+        <tr>
+          <td class="student-name-cell">${name}</td>
+          <td>
+            <select class="intervention-select" data-student="${i}">
+              <option value="">None needed</option>
+              <option value="prompted">Prompted back to task</option>
+              <option value="explained">Explained / broke down task</option>
+              <option value="alongside">Sat alongside student</option>
+              <option value="behaviour">Behaviour redirection</option>
+              <option value="emotional">Emotional regulation support</option>
+              <option value="literacy">Literacy support</option>
+              <option value="numeracy">Numeracy support</option>
+              <option value="focused">Focused learning guidance</option>
+              <option value="mentor">Liaised with mentor</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="notes-input intervention-notes" data-student="${i}" placeholder="Details...">
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+  
+  // Generate barriers snapshot table
+  function updateBarriersTable(names) {
+    const container = document.getElementById('barriersTableContainer');
+    
+    if (names.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🚧</div>
+          <p>Enter the number of students above to see the barriers snapshot</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Barrier Identified</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    names.forEach((name, i) => {
+      html += `
+        <tr>
+          <td class="student-name-cell">${name}</td>
+          <td>
+            <select class="barrier-select" data-student="${i}">
+              <option value="">None identified</option>
+              <option value="literacy">Literacy gap</option>
+              <option value="numeracy">Numeracy gap</option>
+              <option value="attention">Attention / focus</option>
+              <option value="anxiety">Anxiety / avoidance</option>
+              <option value="confidence">Low confidence</option>
+              <option value="motivation">Motivation</option>
+              <option value="behavioural">Behavioural need</option>
+              <option value="external">External factors</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="notes-input barrier-notes" data-student="${i}" placeholder="Details...">
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+  
+  // Generate outcomes table
+  function updateOutcomesTable(names) {
+    const container = document.getElementById('outcomesTableContainer');
+    
+    if (names.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📊</div>
+          <p>Enter the number of students above to see the outcomes snapshot</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Learning Outcome</th>
+              <th>Evidence / Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    names.forEach((name, i) => {
+      html += `
+        <tr>
+          <td class="student-name-cell">${name}</td>
+          <td>
+            <select class="outcome-select" data-student="${i}" onchange="updateOutcomeColor(this)">
+              <option value="">Select...</option>
+              <option value="completed">🟢 Work completed</option>
+              <option value="partial">🟠 Partial completion</option>
+              <option value="none">🔴 No meaningful engagement</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="notes-input outcome-notes" data-student="${i}" placeholder="Evidence...">
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+  
+  // Update outcome select color
+  function updateOutcomeColor(select) {
+    select.classList.remove('engagement-high', 'engagement-moderate', 'engagement-low');
+    if (select.value === 'completed') select.classList.add('engagement-high');
+    else if (select.value === 'partial') select.classList.add('engagement-moderate');
+    else if (select.value === 'none') select.classList.add('engagement-low');
+  }
+  
+  // Generate follow-up snapshot table
+  function updateFollowUpTable(names) {
+    const container = document.getElementById('followUpTableContainer');
+    
+    if (names.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">📌</div>
+          <p>Enter the number of students above to see the follow-up snapshot</p>
+        </div>
+      `;
+      return;
+    }
+    
+    let html = `
+      <div class="data-table-wrapper">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Student Name</th>
+              <th>Follow-Up Action</th>
+              <th>Who / Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+    `;
+    
+    names.forEach((name, i) => {
+      html += `
+        <tr>
+          <td class="student-name-cell">${name}</td>
+          <td>
+            <select class="followup-select" data-student="${i}">
+              <option value="">No follow-up needed</option>
+              <option value="mentor">Pass to mentor</option>
+              <option value="behaviour">Behaviour log</option>
+              <option value="tl">Flag to T&L</option>
+              <option value="bl">Flag to Behaviour Lead</option>
+              <option value="catchup">Catch-up session</option>
+              <option value="parent">Parent contact</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" class="notes-input followup-notes" data-student="${i}" placeholder="Who / Details...">
+          </td>
+        </tr>
+      `;
+    });
+    
+    html += '</tbody></table></div>';
+    container.innerHTML = html;
+  }
+  
+  // Generate PDF - prepares form for printing
+  function generatePDF() {
+    // Check if students have been entered
+    if (studentNames.length === 0) {
+      alert('Please enter the number of students and their names first.');
+      return;
+    }
+    
+    window.print();
+  }
+  
+  // Generate text summary
+  function generateTextSummary() {
+    const data = {
+      staffInitials: document.getElementById('staffInitials').value,
+      date: document.getElementById('observationDate').value,
+      period: document.getElementById('period').value,
+      keyStage: document.getElementById('keyStage').value,
+      sessionType: document.getElementById('sessionType').value,
+      supportAction: document.getElementById('supportAction').value,
+      nextSession: document.getElementById('nextSession').value
+    };
+    
+    // Collect per-student snapshot data
+    const engagementSelects = document.querySelectorAll('.engagement-select');
+    const engagementNotes = document.querySelectorAll('.engagement-notes');
+    const behaviourSelects = document.querySelectorAll('.behaviour-select');
+    const behaviourNotes = document.querySelectorAll('.behaviour-notes');
+    const interventionSelects = document.querySelectorAll('.intervention-select');
+    const interventionNotes = document.querySelectorAll('.intervention-notes');
+    const barrierSelects = document.querySelectorAll('.barrier-select');
+    const barrierNotes = document.querySelectorAll('.barrier-notes');
+    const outcomeSelects = document.querySelectorAll('.outcome-select');
+    const outcomeNotes = document.querySelectorAll('.outcome-notes');
+    const followupSelects = document.querySelectorAll('.followup-select');
+    const followupNotes = document.querySelectorAll('.followup-notes');
+    
+    let text = `STUDENT & LESSON OBSERVATION RECORD\n`;
+    text += `=====================================\n\n`;
+    
+    text += `1. OBSERVATION DETAILS\n`;
+    text += `Staff: ${data.staffInitials}\n`;
+    text += `Date: ${data.date}\n`;
+    text += `Period: ${data.period}\n`;
+    text += `Key Stage: ${data.keyStage}\n`;
+    text += `Session Type: ${data.sessionType}\n\n`;
+    
+    text += `2. STUDENTS PRESENT\n`;
+    studentNames.forEach((name, i) => {
+      text += `${i+1}. ${name}\n`;
+    });
+    text += `\n`;
+    
+    text += `3. ENGAGEMENT SNAPSHOT\n`;
+    studentNames.forEach((name, i) => {
+      const engagement = engagementSelects[i]?.selectedOptions[0]?.text || 'Not recorded';
+      const notes = engagementNotes[i]?.value || '';
+      text += `${name}: ${engagement}${notes ? ' - ' + notes : ''}\n`;
+    });
+    text += `\n`;
+    
+    text += `4. BEHAVIOUR SNAPSHOT\n`;
+    studentNames.forEach((name, i) => {
+      const behaviour = behaviourSelects[i]?.selectedOptions[0]?.text || 'Not recorded';
+      const notes = behaviourNotes[i]?.value || '';
+      text += `${name}: ${behaviour}${notes ? ' - ' + notes : ''}\n`;
+    });
+    text += `\n`;
+    
+    text += `5. INTERVENTIONS SNAPSHOT\n`;
+    studentNames.forEach((name, i) => {
+      const intervention = interventionSelects[i]?.selectedOptions[0]?.text || 'None needed';
+      const notes = interventionNotes[i]?.value || '';
+      text += `${name}: ${intervention}${notes ? ' - ' + notes : ''}\n`;
+    });
+    text += `\n`;
+    
+    text += `6. BARRIERS SNAPSHOT\n`;
+    studentNames.forEach((name, i) => {
+      const barrier = barrierSelects[i]?.selectedOptions[0]?.text || 'None identified';
+      const notes = barrierNotes[i]?.value || '';
+      text += `${name}: ${barrier}${notes ? ' - ' + notes : ''}\n`;
+    });
+    text += `\n`;
+    
+    text += `7. OUTCOMES SNAPSHOT\n`;
+    studentNames.forEach((name, i) => {
+      const outcome = outcomeSelects[i]?.selectedOptions[0]?.text || 'Not recorded';
+      const notes = outcomeNotes[i]?.value || '';
+      text += `${name}: ${outcome}${notes ? ' - ' + notes : ''}\n`;
+    });
+    text += `\n`;
+    
+    text += `8. FOLLOW-UP SNAPSHOT\n`;
+    studentNames.forEach((name, i) => {
+      const followup = followupSelects[i]?.selectedOptions[0]?.text || 'No follow-up needed';
+      const notes = followupNotes[i]?.value || '';
+      text += `${name}: ${followup}${notes ? ' - ' + notes : ''}\n`;
+    });
+    text += `\n`;
+    
+    text += `9. STAFF REFLECTION\n`;
+    text += `What I did to support learning: ${data.supportAction}\n`;
+    if (data.nextSession) text += `What I'll do differently: ${data.nextSession}\n`;
+    text += `\n`;
+    
+    text += `Submitted: ${new Date().toLocaleString('en-GB')}`;
+    
+    return text;
+  }
+</script>
+
+</body>
+</html>
+

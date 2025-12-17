@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Calendar 2025–26 — Evolution Education</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; color: #333; }
+    h1, h2 { color: #004080; }
+    p { max-width: 900px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+    th { background: #004080; color: #fff; }
+    tr:nth-child(even) { background: #f9f9f9; }
+    .export-buttons { margin-top: 25px; }
+    button { background: #004080; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; margin-right: 10px; }
+    button:hover { background: #0066cc; }
+    .calculator { margin: 30px 0; background: white; padding: 20px; border: 1px solid #ddd; border-radius: 6px; max-width: 600px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; }
+    input[type="date"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 60%; }
+    #results { margin-top: 20px; background: #f4f9ff; padding: 10px 15px; border-radius: 6px; border: 1px solid #cce; }
+    footer { margin-top: 40px; font-size: 0.9em; color: #777; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    ul { max-width: 900px; }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+  <h1>Review Calendar — Academic Year 2025–26</h1>
+
+  <p>
+    This page outlines the <strong>review and reporting schedule</strong> for all Evolution Education provisions across the 2025–26 academic year.
+    <br><br>
+    • <strong>Six-weekly reviews</strong> are structured progress meetings with students (and schools where applicable).  
+    • <strong>Key Stage 3 Recovery Placements</strong> follow a rolling six-week cycle from their individual start date, excluding half-term breaks, concluding with a 12-week reintegration review.
+  </p>
+
+  <div class="calculator">
+    <h2>Next Review Due Calculator</h2>
+    <p>Enter a student's <strong>start date</strong> to calculate their 6- and 12-week review meetings, excluding half-term and holiday breaks.</p>
+
+    <label for="startDate">Student Start Date:</label>
+    <input type="date" id="startDate">
+    <button onclick="calculateReviews()">Calculate</button>
+
+    <div id="results"></div>
+  </div>
+
+  <h2>Half-Termly Report Deadlines & Review Weeks (2025–26)</h2>
+  <table>
+    <tr>
+      <th>Term</th>
+      <th>Term Dates</th>
+      <th>Half-Termly Report Submission</th>
+      <th>General Review Week (6-weekly)</th>
+      <th>Notes</th>
+    </tr>
+    <tr>
+      <td>Autumn 1</td>
+      <td>2 Sep – 25 Oct 2025</td>
+      <td>Fri 24 Oct 2025</td>
+      <td>Week 6 (w/c 7 Oct)</td>
+      <td>Standard 6-week review for all students</td>
+    </tr>
+    <tr>
+      <td>Autumn 2</td>
+      <td>3 Nov – 19 Dec 2025</td>
+      <td>Fri 19 Dec 2025</td>
+      <td>Week 6 (w/c 8 Dec)</td>
+      <td>Final autumn review before holiday break</td>
+    </tr>
+    <tr>
+      <td>Spring 1</td>
+      <td>6 Jan – 14 Feb 2026</td>
+      <td>Fri 13 Feb 2026</td>
+      <td>Week 6 (w/c 10 Feb)</td>
+      <td>Focus on attendance & engagement</td>
+    </tr>
+    <tr>
+      <td>Spring 2</td>
+      <td>24 Feb – 3 Apr 2026</td>
+      <td>Fri 3 Apr 2026</td>
+      <td>Week 6 (w/c 30 Mar)</td>
+      <td>Preparation for summer transition planning</td>
+    </tr>
+    <tr>
+      <td>Summer 1</td>
+      <td>20 Apr – 22 May 2026</td>
+      <td>Fri 22 May 2026</td>
+      <td>Week 6 (w/c 18 May)</td>
+      <td>Mid-summer review cycle</td>
+    </tr>
+    <tr>
+      <td>Summer 2</td>
+      <td>1 Jun – 17 Jul 2026</td>
+      <td>Fri 17 Jul 2026</td>
+      <td>Week 6 (w/c 6 Jul)</td>
+      <td>Final end-of-year review (all in-person)</td>
+    </tr>
+  </table>
+
+  <h2>Key Stage 3 Recovery Placements – Rolling Review Cycle</h2>
+  <p>
+    KS3 Recovery Placements operate on flexible cycles based on each student's start date:
+  </p>
+  <ul>
+    <li><strong>Week 6 Review:</strong> Mid-point progress evaluation and updated support plan.</li>
+    <li><strong>Week 12 Review:</strong> Final review and reintegration planning meeting.</li>
+  </ul>
+  <p>
+    Schools must attend <strong>in-person</strong> for Level 2 and above; Level 1 reviews may be held remotely.
+  </p>
+
+  <div class="export-buttons">
+    <button onclick="exportAsPDF()">Export as PDF</button>
+    <button onclick="exportAsWord()">Export as Word</button>
+  </div>
+
+  <footer>
+    v1.1 • Last updated 10 December 2025 • Evolution Education
+  </footer>
+
+  <script>
+    function calculateReviews() {
+      const startInput = document.getElementById('startDate').value;
+      if (!startInput) {
+        document.getElementById('results').innerHTML = "<p>Please select a start date.</p>";
+        return;
+      }
+
+      const start = new Date(startInput);
+      start.setHours(0, 0, 0, 0);
+
+      // School breaks based on term dates (inclusive ranges)
+      const breaks = [
+        [new Date('2025-10-27'), new Date('2025-10-31')], // Autumn Half Term
+        [new Date('2025-12-22'), new Date('2026-01-05')], // Christmas Holiday
+        [new Date('2026-02-17'), new Date('2026-02-21')], // Spring Half Term
+        [new Date('2026-04-06'), new Date('2026-04-19')], // Easter Holiday
+        [new Date('2026-05-25'), new Date('2026-05-29')], // Summer Half Term
+      ];
+
+      // Helper function to check if a date is within a break period
+      const isInBreak = (date) => {
+        const checkDate = new Date(date);
+        checkDate.setHours(0, 0, 0, 0);
+        return breaks.some(([breakStart, breakEnd]) => {
+          const start = new Date(breakStart);
+          const end = new Date(breakEnd);
+          start.setHours(0, 0, 0, 0);
+          end.setHours(23, 59, 59, 999);
+          return checkDate >= start && checkDate <= end;
+        });
+      };
+
+      // Add calendar days (7 days = 1 week), skipping breaks
+      // 6 weeks = 42 days, 12 weeks = 84 days
+      const addDaysExcludingBreaks = (date, daysToAdd) => {
+        let result = new Date(date);
+        let daysAdded = 0;
+        
+        while (daysAdded < daysToAdd) {
+          result.setDate(result.getDate() + 1);
+          // Skip if it's a break day, otherwise count it
+          if (!isInBreak(result)) {
+            daysAdded++;
+          }
+        }
+        
+        return result;
+      };
+
+      // Calculate 6 weeks (42 calendar days) and 12 weeks (84 calendar days)
+      const week6 = addDaysExcludingBreaks(start, 42);
+      const week12 = addDaysExcludingBreaks(start, 84);
+
+      const fmt = (d) => d.toLocaleDateString('en-GB', { weekday:'short', day:'2-digit', month:'short', year:'numeric' });
+
+      document.getElementById('results').innerHTML = `
+        <h3>Review Schedule</h3>
+        <p><strong>Start Date:</strong> ${fmt(start)}</p>
+        <p><strong>6-Week Review:</strong> ${fmt(week6)}</p>
+        <p><strong>12-Week Review:</strong> ${fmt(week12)}</p>
+      `;
+    }
+
+    function exportAsPDF() {
+      window.print();
+    }
+
+    function exportAsWord() {
+      const htmlContent = document.documentElement.outerHTML;
+      const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'Review-Calendar-2025-26.doc';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
+</body>
+</html>
+
+
+

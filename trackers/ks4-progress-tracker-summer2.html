@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KS4 Progress Tracker – Summer 2</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container { max-width: 1100px; margin: 0 auto; }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .term-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #dc3545 0%, #e83e8c 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #f97316;
+            margin-bottom: 8px;
+        }
+        
+        .header .subtitle { color: #666; font-size: 1.1rem; font-weight: 400; }
+        
+        .submission-notice {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .submission-notice .icon { font-size: 1.5rem; }
+        .submission-notice .text { color: #856404; font-weight: 600; }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #f97316;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-link:hover { color: #dc2626; transform: translateX(-5px); }
+        
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .section-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .section-title { font-size: 1.3rem; font-weight: 600; color: #333; }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .info-field { display: flex; flex-direction: column; gap: 6px; }
+        .info-field label { font-size: 0.85rem; color: #666; font-weight: 600; }
+        
+        .info-field input, .info-field select {
+            padding: 12px 15px;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .info-field input:focus, .info-field select:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2);
+        }
+        
+        .staff-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: #fff7ed;
+            border-radius: 10px;
+            margin-top: 15px;
+            border: 1px solid #fed7aa;
+        }
+        
+        .staff-info-item { display: flex; align-items: center; gap: 8px; }
+        .staff-info-item label { font-size: 0.9rem; color: #666; font-weight: 600; }
+        .staff-info-item select {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+        }
+        
+        .unit-category { margin-bottom: 25px; }
+        
+        .unit-category h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .unit-category.certificates h4 { background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%); color: white; }
+        .unit-category.vocational h4 { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; }
+        .unit-category.qualifications h4 { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
+        .unit-category.sports h4 { background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); color: white; }
+        
+        .unit-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .unit-table thead { background: #f97316; }
+        
+        .unit-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+        }
+        
+        .unit-table tbody tr {
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+        
+        .unit-table tbody tr:hover { background: #fff7ed; }
+        .unit-table tbody tr:nth-child(even) { background: #f8f9fa; }
+        
+        .unit-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: middle;
+            color: #333;
+        }
+        
+        .unit-table .unit-title { font-weight: 500; color: #333; }
+        .unit-table .unit-code { font-size: 0.8rem; color: #f97316; display: block; margin-top: 3px; }
+        
+        .year-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        
+        .year-tag.y10 { background: #ede9fe; color: #7c3aed; }
+        .year-tag.y11 { background: #d1fae5; color: #059669; }
+        .year-tag.both { background: #fed7aa; color: #c2410c; }
+        
+        .checkbox-cell { text-align: center; }
+        .checkbox-cell input[type="checkbox"] { width: 22px; height: 22px; accent-color: #10b981; cursor: pointer; }
+        
+        .date-input {
+            width: 120px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+        }
+        
+        .status-select {
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            width: 100%;
+        }
+        
+        .progress-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .progress-table thead { background: #f97316; }
+        .progress-table th { padding: 15px; text-align: center; font-weight: 600; font-size: 0.9rem; color: #fff; }
+        .progress-table th:first-child { text-align: left; }
+        .progress-table tbody tr { background: #fff; }
+        .progress-table tbody tr:nth-child(even) { background: #f8f9fa; }
+        .progress-table td { padding: 15px; border-bottom: 1px solid #e0e0e0; text-align: center; }
+        .progress-table td:first-child { text-align: left; font-weight: 500; color: #333; }
+        
+        .progress-radio { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .progress-radio input[type="radio"] { width: 20px; height: 20px; accent-color: #f97316; cursor: pointer; }
+        .progress-radio .level-label { font-size: 0.75rem; }
+        
+        .level-1 { color: #dc3545; font-weight: 600; }
+        .level-2 { color: #fd7e14; font-weight: 600; }
+        .level-3 { color: #ffc107; font-weight: 600; }
+        .level-4 { color: #dc3545; font-weight: 600; }
+        
+        .summary-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        
+        .summary-textarea:focus { outline: none; border-color: #f97316; box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.2); }
+        .summary-textarea::placeholder { color: #999; }
+        
+        .outcome-options { display: flex; flex-direction: column; gap: 15px; }
+        
+        .outcome-option {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .outcome-option:hover { transform: translateX(5px); }
+        .outcome-option.green { background: #f8d7da; border-color: #f5c6cb; }
+        .outcome-option.green:hover, .outcome-option.green.selected { background: #f5c6cb; border-color: #dc3545; }
+        .outcome-option.amber { background: #fff3cd; border-color: #ffeeba; }
+        .outcome-option.amber:hover, .outcome-option.amber.selected { background: #ffeeba; border-color: #ffc107; }
+        .outcome-option.red { background: #f8d7da; border-color: #f5c6cb; }
+        .outcome-option.red:hover, .outcome-option.red.selected { background: #f5c6cb; border-color: #dc3545; }
+        .outcome-option input[type="radio"] { width: 22px; height: 22px; }
+        .outcome-option .outcome-text { font-weight: 600; font-size: 1rem; }
+        .outcome-option.green .outcome-text { color: #721c24; }
+        .outcome-option.amber .outcome-text { color: #856404; }
+        .outcome-option.red .outcome-text { color: #721c24; }
+        
+        .action-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .action-table thead { background: #f97316; }
+        .action-table th { padding: 15px; text-align: left; font-weight: 600; font-size: 0.9rem; color: #fff; }
+        .action-table tbody tr { background: #fff; }
+        .action-table tbody tr:nth-child(even) { background: #f8f9fa; }
+        .action-table td { padding: 10px; border-bottom: 1px solid #e0e0e0; }
+        
+        .action-table input, .action-table select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: #fff;
+            color: #333;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+        }
+        
+        .add-action-btn {
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: #fff7ed;
+            border: 2px dashed #f97316;
+            border-radius: 10px;
+            color: #f97316;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .add-action-btn:hover { background: #fed7aa; }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 35px;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316 0%, #dc2626 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(249, 115, 22, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #e9ecef;
+            color: #333;
+            border: 2px solid #dee2e6;
+        }
+        
+        .btn-secondary:hover { background: #dee2e6; }
+        
+        @media print {
+            body { background: white; padding: 10px; }
+            .section { box-shadow: none; page-break-inside: avoid; }
+            .button-group, .back-link { display: none; }
+            .term-badge, .section-number, .unit-table thead, .progress-table thead, .action-table thead { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+        
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .unit-table, .progress-table, .action-table { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Dashboard</a>
+        
+        <div class="header">
+            <div class="term-badge">🌞 Summer 2</div>
+            <h1>KS4 Progress Tracker</h1>
+            <p class="subtitle">Flexi Pathway Programme (Sports / Beauty)</p>
+            
+            <div class="submission-notice">
+                <span class="icon">📋</span>
+                <span class="text">This tracker must be submitted to the Centre Director at the end of Summer 2</span>
+            </div>
+        </div>
+        
+        <!-- Student Information -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">ℹ️</span>
+                <h2 class="section-title">Student Information</h2>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-field">
+                    <label>Student Name</label>
+                    <input type="text" id="studentName" placeholder="Enter student name">
+                </div>
+                <div class="info-field">
+                    <label>Year Group</label>
+                    <select id="yearGroup">
+                        <option value="">Select year</option>
+                        <option value="10">Year 10</option>
+                        <option value="11">Year 11</option>
+                    </select>
+                </div>
+                <div class="info-field">
+                    <label>Pathway</label>
+                    <select id="pathway">
+                        <option value="">Select pathway</option>
+                        <option value="sports">Sports</option>
+                        <option value="beauty">Beauty</option>
+                    </select>
+                </div>
+                <div class="info-field">
+                    <label>Review Date</label>
+                    <input type="date" id="reviewDate">
+                </div>
+                <div class="info-field">
+                    <label>Term</label>
+                    <input type="text" value="Summer 2" readonly style="background: #f8d7da; border-color: #dc3545; font-weight: 600; color: #721c24;">
+                </div>
+            </div>
+            
+            <div class="staff-info">
+                <div class="staff-info-item">
+                    <label>KS4 Lead:</label>
+                    <select>
+                        <option value="LD">LD</option>
+                        <option value="SA">SA</option>
+                        <option value="DC">DC</option>
+                        <option value="JC">JC</option>
+                        <option value="DJ">DJ</option>
+                        <option value="LR">LR</option>
+                        <option value="MC">MC</option>
+                        <option value="AB">AB</option>
+                    </select>
+                </div>
+                <div class="staff-info-item">
+                    <label>Mentor:</label>
+                    <select>
+                        <option value="">Select mentor...</option>
+                        <option value="LD">LD</option>
+                        <option value="SA">SA</option>
+                        <option value="DC">DC</option>
+                        <option value="JC">JC</option>
+                        <option value="DJ">DJ</option>
+                        <option value="LR">LR</option>
+                        <option value="MC">MC</option>
+                        <option value="AB">AB</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 1: Certificates & Qualifications -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">1</span>
+                <h2 class="section-title">Certificates & Qualifications – Achievement Check</h2>
+            </div>
+            
+            <div class="unit-category certificates">
+                <h4>📜 Level 1 Certificates</h4>
+                <table class="unit-table">
+                    <thead><tr><th style="width: 35%;">Certificate / Unit</th><th style="width: 10%;">Achieved</th><th style="width: 15%;">Date</th><th style="width: 40%;">Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="unit-title">Health & Safety – Level 1 Certificate</span><span class="year-tag y10">Year 10</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">First Aid – Level 1 Certificate</span><span class="year-tag y10">Year 10</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Safeguarding in Sport</span><span class="year-tag y10">Year 10</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="unit-category vocational">
+                <h4>🎓 Vocational Qualifications</h4>
+                <table class="unit-table">
+                    <thead><tr><th style="width: 35%;">Qualification</th><th style="width: 10%;">Achieved</th><th style="width: 15%;">Date</th><th style="width: 40%;">Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="unit-title">King's Trust Certificate</span><span class="year-tag y10">Year 10</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">King's Trust Award</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Sports Leaders – Level 1</span><span class="year-tag both">Y10 & Y11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Sports Leaders – Level 2</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Duke of Edinburgh – 3 Units</span><span class="year-tag y10">Year 10</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="physical">Physical Started</option><option value="skills">Skills Started</option><option value="volunteering">Volunteering Started</option><option value="achieved">All 3 Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Duke of Edinburgh – Bronze</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="expedition-training">Expedition Training</option><option value="practice-exp">Practice Expedition</option><option value="qualifying-exp">Qualifying Expedition</option><option value="achieved">Bronze Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">PE Life Skills</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">EE Playmaker</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="unit-category qualifications">
+                <h4>📚 Academic Qualifications (Year 11)</h4>
+                <table class="unit-table">
+                    <thead><tr><th style="width: 35%;">Qualification</th><th style="width: 10%;">Achieved</th><th style="width: 15%;">Grade</th><th style="width: 40%;">Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="unit-title">Functional Skills – Maths</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="text" class="date-input" placeholder="Grade..."></td><td><select class="status-select"><option value="">Select status...</option><option value="not-entered">Not Entered</option><option value="entry-1">Entry Level 1</option><option value="entry-2">Entry Level 2</option><option value="entry-3">Entry Level 3</option><option value="level-1">Level 1</option><option value="level-2">Level 2</option></select></td></tr>
+                        <tr><td><span class="unit-title">GCSE English</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="text" class="date-input" placeholder="Grade..."></td><td><select class="status-select"><option value="">Select status...</option><option value="not-entered">Not Entered</option><option value="entered">Entered</option><option value="predicted-1-3">Predicted 1-3</option><option value="predicted-4">Predicted 4</option><option value="predicted-5+">Predicted 5+</option><option value="achieved">Result Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">GCSE Maths</span><span class="year-tag y11">Year 11</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="text" class="date-input" placeholder="Grade..."></td><td><select class="status-select"><option value="">Select status...</option><option value="not-entered">Not Entered</option><option value="entered">Entered</option><option value="predicted-1-3">Predicted 1-3</option><option value="predicted-4">Predicted 4</option><option value="predicted-5+">Predicted 5+</option><option value="achieved">Result Achieved</option></select></td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="unit-category sports">
+                <h4>🏀 Sports AQA Units</h4>
+                <table class="unit-table">
+                    <thead><tr><th style="width: 35%;">AQA Unit Title</th><th style="width: 10%;">Achieved</th><th style="width: 15%;">Date</th><th style="width: 40%;">Status</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="unit-title">Coaching Basic Sport Skills</span><span class="unit-code">Unit 88592 • Entry Level</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="evidence">Evidence Gathering</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Sports-Related Health and Fitness</span><span class="unit-code">Unit 116266 • Level 1</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="evidence">Evidence Gathering</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Physical Education: General Fitness and Diet</span><span class="unit-code">Unit 77643 • Entry Level</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="evidence">Evidence Gathering</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                        <tr><td><span class="unit-title">Summer Sport Unit</span><span class="unit-code">Unit 74011</span></td><td class="checkbox-cell"><input type="checkbox"></td><td><input type="date" class="date-input"></td><td><select class="status-select"><option value="">Select status...</option><option value="not-started">Not Started</option><option value="in-progress">In Progress</option><option value="evidence">Evidence Gathering</option><option value="submitted">Submitted</option><option value="achieved">Achieved</option></select></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Section 2: Progress Indicators -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">2</span>
+                <h2 class="section-title">Progress Indicators</h2>
+            </div>
+            
+            <table class="progress-table">
+                <thead><tr><th style="width: 30%;">Area</th><th style="width: 17.5%;">1</th><th style="width: 17.5%;">2</th><th style="width: 17.5%;">3</th><th style="width: 17.5%;">4</th></tr></thead>
+                <tbody>
+                    <tr><td>Engagement in Learning</td><td><div class="progress-radio"><input type="radio" name="engagement" value="1"><span class="level-label level-1">Very Low</span></div></td><td><div class="progress-radio"><input type="radio" name="engagement" value="2"><span class="level-label level-2">Low</span></div></td><td><div class="progress-radio"><input type="radio" name="engagement" value="3"><span class="level-label level-3">Improving</span></div></td><td><div class="progress-radio"><input type="radio" name="engagement" value="4"><span class="level-label level-4">Consistent</span></div></td></tr>
+                    <tr><td>Vocational Progress</td><td><div class="progress-radio"><input type="radio" name="vocational" value="1"><span class="level-label level-1">Behind</span></div></td><td><div class="progress-radio"><input type="radio" name="vocational" value="2"><span class="level-label level-2">Catching Up</span></div></td><td><div class="progress-radio"><input type="radio" name="vocational" value="3"><span class="level-label level-3">On Track</span></div></td><td><div class="progress-radio"><input type="radio" name="vocational" value="4"><span class="level-label level-4">Ahead</span></div></td></tr>
+                    <tr><td>Behaviour</td><td><div class="progress-radio"><input type="radio" name="behaviour" value="1"><span class="level-label level-1">Frequent</span></div></td><td><div class="progress-radio"><input type="radio" name="behaviour" value="2"><span class="level-label level-2">Reduced</span></div></td><td><div class="progress-radio"><input type="radio" name="behaviour" value="3"><span class="level-label level-3">Occasional</span></div></td><td><div class="progress-radio"><input type="radio" name="behaviour" value="4"><span class="level-label level-4">Sustained</span></div></td></tr>
+                    <tr><td>Independence & Initiative</td><td><div class="progress-radio"><input type="radio" name="independence" value="1"><span class="level-label level-1">High support</span></div></td><td><div class="progress-radio"><input type="radio" name="independence" value="2"><span class="level-label level-2">Moderate</span></div></td><td><div class="progress-radio"><input type="radio" name="independence" value="3"><span class="level-label level-3">Growing</span></div></td><td><div class="progress-radio"><input type="radio" name="independence" value="4"><span class="level-label level-4">Independent</span></div></td></tr>
+                    <tr><td>Work Readiness</td><td><div class="progress-radio"><input type="radio" name="workready" value="1"><span class="level-label level-1">Not Ready</span></div></td><td><div class="progress-radio"><input type="radio" name="workready" value="2"><span class="level-label level-2">Developing</span></div></td><td><div class="progress-radio"><input type="radio" name="workready" value="3"><span class="level-label level-3">Ready</span></div></td><td><div class="progress-radio"><input type="radio" name="workready" value="4"><span class="level-label level-4">Exceptional</span></div></td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Section 3: Summary -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">3</span>
+                <h2 class="section-title">Behaviour & Engagement Summary</h2>
+            </div>
+            <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">Brief, factual – not emotional</p>
+            <textarea class="summary-textarea" placeholder="Enter a brief, factual summary of the student's behaviour and engagement during Summer 2..."></textarea>
+        </div>
+        
+        <!-- Section 4: Review Outcome -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">4</span>
+                <h2 class="section-title">Review Outcome</h2>
+            </div>
+            <div class="outcome-options">
+                <label class="outcome-option green"><input type="radio" name="outcome" value="green"><span class="outcome-text">🟢 Green – On track / Ready to progress</span></label>
+                <label class="outcome-option amber"><input type="radio" name="outcome" value="amber"><span class="outcome-text">🟡 Amber – Additional support needed</span></label>
+                <label class="outcome-option red"><input type="radio" name="outcome" value="red"><span class="outcome-text">🔴 Red – At risk / Intervention required</span></label>
+            </div>
+        </div>
+        
+        <!-- Section 5: Action Plan -->
+        <div class="section">
+            <div class="section-header">
+                <span class="section-number">5</span>
+                <h2 class="section-title">Next Steps / Action Plan</h2>
+            </div>
+            <table class="action-table">
+                <thead><tr><th style="width: 50%;">Action</th><th style="width: 25%;">Lead Staff</th><th style="width: 25%;">Timescale</th></tr></thead>
+                <tbody id="actionTableBody">
+                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
+                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
+                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
+                </tbody>
+            </table>
+            <button class="add-action-btn" onclick="addActionRow()">+ Add Another Action</button>
+        </div>
+        
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="window.print()">📄 Generate PDF for Centre Director</button>
+            <button class="btn btn-secondary" onclick="window.location.href='../index.html'">← Back to Dashboard</button>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('reviewDate').valueAsDate = new Date();
+        
+        function addActionRow() {
+            const tbody = document.getElementById('actionTableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `<td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td>`;
+            tbody.appendChild(newRow);
+        }
+        
+        document.querySelectorAll('.outcome-option input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.outcome-option').forEach(opt => opt.classList.remove('selected'));
+                this.closest('.outcome-option').classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
+

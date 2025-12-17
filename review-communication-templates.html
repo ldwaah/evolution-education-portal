@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Communication Templates — Evolution Education</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 40px; 
+      background: #fafafa; 
+      color: #333; 
+      line-height: 1.6;
+    }
+    h1, h2 { color: #004080; }
+    h3 { color: #0066cc; margin-top: 30px; }
+    a { color: #004080; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .template-section {
+      background: white;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .template-box {
+      background: #f8f9fa;
+      padding: 15px;
+      margin: 15px 0;
+      border-left: 4px solid #004080;
+      border-radius: 4px;
+      position: relative;
+    }
+    .template-box h4 {
+      margin-top: 0;
+      color: #004080;
+      font-size: 1.1em;
+    }
+    .template-content {
+      white-space: pre-wrap;
+      font-family: 'Courier New', monospace;
+      font-size: 0.95em;
+      line-height: 1.8;
+      margin: 10px 0;
+      padding: 10px;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+    .copy-btn {
+      background: #004080;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9em;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .copy-btn:hover {
+      background: #0066cc;
+    }
+    .copy-btn:active {
+      background: #003366;
+    }
+    .copy-feedback {
+      display: none;
+      color: #28a745;
+      font-size: 0.9em;
+      margin-left: 10px;
+      font-weight: bold;
+    }
+    .student-type-badge {
+      display: inline-block;
+      background: #004080;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.85em;
+      margin-bottom: 10px;
+    }
+    .instructions {
+      background: #e7f3ff;
+      padding: 15px;
+      border-left: 4px solid #004080;
+      border-radius: 4px;
+      margin-bottom: 30px;
+    }
+    .instructions p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+<a href="index.html">← Back to Dashboard</a>
+
+<h1>Review Communication Templates — 2025–26</h1>
+
+<div class="instructions">
+  <p><strong>Instructions:</strong></p>
+  <p>• Click the "Copy" button next to any template to copy it to your clipboard</p>
+  <p>• Replace placeholders (e.g., [Student Name], [Date], [School Name]) with actual information</p>
+  <p>• Templates are organized by student type and recipient (School or Parent)</p>
+</div>
+
+<!-- Key Stage 3 (6-12 Week Recovery Placements) -->
+<div class="template-section">
+  <h2>Key Stage 3 — Recovery Placements (6-12 Week Reviews)</h2>
+  
+  <div class="template-box">
+    <span class="student-type-badge">KS3 Recovery</span>
+    <h4>School — Review Date Notification</h4>
+    <div class="template-content" id="ks3-school-review">Good morning/afternoon [School Contact Name],
+
+I hope this email finds you well.
+
+I am writing to inform you that [Student Name] has a scheduled [6-week/12-week] review date for this period. Please let me know when you are available, and we will then liaise with parents.
+
+I look forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Role]
+Evolution Education</div>
+    <button class="copy-btn" onclick="copyTemplate('ks3-school-review')">Copy</button>
+    <span class="copy-feedback" id="feedback-ks3-school-review">✓ Copied!</span>
+  </div>
+
+  <div class="template-box">
+    <span class="student-type-badge">KS3 Recovery</span>
+    <h4>Parent — Availability Confirmation</h4>
+    <div class="template-content" id="ks3-parent-availability">Dear [Parent/Carer Name],
+
+I hope you are well.
+
+Following confirmation from [School Name], we would like to arrange [Student Name]'s [6-week/12-week] review meeting.
+
+The school has confirmed their availability for [Date] at [Time]. Please could you confirm your availability for this date and time?
+
+I look forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Role]
+Evolution Education</div>
+    <button class="copy-btn" onclick="copyTemplate('ks3-parent-availability')">Copy</button>
+    <span class="copy-feedback" id="feedback-ks3-parent-availability">✓ Copied!</span>
+  </div>
+</div>
+
+<!-- Future Pathways (KS4 Live Off) -->
+<div class="template-section">
+  <h2>Future Pathways — Key Stage 4 (Live Off)</h2>
+  
+  <div class="template-box">
+    <span class="student-type-badge">Future Pathways</span>
+    <h4>School — Review Date Notification</h4>
+    <div class="template-content" id="fp-school-review">Good morning/afternoon [School Contact Name],
+
+I hope this email finds you well.
+
+I am writing to inform you that [Student Name] has a scheduled review date for this period. Please let me know when you are available, and we will then liaise with parents.
+
+I look forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Role]
+Evolution Education</div>
+    <button class="copy-btn" onclick="copyTemplate('fp-school-review')">Copy</button>
+    <span class="copy-feedback" id="feedback-fp-school-review">✓ Copied!</span>
+  </div>
+
+  <div class="template-box">
+    <span class="student-type-badge">Future Pathways</span>
+    <h4>Parent — Availability Confirmation</h4>
+    <div class="template-content" id="fp-parent-availability">Dear [Parent/Carer Name],
+
+I hope you are well.
+
+Following confirmation from [School Name], we would like to arrange [Student Name]'s review meeting.
+
+The school has confirmed their availability for [Date] at [Time]. Please could you confirm your availability for this date and time?
+
+I look forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Role]
+Evolution Education</div>
+    <button class="copy-btn" onclick="copyTemplate('fp-parent-availability')">Copy</button>
+    <span class="copy-feedback" id="feedback-fp-parent-availability">✓ Copied!</span>
+  </div>
+</div>
+
+<!-- Flexi & Key Stage 4 (On Roll) -->
+<div class="template-section">
+  <h2>Flexi & Key Stage 4 — On Roll</h2>
+  
+  <div class="template-box">
+    <span class="student-type-badge">Flexi / KS4</span>
+    <h4>School — Review Date Notification</h4>
+    <div class="template-content" id="flexi-ks4-school-review">Good morning/afternoon [School Contact Name],
+
+I hope this email finds you well.
+
+I am writing to inform you that [Student Name] has a scheduled review date for this period. Please let me know when you are available, and we will then liaise with parents.
+
+I look forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Role]
+Evolution Education</div>
+    <button class="copy-btn" onclick="copyTemplate('flexi-ks4-school-review')">Copy</button>
+    <span class="copy-feedback" id="feedback-flexi-ks4-school-review">✓ Copied!</span>
+  </div>
+
+  <div class="template-box">
+    <span class="student-type-badge">Flexi / KS4</span>
+    <h4>Parent — Availability Confirmation</h4>
+    <div class="template-content" id="flexi-ks4-parent-availability">Dear [Parent/Carer Name],
+
+I hope you are well.
+
+Following confirmation from [School Name], we would like to arrange [Student Name]'s review meeting.
+
+The school has confirmed their availability for [Date] at [Time]. Please could you confirm your availability for this date and time?
+
+I look forward to hearing from you.
+
+Kind regards,
+[Your Name]
+[Your Role]
+Evolution Education</div>
+    <button class="copy-btn" onclick="copyTemplate('flexi-ks4-parent-availability')">Copy</button>
+    <span class="copy-feedback" id="feedback-flexi-ks4-parent-availability">✓ Copied!</span>
+  </div>
+</div>
+
+<script>
+  function copyTemplate(elementId) {
+    const templateElement = document.getElementById(elementId);
+    const text = templateElement.textContent;
+    
+    // Create a temporary textarea to copy text
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed';
+    textarea.style.opacity = '0';
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    try {
+      document.execCommand('copy');
+      // Show feedback
+      const feedback = document.getElementById('feedback-' + elementId);
+      feedback.style.display = 'inline';
+      setTimeout(() => {
+        feedback.style.display = 'none';
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      alert('Failed to copy. Please select and copy manually.');
+    }
+    
+    document.body.removeChild(textarea);
+  }
+</script>
+
+</body>
+</html>
+
+
+

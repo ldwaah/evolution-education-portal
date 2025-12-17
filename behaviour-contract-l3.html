@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Evolution Education | Behaviour Contract – Level 3 (Final Warning)</title>
+<style>
+  :root{
+    --ee-primary:#111; --ee-accent:#a40000; --ee-muted:#6b7280; --ee-border:#e5e7eb; --ee-bg:#fff;
+  }
+  html,body{background:#f8fafc;margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;color:#111;}
+  .wrap{max-width:950px;margin:28px auto;padding:24px;background:#fff;border:1px solid var(--ee-border);border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.06);}
+  header h1{margin:0 0 4px 0;font-size:20px;letter-spacing:.02em;color:var(--ee-accent);text-transform:uppercase}
+  header h2{margin:0 0 14px 0;font-size:24px;color:var(--ee-accent)}
+  .muted{color:var(--ee-muted)}
+  .grid{display:grid;gap:10px}
+  .g-2{grid-template-columns:1fr 1fr}
+  .g-3{grid-template-columns:1fr 1fr 1fr}
+  label{font-size:12px;color:#374151;margin-bottom:4px;display:block}
+  input, select, textarea{width:100%;padding:10px 12px;border:1px solid var(--ee-border);border-radius:8px;font-size:14px;background:#fff}
+  textarea{min-height:80px;resize:vertical}
+  section{margin:20px 0;padding:16px;border:1px solid var(--ee-border);border-radius:12px;background:#fff}
+  section h3{margin:0 0 12px 0;font-size:16px;color:var(--ee-accent)}
+  table.info{width:100%;border-collapse:separate;border-spacing:8px}
+  table.info td{vertical-align:top}
+  ul{margin:8px 0 0 18px}
+  .targets li{margin:6px 0}
+  .flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .btn{appearance:none;border:1px solid #d1d5db;background:#111;color:#fff;border-radius:10px;padding:10px 14px;font-size:14px;cursor:pointer}
+  .btn.secondary{background:#fff;color:#111}
+  .btn:disabled{opacity:.6;cursor:not-allowed}
+  .actions{display:flex;gap:10px;justify-content:flex-end;margin-top:14px}
+  .sig-card{border:1px dashed #cbd5e1;border-radius:12px;padding:10px;background:#f8fafc}
+  .sig-pad{width:100%;height:140px;background:#fff;border:1px solid #cbd5e1;border-radius:8px;cursor:crosshair;touch-action:none}
+  .sig-pad:active{cursor:crosshair}
+  .sig-row{display:grid;grid-template-columns:1fr 160px;gap:10px;align-items:center}
+  .sig-meta{font-size:12px;color:#374151}
+  .sig-image{display:none;max-width:100%;border:1px solid #e5e7eb;border-radius:8px;background:#fff}
+  .footnote{font-size:12px;color:#6b7280;margin-top:8px}
+  .notice{padding:10px 12px;border:1px solid #fecaca;background:#fef2f2;color:#991b1b;border-radius:10px;font-size:13px}
+  .small{font-size:12px}
+  .pill{display:inline-block;border:1px solid #d1d5db;border-radius:999px;padding:4px 8px;font-size:12px;background:#fff}
+  .kicker{display:flex;gap:8px;flex-wrap:wrap}
+  .kicker .pill strong{color:#1f2937}
+  .tight p{margin:6px 0}
+  .targets-table{width:100%;border-collapse:collapse;margin-top:10px}
+  .targets-table th{background:#fef2f2;color:#991b1b;padding:12px;text-align:left;border:1px solid #fecaca}
+  .targets-table td{padding:12px;border:1px solid #e5e7eb}
+  /* Print (A4) */
+  @page{size:A4;margin:15mm}
+  @media print{
+    body{background:#fff}
+    .wrap{box-shadow:none;border:none;margin:0}
+    .actions, .notice.online-only{display:none !important}
+    .sig-pad{display:none !important}
+    .sig-image{display:block !important}
+    input, select, textarea{border:1px solid #e5e7eb}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap" id="contractRoot">
+    <header>
+      <div class="kicker">
+        <span class="pill"><strong>Evolution Education</strong></span>
+        <span class="pill">Behaviour Levels Framework</span>
+        <span class="pill">Level 3 – Final Warning</span>
+      </div>
+      <h2>BEHAVIOUR CONTRACT – LEVEL 3 (FINAL WARNING)</h2>
+      <div class="muted small">Academic Year: 2025/26</div>
+    </header>
+
+    <!-- Core details -->
+    <section>
+      <h3>Student & Programme Details</h3>
+      <div class="grid g-2">
+        <div>
+          <label for="studentName">Student Name</label>
+          <input id="studentName" type="text" placeholder="Full name" required />
+        </div>
+        <div>
+          <label for="yearGroup">Year Group</label>
+          <select id="yearGroup" required>
+            <option value="">Select year</option>
+            <option>Year 7</option><option>Year 8</option><option>Year 9</option>
+            <option>Year 10</option><option>Year 11</option>
+          </select>
+        </div>
+        <div>
+          <label for="parentSchool">Parent School</label>
+          <select id="parentSchool" required>
+            <option value="">Select school</option>
+            <option>All Saints</option>
+            <option>Barking Abbey</option>
+            <option>Dagenham Park</option>
+            <option>Eastbrook</option>
+            <option>Eastbury</option>
+            <option>Goresbrook</option>
+            <option>Greatfields</option>
+            <option>JRCS</option>
+            <option>Robert Clack</option>
+            <option>Sydney Russell</option>
+          </select>
+        </div>
+        <div>
+          <label for="programme">Programme</label>
+          <select id="programme" required>
+            <option value="">Select programme</option>
+            <option>Key Stage 3</option>
+            <option>Key Stage 4</option>
+            <option>Future Pathways</option>
+            <option>Flexi</option>
+          </select>
+        </div>
+        <div>
+          <label for="pathwayLead">Pathway Lead</label>
+          <select id="pathwayLead" required>
+            <option value="">Select pathway lead</option>
+            <option>Mr. D Taylor-Crossdale</option>
+            <option>Mr. L Dwaah</option>
+            <option>Ms. L Gavillet</option>
+          </select>
+        </div>
+        <div>
+          <label for="dateIssued">Date Issued</label>
+          <input id="dateIssued" type="date" required />
+        </div>
+        <div>
+          <label for="reviewDate">Review Date (minimum 4 weeks)</label>
+          <input id="reviewDate" type="date" required />
+        </div>
+      </div>
+      <div class="footnote">Review date must be agreed at issue; minimum 28 days from Date Issued.</div>
+    </section>
+
+    <!-- Purpose -->
+    <section class="tight">
+      <h3>1. Purpose of This Contract</h3>
+      <p>This <strong>Final Warning Behaviour Contract</strong> represents the final stage (Level 3) of Evolution Education's Behaviour Framework. It is issued when:</p>
+      <ul>
+        <li>A Level 2 Behaviour Contract has been unsuccessful, <strong>or</strong></li>
+        <li>There has been a serious breach of health, safety, or safeguarding expectations.</li>
+      </ul>
+      <p>The purpose of this contract is to:</p>
+      <ul>
+        <li>Set final, non-negotiable expectations for conduct.</li>
+        <li>Ensure the student understands the seriousness of this stage.</li>
+        <li>Prevent placement breakdown through intensive support and accountability.</li>
+      </ul>
+      <div class="notice"><strong>Failure to meet the conditions of this contract may result in referral to the CEO and termination of placement.</strong></div>
+    </section>
+
+    <!-- Expectations -->
+    <section>
+      <h3>2. Expectations</h3>
+      <ul>
+        <li>Follow all staff instructions immediately, without argument or defiance.</li>
+        <li>Attend every session punctually.</li>
+        <li>Engage positively in all learning activities and support sessions.</li>
+        <li>Maintain respectful communication at all times.</li>
+        <li>No physical or verbal aggression, intimidation, or unsafe behaviour.</li>
+        <li>Adhere fully to all health, safety, and safeguarding guidance.</li>
+      </ul>
+    </section>
+
+    <!-- Support -->
+    <section>
+      <h3>3. Support &amp; Monitoring (Level 3)</h3>
+      <ul>
+        <li>Daily check-in/check-out with SLT or Pathway Lead.</li>
+        <li>Enhanced SEMH monitoring and targeted mentoring.</li>
+        <li>Weekly case review with parent/carer and link school.</li>
+        <li>Risk assessment reviewed and updated weekly.</li>
+        <li>All incidents recorded and reviewed via Bromcom daily.</li>
+      </ul>
+    </section>
+
+    <!-- SMART Targets -->
+    <section>
+      <h3>4. SMART Targets (Final Warning)</h3>
+      
+      <div style="margin-bottom:20px;">
+        <h4 style="color:var(--ee-accent);margin-bottom:8px;font-size:14px;">Target Area 1 – <strong>Conduct &amp; Compliance</strong></h4>
+        <p style="margin-bottom:8px;"><strong>Students will:</strong></p>
+        <ol style="margin-left:20px;">
+          <li>Follow adult instructions first time, every time.</li>
+          <li>Demonstrate respectful language and behaviour toward staff and peers.</li>
+          <li>Maintain 100% adherence to site expectations (uniform, punctuality, equipment).</li>
+        </ol>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <h4 style="color:var(--ee-accent);margin-bottom:8px;font-size:14px;">Target Area 2 – <strong>Engagement &amp; Learning</strong></h4>
+        <p style="margin-bottom:8px;"><strong>Students will:</strong></p>
+        <ol style="margin-left:20px;">
+          <li>Attend all sessions consistently and on time.</li>
+          <li>Actively participate in lessons and complete all set work.</li>
+          <li>Use learning time productively, avoiding distractions or negative behaviour.</li>
+        </ol>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <h4 style="color:var(--ee-accent);margin-bottom:8px;font-size:14px;">Target Area 3 – <strong>Regulation &amp; Safety</strong></h4>
+        <p style="margin-bottom:8px;"><strong>Students will:</strong></p>
+        <ol style="margin-left:20px;">
+          <li>Use taught strategies to manage emotions appropriately.</li>
+          <li>Seek support from staff before situations escalate.</li>
+          <li>Demonstrate safe behaviour in all areas of the site.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Review -->
+    <section>
+      <h3>5. Review &amp; Outcome</h3>
+      <p>Weekly reviews will measure progress against SMART targets and incident logs.</p>
+      <p>At the <strong>4-week review</strong>, outcomes may include:</p>
+      <ul>
+        <li><strong>Successful completion:</strong> contract lifted; return to Level 2 or full reintegration.</li>
+        <li><strong>Extension:</strong> further 4-week period with revised support.</li>
+        <li><strong>Referral to CEO:</strong> if insufficient improvement, leading to possible termination of placement or temporary remote learning until behaviour improves.</li>
+      </ul>
+    </section>
+
+    <!-- Consequences -->
+    <section>
+      <h3>6. Consequences of Non-Compliance</h3>
+      <ul>
+        <li>Immediate removal from class or site following unsafe behaviour.</li>
+        <li>Further safeguarding/risk assessment or internal suspension.</li>
+        <li>Referral directly to the CEO for placement review.</li>
+        <li>Possible <strong>termination of placement</strong> or temporary <strong>remote learning</strong> placement until improvement is demonstrated.</li>
+      </ul>
+    </section>
+
+    <!-- Positives -->
+    <section>
+      <h3>7. Positive Outcomes</h3>
+      <ul>
+        <li>Stabilised placement and consistent engagement.</li>
+        <li>Access to enrichment, vocational, and leadership opportunities.</li>
+        <li>Recognition and celebration of improvement during assemblies.</li>
+      </ul>
+    </section>
+
+    <!-- Signatures -->
+    <section>
+      <h3>8. Signatures</h3>
+      <div class="sig-card">
+        <div class="sig-row">
+          <div>
+            <div class="sig-meta"><strong>Student</strong> – Sign below</div>
+            <canvas class="sig-pad" id="sigStudent"></canvas>
+            <img class="sig-image" id="sigStudentImg" alt="Student signature image" />
+            <div class="sig-meta" style="margin-top:8px;">
+              <label for="studentSigDate">Date:</label>
+              <input id="studentSigDate" type="date" style="width:auto;display:inline-block;margin-left:8px;" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sig-card" style="margin-top:16px;">
+        <div class="sig-row">
+          <div>
+            <div class="sig-meta"><strong>Parent/Carer</strong> – Sign below</div>
+            <canvas class="sig-pad" id="sigParent"></canvas>
+            <img class="sig-image" id="sigParentImg" alt="Parent signature image" />
+            <div class="sig-meta" style="margin-top:8px;">
+              <label for="parentSigDate">Date:</label>
+              <input id="parentSigDate" type="date" style="width:auto;display:inline-block;margin-left:8px;" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sig-card" style="margin-top:16px;">
+        <div class="sig-row">
+          <div>
+            <div class="sig-meta"><strong>Pathway Lead</strong> – Sign below</div>
+            <canvas class="sig-pad" id="sigPathwayLead"></canvas>
+            <img class="sig-image" id="sigPathwayLeadImg" alt="Pathway Lead signature image" />
+            <div class="sig-meta" style="margin-top:8px;">
+              <label for="pathwayLeadSigDate">Date:</label>
+              <input id="pathwayLeadSigDate" type="date" style="width:auto;display:inline-block;margin-left:8px;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Actions -->
+    <div class="actions">
+      <button class="btn" onclick="saveAsPDF()">Save as PDF</button>
+    </div>
+
+    <div class="notice online-only" style="margin-top:20px;">
+      <strong>Note:</strong> This contract should be signed physically or digitally. A signed copy must be saved to Bromcom and shared with the parent school.
+    </div>
+  </div>
+
+  <script>
+    // Signature pad functionality with improved drawing
+    function initSignaturePad(canvasId, imageId) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      
+      // Set explicit canvas dimensions to match display size
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+      
+      const ctx = canvas.getContext('2d');
+      ctx.strokeStyle = '#111';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      function getCoordinates(e) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        if (e.touches) {
+          return {
+            x: (e.touches[0].clientX - rect.left) * scaleX,
+            y: (e.touches[0].clientY - rect.top) * scaleY
+          };
+        } else {
+          return {
+            x: (e.clientX - rect.left) * scaleX,
+            y: (e.clientY - rect.top) * scaleY
+          };
+        }
+      }
+
+      function startDrawing(e) {
+        e.preventDefault();
+        isDrawing = true;
+        const coords = getCoordinates(e);
+        lastX = coords.x;
+        lastY = coords.y;
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+      }
+
+      function draw(e) {
+        if (!isDrawing) return;
+        e.preventDefault();
+        
+        const coords = getCoordinates(e);
+        const currentX = coords.x;
+        const currentY = coords.y;
+        
+        ctx.lineTo(currentX, currentY);
+        ctx.stroke();
+        
+        lastX = currentX;
+        lastY = currentY;
+      }
+
+      function stopDrawing() {
+        if (isDrawing) {
+          isDrawing = false;
+          const img = document.getElementById(imageId);
+          if (img) {
+            img.src = canvas.toDataURL('image/png');
+          }
+        }
+      }
+
+      // Mouse events
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseleave', stopDrawing);
+
+      // Touch events
+      canvas.addEventListener('touchstart', startDrawing, { passive: false });
+      canvas.addEventListener('touchmove', draw, { passive: false });
+      canvas.addEventListener('touchend', stopDrawing);
+      canvas.addEventListener('touchcancel', stopDrawing);
+
+      // Handle window resize
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+          const currentImage = canvas.toDataURL('image/png');
+          const rect = canvas.getBoundingClientRect();
+          canvas.width = rect.width;
+          canvas.height = rect.height;
+          ctx.strokeStyle = '#111';
+          ctx.lineWidth = 2.5;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          
+          // Restore signature if it exists
+          if (currentImage !== canvas.toDataURL('image/png')) {
+            const img = new Image();
+            img.onload = () => {
+              ctx.drawImage(img, 0, 0);
+            };
+            img.src = currentImage;
+          }
+        }, 250);
+      });
+    }
+
+    // Initialize signature pads
+    function initAllSignaturePads() {
+      initSignaturePad('sigStudent', 'sigStudentImg');
+      initSignaturePad('sigParent', 'sigParentImg');
+      initSignaturePad('sigPathwayLead', 'sigPathwayLeadImg');
+    }
+
+    // Initialize when DOM is ready or immediately if already loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAllSignaturePads);
+    } else {
+      initAllSignaturePads();
+    }
+
+    // Review date validation (minimum 28 days from issue date)
+    const dateIssued = document.getElementById('dateIssued');
+    const reviewDate = document.getElementById('reviewDate');
+
+    if (dateIssued && reviewDate) {
+      dateIssued.addEventListener('change', () => {
+        if (dateIssued.value) {
+          const issueDate = new Date(dateIssued.value);
+          const minReviewDate = new Date(issueDate);
+          minReviewDate.setDate(minReviewDate.getDate() + 28);
+          reviewDate.min = minReviewDate.toISOString().split('T')[0];
+        }
+      });
+    }
+
+    // Save as PDF function
+    function saveAsPDF() {
+      // Convert all signature canvases to images before printing
+      const canvases = ['sigStudent', 'sigParent', 'sigPathwayLead'];
+      const images = ['sigStudentImg', 'sigParentImg', 'sigPathwayLeadImg'];
+      
+      canvases.forEach((canvasId, index) => {
+        const canvas = document.getElementById(canvasId);
+        const img = document.getElementById(images[index]);
+        if (canvas && img) {
+          img.src = canvas.toDataURL('image/png');
+        }
+      });
+      
+      // Small delay to ensure images are updated, then print
+      setTimeout(() => {
+        window.print();
+      }, 100);
+    }
+  </script>
+</body>
+</html>
+

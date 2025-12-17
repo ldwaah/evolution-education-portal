@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Preload Popup -->
+    <div id="preloadPopup" class="preload-popup">
+        <div class="preload-popup-content">
+            <span class="preload-close" id="closePreload">&times;</span>
+            <div class="preload-popup-header">
+                <h2>Welcome to Management Portal</h2>
+                <p>Quick navigation to frequently used tools</p>
+            </div>
+            <div class="preload-popup-body">
+                <h3 style="color: #667eea; margin-bottom: 15px; font-size: 1.2rem;">What are you looking for?</h3>
+                
+                <div class="preload-search-container">
+                    <input type="text" id="preloadSearchInput" class="preload-search-input" placeholder="Type to search... e.g., 'reports', 'induction email', 'behaviour contract'" autocomplete="off">
+                    <div id="preloadSearchResults" class="preload-search-results"></div>
+                </div>
+                
+                <div class="preload-quick-links" id="preloadQuickLinks">
+                    <h4 style="color: #667eea; margin-top: 25px; margin-bottom: 15px; font-size: 1rem;">Quick Links:</h4>
+                    <div class="preload-suggestions">
+                        <a href="reports-reviews.html" class="preload-suggestion-link">
+                            <strong>Reports & Reviews Generator</strong>
+                            <span>Generate half-termly reports</span>
+                        </a>
+                        <a href="review-calendar.html" class="preload-suggestion-link">
+                            <strong>Review Calendar 2025–26</strong>
+                            <span>View review dates & deadlines</span>
+                        </a>
+                        <a href="review-communication-templates.html" class="preload-suggestion-link">
+                            <strong>Review Communication Templates</strong>
+                            <span>Email templates for reviews</span>
+                        </a>
+                        <a href="individual-learning-plans.html" class="preload-suggestion-link">
+                            <strong>ILP Generator</strong>
+                            <span>Create Individual Learning Plans</span>
+                        </a>
+                        <a href="student-support-mentoring.html" class="preload-suggestion-link">
+                            <strong>Mentoring Session Form</strong>
+                            <span>Record mentoring sessions</span>
+                        </a>
+                        <a href="behaviour-levels-framework.html" class="preload-suggestion-link">
+                            <strong>Behaviour Levels Framework</strong>
+                            <span>View behaviour framework</span>
+                        </a>
+                        <a href="risk-assessment-generator.html" class="preload-suggestion-link">
+                            <strong>Risk Assessment Generator</strong>
+                            <span>Generate student risk assessments</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="preload-footer">
+                <button id="dismissPreload">Continue to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="main-title">Management Portal</h1>
+            <div class="header-buttons">
+                <button class="search-btn" id="searchBtn" title="Search for resources">
+                    <span class="btn-icon">🔍</span>
+                    Search
+                </button>
+                <a href="https://drive.google.com/drive/folders/1PYc4sWrv4bybkSso0aa-Mx_w82lEINtt" target="_blank" class="core-btn google-drive-btn">
+                    <span class="btn-icon">📁</span>
+                    Google Drive
+                </a>
+                <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" class="core-btn bromcom-btn">
+                    <span class="btn-icon">🎓</span>
+                    Bromcom
+                </a>
+                <button class="admin-btn" id="adminBtn">Administration</button>
+            </div>
+        </header>
+        
+        <!-- Search Modal -->
+        <div id="searchModal" class="modal search-modal">
+            <div class="modal-content search-modal-content">
+                <span class="close" id="closeSearch">&times;</span>
+                <h2>🔍 Find What You Need</h2>
+                <p style="color: #666; margin-bottom: 20px;">Search for resources, templates, forms, or sections</p>
+                
+                <div class="search-input-container">
+                    <input type="text" id="searchInput" class="search-input" placeholder="Try: 'reports', 'induction email', 'behaviour contract', 'mentoring'..." autocomplete="off">
+                    <button class="search-submit-btn" id="searchSubmitBtn">Search</button>
+                </div>
+                
+                <div id="searchResults" class="search-results"></div>
+                
+                <div class="search-suggestions" id="searchSuggestions">
+                    <h3 style="color: #667eea; margin-top: 30px; margin-bottom: 15px; font-size: 1rem;">Popular Searches:</h3>
+                    <div class="suggestion-tags">
+                        <span class="suggestion-tag" data-search="reports">Reports</span>
+                        <span class="suggestion-tag" data-search="induction">Induction</span>
+                        <span class="suggestion-tag" data-search="behaviour">Behaviour</span>
+                        <span class="suggestion-tag" data-search="mentoring">Mentoring</span>
+                        <span class="suggestion-tag" data-search="calendar">Calendar</span>
+                        <span class="suggestion-tag" data-search="timetable">Timetable</span>
+                        <span class="suggestion-tag" data-search="ILP">ILP</span>
+                        <span class="suggestion-tag" data-search="assessment">Assessment</span>
+                        <span class="suggestion-tag" data-search="risk assessment">Risk Assessment</span>
+                        <span class="suggestion-tag" data-search="safeguarding">Safeguarding</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Administration Modal -->
+        <div id="adminModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeAdmin">&times;</span>
+                <h2>Administration</h2>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 20px;">Purple Ruler Onboarding</h3>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <h4>Academy</h4>
+                        <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgPuvp3DW3kcdmCevx7hGgbe" target="_blank" class="assessment-link">
+                            <strong>Academy Onboarding Form</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Student completing work Remotely, Maths, English & Science</span>
+                        </a>
+                        <a href="https://purpleruler.sg.larksuite.com/sheets/KtaysevqrhOyI2t1yJ5lFw5Sglg?sheet=0621bb" target="_blank" class="assessment-link">
+                            <strong>Academy Timetable</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Timetable for Academy students</span>
+                        </a>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>Bespoke</h4>
+                        <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgPuvp3DW3kcdmCevx7hGgbe" target="_blank" class="assessment-link">
+                            <strong>Bespoke Onboarding Form</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Student completing Maths & English Onsite</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Individual Learning Plans</h3>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <a href="individual-learning-plans.html" class="assessment-link">
+                            <strong>ILP Generator</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Generate comprehensive Individual Learning Plans with minimal input. Auto-generates all 10 sections based on behaviour tiers.</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Parent / Carer Meetings</h3>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <a href="parent-meeting-generator.html" class="assessment-link">
+                            <strong>Parent / Carer Meeting – Bromcom Note Generator</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Generate formatted meeting notes ready to paste into Bromcom. One-click copy functionality.</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Safeguarding</h3>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <a href="risk-assessment-generator.html" class="assessment-link">
+                            <strong>Student Risk Assessment Generator</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Generate comprehensive safeguarding, behaviour & wellbeing risk assessments. DfE & Ofsted 2025 compliant.</span>
+                        </a>
+                        <a href="safeguarding-form.html" class="assessment-link">
+                            <strong>Safeguarding Form</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Complete and submit safeguarding concerns. Automatically emailed to designated safeguarding officers.</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Student Tracking</h3>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <a href="https://docs.google.com/spreadsheets/d/1Yo3BzgicX6oW1bQIGSK0gABD4EDMjeFpFyv-zX8QAYw/edit?gid=1101531133#gid=1101531133" target="_blank" class="assessment-link">
+                            <strong>Whole Centre Student Tracker (Admin Only)</strong><br>
+                            <span style="font-size: 0.9rem; font-weight: normal;">Access the complete student tracking database for all KS3, KS4, Future Pathways, and Outreach students</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Username / Passwords</h3>
+                <p style="color: #666; margin-bottom: 20px; font-size: 0.9rem;">Updated extracted login details (including Zoho)</p>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <h4>1. AQA / Vocational Gateway</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://vocgateway.aqa.org.uk/" target="_blank" class="login-link">https://vocgateway.aqa.org.uk/</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="ldwaah@evolution-sportsgroup.com">ldwaah@evolution-sportsgroup.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'ldwaah@evolution-sportsgroup.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Evolution24!">••••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Evolution24!')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>2. Boxhall / Boxall Profile</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://www.boxallprofile.org/" target="_blank" class="login-link">https://www.boxallprofile.org/</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="ldwaah@evolution-sportsgroup.com">ldwaah@evolution-sportsgroup.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'ldwaah@evolution-sportsgroup.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Evolution24!">••••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Evolution24!')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>3. High Speed Training</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://www.highspeedtraining.co.uk/" target="_blank" class="login-link">https://www.highspeedtraining.co.uk/</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="ldwaah@evolution-sportsgroup.com">ldwaah@evolution-sportsgroup.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'ldwaah@evolution-sportsgroup.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Uefa1618">••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Uefa1618')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>4. Prince's Trust</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://education.princes-trust.org.uk/en/" target="_blank" class="login-link">https://education.princes-trust.org.uk/en/</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="ldwaah@evolution-sportsgroup.com">ldwaah@evolution-sportsgroup.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'ldwaah@evolution-sportsgroup.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Uefa1618">••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Uefa1618')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>5. Twinkl</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://www.twinkl.co.uk/" target="_blank" class="login-link">https://www.twinkl.co.uk/</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="admin@evolution-sportsgroup.com">admin@evolution-sportsgroup.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'admin@evolution-sportsgroup.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Uefa1618!">•••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Uefa1618!')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>6. Purple Ruler</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://purpleruler.com" target="_blank" class="login-link">https://purpleruler.com</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="ldwaah@evolution-sportsgroup.com">ldwaah@evolution-sportsgroup.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'ldwaah@evolution-sportsgroup.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Uefa1618!">•••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Uefa1618!')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>7. AQA (Duplicate Entries)</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Note:</span>
+                                <span class="login-value" style="color: #856404; font-style: italic;">Ambiguous mapping; verify which is current</span>
+                            </div>
+                            <div class="login-item" style="margin-top: 10px;">
+                                <span class="login-label">Option 1:</span>
+                                <span class="login-value">Username: ldwaah@evolution-sportsgroup.com | Password: Uefa1618</span>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Option 2:</span>
+                                <span class="login-value">Username: ldwaah@evolution-sportsgroup.com | Password: Evolution24!</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="assessment-group">
+                        <h4>8. Zoho</h4>
+                        <div class="login-details">
+                            <div class="login-item">
+                                <span class="login-label">Link:</span>
+                                <a href="https://mailadmin.zoho.eu/cpanel/home.do#users/list" target="_blank" class="login-link">https://mailadmin.zoho.eu/cpanel/home.do#users/list</a>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Username:</span>
+                                <span class="login-value" data-copy="lloyddwaah@evolution-education.com">lloyddwaah@evolution-education.com</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'lloyddwaah@evolution-education.com')">Copy</button>
+                            </div>
+                            <div class="login-item">
+                                <span class="login-label">Password:</span>
+                                <span class="login-value" data-copy="Uefa1618!">•••••••••</span>
+                                <button class="copy-btn-small" onclick="copyToClipboard(this, 'Uefa1618!')">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <main class="content">
+            <section class="section" id="inductions" style="cursor: pointer;">
+                <h2 class="section-heading">Inductions</h2>
+                <div class="section-content">
+                    <p>Manage student inductions and onboarding processes.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
+                </div>
+            </section>
+            
+            <!-- Inductions Modal -->
+            <div id="inductionsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeInductions">&times;</span>
+                    <h2>Induction Options</h2>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="https://Inductions.evolution-sportsgroup.com" target="_blank" class="assessment-link">
+                                <strong>Induction Meeting</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Access the induction meeting portal</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="day1-week1-procedure.html" class="assessment-link">
+                                <strong>Day 1 & Week 1 Admissions & Settling Procedure</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Complete procedure guide for new KS3 and KS4 placements</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="induction-communication-templates.html" class="assessment-link">
+                                <strong>Induction Communication Templates</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Email templates for arranging inductions and post-induction follow-ups (KS3 & KS4)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="section" id="assessments" style="cursor: pointer;">
+                <h2 class="section-heading">Assessments</h2>
+                <div class="section-content">
+                    <p>View and manage assessments and evaluations.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view assessments</p>
+                </div>
+            </section>
+            
+            <!-- Assessments Modal -->
+            <div id="assessmentsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Assessment Instructions</h2>
+                    
+                    <div class="instructions-box">
+                        <h3>Before Starting Assessments:</h3>
+                        <ol>
+                            <li><strong>Create Student Email Address via Zoho</strong><br>
+                                Request from: <a href="mailto:ldwaah@evolution-sportsgroup.com">ldwaah@evolution-sportsgroup.com</a> or <a href="mailto:admin@evolution-sportsgroup.com">admin@evolution-sportsgroup.com</a>
+                            </li>
+                            <li><strong>Create Lark Account</strong><br>
+                                Using the Zoho email, create a Lark account at:<br>
+                                <a href="https://accounts.larksuite.com/accounts/page/login?app_id=1001&force_login=1&from=navbar&no_trap=1&redirect_uri=https%3A%2F%2Fwww.larksuite.com%2Fen_sg%2F" target="_blank">Lark Account Login</a><br>
+                                <em>You will be sent a verification code to complete registration.</em>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Assessment Links</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <h4>Year 7</h4>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgSr91kADM1GFHKtTMIaiSmf" target="_blank" class="assessment-link">Year 7 English</a>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgaB5q4WIK8Iyf6AtpD1vwzb" target="_blank" class="assessment-link">Year 7 Maths</a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Year 8</h4>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlg2o7XS254cTvqvMkkumqZYF" target="_blank" class="assessment-link">Year 8 English</a>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgI3lndXUaLt9XwXvOYmXrze" target="_blank" class="assessment-link">Year 8 Maths</a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Year 9</h4>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgT0n48xzVizfLfDeZD2MYth" target="_blank" class="assessment-link">Year 9 English</a>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgV0TqhKC8VQhEcwD3HfsBgd" target="_blank" class="assessment-link">Year 9 Maths</a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Year 10</h4>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgZmQOVXexA3K4jA2OesCZdg" target="_blank" class="assessment-link">Year 10 English</a>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgrYRqnVz0i0SZoFAE2cne0e" target="_blank" class="assessment-link">Year 10 Maths</a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Year 11</h4>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlg7VRvF9sP8sjz7ET3M5zVnc" target="_blank" class="assessment-link">Year 11 English</a>
+                            <a href="https://purpleruler.sg.larksuite.com/share/base/form/shrlgAPbKtc0uha8SgUfMCXIGuf" target="_blank" class="assessment-link">Year 11 Maths</a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Other Assessments</h4>
+                            <a href="https://boxhall.evolution-sportsgroup.com" target="_blank" class="assessment-link">SEMH Assessment (Boxall)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="section" id="behaviour" style="cursor: pointer;">
+                <h2 class="section-heading">Behaviour</h2>
+                <div class="section-content">
+                    <p>Track and manage behavioral records and reports.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
+                </div>
+            </section>
+            
+            <!-- Behaviour Modal -->
+            <div id="behaviourModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeBehaviour">&times;</span>
+                    <h2>Behaviour Management</h2>
+                    
+                    <div class="instructions-box" style="background: #fff3cd; border-left-color: #ffc107;">
+                        <h3 style="color: #856404;">⚠️ Important Reminder</h3>
+                        <p style="color: #856404; margin: 0; line-height: 1.8;">
+                            <strong>All ILPs, contracts, communications, and behaviour records must be uploaded to Bromcom.</strong>
+                        </p>
+                    </div>
+                    
+                    <div class="instructions-box" style="background: #dbeafe; border-left-color: #3b82f6; margin-top: 20px;">
+                        <h3 style="color: #1e40af;">📄 Contract Reminder</h3>
+                        <p style="color: #1e40af; margin: 0; line-height: 1.8;">
+                            <strong>All behaviour contracts must be saved as PDF and placed on the student profile on Bromcom.</strong>
+                        </p>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Policy & Procedures</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="https://behaviourandreintegration.netlify.app" target="_blank" class="assessment-link">
+                                <strong>Behaviour & Reintegration Policy Guide</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Step-by-step reference for managing behaviour incidents (Ofsted-Aligned)</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Behaviour for Learning (B4L) Model</h4>
+                            <div style="background: white; padding: 15px; border-radius: 6px; margin-top: 10px;">
+                                <h5 style="color: #667eea; margin-top: 0; margin-bottom: 15px;">Behaviour Warnings</h5>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;"><strong>3 Warnings = Reflection (1 day) + 30-minute detention</strong></p>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;">Parent call/text home to notify of behaviour.</p>
+                                <p style="margin-bottom: 10px; font-size: 0.85rem; color: #666;"><strong>Examples:</strong> Being off-task, refusing instructions, disruptive behaviour, getting out of chair without permission, throwing objects, talking back, inappropriate uniform.</p>
+                                
+                                <h5 style="color: #667eea; margin-top: 20px; margin-bottom: 15px;">Tier 2</h5>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Reflection (2 days) + 30-minute detention per day</strong></p>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;">Student placed on report or behaviour contract to Head of Key Stage. Parental meeting arranged.</p>
+                                <p style="margin-bottom: 10px; font-size: 0.85rem; color: #666;"><strong>Examples:</strong> Swearing in class, verbal abuse towards student, damage to property/misuse of equipment.</p>
+                                
+                                <h5 style="color: #667eea; margin-top: 20px; margin-bottom: 15px;">Tier 3</h5>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Incident referred to CEO. Parent school notified.</strong></p>
+                                <p style="margin-bottom: 10px; font-size: 0.85rem; color: #666;"><strong>Examples:</strong> Abuse (physical/verbal) towards staff, physical abuse towards student, vaping, cyber-bullying/bullying, stealing/vandalism, persistent Tier 2 behaviour or failed behaviour contract.</p>
+                                
+                                <h5 style="color: #667eea; margin-top: 20px; margin-bottom: 15px;">Reflection Room</h5>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;">A place for students to reflect on behaviour that resulted in removal from lessons.</p>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Students complete:</strong></p>
+                                <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9rem;">
+                                    <li>Behaviour booklet supporting reflection on specific concerns</li>
+                                    <li>Classroom work set by teachers</li>
+                                </ul>
+                                <p style="margin-bottom: 10px; font-size: 0.9rem;"><strong>Rules:</strong></p>
+                                <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9rem;">
+                                    <li>No speaking to other students</li>
+                                    <li>Complete all work set</li>
+                                </ul>
+                                <p style="margin-top: 10px; font-size: 0.85rem; color: #856404;"><strong>Note:</strong> Failing to follow rules in reflection room will result in escalation to Tier 2.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 40px; margin-bottom: 20px;">Resources</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="behaviour-contract-l2.html" class="assessment-link">
+                                <strong>Behaviour Contract – Level 2 (Intervention Stage)</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Level 2 behaviour contract form</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="behaviour-contract-l3.html" class="assessment-link">
+                                <strong>Behaviour Contract – Level 3 (Final Warning)</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Level 3 final warning contract form</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="behaviour-levels-framework.html" class="assessment-link">
+                                <strong>Behaviour Levels Framework</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Behaviour Levels Framework & Staff Handbook (2025/26)</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="communication.html" class="assessment-link">
+                                <strong>Communication Templates</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Level 2 & Level 3 email and letter templates</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="section" id="reports" style="cursor: pointer;">
+                <h2 class="section-heading">Reports & Reviews</h2>
+                <div class="section-content">
+                    <p>Generate half-termly student behaviour and progress reports.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
+                </div>
+            </section>
+            
+            <!-- Reports & Reviews Modal -->
+            <div id="reportsModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeReports">&times;</span>
+                    <h2>Reports & Reviews</h2>
+                    
+                    <div class="instructions-box" style="background: #fff3cd; border-left-color: #ffc107; margin-bottom: 20px;">
+                        <h3 style="color: #856404;">⚠️ Important: Quality Check Required</h3>
+                        <p style="color: #856404; margin: 0; line-height: 1.8;">
+                            <strong>All reports, reviews, and emails must be double-checked and adjusted accordingly before being sent out.</strong> Please ensure accuracy and completeness of all information.
+                        </p>
+                    </div>
+                    
+                    <div class="instructions-box" style="background: #dbeafe; border-left-color: #3b82f6;">
+                        <h3 style="color: #1e40af;">📄 Report Reminder</h3>
+                        <p style="color: #1e40af; margin: 0; line-height: 1.8;">
+                            <strong>All reports must be saved as PDF and placed on the student profile on Bromcom.</strong>
+                        </p>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Resources</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="reports-reviews.html" class="assessment-link">
+                                <strong>Reports & Reviews Generator</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Half-termly student behaviour & progress report generator (School & Parent versions)</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="review-calendar.html" class="assessment-link">
+                                <strong>Review Calendar 2025–26</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">View the academic year review calendar and key dates</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="review-communication-templates.html" class="assessment-link">
+                                <strong>Review Communication Templates</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Email templates for school and parent review communications</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="section" id="mentoring" style="cursor: pointer;">
+                <h2 class="section-heading">Mentoring</h2>
+                <div class="section-content">
+                    <p>Record student support and mentoring sessions.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
+                </div>
+            </section>
+            
+            <section class="section" id="pathways" style="cursor: pointer;">
+                <h2 class="section-heading">Pathways</h2>
+                <div class="section-content">
+                    <p>View pathway outcomes and expectations by year group.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view pathways</p>
+                </div>
+            </section>
+            
+            <!-- Mentoring Modal -->
+            <div id="mentoringModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeMentoring">&times;</span>
+                    <h2>Student Support & Mentoring</h2>
+                    
+                    <div class="instructions-box" style="background: #fff3cd; border-left-color: #ffc107; margin-bottom: 20px;">
+                        <h3 style="color: #856404;">⚠️ Important: Bromcom Upload Required</h3>
+                        <p style="color: #856404; margin: 0; line-height: 1.8;">
+                            <strong>ALL mentoring sessions, including group mentoring sessions, must be uploaded to Bromcom.</strong> Use the forms below to generate entries that can be directly uploaded to Bromcom.
+                        </p>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Resources</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="student-support-mentoring.html" class="assessment-link">
+                                <strong>Individual Mentoring Session Form</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Record individual mentoring and student support sessions. Generate formatted entry for direct upload to Bromcom.</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="mentoring-induction.html" class="assessment-link">
+                                <strong>Mentoring Induction</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Induction document to be read to students before starting mentoring. Covers confidentiality, safeguarding, and mentoring expectations.</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="mentoring-review.html" class="assessment-link">
+                                <strong>Mentoring Review</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Student review form to identify if mentoring has helped, whether targets have been reached, and what improvements can be made.</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="https://www.aqa.org.uk/programmes/unit-award-scheme/unit-details?unit=70147" target="_blank" class="assessment-link">
+                                <strong>AQA Unit 70147 — Progress and Review with a Learning Mentor</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">All successful mentoring interventions should result in this AQA unit being achieved. Click to view unit details and requirements.</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pathways Modal -->
+            <div id="pathwaysModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closePathways">&times;</span>
+                    <h2>Pathways</h2>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Resources</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="pathways.html" class="assessment-link">
+                                <strong>Pathways Overview</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">View pathway outcomes and expectations for KS3, Year 10, and Year 11 students</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <section class="section" id="schedules" style="cursor: pointer;">
+                <h2 class="section-heading">Schedules and Rotas</h2>
+                <div class="section-content">
+                    <p>View and manage staff schedules, rotas, and timetables.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view schedules</p>
+                </div>
+            </section>
+            
+            <section class="section" id="teaching" style="cursor: pointer;">
+                <h2 class="section-heading">Teaching and Learning</h2>
+                <div class="section-content">
+                    <p>Access curriculum maps and teaching observation forms.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view resources</p>
+                </div>
+            </section>
+            
+            <section class="section" id="trackers" style="cursor: pointer;">
+                <h2 class="section-heading">Trackers</h2>
+                <div class="section-content">
+                    <p>KS3 & KS4 student achievement and progress tracking.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view trackers</p>
+                </div>
+            </section>
+            
+            <!-- Teaching and Learning Modal -->
+            <div id="teachingModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeTeaching">&times;</span>
+                    <h2>Teaching and Learning</h2>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Resources</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="teaching-observation-form.html" class="assessment-link">
+                                <strong>Teaching Observation Form</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Complete and submit teaching observation forms. Automatically emailed to edwaah@evolution-sportsgroup.com</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="integrated-curriculum-plan.html" class="assessment-link">
+                                <strong>2026 Curriculum Delivery</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Access the 2026 curriculum delivery plan with assembly schedules, PSHE themes, and vocational mapping</span>
+                            </a>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <a href="integrated-curriculum-plan.html" class="assessment-link">
+                                <strong>Headstart</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Access Headstart weekly themes, assembly schedules, PSHE themes, and vocational delivery mapping</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 40px; margin-bottom: 20px;">Lesson Observations</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="student-lesson-observation.html" class="assessment-link">
+                                <strong>Student & Lesson Observation Form</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Purple Ruler (Maths/English), Sports & Focused Learning observations with per-student tracking</span>
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1b1It7iwMxjlcbXcqhpx_CkTLCohw1atJ" target="_blank" class="assessment-link">
+                                <strong>Upload to Drive</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Upload completed observations (Purple Ruler & Focused Learning)</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 40px; margin-bottom: 20px;">🏀 Sports Delivery</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <h4 style="color: #667eea; margin-bottom: 15px;">8-Week Activity Cycle</h4>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;">
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🏀 Basketball</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🏓 Table Tennis</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">⚽ Football</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🏐 Netball</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🏃 Athletics</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🎾 Tennis</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🏉 Rugby (Tag)</span>
+                                <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 12px; border-radius: 6px; text-align: center; font-size: 0.85rem;">🏸 Badminton</span>
+                            </div>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4 style="color: #667eea; margin-bottom: 15px;">AQA Unit Award Scheme — 4 Units (+1 Optional)</h4>
+                            
+                            <h5 style="color: #28a745; margin: 15px 0 10px 0;">📗 Spring 1 & 2</h5>
+                            <a href="https://www.aqa.org.uk/programmes/unit-award-scheme/unit-details?unit=88592" target="_blank" class="assessment-link">
+                                <strong>Unit 88592 — Coaching Basic Sport Skills</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Entry Level: Plan and deliver coaching sessions, evaluate performance, health & safety awareness</span>
+                            </a>
+                            <a href="https://www.aqa.org.uk/programmes/unit-award-scheme/unit-details?unit=116266" target="_blank" class="assessment-link">
+                                <strong>Unit 116266 — Sports-Related Health and Fitness</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Level 1: Pulse/breathing measurement, fitness regimes, balanced diet, benefits of exercise</span>
+                            </a>
+                            
+                            <h5 style="color: #ffc107; margin: 20px 0 10px 0;">☀️ Summer 1 & 2</h5>
+                            <a href="https://www.aqa.org.uk/programmes/unit-award-scheme/unit-details?unit=77643" target="_blank" class="assessment-link">
+                                <strong>Unit 77643 — Physical Education: General Fitness and Diet</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Entry Level: Health & skill-related fitness types, balanced diet, benefits of general fitness</span>
+                            </a>
+                            <a href="https://www.aqa.org.uk/programmes/unit-award-scheme/unit-details?unit=74011" target="_blank" class="assessment-link">
+                                <strong>Unit 74011 — Summer Sport Unit</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Click to view unit details and requirements on AQA website</span>
+                            </a>
+                            
+                            <h5 style="color: #17a2b8; margin: 20px 0 10px 0;">⭐ Optional</h5>
+                            <a href="https://www.aqa.org.uk/programmes/unit-award-scheme/unit-details?unit=119245" target="_blank" class="assessment-link">
+                                <strong>Unit 119245 — Optional Sport Unit</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Click to view optional unit details and requirements on AQA website</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trackers Modal -->
+            <div id="trackersModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeTrackers">&times;</span>
+                    <h2>📊 Student Progress Trackers</h2>
+                    
+                    <div class="instructions-box" style="background: #fff3cd; border-left-color: #ffc107; margin-bottom: 20px;">
+                        <h3 style="color: #856404;">📋 Centre Director Submission</h3>
+                        <p style="color: #856404; margin: 0; line-height: 1.8;">
+                            <strong>All trackers must be completed and submitted to the Centre Director at the end of each term.</strong>
+                        </p>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">📗 Spring 1</h3>
+                    <div class="assessments-list">
+                        <div class="assessment-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <a href="trackers/ks3-progress-tracker-spring1.html" class="assessment-link">
+                                <strong>KS3 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Spring 1 • Foundations: Self & Regulation</span>
+                            </a>
+                            <a href="trackers/ks4-progress-tracker-spring1.html" class="assessment-link">
+                                <strong>KS4 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Spring 1 • Flexi Pathway Programme</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">📘 Spring 2</h3>
+                    <div class="assessments-list">
+                        <div class="assessment-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <a href="trackers/ks3-progress-tracker-spring2.html" class="assessment-link">
+                                <strong>KS3 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Spring 2 • Foundations: Self & Regulation</span>
+                            </a>
+                            <a href="trackers/ks4-progress-tracker-spring2.html" class="assessment-link">
+                                <strong>KS4 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Spring 2 • Flexi Pathway Programme</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">☀️ Summer 1</h3>
+                    <div class="assessments-list">
+                        <div class="assessment-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <a href="trackers/ks3-progress-tracker-summer1.html" class="assessment-link">
+                                <strong>KS3 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Summer 1 • Foundations: Self & Regulation</span>
+                            </a>
+                            <a href="trackers/ks4-progress-tracker-summer1.html" class="assessment-link">
+                                <strong>KS4 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Summer 1 • Flexi Pathway Programme</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">🌞 Summer 2</h3>
+                    <div class="assessments-list">
+                        <div class="assessment-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                            <a href="trackers/ks3-progress-tracker-summer2.html" class="assessment-link">
+                                <strong>KS3 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Summer 2 • Foundations: Self & Regulation</span>
+                            </a>
+                            <a href="trackers/ks4-progress-tracker-summer2.html" class="assessment-link">
+                                <strong>KS4 Progress Tracker</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Summer 2 • Flexi Pathway Programme</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Schedules and Rotas Modal -->
+            <div id="schedulesModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeSchedules">&times;</span>
+                    <h2>Schedules and Rotas</h2>
+                    
+                    <h3 style="margin-top: 30px; margin-bottom: 20px;">Timetables</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <a href="100% Full Timetable/index.html" class="assessment-link">
+                                <strong>Master Timetable – KS3 & KS4</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Full weekly timetable for all KS3 & KS4 classes with staffing assignments and room allocations</span>
+                            </a>
+                            <a href="jrcs-wednesday-timetable.html" class="assessment-link">
+                                <strong>JRCS Wednesday Timetable</strong><br>
+                                <span style="font-size: 0.9rem; font-weight: normal;">Wednesday operational timetable with staffing, line management & provision. Includes Period 5 weather contingency.</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <h3 style="margin-top: 40px; margin-bottom: 20px;">Rotas</h3>
+                    
+                    <div class="assessments-list">
+                        <div class="assessment-group">
+                            <h4>Lunch Time Rota (11:50am - 12:00pm)</h4>
+                            <ul style="color: #666; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                                <li><strong>Monday & Wednesday & Friday:</strong> Lloyd (CEO as cover)</li>
+                                <li><strong>Tuesday:</strong> Lorelle (CEO as cover)</li>
+                                <li><strong>Thursday:</strong> Amy (De'juane as cover)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Door Duty</h4>
+                            <ul style="color: #666; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                                <li><strong>Monday:</strong> Lloyd & Lorelle</li>
+                                <li><strong>Tuesday:</strong> De'juane & Sacha</li>
+                                <li><strong>Wednesday:</strong> All Staff</li>
+                                <li><strong>Thursday:</strong> Lloyd & Sacha</li>
+                                <li><strong>Friday:</strong> Lloyd & Sacha</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Detention Rota</h4>
+                            <ul style="color: #666; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                                <li><strong>Monday:</strong> Lloyd & Amy</li>
+                                <li><strong>Tuesday:</strong> De'juane & Sacha</li>
+                                <li><strong>Lunch Time Detentions:</strong> De'juane (Monday, Tuesday) & Lloyd (Thursday, Friday) to alternate</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Set Up Responsibility for Laptops (Morning)</h4>
+                            <ul style="color: #666; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                                <li><strong>KS4 Room:</strong> Lorelle and Malikah (Cover Lloyd)</li>
+                                <li><strong>KS3 Room:</strong> De'juane and Sacha (Cover Malikah)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="assessment-group">
+                            <h4>Lunch & Break Supervision</h4>
+                            <ul style="color: #666; margin: 10px 0; padding-left: 20px; line-height: 1.8;">
+                                <li><strong>Front Door Area:</strong> Sacha (Lloyd on Mondays)</li>
+                                <li><strong>Toilet Area:</strong> Malikah</li>
+                                <li><strong>Lunch Area:</strong> Lorelle</li>
+                                <li><strong>Sports Hall:</strong> De'juane / Jeff / Lloyd</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer style="margin-top: 60px; padding: 30px 0; text-align: center; border-top: 2px solid rgba(255, 255, 255, 0.3);">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;">
+                <a href="https://evolution-education.com/wp-content/uploads/2025/04/ESG-Staff-Handbook-2025.pdf" target="_blank" class="core-btn" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <span class="btn-icon">📘</span>
+                    Staff Handbook 2025
+                </a>
+                <a href="https://evolution-education.com/wp-content/uploads/2025/08/Operational-Academic-and-Progress-Structures.pdf" target="_blank" class="core-btn" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <span class="btn-icon">📊</span>
+                    Operational Academic & Progress Structures
+                </a>
+                <a href="https://evolution-education.com/policies/" target="_blank" class="core-btn" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <span class="btn-icon">📋</span>
+                    Policies
+                </a>
+                <a href="https://evolution-education.com/human-resources/" target="_blank" class="core-btn" style="display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+                    <span class="btn-icon">👥</span>
+                    Human Resources
+                </a>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
