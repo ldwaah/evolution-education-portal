@@ -721,24 +721,6 @@
         </div>
       </div>
       
-      <!-- Section 9: Staff Reflection -->
-      <div class="section">
-        <div class="section-header">
-          <span class="section-number">9</span>
-          <h2 class="section-title">Staff Reflection</h2>
-        </div>
-        
-        <div class="form-group">
-          <label for="supportAction" class="required">What did you actively do to support learning?</label>
-          <textarea id="supportAction" name="supportAction" required placeholder="Describe your active support during this session..."></textarea>
-        </div>
-        
-        <div class="form-group">
-          <label for="nextSession">What will you do differently next session?</label>
-          <textarea id="nextSession" name="nextSession" placeholder="Reflect on improvements for next time..."></textarea>
-        </div>
-      </div>
-      
       <!-- Actions -->
       <div class="button-group">
         <button type="button" class="btn btn-primary" onclick="generatePDF()">
@@ -1178,9 +1160,7 @@
       date: document.getElementById('observationDate').value,
       period: document.getElementById('period').value,
       keyStage: document.getElementById('keyStage').value,
-      sessionType: document.getElementById('sessionType').value,
-      supportAction: document.getElementById('supportAction').value,
-      nextSession: document.getElementById('nextSession').value
+      sessionType: document.getElementById('sessionType').value
     };
     
     // Collect per-student snapshot data
@@ -1259,11 +1239,6 @@
       const notes = followupNotes[i]?.value || '';
       text += `${name}: ${followup}${notes ? ' - ' + notes : ''}\n`;
     });
-    text += `\n`;
-    
-    text += `9. STAFF REFLECTION\n`;
-    text += `What I did to support learning: ${data.supportAction}\n`;
-    if (data.nextSession) text += `What I'll do differently: ${data.nextSession}\n`;
     text += `\n`;
     
     text += `Submitted: ${new Date().toLocaleString('en-GB')}`;
