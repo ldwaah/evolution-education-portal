@@ -7,8 +7,25 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Password Protection Modal -->
+    <div id="passwordModal" class="password-modal">
+        <div class="password-modal-content">
+            <div class="password-header">
+                <h2>🔒 Access Required</h2>
+                <p>Please enter the password to access the Management Portal</p>
+            </div>
+            <div class="password-body">
+                <input type="password" id="passwordInput" class="password-input" placeholder="Enter password" autocomplete="off" autofocus>
+                <p id="passwordError" class="password-error" style="display: none; color: #dc3545; margin-top: 10px; font-size: 0.9rem;">Incorrect password. Please try again.</p>
+            </div>
+            <div class="password-footer">
+                <button id="passwordSubmit" class="password-submit-btn">Access Portal</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Preload Popup -->
-    <div id="preloadPopup" class="preload-popup">
+    <div id="preloadPopup" class="preload-popup" style="display: none;">
         <div class="preload-popup-content">
             <span class="preload-close" id="closePreload">&times;</span>
             <div class="preload-popup-header">
@@ -63,7 +80,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="mainContainer" style="display: none;">
         <header>
             <h1 class="main-title">Management Portal</h1>
             <div class="header-buttons">

@@ -1,3 +1,71 @@
+// Password Protection
+const PASSWORD = 'GeniusLD';
+const passwordModal = document.getElementById('passwordModal');
+const passwordInput = document.getElementById('passwordInput');
+const passwordSubmit = document.getElementById('passwordSubmit');
+const passwordError = document.getElementById('passwordError');
+const mainContainer = document.getElementById('mainContainer');
+
+// Check if user is already authenticated (session storage)
+if (sessionStorage.getItem('portalAuthenticated') === 'true') {
+    // User is authenticated, hide password modal and show main content
+    if (passwordModal) passwordModal.style.display = 'none';
+    if (mainContainer) mainContainer.style.display = 'block';
+} else {
+    // User not authenticated, show password modal
+    if (passwordModal) passwordModal.style.display = 'block';
+    if (mainContainer) mainContainer.style.display = 'none';
+}
+
+// Handle password submission
+function checkPassword() {
+    const enteredPassword = passwordInput.value.trim();
+    
+    if (enteredPassword === PASSWORD) {
+        // Correct password
+        sessionStorage.setItem('portalAuthenticated', 'true');
+        if (passwordModal) passwordModal.style.display = 'none';
+        if (mainContainer) mainContainer.style.display = 'block';
+        if (passwordError) passwordError.style.display = 'none';
+        passwordInput.value = '';
+    } else {
+        // Incorrect password
+        if (passwordError) passwordError.style.display = 'block';
+        passwordInput.value = '';
+        passwordInput.focus();
+        // Shake animation
+        passwordInput.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+            passwordInput.style.animation = '';
+        }, 500);
+    }
+}
+
+// Submit on button click
+if (passwordSubmit) {
+    passwordSubmit.addEventListener('click', checkPassword);
+}
+
+// Submit on Enter key
+if (passwordInput) {
+    passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            checkPassword();
+        }
+    });
+}
+
+// Add shake animation to CSS via JavaScript
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+`;
+document.head.appendChild(style);
+
 // Administration Modal functionality
 const adminBtn = document.getElementById('adminBtn');
 const adminModal = document.getElementById('adminModal');
