@@ -1522,3 +1522,148 @@ if (searchModal) {
         }
     });
 }
+
+// Recently Used Items Tracking
+function getRecentlyUsed() {
+    const recent = localStorage.getItem('recentlyUsed');
+    return recent ? JSON.parse(recent) : [];
+}
+
+function addToRecentlyUsed(title, url, type = 'link') {
+    let recent = getRecentlyUsed();
+    
+    // Remove if already exists
+    recent = recent.filter(item => item.url !== url);
+    
+    // Add to beginning
+    recent.unshift({ title, url, type, timestamp: Date.now() });
+    
+    // Keep only last 8 items
+    recent = recent.slice(0, 8);
+    
+    localStorage.setItem('recentlyUsed', JSON.stringify(recent));
+    updateRecentlyUsedDisplay();
+}
+
+function updateRecentlyUsedDisplay() {
+    const container = document.getElementById('recentlyUsedItems');
+    const section = document.getElementById('recentlyUsedSection');
+    const recent = getRecentlyUsed();
+    
+    if (!container || !section) return;
+    
+    if (recent.length === 0) {
+        section.style.display = 'none';
+        return;
+    }
+    
+    section.style.display = 'block';
+    container.innerHTML = '';
+    
+    recent.forEach(item => {
+        const element = document.createElement('a');
+        element.href = item.url;
+        element.className = 'recent-item';
+        element.textContent = item.title;
+        element.onclick = (e) => {
+            e.preventDefault();
+            if (item.type === 'link' && item.url.startsWith('http')) {
+                window.open(item.url, '_blank');
+            } else {
+                window.location.href = item.url;
+            }
+        };
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'recent-item-remove';
+        removeBtn.innerHTML = '×';
+        removeBtn.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            removeFromRecentlyUsed(item.url);
+        };
+        
+        element.appendChild(removeBtn);
+        container.appendChild(element);
+    });
+}
+
+function removeFromRecentlyUsed(url) {
+    let recent = getRecentlyUsed();
+    recent = recent.filter(item => item.url !== url);
+    localStorage.setItem('recentlyUsed', JSON.stringify(recent));
+    updateRecentlyUsedDisplay();
+}
+
+// Track clicks on assessment links and section modals
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('a.assessment-link');
+    if (link) {
+        const title = link.querySelector('strong')?.textContent || link.textContent.trim();
+        const url = link.href;
+        addToRecentlyUsed(title, url, 'link');
+    }
+    
+    // Track section modal opens
+    const section = e.target.closest('.section');
+    if (section && section.id) {
+        const title = section.querySelector('.section-heading')?.textContent || section.id;
+        addToRecentlyUsed(title, `#${section.id}`, 'section');
+    }
+});
+
+// Initialize recently used display
+updateRecentlyUsedDisplay();
+
+// Prominent Search Functionality
+const prominentSearchInput = document.getElementById('prominentSearchInput');
+const prominentSearchBtn = document.getElementById('prominentSearchBtn');
+
+function performProminentSearch(query) {
+    if (!query || query.trim().length < 2) return;
+    
+    const results = searchDatabase.filter(item => {
+        const searchText = `${item.title} ${item.description} ${item.keywords.join(' ')}`.toLowerCase();
+        return searchText.includes(query.toLowerCase());
+    });
+    
+    if (results.length > 0) {
+        // Open search modal with results
+        if (searchModal) {
+            searchModal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            if (searchInput) {
+                searchInput.value = query;
+                performSearch(query);
+            }
+        }
+    } else {
+        // Show no results message
+        alert(`No results found for "${query}". Try a different search term.`);
+    }
+}
+
+if (prominentSearchInput) {
+    prominentSearchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performProminentSearch(this.value);
+        }
+    });
+}
+
+if (prominentSearchBtn) {
+    prominentSearchBtn.addEventListener('click', function() {
+        if (prominentSearchInput) {
+            performProminentSearch(prominentSearchInput.value);
+        }
+    });
+}
+
+// Close Modal Function for Breadcrumbs
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}

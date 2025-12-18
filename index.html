@@ -84,9 +84,15 @@
         <header>
             <h1 class="main-title">Management Portal</h1>
             <div class="header-buttons">
-                <button class="search-btn" id="searchBtn" title="Search for resources">
+                <div class="search-container-prominent">
+                    <input type="text" id="prominentSearchInput" class="prominent-search-input" placeholder="🔍 Search for anything... (e.g., reports, mentoring, ILP)" autocomplete="off">
+                    <button class="search-btn-prominent" id="prominentSearchBtn" title="Search">
+                        <span class="btn-icon">🔍</span>
+                    </button>
+                </div>
+                <button class="search-btn" id="searchBtn" title="Advanced Search">
                     <span class="btn-icon">🔍</span>
-                    Search
+                    Advanced Search
                 </button>
                 <a href="https://drive.google.com/drive/folders/1PYc4sWrv4bybkSso0aa-Mx_w82lEINtt" target="_blank" class="core-btn google-drive-btn">
                     <span class="btn-icon">📁</span>
@@ -99,6 +105,15 @@
                 <button class="admin-btn" id="adminBtn">Administration</button>
             </div>
         </header>
+        
+        <!-- Recently Used Section -->
+        <div id="recentlyUsedSection" class="recently-used-section" style="display: none;">
+            <h2 class="category-heading">
+                <span class="category-icon">⭐</span>
+                Recently Used
+            </h2>
+            <div id="recentlyUsedItems" class="recently-used-items"></div>
+        </div>
         
         <!-- Search Modal -->
         <div id="searchModal" class="modal search-modal">
@@ -376,7 +391,14 @@
         </div>
         
         <main class="content">
-            <section class="section" id="inductions" style="cursor: pointer;">
+            <!-- Student Management Category -->
+            <div class="category-group">
+                <h2 class="category-heading">
+                    <span class="category-icon">👥</span>
+                    Student Management
+                </h2>
+                <div class="sections-grid">
+                    <section class="section" id="inductions" style="cursor: pointer;">
                 <h2 class="section-heading">Inductions</h2>
                 <div class="section-content">
                     <p>Manage student inductions and onboarding processes.</p>
@@ -387,6 +409,11 @@
             <!-- Inductions Modal -->
             <div id="inductionsModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('inductionsModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Student Management → Inductions</span>
+                    </div>
                     <span class="close" id="closeInductions">&times;</span>
                     <h2>Induction Options</h2>
                     
@@ -426,6 +453,11 @@
             <!-- Assessments Modal -->
             <div id="assessmentsModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('assessmentsModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Student Management → Assessments</span>
+                    </div>
                     <span class="close">&times;</span>
                     <h2>Assessment Instructions</h2>
                     
@@ -495,6 +527,11 @@
             <!-- Behaviour Modal -->
             <div id="behaviourModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('behaviourModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Student Management → Behaviour</span>
+                    </div>
                     <span class="close" id="closeBehaviour">&times;</span>
                     <h2>Behaviour Management</h2>
                     
@@ -601,6 +638,11 @@
             <!-- Reports & Reviews Modal -->
             <div id="reportsModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('reportsModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Student Management → Reports & Reviews</span>
+                    </div>
                     <span class="close" id="closeReports">&times;</span>
                     <h2>Reports & Reviews</h2>
                     
@@ -652,6 +694,16 @@
                     <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
                 </div>
             </section>
+                </div>
+            </div>
+            
+            <!-- Teaching & Learning Category -->
+            <div class="category-group">
+                <h2 class="category-heading">
+                    <span class="category-icon">📚</span>
+                    Teaching & Learning
+                </h2>
+                <div class="sections-grid">
             
             <section class="section" id="pathways" style="cursor: pointer;">
                 <h2 class="section-heading">Pathways</h2>
@@ -664,6 +716,11 @@
             <!-- Mentoring Modal -->
             <div id="mentoringModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('mentoringModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Student Management → Mentoring</span>
+                    </div>
                     <span class="close" id="closeMentoring">&times;</span>
                     <h2>Student Support & Mentoring</h2>
                     
@@ -711,6 +768,11 @@
             <!-- Pathways Modal -->
             <div id="pathwaysModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('pathwaysModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Teaching & Learning → Pathways</span>
+                    </div>
                     <span class="close" id="closePathways">&times;</span>
                     <h2>Pathways</h2>
                     
@@ -727,14 +789,6 @@
                 </div>
             </div>
             
-            <section class="section" id="schedules" style="cursor: pointer;">
-                <h2 class="section-heading">Schedules and Rotas</h2>
-                <div class="section-content">
-                    <p>View and manage staff schedules, rotas, and timetables.</p>
-                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view schedules</p>
-                </div>
-            </section>
-            
             <section class="section" id="teaching" style="cursor: pointer;">
                 <h2 class="section-heading">Teaching and Learning</h2>
                 <div class="section-content">
@@ -750,10 +804,35 @@
                     <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view trackers</p>
                 </div>
             </section>
+                </div>
+            </div>
+            
+            <!-- Operations Category -->
+            <div class="category-group">
+                <h2 class="category-heading">
+                    <span class="category-icon">⚙️</span>
+                    Operations
+                </h2>
+                <div class="sections-grid">
+            
+            <section class="section" id="schedules" style="cursor: pointer;">
+                <h2 class="section-heading">Schedules and Rotas</h2>
+                <div class="section-content">
+                    <p>View and manage staff schedules, rotas, and timetables.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view schedules</p>
+                </div>
+            </section>
+                </div>
+            </div>
             
             <!-- Teaching and Learning Modal -->
             <div id="teachingModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('teachingModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Teaching & Learning → Teaching and Learning</span>
+                    </div>
                     <span class="close" id="closeTeaching">&times;</span>
                     <h2>Teaching and Learning</h2>
                     
@@ -850,6 +929,11 @@
             <!-- Trackers Modal -->
             <div id="trackersModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('trackersModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Teaching & Learning → Trackers</span>
+                    </div>
                     <span class="close" id="closeTrackers">&times;</span>
                     <h2>📊 Student Progress Trackers</h2>
                     
@@ -921,6 +1005,11 @@
             <!-- Schedules and Rotas Modal -->
             <div id="schedulesModal" class="modal">
                 <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('schedulesModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Operations → Schedules and Rotas</span>
+                    </div>
                     <span class="close" id="closeSchedules">&times;</span>
                     <h2>Schedules and Rotas</h2>
                     
