@@ -22,6 +22,7 @@
             --mc-color: #9333ea;
             --dc-color: #059669;
             --ad-color: #ea580c;
+            --ld-color: #2563eb;
         }
 
         * {
@@ -247,12 +248,24 @@
             background: var(--ad-color);
         }
 
+        .legend-dot.ld {
+            background: var(--ld-color);
+        }
+
         .ad-assignment {
             background: rgba(234, 88, 12, 0.1);
             border-left: 3px solid var(--ad-color);
             padding-left: 0.75rem !important;
             font-weight: 600;
             color: var(--ad-color);
+        }
+
+        .ld-assignment {
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 3px solid var(--ld-color);
+            padding-left: 0.75rem !important;
+            font-weight: 600;
+            color: var(--ld-color);
         }
 
         footer {
@@ -292,6 +305,10 @@
                 <span class="legend-dot ad"></span>
                 <span><strong>AD</strong> – Amy</span>
             </div>
+            <div class="legend-item">
+                <span class="legend-dot ld"></span>
+                <span><strong>LD</strong> – Lloyd</span>
+            </div>
         </div>
 
         <div class="timetable-container">
@@ -313,7 +330,7 @@
                         <td class="empty-slot">—</td>
                         <td class="mc-assignment">MC<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision</span></td>
                         <td class="ad-assignment">AD<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision</span></td>
-                        <td class="empty-slot">—</td>
+                        <td class="ad-assignment">AD<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision</span></td>
                         <td class="mc-assignment">MC<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision / Mentoring</span></td>
                         <td class="mc-assignment">MC<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision / Mentoring</span></td>
                     </tr>
@@ -340,7 +357,7 @@
                         <td class="empty-slot">—</td>
                         <td class="mc-assignment">MC<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision</span></td>
                         <td class="ad-assignment">AD<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision</span></td>
-                        <td class="empty-slot">—</td>
+                        <td class="ld-assignment">LD<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision</span></td>
                         <td class="mc-assignment">MC<br><span style="font-size: 0.8rem; font-weight: normal;">FLZ Supervision / Mentoring</span></td>
                         <td class="empty-slot">—</td>
                     </tr>
