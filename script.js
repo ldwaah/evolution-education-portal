@@ -904,6 +904,14 @@ const searchDatabase = [
         section: 'schedules'
     },
     {
+        keywords: ['flz', 'focused learning zone', 'focused learning', 'flz timetable', 'flz rota', 'flz supervision', 'flz mentoring'],
+        title: 'Focused Learning Zone Timetable',
+        description: 'Individual staff timetables for FLZ supervision and mentoring sessions',
+        type: 'Page',
+        action: () => window.location.href = 'flz-timetable.html',
+        section: 'schedules'
+    },
+    {
         keywords: ['lunch rota', 'lunch time rota', 'lunch duty'],
         title: 'Lunch Time Rota',
         description: 'Lunch time rota (11:50am - 12:00pm)',

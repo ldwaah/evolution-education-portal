@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focused Learning Zone Timetable – Evolution Education</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #f1f5f9;
+            --accent-navy: #1e3a8a;
+            --accent-navy-light: #3b82f6;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --flz-color: #2563eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 0.75rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--flz-color), var(--accent-navy-light));
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 400;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--accent-navy);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .back-link:hover {
+            background: var(--accent-navy);
+            color: white;
+        }
+
+        .tab-nav {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .tab-btn {
+            padding: 0.4rem 1rem;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            color: var(--text-secondary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--accent-navy-light);
+            color: var(--accent-navy-light);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--flz-color) 0%, var(--accent-navy) 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .day-section {
+            margin-bottom: 0.75rem;
+            animation: fadeInUp 0.3s ease-out forwards;
+            opacity: 0;
+        }
+
+        .day-section:nth-child(1) { animation-delay: 0.05s; }
+        .day-section:nth-child(2) { animation-delay: 0.1s; }
+        .day-section:nth-child(3) { animation-delay: 0.15s; }
+        .day-section:nth-child(4) { animation-delay: 0.2s; }
+        .day-section:nth-child(5) { animation-delay: 0.25s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+            padding: 0 0.25rem;
+        }
+
+        .day-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .timetable {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .timetable th {
+            background: rgba(241, 245, 249, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .timetable td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        .timetable tr:last-child td {
+            border-bottom: none;
+        }
+
+        .timetable tr:hover td {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .time-cell {
+            font-weight: 600;
+            color: var(--flz-color);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .period-cell {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .period-badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            background: rgba(37, 99, 235, 0.1);
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .flz-cell {
+            border-left: 3px solid var(--flz-color);
+            padding-left: 1rem !important;
+            font-weight: 600;
+            color: var(--accent-navy);
+        }
+
+        .flz-mentoring-cell {
+            border-left: 3px solid var(--accent-navy-light);
+            padding-left: 1rem !important;
+            font-weight: 600;
+            color: var(--accent-navy);
+        }
+
+        .empty-cell {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .staff-header {
+            text-align: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .staff-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .staff-header .role-title {
+            color: var(--flz-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Dashboard</a>
+        
+        <header>
+            <h1>Focused Learning Zone Timetable</h1>
+            <p class="subtitle">Individual Staff Schedules</p>
+            
+            <nav class="tab-nav">
+                <button class="tab-btn active" onclick="showTab('mc')">MC</button>
+                <button class="tab-btn" onclick="showTab('dc')">DC</button>
+            </nav>
+        </header>
+
+        <!-- MC FLZ TIMETABLE TAB -->
+        <main id="mc-tab" class="tab-content active">
+            <div class="staff-header">
+                <h2>Malikah's FLZ Schedule</h2>
+                <p class="role-title">Focused Learning Zone Lead</p>
+            </div>
+
+            <!-- MC MONDAY -->
+            <section class="day-section" data-day="monday">
+                <div class="day-header">
+                    <h2 class="day-name">Monday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">09:35–10:25</td>
+                            <td class="period-cell"><span class="period-badge">P2</span></td>
+                            <td class="flz-cell">FLZ Supervision</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">12:55–13:35</td>
+                            <td class="period-cell"><span class="period-badge">P5</span></td>
+                            <td class="flz-mentoring-cell">FLZ Supervision / Mentoring</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:35–14:45</td>
+                            <td class="period-cell"><span class="period-badge">P6</span></td>
+                            <td class="flz-mentoring-cell">FLZ Supervision / Mentoring</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- MC TUESDAY -->
+            <section class="day-section" data-day="tuesday">
+                <div class="day-header">
+                    <h2 class="day-name">Tuesday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">09:35–10:25</td>
+                            <td class="period-cell"><span class="period-badge">P2</span></td>
+                            <td class="flz-cell">FLZ Supervision</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">12:55–13:35</td>
+                            <td class="period-cell"><span class="period-badge">P5</span></td>
+                            <td class="flz-mentoring-cell">FLZ Supervision / Mentoring</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:35–14:45</td>
+                            <td class="period-cell"><span class="period-badge">P6</span></td>
+                            <td class="flz-mentoring-cell">FLZ Supervision / Mentoring</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- MC WEDNESDAY -->
+            <section class="day-section" data-day="wednesday">
+                <div class="day-header">
+                    <h2 class="day-name">Wednesday</h2>
+                    <span style="background: rgba(5, 150, 105, 0.2); color: #059669; border: 1px solid rgba(5, 150, 105, 0.3); padding: 0.15rem 0.4rem; border-radius: 10px; font-size: 0.6rem; font-weight: 600;">@ Jo Richardson</span>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell" colspan="3" class="empty-cell" style="text-align: center; padding: 2rem;">No FLZ Supervision scheduled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- MC THURSDAY -->
+            <section class="day-section" data-day="thursday">
+                <div class="day-header">
+                    <h2 class="day-name">Thursday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">09:35–10:25</td>
+                            <td class="period-cell"><span class="period-badge">P2</span></td>
+                            <td class="flz-cell">FLZ Supervision</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">12:50–13:30</td>
+                            <td class="period-cell"><span class="period-badge">P5</span></td>
+                            <td class="flz-mentoring-cell">FLZ Supervision / Mentoring</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- MC FRIDAY -->
+            <section class="day-section" data-day="friday">
+                <div class="day-header">
+                    <h2 class="day-name">Friday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">09:35–10:25</td>
+                            <td class="period-cell"><span class="period-badge">P2</span></td>
+                            <td class="flz-cell">FLZ Supervision</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <!-- DC FLZ TIMETABLE TAB -->
+        <main id="dc-tab" class="tab-content">
+            <div class="staff-header">
+                <h2>De'juane's FLZ Schedule</h2>
+                <p class="role-title">Focused Learning Zone Support</p>
+            </div>
+
+            <!-- DC MONDAY -->
+            <section class="day-section" data-day="monday">
+                <div class="day-header">
+                    <h2 class="day-name">Monday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell" colspan="3" class="empty-cell" style="text-align: center; padding: 2rem;">No FLZ Supervision scheduled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- DC TUESDAY -->
+            <section class="day-section" data-day="tuesday">
+                <div class="day-header">
+                    <h2 class="day-name">Tuesday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">11:25–12:20</td>
+                            <td class="period-cell"><span class="period-badge">P4</span></td>
+                            <td class="flz-cell">FLZ Supervision</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- DC WEDNESDAY -->
+            <section class="day-section" data-day="wednesday">
+                <div class="day-header">
+                    <h2 class="day-name">Wednesday</h2>
+                    <span style="background: rgba(5, 150, 105, 0.2); color: #059669; border: 1px solid rgba(5, 150, 105, 0.3); padding: 0.15rem 0.4rem; border-radius: 10px; font-size: 0.6rem; font-weight: 600;">@ Jo Richardson</span>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell" colspan="3" class="empty-cell" style="text-align: center; padding: 2rem;">No FLZ Supervision scheduled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- DC THURSDAY -->
+            <section class="day-section" data-day="thursday">
+                <div class="day-header">
+                    <h2 class="day-name">Thursday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell" colspan="3" class="empty-cell" style="text-align: center; padding: 2rem;">No FLZ Supervision scheduled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- DC FRIDAY -->
+            <section class="day-section" data-day="friday">
+                <div class="day-header">
+                    <h2 class="day-name">Friday</h2>
+                </div>
+                <table class="timetable">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Period</th>
+                            <th>FLZ Activity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-cell">11:25–12:15</td>
+                            <td class="period-cell"><span class="period-badge">P4</span></td>
+                            <td class="flz-cell">FLZ Supervision</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p><strong>Focused Learning Zone Timetable</strong></p>
+        </footer>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+
+            // Reset animations for day sections
+            document.querySelectorAll('#' + tabName + '-tab .day-section').forEach((section, index) => {
+                section.style.animation = 'none';
+                section.offsetHeight; // Trigger reflow
+                section.style.animation = `fadeInUp 0.3s ease-out forwards ${(index + 1) * 0.05}s`;
+            });
+        }
+    </script>
+</body>
+</html>
+
