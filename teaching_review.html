@@ -1,0 +1,1618 @@
+{% extends "sections/base_section.html" %}
+
+{% block title %}Teaching Review & Observation - Staff Portal{% endblock %}
+
+{% block section_title %}Teaching Review & Observation{% endblock %}
+
+{% block breadcrumb_title %}Teaching Review{% endblock %}
+
+{% block section_subtitle %}Teaching Observation & Feedback{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .info-banner {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+
+    .info-banner h2 {
+        color: white;
+        margin-bottom: 10px;
+        font-size: 1.8em;
+    }
+
+    .info-banner p {
+        color: rgba(255,255,255,0.95);
+        font-size: 1.1em;
+    }
+
+    .form-section {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .form-section h3 {
+        color: #667eea;
+        margin-bottom: 25px;
+        font-size: 1.6em;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #667eea;
+    }
+
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 1.05em;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="time"],
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #d1d9e0;
+        border-radius: 8px;
+        font-size: 1em;
+        font-family: inherit;
+        transition: all 0.3s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-group textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .observation-category {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid #667eea;
+    }
+
+    .observation-category h4 {
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 1.3em;
+    }
+
+    .checkbox-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 12px;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: white;
+        border-radius: 6px;
+        border: 2px solid #e9ecef;
+        transition: all 0.2s;
+    }
+
+    .checkbox-item:hover {
+        border-color: #667eea;
+        background: #f0f4ff;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        width: auto;
+        margin-right: 10px;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+    }
+
+    .checkbox-item label {
+        margin: 0;
+        font-weight: 500;
+        cursor: pointer;
+        flex: 1;
+        color: #333;
+    }
+
+    .rating-section {
+        background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%);
+        padding: 25px;
+        border-radius: 8px;
+        border-left: 4px solid #ffc107;
+        margin-bottom: 25px;
+    }
+
+    .rating-section h4 {
+        color: #856404;
+        margin-bottom: 15px;
+    }
+
+    .phrases-section {
+        background: #e7f3ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        border-left: 4px solid #17a2b8;
+    }
+
+    .phrases-section h4 {
+        color: #0c5460;
+        margin-bottom: 12px;
+    }
+
+    .phrases-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 10px;
+    }
+
+    .phrase-item {
+        background: white;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 0.95em;
+        color: #555;
+    }
+
+    .required {
+        color: #e74c3c;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+
+    .btn-success {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 12px 30px;
+        font-weight: 700;
+        font-size: 1.1em;
+    }
+
+    .btn-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+
+    .btn-info {
+        background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+        color: white;
+        padding: 12px 30px;
+        font-weight: 700;
+    }
+
+    .btn-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+    }
+
+    .btn-warning {
+        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        color: #333;
+        padding: 12px 30px;
+        font-weight: 700;
+    }
+
+    .btn-warning:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+    }
+
+    .save-indicator {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        display: none;
+        z-index: 1000;
+        font-weight: 600;
+    }
+
+    .save-indicator.show {
+        display: block;
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .auto-generated {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+    .auto-generated p {
+        color: #155724;
+        font-size: 0.9em;
+        margin: 0;
+        font-style: italic;
+    }
+
+    /* Print Styles */
+    @media print {
+        .header, .nav-buttons, .action-buttons, .save-indicator {
+            display: none !important;
+        }
+
+        .content-card, .form-section {
+            page-break-inside: avoid;
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+        }
+
+        body {
+            background: white;
+            padding: 0;
+        }
+
+        .btn {
+            display: none !important;
+        }
+
+        @page {
+            margin: 2cm;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="info-banner">
+    <h2>TEACHING REVIEW & OBSERVATION</h2>
+    <p>EVOLUTION EDUCATION</p>
+    <p style="margin-top: 10px; font-size: 0.95em;">Complete teaching observations, reviews, and feedback. Save as PDF when finished.</p>
+</div>
+
+<div class="section" style="background: #e7f3ff; border-left: 4px solid #17a2b8; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+    <h3 style="color: #0c5460; margin-bottom: 15px; font-size: 1.3em;">📋 Best Practice Guidelines</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+        <div style="background: white; padding: 15px; border-radius: 6px;">
+            <strong style="color: #0c5460;">Evidence-Based</strong>
+            <p style="color: #555; font-size: 0.9em; margin-top: 5px;">Record specific examples and observable evidence, not assumptions.</p>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 6px;">
+            <strong style="color: #0c5460;">Balanced Feedback</strong>
+            <p style="color: #555; font-size: 0.9em; margin-top: 5px;">Include both strengths and areas for development with equal attention.</p>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 6px;">
+            <strong style="color: #0c5460;">Student Impact Focus</strong>
+            <p style="color: #555; font-size: 0.9em; margin-top: 5px;">Focus on the impact of teaching on student learning and progress.</p>
+        </div>
+        <div style="background: white; padding: 15px; border-radius: 6px;">
+            <strong style="color: #0c5460;">Collaborative Approach</strong>
+            <p style="color: #555; font-size: 0.9em; margin-top: 5px;">Post-observation discussion should be supportive and developmental.</p>
+        </div>
+    </div>
+</div>
+
+<form id="teaching-review-form">
+    <!-- Observation Details -->
+    <div class="form-section">
+        <h3>OBSERVATION DETAILS</h3>
+        
+        <div class="form-group">
+            <label for="staff_member">Staff Member Observed <span class="required">*</span></label>
+            <select id="staff_member" name="staff_member" required>
+                <option value="">Select Staff Member</option>
+                <option value="Amy">Amy</option>
+                <option value="Dejuane">Dejuane</option>
+                <option value="Jeff">Jeff</option>
+                <option value="Lloyd">Lloyd</option>
+                <option value="Lorelle">Lorelle</option>
+                <option value="Malikah">Malikah</option>
+                <option value="Sacha">Sacha</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="observer_name">Observer Name <span class="required">*</span></label>
+            <input type="text" id="observer_name" name="observer_name" placeholder="Enter observer name" required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div class="form-group">
+                <label for="observation_date">Observation Date <span class="required">*</span></label>
+                <input type="date" id="observation_date" name="observation_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="observation_time">Observation Time</label>
+                <input type="time" id="observation_time" name="observation_time">
+            </div>
+            
+            <div class="form-group">
+                <label for="observation_duration">Observation Duration (minutes)</label>
+                <input type="number" id="observation_duration" name="observation_duration" placeholder="e.g. 30" min="10" max="120">
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div class="form-group">
+                <label for="subject_area">Subject/Area</label>
+                <select id="subject_area" name="subject_area">
+                    <option value="">Select Subject/Area</option>
+                    <option value="AQA Personal Development">AQA Personal Development</option>
+                    <option value="Maths">Maths</option>
+                    <option value="English">English</option>
+                    <option value="SEMH Support">SEMH Support</option>
+                    <option value="Mentoring">Mentoring</option>
+                    <option value="Sport">Sport</option>
+                    <option value="Art">Art</option>
+                    <option value="Cooking">Cooking</option>
+                    <option value="PHSE">PHSE</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="year_group">Year Group</label>
+                <select id="year_group" name="year_group">
+                    <option value="">Select Year Group</option>
+                    <option value="Year 7">Year 7</option>
+                    <option value="Year 8">Year 8</option>
+                    <option value="Year 9">Year 9</option>
+                    <option value="Year 10">Year 10</option>
+                    <option value="Year 11">Year 11</option>
+                    <option value="Year 12">Year 12</option>
+                    <option value="Year 13">Year 13</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="number_of_students">Number of Students</label>
+                <input type="number" id="number_of_students" name="number_of_students" placeholder="e.g. 8" min="1" max="30">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lesson_context">Lesson Context & Prior Knowledge</label>
+            <textarea id="lesson_context" name="lesson_context" placeholder="Brief context: What was the focus of this lesson? What prior knowledge were students building on? Any specific student needs or considerations?"></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Understanding lesson context helps provide fair and contextualised feedback.</p>
+        </div>
+    </div>
+
+    <!-- Teaching Observations -->
+    <div class="form-section" id="teaching-observations">
+        <h3>TEACHING OBSERVATIONS</h3>
+        <p style="color: #666; margin-bottom: 20px;">Select all observations that apply. Your selections will generate an Ofsted-aligned summary.</p>
+        <p style="color: #856404; background: #fff3cd; padding: 10px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+            <strong>Best Practice Note:</strong> Observations should be evidence-based. Use the "Evidence Examples" section below to record specific examples of what you observed.
+        </p>
+
+        <div class="observation-category">
+            <h4>Planning & Preparation</h4>
+            <div class="checkbox-grid">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_planning_resources" name="observations" value="planning_resources">
+                    <label for="obs_planning_resources">Appropriate resources</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_planning_assessment" name="observations" value="planning_assessment">
+                    <label for="obs_planning_assessment">Assessment opportunities</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_planning_objectives" name="observations" value="planning_objectives">
+                    <label for="obs_planning_objectives">Clear learning objectives</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_planning_differentiated" name="observations" value="planning_differentiated">
+                    <label for="obs_planning_differentiated">Differentiated activities</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_planning_semh" name="observations" value="planning_semh">
+                    <label for="obs_planning_semh">SEMH considerations</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_planning_structured" name="observations" value="planning_structured">
+                    <label for="obs_planning_structured">Well-structured lesson</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="observation-category">
+            <h4>Teaching & Delivery</h4>
+            <div class="checkbox-grid">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_adaptive" name="observations" value="delivery_adaptive">
+                    <label for="obs_delivery_adaptive">Adaptive teaching</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_explanations" name="observations" value="delivery_explanations">
+                    <label for="obs_delivery_explanations">Clear explanations</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_questioning" name="observations" value="delivery_questioning">
+                    <label for="obs_delivery_questioning">Effective questioning</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_engaging" name="observations" value="delivery_engaging">
+                    <label for="obs_delivery_engaging">Engaging delivery</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_pace" name="observations" value="delivery_pace">
+                    <label for="obs_delivery_pace">Pace appropriate</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_relationships" name="observations" value="delivery_relationships">
+                    <label for="obs_delivery_relationships">Positive relationships</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_participation" name="observations" value="delivery_participation">
+                    <label for="obs_delivery_participation">Student participation</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_delivery_technology" name="observations" value="delivery_technology">
+                    <label for="obs_delivery_technology">Use of technology</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="observation-category">
+            <h4>Classroom Management</h4>
+            <div class="checkbox-grid">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_management_expectations" name="observations" value="management_expectations">
+                    <label for="obs_management_expectations">Clear expectations</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_management_bfl" name="observations" value="management_bfl">
+                    <label for="obs_management_bfl">Consistent BFL</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_management_transitions" name="observations" value="management_transitions">
+                    <label for="obs_management_transitions">Effective transitions</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_management_reinforcement" name="observations" value="management_reinforcement">
+                    <label for="obs_management_reinforcement">Positive reinforcement</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_management_routines" name="observations" value="management_routines">
+                    <label for="obs_management_routines">Routines established</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_management_safe" name="observations" value="management_safe">
+                    <label for="obs_management_safe">Safe environment</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="observation-category">
+            <h4>Student Engagement & Progress</h4>
+            <div class="checkbox-grid">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_engagement_active" name="observations" value="engagement_active">
+                    <label for="obs_engagement_active">Active participation</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_engagement_collaborative" name="observations" value="engagement_collaborative">
+                    <label for="obs_engagement_collaborative">Collaborative work</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_engagement_high" name="observations" value="engagement_high">
+                    <label for="obs_engagement_high">High engagement</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_engagement_independent" name="observations" value="engagement_independent">
+                    <label for="obs_engagement_independent">Independent learning</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_engagement_objectives" name="observations" value="engagement_objectives">
+                    <label for="obs_engagement_objectives">Met learning objectives</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="obs_engagement_progress" name="observations" value="engagement_progress">
+                    <label for="obs_engagement_progress">Progress evident</label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group" style="margin-top: 30px;">
+            <label for="evidence_examples">Evidence Examples & Specific Observations</label>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;">Record specific examples of what you observed. This evidence-based approach supports fair and constructive feedback.</p>
+            <textarea id="evidence_examples" name="evidence_examples" placeholder="Example: 'The teacher used targeted questioning to check understanding - specifically asking Student X to explain their reasoning, which revealed a misconception that was then addressed immediately...'&#10;&#10;Record concrete examples, student interactions, specific moments, and observable evidence that supports your observations." style="min-height: 200px;"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="student_impact">Student Impact & Outcomes Observed</label>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 10px;">What impact did the teaching have on students? What progress was evident?</p>
+            <textarea id="student_impact" name="student_impact" placeholder="Example: 'Students demonstrated clear understanding of the learning objective through their responses. Three students who initially struggled were supported effectively and showed progress by the end of the lesson...'&#10;&#10;Focus on observable student outcomes, progress made, engagement levels, and evidence of learning." style="min-height: 150px;"></textarea>
+        </div>
+    </div>
+
+    <!-- Overall Rating -->
+    <div class="form-section" id="overall-rating">
+        <h3>OVERALL RATING</h3>
+        
+        <div class="rating-section">
+            <h4>Overall Teaching Quality</h4>
+            <select id="overall_rating" name="overall_rating" style="width: 100%; padding: 12px; font-size: 1.1em;">
+                <option value="">Select Rating</option>
+                <option value="1">1 - Requires Improvement</option>
+                <option value="2">2 - Satisfactory</option>
+                <option value="3">3 - Good</option>
+                <option value="4">4 - Outstanding</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Strengths & Areas for Development -->
+    <div class="form-section" id="strengths-development">
+        <h3>STRENGTHS & AREAS FOR DEVELOPMENT</h3>
+        
+        <div class="phrases-section">
+            <h4>Strengths Observed - Good Practice Phrases</h4>
+            <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Select all strengths observed (tick boxes):</p>
+            <div class="checkbox-grid">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_adaptive" name="strengths" value="Adaptive teaching responding to student needs">
+                    <label for="strength_adaptive">Adaptive teaching responding to student needs</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_pace" name="strengths" value="Clear and appropriate pace of learning">
+                    <label for="strength_pace">Clear and appropriate pace of learning</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_bfl" name="strengths" value="Consistent application of BFL procedures">
+                    <label for="strength_bfl">Consistent application of BFL procedures</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_transitions" name="strengths" value="Effective transitions between activities">
+                    <label for="strength_transitions">Effective transitions between activities</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_reinforcement" name="strengths" value="Effective use of positive reinforcement">
+                    <label for="strength_reinforcement">Effective use of positive reinforcement</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_questioning" name="strengths" value="Effective use of questioning to check understanding">
+                    <label for="strength_questioning">Effective use of questioning to check understanding</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_planning" name="strengths" value="Excellent lesson planning with clear learning objectives">
+                    <label for="strength_planning">Excellent lesson planning with clear learning objectives</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_resources" name="strengths" value="Excellent use of resources and technology">
+                    <label for="strength_resources">Excellent use of resources and technology</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_engagement" name="strengths" value="High levels of student engagement maintained">
+                    <label for="strength_engagement">High levels of student engagement maintained</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_management" name="strengths" value="Outstanding classroom management and clear expectations">
+                    <label for="strength_management">Outstanding classroom management and clear expectations</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_relationships" name="strengths" value="Positive relationships with students evident">
+                    <label for="strength_relationships">Positive relationships with students evident</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_safe" name="strengths" value="Safe and supportive learning environment created">
+                    <label for="strength_safe">Safe and supportive learning environment created</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_semh" name="strengths" value="SEMH needs considered and addressed appropriately">
+                    <label for="strength_semh">SEMH needs considered and addressed appropriately</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_knowledge" name="strengths" value="Strong subject knowledge demonstrated throughout">
+                    <label for="strength_knowledge">Strong subject knowledge demonstrated throughout</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_progress" name="strengths" value="Students making clear progress towards objectives">
+                    <label for="strength_progress">Students making clear progress towards objectives</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="strength_differentiated" name="strengths" value="Well-differentiated activities meeting individual needs">
+                    <label for="strength_differentiated">Well-differentiated activities meeting individual needs</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="phrases-section" style="background: #fff3cd; border-left-color: #ffc107;">
+            <h4 style="color: #856404;">Areas for Development - Development Phrases</h4>
+            <p style="color: #856404; font-size: 0.9em; margin-bottom: 15px;">Select all areas for development (tick boxes):</p>
+            <div class="checkbox-grid">
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_semh" name="weaknesses" value="Could better address SEMH needs within the lesson">
+                    <label for="weakness_semh">Could better address SEMH needs within the lesson</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_objectives" name="weaknesses" value="Could benefit from more explicit learning objectives">
+                    <label for="weakness_objectives">Could benefit from more explicit learning objectives</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_feedback" name="weaknesses" value="Could enhance feedback to students">
+                    <label for="weakness_feedback">Could enhance feedback to students</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_bfl" name="weaknesses" value="Could improve consistency of BFL implementation">
+                    <label for="weakness_bfl">Could improve consistency of BFL implementation</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_assessment" name="weaknesses" value="Could improve planning to include more assessment opportunities">
+                    <label for="weakness_assessment">Could improve planning to include more assessment opportunities</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_afl" name="weaknesses" value="Could make better use of assessment for learning">
+                    <label for="weakness_afl">Could make better use of assessment for learning</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_transitions" name="weaknesses" value="Could strengthen transitions between activities">
+                    <label for="weakness_transitions">Could strengthen transitions between activities</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_independent" name="weaknesses" value="Opportunity to develop independent learning skills">
+                    <label for="weakness_independent">Opportunity to develop independent learning skills</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_resources" name="weaknesses" value="Opportunity to develop more effective use of resources">
+                    <label for="weakness_resources">Opportunity to develop more effective use of resources</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_engagement" name="weaknesses" value="Opportunity to enhance student engagement strategies">
+                    <label for="weakness_engagement">Opportunity to enhance student engagement strategies</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_reinforcement" name="weaknesses" value="Opportunity to improve positive reinforcement strategies">
+                    <label for="weakness_reinforcement">Opportunity to improve positive reinforcement strategies</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_differentiation" name="weaknesses" value="Opportunity to increase differentiation for diverse learners">
+                    <label for="weakness_differentiation">Opportunity to increase differentiation for diverse learners</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_management" name="weaknesses" value="Opportunity to strengthen classroom management strategies">
+                    <label for="weakness_management">Opportunity to strengthen classroom management strategies</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_relationships" name="weaknesses" value="Opportunity to strengthen relationship building">
+                    <label for="weakness_relationships">Opportunity to strengthen relationship building</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_pace" name="weaknesses" value="Pace could be adjusted to better meet student needs">
+                    <label for="weakness_pace">Pace could be adjusted to better meet student needs</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="weakness_questioning" name="weaknesses" value="Would benefit from more varied questioning techniques">
+                    <label for="weakness_questioning">Would benefit from more varied questioning techniques</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback & Next Steps -->
+    <div class="form-section" id="feedback-next-steps">
+        <h3>FEEDBACK & NEXT STEPS</h3>
+        <p style="color: #666; margin-bottom: 20px;">Best Practice: Feedback should be specific, actionable, and balanced. Include both strengths and areas for development with clear examples.</p>
+        
+        <div class="form-group">
+            <label for="detailed_feedback">Detailed Feedback (Auto-generated from observations - editable)</label>
+            <div class="auto-generated">
+                <p>Auto-generated summary will appear based on selected observations...</p>
+            </div>
+            <textarea id="detailed_feedback" name="detailed_feedback" placeholder="Auto-generated summary will appear based on selected observations..."></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Ensure feedback is specific, evidence-based, and includes concrete examples from the observation.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="recommendations">Recommendations (Auto-generated - editable)</label>
+            <div class="auto-generated">
+                <p>Auto-generated recommendations will appear based on selections...</p>
+            </div>
+            <textarea id="recommendations" name="recommendations" placeholder="Auto-generated recommendations will appear based on selections..."></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Recommendations should be specific, achievable, and linked to professional development opportunities.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="next_steps">Next Steps & Action Plan (Auto-generated - editable)</label>
+            <div class="auto-generated">
+                <p>Auto-generated next steps will appear based on selections...</p>
+            </div>
+            <textarea id="next_steps" name="next_steps" placeholder="Auto-generated next steps will appear based on selections..."></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Next steps should be SMART (Specific, Measurable, Achievable, Relevant, Time-bound).</p>
+        </div>
+
+        <div class="form-group">
+            <label for="what_went_well">What Went Well (WWW) - Key Strengths</label>
+            <textarea id="what_went_well" name="what_went_well" placeholder="Summarise the key strengths observed. What went particularly well in this lesson? Be specific and evidence-based." style="min-height: 120px;"></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Start with strengths to build confidence and recognise good practice.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="even_better_if">Even Better If (EBI) - Areas for Development</label>
+            <textarea id="even_better_if" name="even_better_if" placeholder="What would make this lesson even better? Focus on specific, achievable improvements with clear rationale." style="min-height: 120px;"></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Frame development areas positively and constructively.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="teacher_reflection">Teacher Self-Reflection (To be completed by observed teacher)</label>
+            <textarea id="teacher_reflection" name="teacher_reflection" placeholder="Space for the teacher to reflect on the lesson, their own observations, and areas they feel went well or could be improved. This supports collaborative professional development." style="min-height: 120px;"></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Teacher reflection promotes self-awareness and ownership of professional development.</p>
+        </div>
+
+        <div class="form-group">
+            <label for="post_observation_discussion">Post-Observation Discussion Notes</label>
+            <textarea id="post_observation_discussion" name="post_observation_discussion" placeholder="Record key points from the post-observation discussion: What was discussed? What questions did the teacher ask? What clarifications were needed? What was agreed?" style="min-height: 120px;"></textarea>
+            <p style="color: #666; font-size: 0.9em; margin-top: 5px;">Best Practice: Post-observation discussions should be collaborative, supportive, and allow the teacher to respond to feedback.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+            <div class="form-group">
+                <label for="follow_up_date">Follow-Up Observation Date</label>
+                <input type="date" id="follow_up_date" name="follow_up_date">
+            </div>
+            
+            <div class="form-group">
+                <label for="cpd_opportunities">CPD Opportunities Identified</label>
+                <input type="text" id="cpd_opportunities" name="cpd_opportunities" placeholder="e.g. Adaptive Teaching, Questioning Techniques">
+            </div>
+        </div>
+    </div>
+
+    <!-- Signatures -->
+    <div class="form-section">
+        <h3>SIGNATURES</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+            <div class="form-group">
+                <label for="observer_signature">Observer Signature</label>
+                <input type="text" id="observer_signature" name="observer_signature" placeholder="Type your name">
+            </div>
+
+            <div class="form-group">
+                <label for="observer_signature_date">Observer Signature Date</label>
+                <input type="date" id="observer_signature_date" name="observer_signature_date">
+            </div>
+
+            <div class="form-group">
+                <label for="staff_signature">Staff Member Signature</label>
+                <input type="text" id="staff_signature" name="staff_signature" placeholder="Staff member name">
+            </div>
+
+            <div class="form-group">
+                <label for="staff_signature_date">Staff Signature Date</label>
+                <input type="date" id="staff_signature_date" name="staff_signature_date">
+            </div>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button type="button" class="btn btn-success" onclick="saveAsPDF()">💾 Save as PDF</button>
+        <button type="button" class="btn btn-info" onclick="printForm()">🖨️ Print</button>
+        <button type="button" class="btn btn-warning" onclick="submitForm()" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);">📧 Submit Form</button>
+    </div>
+</form>
+
+<div class="save-indicator" id="save-indicator">
+    ✓ Changes saved automatically
+</div>
+
+<script>
+    // Observation mapping to Ofsted-aligned phrases
+    const observationPhrases = {
+        // Strengths
+        'planning_resources': 'Excellent use of resources and technology',
+        'planning_assessment': 'Could improve planning to include more assessment opportunities',
+        'planning_objectives': 'Excellent lesson planning with clear learning objectives',
+        'planning_differentiated': 'Well-differentiated activities meeting individual needs',
+        'planning_semh': 'SEMH needs considered and addressed appropriately',
+        'planning_structured': 'Excellent lesson planning with clear learning objectives',
+        
+        'delivery_adaptive': 'Adaptive teaching responding to student needs',
+        'delivery_explanations': 'Clear explanations demonstrated throughout the lesson',
+        'delivery_questioning': 'Effective use of questioning to check understanding',
+        'delivery_engaging': 'High levels of student engagement maintained',
+        'delivery_pace': 'Clear and appropriate pace of learning',
+        'delivery_relationships': 'Positive relationships with students evident',
+        'delivery_participation': 'High levels of student engagement maintained',
+        'delivery_technology': 'Excellent use of resources and technology',
+        
+        'management_expectations': 'Outstanding classroom management and clear expectations',
+        'management_bfl': 'Consistent application of BFL procedures',
+        'management_transitions': 'Effective transitions between activities',
+        'management_reinforcement': 'Effective use of positive reinforcement',
+        'management_routines': 'Routines established and consistently applied',
+        'management_safe': 'Safe and supportive learning environment created',
+        
+        'engagement_active': 'High levels of student engagement maintained',
+        'engagement_collaborative': 'Students working collaboratively and effectively',
+        'engagement_high': 'High levels of student engagement maintained',
+        'engagement_independent': 'Students demonstrating independent learning skills',
+        'engagement_objectives': 'Students making clear progress towards objectives',
+        'engagement_progress': 'Students making clear progress towards objectives'
+    };
+
+    // Development phrases mapping
+    const developmentPhrases = {
+        'planning_resources': 'Opportunity to develop more effective use of resources',
+        'planning_assessment': 'Could improve planning to include more assessment opportunities',
+        'planning_objectives': 'Could benefit from more explicit learning objectives',
+        'planning_differentiated': 'Opportunity to increase differentiation for diverse learners',
+        'planning_semh': 'Could better address SEMH needs within the lesson',
+        'planning_structured': 'Could improve planning structure and sequencing',
+        
+        'delivery_adaptive': 'Opportunity to develop more adaptive teaching strategies',
+        'delivery_explanations': 'Could enhance clarity of explanations',
+        'delivery_questioning': 'Would benefit from more varied questioning techniques',
+        'delivery_engaging': 'Opportunity to enhance student engagement strategies',
+        'delivery_pace': 'Pace could be adjusted to better meet student needs',
+        'delivery_relationships': 'Opportunity to strengthen relationship building',
+        'delivery_participation': 'Could increase opportunities for student participation',
+        'delivery_technology': 'Opportunity to develop more effective use of resources',
+        
+        'management_expectations': 'Opportunity to strengthen classroom management strategies',
+        'management_bfl': 'Could improve consistency of BFL implementation',
+        'management_transitions': 'Could strengthen transitions between activities',
+        'management_reinforcement': 'Opportunity to improve positive reinforcement strategies',
+        'management_routines': 'Could establish more consistent routines',
+        'management_safe': 'Could further develop safe learning environment strategies',
+        
+        'engagement_active': 'Could increase opportunities for active participation',
+        'engagement_collaborative': 'Opportunity to develop collaborative learning skills',
+        'engagement_high': 'Opportunity to enhance student engagement strategies',
+        'engagement_independent': 'Opportunity to develop independent learning skills',
+        'engagement_objectives': 'Could make learning objectives more explicit',
+        'engagement_progress': 'Could make better use of assessment for learning'
+    };
+
+    function generateSummary() {
+        // Get selected observations
+        const observationCheckboxes = document.querySelectorAll('input[name="observations"]:checked');
+        const selectedObservations = Array.from(observationCheckboxes).map(cb => cb.value);
+        
+        // Get selected strengths
+        const strengthCheckboxes = document.querySelectorAll('input[name="strengths"]:checked');
+        const selectedStrengths = Array.from(strengthCheckboxes).map(cb => cb.value);
+        
+        // Get selected weaknesses
+        const weaknessCheckboxes = document.querySelectorAll('input[name="weaknesses"]:checked');
+        const selectedWeaknesses = Array.from(weaknessCheckboxes).map(cb => cb.value);
+        
+        // If nothing selected, clear fields
+        if (selectedObservations.length === 0 && selectedStrengths.length === 0 && selectedWeaknesses.length === 0) {
+            document.getElementById('detailed_feedback').value = '';
+            document.getElementById('recommendations').value = '';
+            document.getElementById('next_steps').value = '';
+            return;
+        }
+
+        // Categorize observations
+        const planning = selectedObservations.filter(o => o.startsWith('planning_'));
+        const delivery = selectedObservations.filter(o => o.startsWith('delivery_'));
+        const management = selectedObservations.filter(o => o.startsWith('management_'));
+        const engagement = selectedObservations.filter(o => o.startsWith('engagement_'));
+
+        // Use selected strengths and weaknesses from checkboxes, or generate from observations
+        let strengths = [...selectedStrengths];
+        let developments = [...selectedWeaknesses];
+        
+        // If no strengths/weaknesses selected but observations are, generate from observations
+        if (strengths.length === 0 && selectedObservations.length > 0) {
+            const strengthMap = {
+                'planning_resources': 'Excellent use of resources and technology',
+                'planning_objectives': 'Excellent lesson planning with clear learning objectives',
+                'planning_differentiated': 'Well-differentiated activities meeting individual needs',
+                'planning_semh': 'SEMH needs considered and addressed appropriately',
+                'planning_structured': 'Well-structured lesson with clear sequencing',
+                'planning_assessment': 'Effective assessment opportunities planned',
+                
+                'delivery_adaptive': 'Adaptive teaching responding to student needs',
+                'delivery_explanations': 'Clear and effective explanations demonstrated',
+                'delivery_questioning': 'Effective use of questioning to check understanding',
+                'delivery_engaging': 'High levels of student engagement maintained',
+                'delivery_pace': 'Clear and appropriate pace of learning',
+                'delivery_relationships': 'Positive relationships with students evident',
+                'delivery_participation': 'High levels of student participation',
+                'delivery_technology': 'Excellent use of resources and technology',
+                
+                'management_expectations': 'Outstanding classroom management and clear expectations',
+                'management_bfl': 'Consistent application of BFL procedures',
+                'management_transitions': 'Effective transitions between activities',
+                'management_reinforcement': 'Effective use of positive reinforcement',
+                'management_routines': 'Routines established and consistently applied',
+                'management_safe': 'Safe and supportive learning environment created',
+                
+                'engagement_active': 'High levels of active participation',
+                'engagement_collaborative': 'Effective collaborative work observed',
+                'engagement_high': 'High levels of student engagement maintained',
+                'engagement_independent': 'Students demonstrating independent learning skills',
+                'engagement_objectives': 'Students making clear progress towards objectives',
+                'engagement_progress': 'Clear progress evident throughout the lesson'
+            };
+
+            selectedObservations.forEach(obs => {
+                if (strengthMap[obs] && !strengths.includes(strengthMap[obs])) {
+                    strengths.push(strengthMap[obs]);
+                }
+            });
+        }
+        
+        // If no weaknesses selected but observations are, generate from missing observations
+        if (developments.length === 0 && selectedObservations.length > 0) {
+            const allObservations = Array.from(document.querySelectorAll('input[name="observations"]')).map(cb => cb.value);
+            const missingObservations = allObservations.filter(obs => !selectedObservations.includes(obs));
+            
+            const developmentMap = {
+                'planning_resources': 'Opportunity to develop more effective use of resources',
+                'planning_assessment': 'Could improve planning to include more assessment opportunities',
+                'planning_objectives': 'Could benefit from more explicit learning objectives',
+                'planning_differentiated': 'Opportunity to increase differentiation for diverse learners',
+                'planning_semh': 'Could better address SEMH needs within the lesson',
+                'planning_structured': 'Could improve lesson structure and sequencing',
+                
+                'delivery_adaptive': 'Opportunity to develop more adaptive teaching strategies',
+                'delivery_explanations': 'Could enhance clarity of explanations',
+                'delivery_questioning': 'Would benefit from more varied questioning techniques',
+                'delivery_engaging': 'Opportunity to enhance student engagement strategies',
+                'delivery_pace': 'Pace could be adjusted to better meet student needs',
+                'delivery_relationships': 'Opportunity to strengthen relationship building',
+                'delivery_participation': 'Could increase opportunities for student participation',
+                'delivery_technology': 'Opportunity to develop more effective use of resources',
+                
+                'management_expectations': 'Opportunity to strengthen classroom management strategies',
+                'management_bfl': 'Could improve consistency of BFL implementation',
+                'management_transitions': 'Could strengthen transitions between activities',
+                'management_reinforcement': 'Opportunity to improve positive reinforcement strategies',
+                'management_routines': 'Could establish more consistent routines',
+                'management_safe': 'Could further develop safe learning environment strategies',
+                
+                'engagement_active': 'Could increase opportunities for active participation',
+                'engagement_collaborative': 'Opportunity to develop collaborative learning skills',
+                'engagement_high': 'Opportunity to enhance student engagement strategies',
+                'engagement_independent': 'Opportunity to develop independent learning skills',
+                'engagement_objectives': 'Could make learning objectives more explicit',
+                'engagement_progress': 'Could make better use of assessment for learning'
+            };
+
+            missingObservations.forEach(obs => {
+                if (developmentMap[obs] && !developments.includes(developmentMap[obs])) {
+                    developments.push(developmentMap[obs]);
+                }
+            });
+        }
+
+        // Generate detailed feedback (Ofsted-aligned)
+        const staffName = document.getElementById('staff_member').value || 'the teacher';
+        const subjectArea = document.getElementById('subject_area').value || 'the lesson';
+        const date = document.getElementById('observation_date').value || new Date().toLocaleDateString();
+        const observerName = document.getElementById('observer_name').value || 'Observer';
+        const overallRating = document.getElementById('overall_rating').value;
+        const ratings = {
+            '1': 'Requires Improvement',
+            '2': 'Satisfactory',
+            '3': 'Good',
+            '4': 'Outstanding'
+        };
+        const ratingDescriptions = {
+            '1': 'The teaching observed requires significant improvement to meet Evolution Education standards. Immediate support and targeted professional development are recommended to address identified areas.',
+            '2': 'The teaching observed meets basic standards. There are clear areas for development to enhance practice and student outcomes. Continued support and professional development will support improvement.',
+            '3': 'The teaching observed demonstrates good practice aligned with Evolution Education standards and Ofsted\'s Quality of Education framework. The teacher shows competence across key areas with identified strengths.',
+            '4': 'The teaching observed demonstrates outstanding practice, exceeding Evolution Education standards and Ofsted\'s Quality of Education framework. The teacher consistently demonstrates excellence across all observed areas.'
+        };
+        
+        let feedback = `TEACHING OBSERVATION SUMMARY REPORT\n`;
+        feedback += `Evolution Education - Ofsted Quality of Education Framework Alignment\n\n`;
+        feedback += `OBSERVATION DETAILS:\n`;
+        feedback += `Date: ${date}\n`;
+        feedback += `Staff Member Observed: ${staffName}\n`;
+        feedback += `Observer: ${observerName}\n`;
+        feedback += `Subject/Area: ${subjectArea}\n\n`;
+        
+        const totalSelections = selectedObservations.length + selectedStrengths.length + selectedWeaknesses.length;
+        const lessonContext = document.getElementById('lesson_context').value;
+        const evidenceExamples = document.getElementById('evidence_examples').value;
+        const studentImpact = document.getElementById('student_impact').value;
+        const observationDuration = document.getElementById('observation_duration').value;
+        const numberOfStudents = document.getElementById('number_of_students').value;
+        
+        feedback += `This observation review identifies ${totalSelections} key areas of teaching practice aligned with Ofsted's Quality of Education framework and Evolution Education's best practice standards.\n\n`;
+        
+        if (observationDuration) {
+            feedback += `Observation Duration: ${observationDuration} minutes\n`;
+        }
+        if (numberOfStudents) {
+            feedback += `Number of Students: ${numberOfStudents}\n`;
+        }
+        if (lessonContext) {
+            feedback += `\nLESSON CONTEXT:\n${lessonContext}\n\n`;
+        }
+        
+        feedback += `OVERALL ASSESSMENT:\n`;
+        if (overallRating) {
+            feedback += `Overall Teaching Quality Rating: ${overallRating} - ${ratings[overallRating]}\n\n`;
+            feedback += `${ratingDescriptions[overallRating]}\n\n`;
+            
+            // Add rating-specific context to summary
+            if (overallRating === '1' || overallRating === '2') {
+                feedback += `PRIORITY FOCUS:\n`;
+                feedback += `Given the rating of ${ratings[overallRating]}, immediate attention should be given to the areas for development identified below. A structured support plan with regular monitoring and targeted CPD is recommended.\n\n`;
+            } else if (overallRating === '3') {
+                feedback += `CONTINUED DEVELOPMENT:\n`;
+                feedback += `The rating of ${ratings[overallRating]} reflects solid practice with clear strengths. The focus should be on building on these strengths while addressing the identified areas for development to progress towards outstanding practice.\n\n`;
+            } else if (overallRating === '4') {
+                feedback += `EXCELLENCE RECOGNITION:\n`;
+                feedback += `The rating of ${ratings[overallRating]} recognises exceptional teaching practice. The teacher should continue to maintain these high standards and consider sharing good practice with colleagues to support whole-school improvement.\n\n`;
+            }
+        } else {
+            feedback += `Overall Teaching Quality Rating: Not yet assessed\n\n`;
+        }
+        
+        if (planning.length > 0) {
+            feedback += `PLANNING & PREPARATION:\n`;
+            feedback += `The lesson planning demonstrated ${planning.length} key strength(s). `;
+            if (planning.includes('planning_objectives')) {
+                feedback += `Learning objectives were clearly established and communicated to students, providing a clear focus for the session. `;
+            }
+            if (planning.includes('planning_differentiated')) {
+                feedback += `Activities were appropriately differentiated to meet diverse learner needs, ensuring all students could access the learning. `;
+            }
+            if (planning.includes('planning_semh')) {
+                feedback += `SEMH considerations were evident in the planning, demonstrating awareness of student needs and appropriate support strategies. `;
+            }
+            if (planning.includes('planning_resources')) {
+                feedback += `Resources were well-selected and appropriate for the learning objectives. `;
+            }
+            if (planning.includes('planning_assessment')) {
+                feedback += `Assessment opportunities were planned effectively to check understanding. `;
+            }
+            if (planning.includes('planning_structured')) {
+                feedback += `The lesson was well-structured with clear sequencing. `;
+            }
+            feedback += `\n`;
+        }
+
+        if (delivery.length > 0) {
+            feedback += `TEACHING & DELIVERY:\n`;
+            feedback += `The teaching delivery demonstrated ${delivery.length} key strength(s). `;
+            if (delivery.includes('delivery_adaptive')) {
+                feedback += `Teaching was adaptive, responding effectively to student needs throughout the lesson and adjusting pace and content as required. `;
+            }
+            if (delivery.includes('delivery_questioning')) {
+                feedback += `Questioning was used effectively to check understanding, promote thinking, and assess learning. `;
+            }
+            if (delivery.includes('delivery_engaging')) {
+                feedback += `Students were highly engaged throughout the session, demonstrating interest and motivation. `;
+            }
+            if (delivery.includes('delivery_explanations')) {
+                feedback += `Explanations were clear and accessible, supporting student understanding. `;
+            }
+            if (delivery.includes('delivery_pace')) {
+                feedback += `The pace of learning was appropriate, allowing students time to process and apply new knowledge. `;
+            }
+            if (delivery.includes('delivery_relationships')) {
+                feedback += `Positive relationships with students were evident, creating a supportive learning environment. `;
+            }
+            if (delivery.includes('delivery_participation')) {
+                feedback += `High levels of student participation were maintained throughout. `;
+            }
+            if (delivery.includes('delivery_technology')) {
+                feedback += `Technology was used effectively to enhance learning. `;
+            }
+            feedback += `\n`;
+        }
+
+        if (management.length > 0) {
+            feedback += `CLASSROOM MANAGEMENT:\n`;
+            feedback += `Management strategies were evident in ${management.length} key area(s). `;
+            if (management.includes('management_bfl')) {
+                feedback += `BFL procedures were consistently applied, supporting positive behaviour and creating clear boundaries. `;
+            }
+            if (management.includes('management_expectations')) {
+                feedback += `Clear expectations were established and maintained throughout the lesson. `;
+            }
+            if (management.includes('management_safe')) {
+                feedback += `A safe and supportive learning environment was created, enabling students to take risks and learn effectively. `;
+            }
+            if (management.includes('management_transitions')) {
+                feedback += `Transitions between activities were managed effectively, maintaining momentum. `;
+            }
+            if (management.includes('management_reinforcement')) {
+                feedback += `Positive reinforcement was used effectively to recognise and celebrate student effort and achievement. `;
+            }
+            if (management.includes('management_routines')) {
+                feedback += `Routines were established and consistently applied, supporting student independence. `;
+            }
+            feedback += `\n`;
+        }
+
+        if (engagement.length > 0) {
+            feedback += `STUDENT ENGAGEMENT & PROGRESS:\n`;
+            feedback += `Evidence of ${engagement.length} engagement strength(s) was observed. `;
+            if (engagement.includes('engagement_progress')) {
+                feedback += `Students made clear progress towards learning objectives, demonstrating understanding and skill development. `;
+            }
+            if (engagement.includes('engagement_active')) {
+                feedback += `Active participation was maintained throughout, with students contributing ideas and engaging with tasks. `;
+            }
+            if (engagement.includes('engagement_independent')) {
+                feedback += `Students demonstrated independent learning skills, working confidently on tasks. `;
+            }
+            if (engagement.includes('engagement_collaborative')) {
+                feedback += `Collaborative work was effective, with students supporting each other's learning. `;
+            }
+            if (engagement.includes('engagement_high')) {
+                feedback += `High levels of engagement were evident throughout the session. `;
+            }
+            if (engagement.includes('engagement_objectives')) {
+                feedback += `Students successfully met the learning objectives set for the lesson. `;
+            }
+            feedback += `\n`;
+        }
+
+        if (evidenceExamples) {
+            feedback += `EVIDENCE & SPECIFIC EXAMPLES:\n`;
+            feedback += `${evidenceExamples}\n\n`;
+        }
+        
+        if (studentImpact) {
+            feedback += `STUDENT IMPACT & OUTCOMES:\n`;
+            feedback += `${studentImpact}\n\n`;
+        }
+        
+        const whatWentWell = document.getElementById('what_went_well').value;
+        const evenBetterIf = document.getElementById('even_better_if').value;
+        
+        // Add WWW/EBI summary if provided
+        if (whatWentWell || evenBetterIf) {
+            feedback += `SUMMARY:\n`;
+            if (whatWentWell) {
+                feedback += `WHAT WENT WELL:\n${whatWentWell}\n\n`;
+            }
+            if (evenBetterIf) {
+                feedback += `EVEN BETTER IF:\n${evenBetterIf}\n\n`;
+            }
+        }
+        
+        if (strengths.length > 0) {
+            feedback += `KEY STRENGTHS IDENTIFIED:\n`;
+            feedback += `The observation identified ${strengths.length} key strength(s) in teaching practice:\n\n`;
+            strengths.forEach((strength, index) => {
+                feedback += `${index + 1}. ${strength}\n`;
+            });
+            feedback += `\n`;
+            feedback += `These strengths demonstrate effective practice aligned with Evolution Education's standards and Ofsted's Quality of Education framework. The teacher has shown competence in these areas, contributing to positive student outcomes.\n\n`;
+        }
+
+        if (developments.length > 0) {
+            feedback += `AREAS FOR DEVELOPMENT:\n`;
+            feedback += `The observation identified ${developments.length} area(s) for professional development:\n\n`;
+            developments.forEach((dev, index) => {
+                feedback += `${index + 1}. ${dev}\n`;
+            });
+            feedback += `\n`;
+            feedback += `These areas represent opportunities for continued professional growth. Addressing these will further enhance teaching quality and student outcomes in line with Evolution Education's commitment to excellence.\n\n`;
+        }
+        
+        // Add overall summary with rating context
+        feedback += `OVERALL SUMMARY:\n`;
+        
+        if (overallRating) {
+            if (overallRating === '1' || overallRating === '2') {
+                feedback += `This observation has been rated as "${ratings[overallRating]}". `;
+                if (strengths.length > 0) {
+                    feedback += `While ${strengths.length} strength(s) were identified, there are ${developments.length > 0 ? developments.length : 'several'} clear area(s) requiring immediate attention. `;
+                } else {
+                    feedback += `${developments.length > 0 ? developments.length : 'Several'} area(s) for development have been identified. `;
+                }
+                feedback += `A structured improvement plan with regular monitoring, targeted support, and specific CPD interventions is essential to support the teacher's professional development and enhance teaching quality.\n\n`;
+            } else if (overallRating === '3') {
+                feedback += `This observation has been rated as "${ratings[overallRating]}". `;
+                if (strengths.length > 0 && developments.length > 0) {
+                    feedback += `The teacher demonstrates ${strengths.length} clear strength(s) while having ${developments.length} identified area(s) for continued professional growth. `;
+                } else if (strengths.length > 0) {
+                    feedback += `The teacher demonstrates ${strengths.length} clear strength(s) in their practice. `;
+                } else if (developments.length > 0) {
+                    feedback += `${developments.length} area(s) for development have been identified. `;
+                }
+                feedback += `With continued support and targeted CPD, the teacher is well-positioned to build on their strengths and address development areas to progress towards outstanding practice.\n\n`;
+            } else if (overallRating === '4') {
+                feedback += `This observation has been rated as "${ratings[overallRating]}". `;
+                if (strengths.length > 0) {
+                    feedback += `The teacher consistently demonstrates excellence across ${strengths.length} identified strength(s), exceeding Evolution Education standards. `;
+                }
+                feedback += `This outstanding practice should be recognised and celebrated. The teacher should continue to maintain these high standards and consider opportunities to share good practice with colleagues to support whole-school improvement.\n\n`;
+            }
+        } else {
+            if (strengths.length > 0 && developments.length > 0) {
+                feedback += `This observation demonstrates a balance of strengths and areas for development. The teacher shows ${strengths.length} clear strength(s) while having ${developments.length} identified area(s) for continued professional growth. `;
+                feedback += `With targeted support and CPD, the teacher is well-positioned to develop further and enhance their practice.\n\n`;
+            } else if (strengths.length > 0) {
+                feedback += `This observation demonstrates strong teaching practice with ${strengths.length} identified strength(s). The teacher is performing well and should continue to build on these strengths.\n\n`;
+            } else if (developments.length > 0) {
+                feedback += `This observation has identified ${developments.length} area(s) for development. With appropriate support and professional development, the teacher can address these areas to enhance their practice.\n\n`;
+            }
+        }
+        
+        feedback += `This review aligns with Evolution Education's commitment to continuous improvement and Ofsted's Quality of Education framework, focusing on curriculum, teaching, assessment, and student outcomes. `;
+        if (overallRating) {
+            feedback += `The overall rating of "${ratings[overallRating]}" reflects the current level of teaching quality observed and provides a clear benchmark for future development.\n`;
+        } else {
+            feedback += `An overall rating should be assigned to complete this observation review.\n`;
+        }
+
+        // Generate recommendations with rating context
+        let recommendations = `RECOMMENDATIONS - Evolution Education Best Practice:\n\n`;
+        
+        if (overallRating) {
+            recommendations += `Based on this observation (rated as "${ratings[overallRating]}"), the following recommendations align with Ofsted's Quality of Education framework and Evolution Education's standards:\n\n`;
+            
+            if (overallRating === '1' || overallRating === '2') {
+                recommendations += `PRIORITY RECOMMENDATIONS (Immediate Action Required):\n`;
+                recommendations += `Given the rating of "${ratings[overallRating]}", the following actions are recommended as immediate priorities:\n\n`;
+            } else if (overallRating === '3') {
+                recommendations += `DEVELOPMENT RECOMMENDATIONS:\n`;
+                recommendations += `To progress from "${ratings[overallRating]}" towards outstanding practice, consider the following:\n\n`;
+            } else if (overallRating === '4') {
+                recommendations += `MAINTAINING EXCELLENCE:\n`;
+                recommendations += `To maintain the "${ratings[overallRating]}" rating and continue to develop practice:\n\n`;
+            }
+        } else {
+            recommendations += `Based on this observation, the following recommendations align with Ofsted's Quality of Education framework and Evolution Education's standards:\n\n`;
+        }
+        
+        if (planning.length < 4) {
+            recommendations += `1. PLANNING & PREPARATION:\n`;
+            recommendations += `   - Continue to develop planning skills, ensuring all lessons include clear learning objectives\n`;
+            recommendations += `   - Incorporate differentiated activities to meet diverse learner needs\n`;
+            recommendations += `   - Ensure SEMH considerations are embedded in planning\n`;
+            recommendations += `   - Plan for effective assessment opportunities throughout the lesson\n\n`;
+        }
+        
+        if (delivery.length < 5) {
+            recommendations += `2. TEACHING & DELIVERY:\n`;
+            recommendations += `   - Focus on developing adaptive teaching strategies to respond to student needs\n`;
+            recommendations += `   - Enhance questioning techniques to check understanding and promote thinking\n`;
+            recommendations += `   - Develop strategies to maintain high levels of student engagement\n`;
+            recommendations += `   - Consider pace adjustments to better meet student needs\n\n`;
+        }
+        
+        if (management.length < 4) {
+            recommendations += `3. CLASSROOM MANAGEMENT:\n`;
+            recommendations += `   - Strengthen consistency in BFL implementation across all interactions\n`;
+            recommendations += `   - Develop clear expectations and routines that support learning\n`;
+            recommendations += `   - Enhance use of positive reinforcement strategies\n`;
+            recommendations += `   - Ensure transitions between activities are smooth and purposeful\n\n`;
+        }
+        
+        if (engagement.length < 4) {
+            recommendations += `4. STUDENT ENGAGEMENT & PROGRESS:\n`;
+            recommendations += `   - Develop strategies to increase active participation\n`;
+            recommendations += `   - Create more opportunities for independent learning\n`;
+            recommendations += `   - Enhance collaborative learning opportunities\n`;
+            recommendations += `   - Make learning objectives more explicit to support progress\n\n`;
+        }
+        
+        if (developments.length > 0) {
+            recommendations += `SPECIFIC RECOMMENDATIONS BASED ON OBSERVATION:\n`;
+            developments.slice(0, 5).forEach((dev, index) => {
+                recommendations += `${index + 1}. ${dev}\n`;
+            });
+        }
+        
+        if (overallRating === '1' || overallRating === '2') {
+            recommendations += `\nSUPPORT STRUCTURE:\n`;
+            recommendations += `- Weekly line management meetings to monitor progress\n`;
+            recommendations += `- Access to targeted CPD opportunities\n`;
+            recommendations += `- Peer observation and mentoring support\n`;
+            recommendations += `- Regular review of improvement plan\n`;
+        }
+
+        // Generate next steps with rating context
+        let nextSteps = `NEXT STEPS - Action Plan:\n\n`;
+        
+        if (overallRating === '1' || overallRating === '2') {
+            nextSteps += `IMMEDIATE ACTIONS (Priority - Rating: "${ratings[overallRating]}"):\n`;
+            nextSteps += `1. URGENT: Review this observation feedback with line manager within 24-48 hours\n`;
+            nextSteps += `2. Develop an immediate improvement plan addressing priority areas\n`;
+            nextSteps += `3. Access targeted CPD opportunities through Evolution Education\n`;
+            nextSteps += `4. Begin implementing agreed strategies immediately\n`;
+            nextSteps += `5. Schedule weekly progress reviews with line manager\n\n`;
+            
+            nextSteps += `SUPPORT STRUCTURE:\n`;
+            nextSteps += `6. Regular monitoring and support sessions (weekly recommended)\n`;
+            nextSteps += `7. Access to mentoring and peer support\n`;
+            nextSteps += `8. Follow-up observation scheduled within 4 weeks to assess progress\n`;
+            nextSteps += `9. Maintain evidence log of improvements and CPD engagement\n\n`;
+        } else if (overallRating === '3') {
+            nextSteps += `IMMEDIATE ACTIONS (Rating: "${ratings[overallRating]}"):\n`;
+            nextSteps += `1. Review this observation feedback with line manager within 48 hours\n`;
+            nextSteps += `2. Identify 2-3 priority areas for development based on this feedback\n`;
+            nextSteps += `3. Access relevant CPD opportunities through Evolution Education\n`;
+            nextSteps += `4. Implement agreed strategies in upcoming lessons\n\n`;
+            
+            nextSteps += `ONGOING DEVELOPMENT:\n`;
+            nextSteps += `5. Schedule follow-up observation to review progress (suggested: 6-8 weeks)\n`;
+            nextSteps += `6. Maintain evidence of implementation and impact\n`;
+            nextSteps += `7. Reflect on progress regularly with line manager\n`;
+            nextSteps += `8. Build on identified strengths while addressing development areas\n\n`;
+        } else if (overallRating === '4') {
+            nextSteps += `MAINTAINING EXCELLENCE (Rating: "${ratings[overallRating]}"):\n`;
+            nextSteps += `1. Review this observation feedback with line manager\n`;
+            nextSteps += `2. Continue to maintain and build on identified strengths\n`;
+            nextSteps += `3. Consider opportunities to share good practice with colleagues\n`;
+            nextSteps += `4. Engage in advanced CPD to further develop expertise\n`;
+            nextSteps += `5. Support other staff members through mentoring where appropriate\n\n`;
+            
+            nextSteps += `ONGOING DEVELOPMENT:\n`;
+            nextSteps += `6. Regular self-reflection and professional development\n`;
+            nextSteps += `7. Continue to innovate and refine practice\n`;
+            nextSteps += `8. Contribute to whole-school improvement initiatives\n`;
+            nextSteps += `9. Next observation scheduled as per normal cycle (3-6 months)\n\n`;
+        } else {
+            nextSteps += `IMMEDIATE ACTIONS:\n`;
+            nextSteps += `1. Review this observation feedback with line manager within 48 hours\n`;
+            nextSteps += `2. Identify 2-3 priority areas for development based on this feedback\n`;
+            nextSteps += `3. Access relevant CPD opportunities through Evolution Education\n`;
+            nextSteps += `4. Implement agreed strategies in upcoming lessons\n\n`;
+            
+            nextSteps += `ONGOING DEVELOPMENT:\n`;
+            nextSteps += `5. Schedule follow-up observation to review progress (suggested: 4-6 weeks)\n`;
+            nextSteps += `6. Maintain evidence of implementation and impact\n`;
+            nextSteps += `7. Reflect on progress regularly with line manager\n`;
+            nextSteps += `8. Share good practice with colleagues where appropriate\n\n`;
+        }
+        
+        if (developments.length > 0) {
+            nextSteps += `PRIORITY FOCUS AREAS:\n`;
+            developments.slice(0, 3).forEach((dev, index) => {
+                nextSteps += `- ${dev}\n`;
+            });
+        }
+        
+        if (overallRating) {
+            nextSteps += `\nNOTE: The overall rating of "${ratings[overallRating]}" should inform the priority and urgency of these next steps. `;
+            if (overallRating === '1' || overallRating === '2') {
+                nextSteps += `Given this rating, immediate action and intensive support are required.\n`;
+            } else {
+                nextSteps += `This rating provides a clear benchmark for future development.\n`;
+            }
+        }
+
+        // Update textareas
+        document.getElementById('detailed_feedback').value = feedback;
+        document.getElementById('recommendations').value = recommendations;
+        document.getElementById('next_steps').value = nextSteps;
+        
+        // Update follow-up date if rating is 1 or 2 (suggest earlier follow-up)
+        if (overallRating === '1' || overallRating === '2') {
+            const followUpDate = document.getElementById('follow_up_date');
+            if (!followUpDate.value) {
+                const date = new Date();
+                date.setDate(date.getDate() + 28); // 4 weeks for lower ratings
+                followUpDate.value = date.toISOString().split('T')[0];
+            }
+        } else if (overallRating === '3') {
+            const followUpDate = document.getElementById('follow_up_date');
+            if (!followUpDate.value) {
+                const date = new Date();
+                date.setDate(date.getDate() + 56); // 8 weeks for good rating
+                followUpDate.value = date.toISOString().split('T')[0];
+            }
+        }
+    }
+
+    // Listen for observation checkbox changes
+    document.querySelectorAll('input[name="observations"]').forEach(checkbox => {
+        checkbox.addEventListener('change', generateSummary);
+    });
+
+    // Listen for strength checkbox changes
+    document.querySelectorAll('input[name="strengths"]').forEach(checkbox => {
+        checkbox.addEventListener('change', generateSummary);
+    });
+
+    // Listen for weakness checkbox changes
+    document.querySelectorAll('input[name="weaknesses"]').forEach(checkbox => {
+        checkbox.addEventListener('change', generateSummary);
+    });
+
+    // Listen for overall rating changes
+    document.getElementById('overall_rating').addEventListener('change', generateSummary);
+    
+    // Listen for evidence and impact changes to update summary
+    document.getElementById('evidence_examples').addEventListener('input', generateSummary);
+    document.getElementById('student_impact').addEventListener('input', generateSummary);
+    document.getElementById('lesson_context').addEventListener('input', generateSummary);
+    document.getElementById('what_went_well').addEventListener('input', generateSummary);
+    document.getElementById('even_better_if').addEventListener('input', generateSummary);
+
+    // Auto-save functionality
+    let saveTimeout;
+    const form = document.getElementById('teaching-review-form');
+    const saveIndicator = document.getElementById('save-indicator');
+
+    function showSaveIndicator() {
+        saveIndicator.classList.add('show');
+        setTimeout(() => {
+            saveIndicator.classList.remove('show');
+        }, 2000);
+    }
+
+    function autoSave() {
+        const formData = new FormData(form);
+        const data = {};
+        for (let [key, value] of formData.entries()) {
+            if (data[key]) {
+                if (Array.isArray(data[key])) {
+                    data[key].push(value);
+                } else {
+                    data[key] = [data[key], value];
+                }
+            } else {
+                data[key] = value;
+            }
+        }
+        
+        localStorage.setItem('teaching_review_draft', JSON.stringify(data));
+        showSaveIndicator();
+    }
+
+    form.addEventListener('input', function() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(autoSave, 1000);
+    });
+
+    form.addEventListener('change', function() {
+        clearTimeout(saveTimeout);
+        saveTimeout = setTimeout(autoSave, 1000);
+    });
+
+    // Load saved draft
+    window.addEventListener('DOMContentLoaded', function() {
+        const saved = localStorage.getItem('teaching_review_draft');
+        if (saved) {
+            try {
+                const data = JSON.parse(saved);
+                Object.keys(data).forEach(key => {
+                    const element = form.querySelector(`[name="${key}"]`);
+                    if (element) {
+                        if (element.type === 'checkbox') {
+                            const values = Array.isArray(data[key]) ? data[key] : [data[key]];
+                            values.forEach(val => {
+                                const checkbox = form.querySelector(`[name="${key}"][value="${val}"]`);
+                                if (checkbox) checkbox.checked = true;
+                            });
+                        } else {
+                            element.value = Array.isArray(data[key]) ? data[key][0] : data[key];
+                        }
+                    }
+                });
+                
+                // Regenerate summary if observations, strengths, or weaknesses were loaded
+                setTimeout(() => {
+                    generateSummary();
+                }, 100);
+            } catch (e) {
+                console.error('Error loading saved draft:', e);
+            }
+        }
+    });
+
+    function printForm() {
+        const originalTitle = document.title;
+        const staffName = document.getElementById('staff_member').value || 'Staff Member';
+        document.title = `Teaching Review - ${staffName} - ${new Date().toLocaleDateString()}`;
+        
+        window.print();
+        
+        setTimeout(() => {
+            document.title = originalTitle;
+        }, 1000);
+    }
+
+    function saveAsPDF() {
+        const originalTitle = document.title;
+        const staffName = document.getElementById('staff_member').value || 'Staff Member';
+        document.title = `Teaching Review - ${staffName} - ${new Date().toLocaleDateString()}`;
+        
+        window.print();
+        
+        setTimeout(() => {
+            document.title = originalTitle;
+        }, 1000);
+    }
+
+    function submitForm() {
+        if (!confirm('Are you sure you want to submit this teaching review form? It will be emailed to admin@evolution-sportsgroup.com.')) {
+            return;
+        }
+
+        const formData = new FormData(document.getElementById('teaching-review-form'));
+        const data = {};
+        
+        for (let [key, value] of formData.entries()) {
+            if (data[key]) {
+                if (Array.isArray(data[key])) {
+                    data[key].push(value);
+                } else {
+                    data[key] = [data[key], value];
+                }
+            } else {
+                data[key] = value;
+            }
+        }
+
+        // Get checkbox values
+        document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+            if (data[checkbox.name]) {
+                if (Array.isArray(data[checkbox.name])) {
+                    data[checkbox.name].push(checkbox.value);
+                } else {
+                    data[checkbox.name] = [data[checkbox.name], checkbox.value];
+                }
+            } else {
+                data[checkbox.name] = checkbox.value;
+            }
+        });
+
+        fetch('/api/teaching-review/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.status === 'success') {
+                alert('Teaching review form submitted successfully! It has been emailed to admin@evolution-sportsgroup.com.');
+            } else {
+                alert('Error: ' + result.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting:', error);
+            alert('An error occurred while submitting. Please try again.');
+        });
+    }
+</script>
+{% endblock %}
