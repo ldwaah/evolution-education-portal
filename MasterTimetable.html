@@ -662,6 +662,145 @@
             font-size: 0.75rem;
         }
 
+        .responsibility-btn {
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--thursday-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .responsibility-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        #lgResponsibilityBtn {
+            background: var(--ks4-color);
+        }
+
+        #lgResponsibilityBtn:hover {
+            background: #be185d;
+        }
+
+        #saResponsibilityBtn {
+            background: var(--friday-color);
+        }
+
+        #saResponsibilityBtn:hover {
+            background: #7c3aed;
+        }
+
+        /* Modal Styles */
+        .responsibility-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .responsibility-modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .responsibility-modal-header {
+            background: linear-gradient(135deg, var(--thursday-color) 0%, #1e40af 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .responsibility-modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .close-responsibility-modal {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .close-responsibility-modal:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .responsibility-modal-body {
+            padding: 2rem;
+        }
+
+        .responsibility-section {
+            margin-bottom: 2rem;
+        }
+
+        .responsibility-section h3 {
+            color: var(--thursday-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--thursday-color);
+            padding-left: 0.75rem;
+        }
+
+        .responsibility-section ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .responsibility-section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .responsibility-section strong {
+            color: var(--text-primary);
+        }
+
+        .responsibility-highlight {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .responsibility-highlight strong {
+            color: #92400e;
+        }
+
         .dc-monday .day-name { color: var(--monday-color); }
         .dc-tuesday .day-name { color: var(--tuesday-color); }
         .dc-wednesday .day-name { color: var(--wednesday-color); }
@@ -2144,6 +2283,7 @@
                 <h2>Dejuane's Schedule</h2>
                 <p class="role-title">Sports Lead & KS3 Intervention Practitioner</p>
                 <p>Core Maths & English • Sports provision • Targeted KS3 intervention</p>
+                <button id="dcResponsibilityBtn" class="responsibility-btn">Responsibility</button>
             </div>
 
             <!-- DC MONDAY -->
@@ -2545,6 +2685,7 @@
                 <h2>Lorelle's Schedule</h2>
                 <p class="role-title">Flexi Learning Pathways Lead</p>
                 <p>Vocational qualifications • Targeted mentoring • Maths & English support</p>
+                <button id="lgResponsibilityBtn" class="responsibility-btn">Responsibility</button>
             </div>
 
             <!-- LG MONDAY -->
@@ -3373,6 +3514,7 @@
                 <h2>SA's Schedule</h2>
                 <p class="role-title">Art • Food Tech • Wellbeing • Teaching & Learning QA</p>
                 <p>Works Tuesday, Thursday & Friday • Does not work Mondays</p>
+                <button id="saResponsibilityBtn" class="responsibility-btn">Responsibility</button>
             </div>
 
             <!-- SA TUESDAY -->
@@ -3953,6 +4095,295 @@
             document.body.removeChild(link);
             URL.revokeObjectURL(link.href);
         }
+
+        // DC Responsibility Modal
+        const dcResponsibilityBtn = document.getElementById('dcResponsibilityBtn');
+        const dcResponsibilityModal = document.getElementById('dcResponsibilityModal');
+        const closeDcResponsibilityModal = document.getElementById('closeDcResponsibilityModal');
+
+        if (dcResponsibilityBtn) {
+            dcResponsibilityBtn.addEventListener('click', function() {
+                if (dcResponsibilityModal) {
+                    dcResponsibilityModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        }
+
+        if (closeDcResponsibilityModal) {
+            closeDcResponsibilityModal.addEventListener('click', function() {
+                if (dcResponsibilityModal) {
+                    dcResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        if (dcResponsibilityModal) {
+            window.addEventListener('click', function(event) {
+                if (event.target === dcResponsibilityModal) {
+                    dcResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && dcResponsibilityModal && dcResponsibilityModal.style.display === 'block') {
+                dcResponsibilityModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (event.key === 'Escape' && lgResponsibilityModal && lgResponsibilityModal.style.display === 'block') {
+                lgResponsibilityModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            if (event.key === 'Escape' && saResponsibilityModal && saResponsibilityModal.style.display === 'block') {
+                saResponsibilityModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // SA Responsibility Modal
+        const saResponsibilityBtn = document.getElementById('saResponsibilityBtn');
+        const saResponsibilityModal = document.getElementById('saResponsibilityModal');
+        const closeSaResponsibilityModal = document.getElementById('closeSaResponsibilityModal');
+
+        if (saResponsibilityBtn) {
+            saResponsibilityBtn.addEventListener('click', function() {
+                if (saResponsibilityModal) {
+                    saResponsibilityModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        }
+
+        if (closeSaResponsibilityModal) {
+            closeSaResponsibilityModal.addEventListener('click', function() {
+                if (saResponsibilityModal) {
+                    saResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        if (saResponsibilityModal) {
+            window.addEventListener('click', function(event) {
+                if (event.target === saResponsibilityModal) {
+                    saResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // LG Responsibility Modal
+        const lgResponsibilityBtn = document.getElementById('lgResponsibilityBtn');
+        const lgResponsibilityModal = document.getElementById('lgResponsibilityModal');
+        const closeLgResponsibilityModal = document.getElementById('closeLgResponsibilityModal');
+
+        if (lgResponsibilityBtn) {
+            lgResponsibilityBtn.addEventListener('click', function() {
+                if (lgResponsibilityModal) {
+                    lgResponsibilityModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                }
+            });
+        }
+
+        if (closeLgResponsibilityModal) {
+            closeLgResponsibilityModal.addEventListener('click', function() {
+                if (lgResponsibilityModal) {
+                    lgResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Close modal when clicking outside
+        if (lgResponsibilityModal) {
+            window.addEventListener('click', function(event) {
+                if (event.target === lgResponsibilityModal) {
+                    lgResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
     </script>
+
+    <!-- DC Responsibility Modal -->
+    <div id="dcResponsibilityModal" class="responsibility-modal">
+        <div class="responsibility-modal-content">
+            <div class="responsibility-modal-header">
+                <h2>DE'JUANE – KS3 PATHWAY LEAD / HEAD OF SPORT / SEMH AQA</h2>
+                <button class="close-responsibility-modal" id="closeDcResponsibilityModal">&times;</button>
+            </div>
+            <div class="responsibility-modal-body">
+                <div class="responsibility-section">
+                    <h3>SEMH AQA Delivery (Updated — Clear, Measurable, Accountable)</h3>
+                    <p>De'juane now holds <strong>FULL responsibility</strong> for delivering SEMH AQA units across KS3.</p>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3>1. Deliver AQA SEMH Sessions</h3>
+                    <ul>
+                        <li><strong>5 sessions per week</strong></li>
+                        <li>Structured, planned, and evidenced</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3>2. Links to AQA Must Be CLEAR in Every Session</h3>
+                    <p>Every task must include:</p>
+                    <ul>
+                        <li><strong>AQA Unit Title</strong></li>
+                        <li><strong>Learning Outcome</strong></li>
+                        <li><strong>Evidence Type</strong> (worksheet, photo, observation, reflection)</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3>3. Evidence of Student Achievement Required</h3>
+                    <p>Evidence may include:</p>
+                    <ul>
+                        <li>Written tasks</li>
+                        <li>Photo evidence</li>
+                        <li>Practical activity logs</li>
+                        <li>Teacher observations</li>
+                        <li>Student reflections</li>
+                        <li>Completion checklists</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3>4. Completion Expectation (Minimum Standard)</h3>
+                    <div class="responsibility-highlight">
+                        <p><strong>📌 Every two weeks → each student must complete 1 AQA unit.</strong></p>
+                        <p>That means:</p>
+                        <ul>
+                            <li>Minimum <strong>5–6 units per term</strong></li>
+                            <li>Units must be achievable and scaffolded</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3>5. Weekly Reporting Requirement</h3>
+                    <p>By every <strong>Friday 3:00pm</strong>, De'juane must send:</p>
+                    <ul>
+                        <li>List of students who completed units</li>
+                        <li>Evidence folder (Google Drive or email)</li>
+                        <li>Completed AQA unit sheets</li>
+                        <li>Students needing additional support</li>
+                    </ul>
+                    <p><strong>Recipients:</strong></p>
+                    <ul>
+                        <li>Lorelle (AQA verifier)</li>
+                        <li>Centre Manager (Lloyd)</li>
+                        <li>CEO (Eugene)</li>
+                    </ul>
+                    <div class="responsibility-highlight">
+                        <p><strong>He must CC both Centre Manager & CEO every week without fail.</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LG Responsibility Modal -->
+    <div id="lgResponsibilityModal" class="responsibility-modal">
+        <div class="responsibility-modal-content">
+            <div class="responsibility-modal-header" style="background: linear-gradient(135deg, var(--ks4-color) 0%, #be185d 100%);">
+                <h2>LORELLE – FLEXI LEARNING / VOCATIONAL / PASTORAL</h2>
+                <button class="close-responsibility-modal" id="closeLgResponsibilityModal">&times;</button>
+            </div>
+            <div class="responsibility-modal-body">
+                <div class="responsibility-section">
+                    <h3 style="color: var(--ks4-color); border-left-color: var(--ks4-color);">Vocational Support & Admin Responsibilities</h3>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--ks4-color); border-left-color: var(--ks4-color);">1. DofE Verification</h3>
+                    <ul>
+                        <li><strong>Track evidence</strong></li>
+                        <li><strong>Upload verification logs</strong></li>
+                        <li><strong>Communicate with DofE assessor</strong></li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--ks4-color); border-left-color: var(--ks4-color);">2. King's Trust Support (1:1 Students)</h3>
+                    <ul>
+                        <li>Work with students individually where needed</li>
+                        <li>Support evidence collection</li>
+                        <li>Assist pathway leads to track progress</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--ks4-color); border-left-color: var(--ks4-color);">3. Wednesday On-Site Students (Non-Sport)</h3>
+                    <p><strong>On Wednesdays:</strong></p>
+                    <ul>
+                        <li>Deliver structured sessions for students who do not attend sport</li>
+                        <li>Maintain attendance</li>
+                        <li>Provide purposeful learning (AQA, vocational, PD tasks)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SA Responsibility Modal -->
+    <div id="saResponsibilityModal" class="responsibility-modal">
+        <div class="responsibility-modal-content">
+            <div class="responsibility-modal-header" style="background: linear-gradient(135deg, var(--friday-color) 0%, #7c3aed 100%);">
+                <h2>SACHA – WELLBEING LEAD</h2>
+                <button class="close-responsibility-modal" id="closeSaResponsibilityModal">&times;</button>
+            </div>
+            <div class="responsibility-modal-body">
+                <div class="responsibility-section">
+                    <h3 style="color: var(--friday-color); border-left-color: var(--friday-color);">Whole-Centre Duties</h3>
+                    <p>Sacha's duties extend across the whole provision:</p>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--friday-color); border-left-color: var(--friday-color);">1. Lesson Observations</h3>
+                    <ul>
+                        <li>Conduct learning walks</li>
+                        <li>Use the T&L observation form</li>
+                        <li>Provide feedback and support plans</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--friday-color); border-left-color: var(--friday-color);">2. Staff Wellbeing Support</h3>
+                    <ul>
+                        <li>Check-ins</li>
+                        <li>Wellbeing resources</li>
+                        <li>Flag concerns to Centre Manager and CEO</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--friday-color); border-left-color: var(--friday-color);">3. Admin / PPA / Reward Tracking</h3>
+                    <ul>
+                        <li>Maintain reward points system</li>
+                        <li>Track and record weekly winners</li>
+                        <li>Support reward trip planning</li>
+                    </ul>
+                </div>
+
+                <div class="responsibility-section">
+                    <h3 style="color: var(--friday-color); border-left-color: var(--friday-color);">4. Thrive Administration & Tracking</h3>
+                    <ul>
+                        <li>Update Thrive RAG</li>
+                        <li>Contribute to Thrive meetings</li>
+                        <li>Ensure wellbeing interventions are recorded properly</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
