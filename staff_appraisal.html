@@ -1,14 +1,102 @@
-{% extends "sections/base_section.html" %}
-
-{% block title %}Staff Performance Review & Line Management Tracking - Staff Portal{% endblock %}
-
-{% block section_title %}Staff Performance Review & Line Management Tracking{% endblock %}
-
-{% block breadcrumb_title %}Staff Appraisal{% endblock %}
-
-{% block section_subtitle %}Performance Review & Line Management Tracking{% endblock %}
-
-{% block extra_styles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Performance Review & Line Management Tracking - Staff Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+        overflow: auto;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0f172a 100%);
+        padding: 20px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #667eea;
+    }
+    .header h1 {
+        color: #667eea;
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    .header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+    .quick-nav {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        border-left: 4px solid #667eea;
+    }
+    .quick-nav h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+    }
+    .quick-nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .quick-nav-links a {
+        color: #667eea;
+        text-decoration: none;
+        padding: 8px 15px;
+        background: white;
+        border-radius: 6px;
+        border: 2px solid #667eea;
+        transition: all 0.3s;
+    }
+    .quick-nav-links a:hover {
+        background: #667eea;
+        color: white;
+    }
+    .ofsted-guidance {
+        background: #e7f3ff;
+        border-left: 4px solid #17a2b8;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+    }
+    .ofsted-guidance h3 {
+        color: #0c5460;
+        margin-bottom: 15px;
+    }
+    .ofsted-guidance ul {
+        margin-left: 20px;
+        color: #555;
+        line-height: 1.8;
+    }
+    .btn {
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1em;
+        font-weight: 600;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 12px 30px;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
 <style>
     .info-banner {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -349,24 +437,26 @@
             margin: 2cm;
         }
     }
-</style>
-{% endblock %}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Staff Performance Review & Line Management Tracking</h1>
+            <p>Evolution Education - Staff Portal</p>
+        </div>
 
-{% block ofsted_guidance %}
-<div class="ofsted-guidance">
-    <h3>📋 Ofsted 2025 Framework - Staff Appraisal Alignment</h3>
-    <p><strong>This appraisal system supports Ofsted's expectations for Alternative Provision settings:</strong></p>
-    <ul>
-        <li><strong>Leadership and Management:</strong> Systematic staff development, performance management, and quality assurance</li>
-        <li><strong>Quality of Education:</strong> Evidence-based assessment of teaching quality and professional development</li>
-        <li><strong>Staff Wellbeing:</strong> Regular check-ins, support mechanisms, and workload management</li>
-        <li><strong>Continuous Improvement:</strong> Clear objectives, regular reviews, and evidence-based progression</li>
-    </ul>
-    <p style="margin-top: 10px; font-size: 0.95em;">All appraisals are documented systematically to demonstrate effective staff development and quality assurance aligned with Ofsted's 2025 framework.</p>
-</div>
-{% endblock %}
-
-{% block content %}
+        <div class="ofsted-guidance">
+            <h3>📋 Ofsted 2025 Framework - Staff Appraisal Alignment</h3>
+            <p><strong>This appraisal system supports Ofsted's expectations for Alternative Provision settings:</strong></p>
+            <ul>
+                <li><strong>Leadership and Management:</strong> Systematic staff development, performance management, and quality assurance</li>
+                <li><strong>Quality of Education:</strong> Evidence-based assessment of teaching quality and professional development</li>
+                <li><strong>Staff Wellbeing:</strong> Regular check-ins, support mechanisms, and workload management</li>
+                <li><strong>Continuous Improvement:</strong> Clear objectives, regular reviews, and evidence-based progression</li>
+            </ul>
+            <p style="margin-top: 10px; font-size: 0.95em;">All appraisals are documented systematically to demonstrate effective staff development and quality assurance aligned with Ofsted's 2025 framework.</p>
+        </div>
 <!-- Quick Navigation -->
 <div class="quick-nav">
     <h3>Quick Navigation</h3>
@@ -1348,5 +1438,7 @@
             alert('An error occurred while submitting. Please try again.');
         });
     }
-</script>
-{% endblock %}
+    </script>
+    </div>
+</body>
+</html>

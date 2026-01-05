@@ -1,15 +1,48 @@
-{% extends "sections/base_section.html" %}
-
-{% block title %}Teaching Review & Observation - Staff Portal{% endblock %}
-
-{% block section_title %}Teaching Review & Observation{% endblock %}
-
-{% block breadcrumb_title %}Teaching Review{% endblock %}
-
-{% block section_subtitle %}Teaching Observation & Feedback{% endblock %}
-
-{% block extra_styles %}
-<style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teaching Review & Observation - Staff Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+        overflow: auto;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #0f172a 100%);
+        padding: 20px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 3px solid #667eea;
+    }
+    .header h1 {
+        color: #667eea;
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    .header p {
+        color: #666;
+        font-size: 1.1rem;
+    }
+    .btn {
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1em;
+        font-weight: 600;
+    }
     .info-banner {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
@@ -299,10 +332,14 @@
             margin: 2cm;
         }
     }
-</style>
-{% endblock %}
-
-{% block content %}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Teaching Review & Observation</h1>
+            <p>Evolution Education - Staff Portal</p>
+        </div>
 <div class="info-banner">
     <h2>TEACHING REVIEW & OBSERVATION</h2>
     <p>EVOLUTION EDUCATION</p>
@@ -1614,5 +1651,7 @@
             alert('An error occurred while submitting. Please try again.');
         });
     }
-</script>
-{% endblock %}
+    </script>
+    </div>
+</body>
+</html>
