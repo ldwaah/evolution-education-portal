@@ -255,6 +255,27 @@ if (closeTeachingModal) {
     });
 }
 
+// Senior Management Modal functionality
+const seniorManagementSection = document.getElementById('seniorManagement');
+const seniorManagementModal = document.getElementById('seniorManagementModal');
+const closeSeniorManagementModal = document.getElementById('closeSeniorManagement');
+
+// Open modal when clicking on Senior Management section
+if (seniorManagementSection && seniorManagementModal) {
+    seniorManagementSection.addEventListener('click', function() {
+        seniorManagementModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    });
+}
+
+// Close Senior Management modal when clicking the X
+if (closeSeniorManagementModal) {
+    closeSeniorManagementModal.addEventListener('click', function() {
+        seniorManagementModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    });
+}
+
 // Trackers Modal functionality
 const trackersSection = document.getElementById('trackers');
 const trackersModal = document.getElementById('trackersModal');
@@ -314,6 +335,10 @@ window.addEventListener('click', function(event) {
         teachingModal.style.display = 'none';
         document.body.style.overflow = 'auto'; // Restore scrolling
     }
+    if (event.target === seniorManagementModal) {
+        seniorManagementModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
     if (event.target === trackersModal) {
         trackersModal.style.display = 'none';
         document.body.style.overflow = 'auto'; // Restore scrolling
@@ -357,6 +382,10 @@ document.addEventListener('keydown', function(event) {
         }
         if (teachingModal && teachingModal.style.display === 'block') {
             teachingModal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+        if (seniorManagementModal && seniorManagementModal.style.display === 'block') {
+            seniorManagementModal.style.display = 'none';
             document.body.style.overflow = 'auto'; // Restore scrolling
         }
         if (trackersModal && trackersModal.style.display === 'block') {
@@ -665,14 +694,6 @@ const searchDatabase = [
             closeSearchModal();
             setTimeout(() => document.getElementById('behaviour').click(), 300);
         },
-        section: 'behaviour'
-    },
-    {
-        keywords: ['behaviour reintegration', 'reintegration', 'reflection', 'tier', 'behaviour policy', 'b4l', 'behaviour for learning'],
-        title: 'Behaviour & Reintegration Policy Guide',
-        description: 'Step-by-step reference for managing behaviour incidents (Ofsted-Aligned)',
-        type: 'Link',
-        action: () => window.open('https://behaviourandreintegration.netlify.app', '_blank'),
         section: 'behaviour'
     },
     {
