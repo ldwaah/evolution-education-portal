@@ -4142,242 +4142,185 @@
             URL.revokeObjectURL(link.href);
         }
 
-        // DC Responsibility Modal
-        const dcResponsibilityBtn = document.getElementById('dcResponsibilityBtn');
-        const dcResponsibilityModal = document.getElementById('dcResponsibilityModal');
-        const closeDcResponsibilityModal = document.getElementById('closeDcResponsibilityModal');
+        // Initialize Responsibility Modals
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all modal elements first
+            const dcResponsibilityBtn = document.getElementById('dcResponsibilityBtn');
+            const dcResponsibilityModal = document.getElementById('dcResponsibilityModal');
+            const closeDcResponsibilityModal = document.getElementById('closeDcResponsibilityModal');
 
-        if (dcResponsibilityBtn) {
-            dcResponsibilityBtn.addEventListener('click', function() {
-                if (dcResponsibilityModal) {
+            const ldResponsibilityBtn = document.getElementById('ldResponsibilityBtn');
+            const ldResponsibilityModal = document.getElementById('ldResponsibilityModal');
+            const closeLdResponsibilityModal = document.getElementById('closeLdResponsibilityModal');
+
+            const mcResponsibilityBtn = document.getElementById('mcResponsibilityBtn');
+            const mcResponsibilityModal = document.getElementById('mcResponsibilityModal');
+            const closeMcResponsibilityModal = document.getElementById('closeMcResponsibilityModal');
+
+            const adResponsibilityBtn = document.getElementById('adResponsibilityBtn');
+            const adResponsibilityModal = document.getElementById('adResponsibilityModal');
+            const closeAdResponsibilityModal = document.getElementById('closeAdResponsibilityModal');
+
+            const jcResponsibilityBtn = document.getElementById('jcResponsibilityBtn');
+            const jcResponsibilityModal = document.getElementById('jcResponsibilityModal');
+            const closeJcResponsibilityModal = document.getElementById('closeJcResponsibilityModal');
+
+            const allStaffResponsibilityBtn = document.getElementById('allStaffResponsibilityBtn');
+            const allStaffResponsibilityModal = document.getElementById('allStaffResponsibilityModal');
+            const closeAllStaffResponsibilityModal = document.getElementById('closeAllStaffResponsibilityModal');
+
+            const saResponsibilityBtn = document.getElementById('saResponsibilityBtn');
+            const saResponsibilityModal = document.getElementById('saResponsibilityModal');
+            const closeSaResponsibilityModal = document.getElementById('closeSaResponsibilityModal');
+
+            const lgResponsibilityBtn = document.getElementById('lgResponsibilityBtn');
+            const lgResponsibilityModal = document.getElementById('lgResponsibilityModal');
+            const closeLgResponsibilityModal = document.getElementById('closeLgResponsibilityModal');
+
+            // DC Responsibility Modal
+            if (dcResponsibilityBtn && dcResponsibilityModal) {
+                dcResponsibilityBtn.addEventListener('click', function() {
                     dcResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-                }
-            });
-        }
+                });
+            }
 
-        if (closeDcResponsibilityModal) {
-            closeDcResponsibilityModal.addEventListener('click', function() {
-                if (dcResponsibilityModal) {
+            if (closeDcResponsibilityModal && dcResponsibilityModal) {
+                closeDcResponsibilityModal.addEventListener('click', function() {
                     dcResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        }
+                });
+            }
 
-        // Close modal when clicking outside
-        if (dcResponsibilityModal) {
-            window.addEventListener('click', function(event) {
-                if (event.target === dcResponsibilityModal) {
-                    dcResponsibilityModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-
-        // LD Responsibility Modal
-        const ldResponsibilityBtn = document.getElementById('ldResponsibilityBtn');
-        const ldResponsibilityModal = document.getElementById('ldResponsibilityModal');
-        const closeLdResponsibilityModal = document.getElementById('closeLdResponsibilityModal');
-
-        if (ldResponsibilityBtn) {
-            ldResponsibilityBtn.addEventListener('click', function() {
-                if (ldResponsibilityModal) {
+            // LD Responsibility Modal
+            if (ldResponsibilityBtn && ldResponsibilityModal) {
+                ldResponsibilityBtn.addEventListener('click', function() {
                     ldResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-                }
-            });
-        }
+                });
+            }
 
-        if (closeLdResponsibilityModal) {
-            closeLdResponsibilityModal.addEventListener('click', function() {
-                if (ldResponsibilityModal) {
+            if (closeLdResponsibilityModal && ldResponsibilityModal) {
+                closeLdResponsibilityModal.addEventListener('click', function() {
                     ldResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        }
+                });
+            }
 
-        // MC Responsibility Modal
-        const mcResponsibilityBtn = document.getElementById('mcResponsibilityBtn');
-        const mcResponsibilityModal = document.getElementById('mcResponsibilityModal');
-        const closeMcResponsibilityModal = document.getElementById('closeMcResponsibilityModal');
-
-        if (mcResponsibilityBtn) {
-            mcResponsibilityBtn.addEventListener('click', function() {
-                if (mcResponsibilityModal) {
+            // MC Responsibility Modal
+            if (mcResponsibilityBtn && mcResponsibilityModal) {
+                mcResponsibilityBtn.addEventListener('click', function() {
                     mcResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-                }
-            });
-        }
+                });
+            }
 
-        if (closeMcResponsibilityModal) {
-            closeMcResponsibilityModal.addEventListener('click', function() {
-                if (mcResponsibilityModal) {
+            if (closeMcResponsibilityModal && mcResponsibilityModal) {
+                closeMcResponsibilityModal.addEventListener('click', function() {
                     mcResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        }
+                });
+            }
 
-        // AD Responsibility Modal
-        const adResponsibilityBtn = document.getElementById('adResponsibilityBtn');
-        const adResponsibilityModal = document.getElementById('adResponsibilityModal');
-        const closeAdResponsibilityModal = document.getElementById('closeAdResponsibilityModal');
-
-        if (adResponsibilityBtn) {
-            adResponsibilityBtn.addEventListener('click', function() {
-                if (adResponsibilityModal) {
+            // AD Responsibility Modal
+            if (adResponsibilityBtn && adResponsibilityModal) {
+                adResponsibilityBtn.addEventListener('click', function() {
                     adResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-                }
-            });
-        }
+                });
+            }
 
-        if (closeAdResponsibilityModal) {
-            closeAdResponsibilityModal.addEventListener('click', function() {
-                if (adResponsibilityModal) {
+            if (closeAdResponsibilityModal && adResponsibilityModal) {
+                closeAdResponsibilityModal.addEventListener('click', function() {
                     adResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        }
+                });
+            }
 
-        // JC Responsibility Modal
-        const jcResponsibilityBtn = document.getElementById('jcResponsibilityBtn');
-        const jcResponsibilityModal = document.getElementById('jcResponsibilityModal');
-        const closeJcResponsibilityModal = document.getElementById('closeJcResponsibilityModal');
-
-        if (jcResponsibilityBtn) {
-            jcResponsibilityBtn.addEventListener('click', function() {
-                if (jcResponsibilityModal) {
+            // JC Responsibility Modal
+            if (jcResponsibilityBtn && jcResponsibilityModal) {
+                jcResponsibilityBtn.addEventListener('click', function() {
                     jcResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-                }
-            });
-        }
+                });
+            }
 
-        if (closeJcResponsibilityModal) {
-            closeJcResponsibilityModal.addEventListener('click', function() {
-                if (jcResponsibilityModal) {
+            if (closeJcResponsibilityModal && jcResponsibilityModal) {
+                closeJcResponsibilityModal.addEventListener('click', function() {
                     jcResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        }
+                });
+            }
 
-        // ALL STAFF Responsibility Modal
-        const allStaffResponsibilityBtn = document.getElementById('allStaffResponsibilityBtn');
-        const allStaffResponsibilityModal = document.getElementById('allStaffResponsibilityModal');
-        const closeAllStaffResponsibilityModal = document.getElementById('closeAllStaffResponsibilityModal');
-
-        if (allStaffResponsibilityBtn) {
-            allStaffResponsibilityBtn.addEventListener('click', function() {
-                if (allStaffResponsibilityModal) {
+            // ALL STAFF Responsibility Modal
+            if (allStaffResponsibilityBtn && allStaffResponsibilityModal) {
+                allStaffResponsibilityBtn.addEventListener('click', function() {
                     allStaffResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
-                }
-            });
-        }
+                });
+            }
 
-        if (closeAllStaffResponsibilityModal) {
-            closeAllStaffResponsibilityModal.addEventListener('click', function() {
-                if (allStaffResponsibilityModal) {
+            if (closeAllStaffResponsibilityModal && allStaffResponsibilityModal) {
+                closeAllStaffResponsibilityModal.addEventListener('click', function() {
                     allStaffResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        }
+                });
+            }
 
-        // Close modal when clicking outside (for all modals)
-        const allModals = [dcResponsibilityModal, lgResponsibilityModal, saResponsibilityModal, ldResponsibilityModal, mcResponsibilityModal, adResponsibilityModal, jcResponsibilityModal, allStaffResponsibilityModal];
-        window.addEventListener('click', function(event) {
-            allModals.forEach(modal => {
-                if (modal && event.target === modal) {
-                    modal.style.display = 'none';
+            // SA Responsibility Modal
+            if (saResponsibilityBtn && saResponsibilityModal) {
+                saResponsibilityBtn.addEventListener('click', function() {
+                    saResponsibilityModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (closeSaResponsibilityModal && saResponsibilityModal) {
+                closeSaResponsibilityModal.addEventListener('click', function() {
+                    saResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
-                }
-            });
-        });
+                });
+            }
 
-        // Close modal with Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
+            // LG Responsibility Modal
+            if (lgResponsibilityBtn && lgResponsibilityModal) {
+                lgResponsibilityBtn.addEventListener('click', function() {
+                    lgResponsibilityModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
+            if (closeLgResponsibilityModal && lgResponsibilityModal) {
+                closeLgResponsibilityModal.addEventListener('click', function() {
+                    lgResponsibilityModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            }
+
+            // Close modal when clicking outside (for all modals)
+            const allModals = [dcResponsibilityModal, ldResponsibilityModal, mcResponsibilityModal, adResponsibilityModal, jcResponsibilityModal, allStaffResponsibilityModal, saResponsibilityModal, lgResponsibilityModal];
+            
+            window.addEventListener('click', function(event) {
                 allModals.forEach(modal => {
-                    if (modal && modal.style.display === 'block') {
+                    if (modal && event.target === modal) {
                         modal.style.display = 'none';
                         document.body.style.overflow = 'auto';
                     }
                 });
-            }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    allModals.forEach(modal => {
+                        if (modal && modal.style.display === 'block') {
+                            modal.style.display = 'none';
+                            document.body.style.overflow = 'auto';
+                        }
+                    });
+                }
+            });
         });
-
-        // SA Responsibility Modal
-        const saResponsibilityBtn = document.getElementById('saResponsibilityBtn');
-        const saResponsibilityModal = document.getElementById('saResponsibilityModal');
-        const closeSaResponsibilityModal = document.getElementById('closeSaResponsibilityModal');
-
-        if (saResponsibilityBtn) {
-            saResponsibilityBtn.addEventListener('click', function() {
-                if (saResponsibilityModal) {
-                    saResponsibilityModal.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        }
-
-        if (closeSaResponsibilityModal) {
-            closeSaResponsibilityModal.addEventListener('click', function() {
-                if (saResponsibilityModal) {
-                    saResponsibilityModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-
-        // Close modal when clicking outside
-        if (saResponsibilityModal) {
-            window.addEventListener('click', function(event) {
-                if (event.target === saResponsibilityModal) {
-                    saResponsibilityModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-
-        // LG Responsibility Modal
-        const lgResponsibilityBtn = document.getElementById('lgResponsibilityBtn');
-        const lgResponsibilityModal = document.getElementById('lgResponsibilityModal');
-        const closeLgResponsibilityModal = document.getElementById('closeLgResponsibilityModal');
-
-        if (lgResponsibilityBtn) {
-            lgResponsibilityBtn.addEventListener('click', function() {
-                if (lgResponsibilityModal) {
-                    lgResponsibilityModal.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        }
-
-        if (closeLgResponsibilityModal) {
-            closeLgResponsibilityModal.addEventListener('click', function() {
-                if (lgResponsibilityModal) {
-                    lgResponsibilityModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
-
-        // Close modal when clicking outside
-        if (lgResponsibilityModal) {
-            window.addEventListener('click', function(event) {
-                if (event.target === lgResponsibilityModal) {
-                    lgResponsibilityModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
-            });
-        }
     </script>
 
     <!-- DC Responsibility Modal -->
