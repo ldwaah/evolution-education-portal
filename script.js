@@ -11,10 +11,14 @@ if (sessionStorage.getItem('portalAuthenticated') === 'true') {
     // User is authenticated, hide password modal and show main content
     if (passwordModal) passwordModal.style.display = 'none';
     if (mainContainer) mainContainer.style.display = 'block';
+    // Ensure body can scroll when authenticated
+    document.body.style.overflow = 'auto';
 } else {
     // User not authenticated, show password modal
     if (passwordModal) passwordModal.style.display = 'block';
     if (mainContainer) mainContainer.style.display = 'none';
+    // Allow scrolling on password modal page
+    document.body.style.overflow = 'auto';
 }
 
 // Handle password submission
@@ -28,6 +32,8 @@ function checkPassword() {
         if (mainContainer) mainContainer.style.display = 'block';
         if (passwordError) passwordError.style.display = 'none';
         passwordInput.value = '';
+        // Ensure body can scroll after authentication
+        document.body.style.overflow = 'auto';
     } else {
         // Incorrect password
         if (passwordError) passwordError.style.display = 'block';
@@ -1402,6 +1408,22 @@ const searchDatabase = [
         type: 'Link',
         action: () => window.open('https://evolution-education.com/human-resources/', '_blank'),
         section: 'external'
+    },
+    {
+        keywords: ['senior management', 'management', 'staff appraisal', 'appraisal', 'performance review', 'staff review', 'employee appraisal'],
+        title: 'Staff Appraisal',
+        description: 'Access staff appraisal resources and tools',
+        type: 'Page',
+        action: () => window.location.href = 'staff_appraisal.html',
+        section: 'seniorManagement'
+    },
+    {
+        keywords: ['teaching review', 'teaching reviews', 'teaching observation', 'lesson observation', 'teaching quality', 'pedagogy review'],
+        title: 'Teaching Reviews',
+        description: 'Access teaching review resources and tools',
+        type: 'Page',
+        action: () => window.location.href = 'teaching_review.html',
+        section: 'seniorManagement'
     }
 ];
 
@@ -1696,3 +1718,27 @@ function closeModal(modalId) {
         document.body.style.overflow = 'auto';
     }
 }
+
+// Ensure scrolling is enabled on page load (fix for stuck overflow: hidden)
+window.addEventListener('load', function() {
+    // Check if no modal is open, then ensure scrolling is enabled
+    const allModals = document.querySelectorAll('.modal');
+    let anyModalOpen = false;
+    allModals.forEach(modal => {
+        if (modal.style.display === 'block' || (modal.style.display === '' && window.getComputedStyle(modal).display === 'block')) {
+            anyModalOpen = true;
+        }
+    });
+    
+    // If no modal is open, ensure body can scroll
+    if (!anyModalOpen && passwordModal && passwordModal.style.display !== 'block') {
+        document.body.style.overflow = 'auto';
+    }
+});
+
+// Also ensure scrolling on DOMContentLoaded as a backup
+document.addEventListener('DOMContentLoaded', function() {
+    if (passwordModal && passwordModal.style.display !== 'block') {
+        document.body.style.overflow = 'auto';
+    }
+});
