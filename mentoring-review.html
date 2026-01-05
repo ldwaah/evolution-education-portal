@@ -127,6 +127,12 @@
   <div class="info-box">
     <p><strong>Student Review Form:</strong> This form allows students to reflect on their mentoring experience, identify if mentoring has helped them, whether they've reached their targets, and suggest improvements.</p>
   </div>
+  
+  <div style="margin: 20px 0; padding: 15px; background: #e7f3ff; border-left: 4px solid #004080; border-radius: 4px;">
+    <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" class="bromcom-btn" style="font-weight: bold;">
+      🔗 Open Bromcom →
+    </a>
+  </div>
 
   <form id="reviewForm">
     <div class="form-section">
@@ -240,12 +246,12 @@
     <button type="button" onclick="generateReview()">Generate Review</button>
   </form>
 
-  <div id="outputSection">
+  <div id="outputSection" style="display: none; margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
     <h2>Generated Mentoring Review</h2>
-    <textarea id="reviewOutput" readonly></textarea>
-    <div class="button-group">
-      <button class="pdf-btn" onclick="generatePDF()">Generate PDF</button>
-      <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" class="bromcom-btn">Go to Bromcom →</a>
+    <textarea id="reviewOutput" readonly style="width: 100%; min-height: 200px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6;"></textarea>
+    <div class="button-group" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+      <button class="pdf-btn" onclick="generatePDF()" style="background: #004080; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer;">Generate PDF</button>
+      <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" class="bromcom-btn" style="font-weight: bold;">Go to Bromcom →</a>
     </div>
   </div>
 
@@ -253,6 +259,71 @@
 </div>
 
 <script>
+  function generateReview() {
+    const student = document.getElementById('studentName').value.trim();
+    const year = document.getElementById('yearGroup').value;
+    const mentor = document.getElementById('mentorName').value;
+    const date = document.getElementById('reviewDate').value;
+    const period = document.getElementById('reviewPeriod').value;
+    const hasHelped = document.getElementById('hasHelped').value;
+    const howHelped = document.getElementById('howHelped').value.trim();
+    const targetsReached = document.getElementById('targetsReached').value;
+    const targetsProgress = document.getElementById('targetsProgress').value.trim();
+    const nextTargets = document.getElementById('nextTargets').value.trim();
+    const whatWorked = document.getElementById('whatWorked').value.trim();
+    const improvements = document.getElementById('improvements').value.trim();
+    const overallRating = document.getElementById('overallRating').value;
+    const additionalComments = document.getElementById('additionalComments').value.trim();
+
+    if (!student || !year || !mentor || !date || !period || !hasHelped || !howHelped || !targetsReached || !targetsProgress || !whatWorked || !improvements || !overallRating) {
+      alert("Please complete all required fields before generating review.");
+      return;
+    }
+
+    const dateObj = new Date(date + 'T00:00:00');
+    const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    let review = `Mentoring Review\n\n`;
+    review += `Student: ${student} (${year})\n`;
+    review += `Mentor: ${mentor}\n`;
+    review += `Review Date: ${formattedDate}\n`;
+    review += `Review Period: ${period}\n\n`;
+    
+    review += `1. Has Mentoring Helped You?\n`;
+    review += `Overall, has mentoring been helpful: ${hasHelped}\n`;
+    review += `How mentoring has (or hasn't) helped:\n${howHelped}\n\n`;
+    
+    review += `2. Targets & Goals\n`;
+    review += `Have you reached your targets: ${targetsReached}\n`;
+    review += `Progress with targets:\n${targetsProgress}\n`;
+    if (nextTargets) {
+      review += `Targets/goals for next period:\n${nextTargets}\n`;
+    }
+    review += `\n`;
+    
+    review += `3. What Has Worked Well?\n${whatWorked}\n\n`;
+    
+    review += `4. What Could Be Improved?\n${improvements}\n\n`;
+    
+    review += `5. Overall Experience\n`;
+    review += `Overall rating: ${overallRating}\n`;
+    if (additionalComments) {
+      review += `Additional comments:\n${additionalComments}\n`;
+    }
+
+    const outputElement = document.getElementById('reviewOutput');
+    const outputSection = document.getElementById('outputSection');
+    
+    if (outputElement && outputSection) {
+      outputElement.value = review;
+      outputSection.style.display = 'block';
+      
+      setTimeout(() => {
+        outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }
+
   function generatePDF() {
     const student = document.getElementById('studentName').value.trim();
     const year = document.getElementById('yearGroup').value;
