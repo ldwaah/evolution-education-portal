@@ -1742,3 +1742,158 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.overflow = 'auto';
     }
 });
+
+// Purple Ruler Student Login Details
+const purpleRulerStudents = {
+    'amishael.mufata': {
+        email: 'amishael.mufata@evolution-education.com',
+        cohort: 'Year 11 Class',
+        password: 'AmishaelM100%'
+    },
+    'charlie.archer': {
+        email: 'charlie.archer@evolution-education.com',
+        cohort: 'Year 11 Class',
+        password: 'CharlieA100%'
+    },
+    'connor.azzaro': {
+        email: 'connor.azzaro@evolution-education.com',
+        cohort: 'Year 9 Class',
+        password: 'ConnorA100%'
+    },
+    'korey.browne': {
+        email: 'korey.browne@evolution-education.com',
+        cohort: 'Year 9 Class',
+        password: 'CoreyB100%'
+    },
+    'harry.igwilo': {
+        email: 'harry.igwilo@evolution-education.com',
+        cohort: 'Year 7 & 8 Class',
+        password: 'HarryI100%'
+    },
+    'harry.reed': {
+        email: 'harry.reed@evolution-education.com',
+        cohort: 'Year 7 & 8 Class',
+        password: 'HarryR100%'
+    },
+    'josiah.stcyr': {
+        email: 'josiah.stcyr@evolution-education.com',
+        cohort: 'Year 9 Class',
+        password: 'JosiahSC100%'
+    },
+    'kayden.strose': {
+        email: 'kayden.strose@evolution-education.com',
+        cohort: 'Year 9 Class',
+        password: 'KaydenS100%'
+    },
+    'lexi.penny': {
+        email: 'lexi.penny@evolution-education.com',
+        cohort: 'Year 11 Class',
+        password: 'LexiP100%'
+    },
+    'mason.taylor': {
+        email: 'mason.taylor@evolution-education.com',
+        cohort: 'Year 10 Class',
+        password: 'MasonT100%'
+    },
+    'ronnie.burletson': {
+        email: 'ronnie.burletson@evolution-education.com',
+        cohort: 'Year 10 Class',
+        password: 'RonnyB100%'
+    },
+    'ronny.cooper': {
+        email: 'ronny.cooper@evolution-education.com',
+        cohort: 'Year 10 Class',
+        password: 'RonnyC100%'
+    },
+    'stacey.grail': {
+        email: 'stacey.grail@evolution-education.com',
+        cohort: 'Year 10 Class',
+        password: 'StaceyG100%'
+    },
+    'tyrell.allassan': {
+        email: 'tyrell.allassan@evolution-education.com',
+        cohort: 'Year 10 Class',
+        password: 'TyrellA100%'
+    },
+    'vinnie.lane': {
+        email: 'vinnie.lane@evolution-education.com',
+        cohort: 'Year 11 Class',
+        password: 'VinnieL100%'
+    },
+    'yousef.tahir': {
+        email: 'yousef.tahir@evolution-education.com',
+        cohort: 'Year 9 Class',
+        password: 'YousafT100%'
+    },
+    'bradley.hughes': {
+        email: 'bradley.hughes@evolution-education.com',
+        cohort: 'Year 7 & 8 Class',
+        password: 'BHughes100%'
+    },
+    'hjones16': {
+        email: 'hjones16@robertclack.com',
+        cohort: 'Year 10 Class',
+        password: 'RC School Set'
+    },
+    'lucy.madgwick': {
+        email: 'lucy.madgwick@evolution-education.com',
+        cohort: 'Year 9 Class',
+        password: 'LucyM100%'
+    }
+};
+
+// Handle Purple Ruler student selection
+document.addEventListener('DOMContentLoaded', function() {
+    const studentSelect = document.getElementById('purpleRulerStudentSelect');
+    const studentDetails = document.getElementById('purpleRulerStudentDetails');
+    const prEmail = document.getElementById('prEmail');
+    const prCohort = document.getElementById('prCohort');
+    const prPassword = document.getElementById('prPassword');
+    const prEmailCopy = document.getElementById('prEmailCopy');
+    const prPasswordCopy = document.getElementById('prPasswordCopy');
+
+    if (studentSelect) {
+        studentSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            
+            if (selectedValue && purpleRulerStudents[selectedValue]) {
+                const student = purpleRulerStudents[selectedValue];
+                
+                // Update display
+                prEmail.textContent = student.email;
+                prCohort.textContent = student.cohort;
+                prPassword.textContent = student.password;
+                
+                // Update copy button data
+                prEmailCopy.setAttribute('data-email', student.email);
+                prPasswordCopy.setAttribute('data-password', student.password);
+                
+                // Show details
+                studentDetails.style.display = 'block';
+            } else {
+                // Hide details if no student selected
+                studentDetails.style.display = 'none';
+            }
+        });
+    }
+
+    // Handle email copy
+    if (prEmailCopy) {
+        prEmailCopy.addEventListener('click', function() {
+            const email = this.getAttribute('data-email');
+            if (email) {
+                copyToClipboard(this, email);
+            }
+        });
+    }
+
+    // Handle password copy
+    if (prPasswordCopy) {
+        prPasswordCopy.addEventListener('click', function() {
+            const password = this.getAttribute('data-password');
+            if (password) {
+                copyToClipboard(this, password);
+            }
+        });
+    }
+});
