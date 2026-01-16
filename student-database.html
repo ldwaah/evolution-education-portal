@@ -7,17 +7,29 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         .student-db-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px 20px;
+        }
+        .header {
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .search-section {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
         .search-input-wrapper {
             position: relative;
@@ -25,11 +37,19 @@
         }
         .search-input {
             width: 100%;
-            padding: 15px 20px;
+            padding: 18px 24px;
             font-size: 1.1rem;
-            border: 2px solid #667eea;
-            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
             box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
         }
         .student-dropdown {
             position: absolute;
@@ -39,96 +59,192 @@
             background: white;
             border: 2px solid #667eea;
             border-top: none;
-            border-radius: 0 0 12px 12px;
-            max-height: 400px;
+            border-radius: 0 0 16px 16px;
+            max-height: 450px;
             overflow-y: auto;
             z-index: 1000;
             display: none;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
         .student-option {
-            padding: 12px 20px;
+            padding: 16px 24px;
             cursor: pointer;
-            border-bottom: 1px solid #e5e7eb;
-            transition: background 0.2s;
+            border-bottom: 1px solid #f3f4f6;
+            transition: all 0.2s ease;
         }
         .student-option:hover {
-            background: #f3f4f6;
+            background: linear-gradient(90deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            transform: translateX(4px);
+        }
+        .student-option:last-child {
+            border-bottom: none;
         }
         .student-option strong {
             color: #667eea;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-size: 1.05rem;
         }
         .student-option span {
             font-size: 0.9rem;
-            color: #666;
+            color: #6b7280;
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
         .student-details {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 40px;
             display: none;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .student-details h2 {
             color: #667eea;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
             border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .student-details h2::before {
+            content: "👤";
+            font-size: 1.8rem;
         }
         .details-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
             margin-bottom: 30px;
         }
         .detail-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid #667eea;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 24px;
+            border-radius: 16px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .detail-section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.15);
         }
         .detail-section h3 {
             color: #667eea;
             margin-top: 0;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .detail-section:nth-child(1) h3::before { content: "📋"; }
+        .detail-section:nth-child(2) h3::before { content: "🏫"; }
+        .detail-section:nth-child(3) h3::before { content: "📅"; }
+        .detail-section:nth-child(4) h3::before { content: "🔗"; }
+        .detail-section:nth-child(5) h3::before { content: "ℹ️"; }
         .detail-item {
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .detail-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
         }
         .detail-label {
             font-weight: 600;
-            color: #333;
+            color: #374151;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6b7280;
         }
         .detail-value {
-            color: #666;
+            color: #1f2937;
             word-wrap: break-word;
+            font-size: 1rem;
+            line-height: 1.6;
         }
         .detail-value a {
             color: #667eea;
             text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
         }
         .detail-value a:hover {
+            color: #764ba2;
             text-decoration: underline;
         }
         .loading {
             text-align: center;
-            padding: 40px;
+            padding: 60px 40px;
             color: #667eea;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+        }
+        .loading::after {
+            content: "...";
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: "."; }
+            40% { content: ".."; }
+            60%, 100% { content: "..."; }
         }
         .error {
-            background: #fee;
+            background: linear-gradient(135deg, #fee 0%, #fdd 100%);
             color: #c33;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 20px;
+            border-radius: 12px;
             margin: 20px 0;
+            border-left: 4px solid #c33;
+            font-weight: 500;
+        }
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .stat-card .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -143,10 +259,24 @@
 
         <div class="search-section">
             <div class="search-input-wrapper">
-                <input type="text" id="studentSearch" class="search-input" placeholder="Type to search for a student by name..." autocomplete="off">
+                <input type="text" id="studentSearch" class="search-input" placeholder="🔍 Type to search for a student by name, school, or year group..." autocomplete="off">
                 <div id="studentDropdown" class="student-dropdown"></div>
             </div>
-            <div id="loadingMessage" class="loading" style="display: none;">Loading student data...</div>
+            <div id="statsBar" class="stats-bar" style="display: none;">
+                <div class="stat-card">
+                    <span class="stat-number" id="totalStudents">0</span>
+                    <span class="stat-label">Total Students</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <span class="stat-number" id="ks3Count">0</span>
+                    <span class="stat-label">KS3 Students</span>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                    <span class="stat-number" id="ks4Count">0</span>
+                    <span class="stat-label">KS4 Students</span>
+                </div>
+            </div>
+            <div id="loadingMessage" class="loading" style="display: none;">Loading student data</div>
             <div id="errorMessage" class="error" style="display: none;"></div>
         </div>
 
@@ -370,6 +500,9 @@
                 if (students.length === 0) {
                     errorEl.textContent = 'No student data found. Please check that sheet001.htm is available.';
                     errorEl.style.display = 'block';
+                } else {
+                    // Update stats
+                    updateStats(students);
                 }
             } catch (error) {
                 loadingEl.style.display = 'none';
@@ -553,6 +686,24 @@
             });
             
             return formatted;
+        }
+
+        // Update statistics
+        function updateStats(students) {
+            const statsBar = document.getElementById('statsBar');
+            const totalStudents = document.getElementById('totalStudents');
+            const ks3Count = document.getElementById('ks3Count');
+            const ks4Count = document.getElementById('ks4Count');
+            
+            if (statsBar && totalStudents && ks3Count && ks4Count) {
+                const ks3 = students.filter(s => s.keyStage && s.keyStage.toLowerCase().includes('ks3')).length;
+                const ks4 = students.filter(s => s.keyStage && s.keyStage.toLowerCase().includes('ks4')).length;
+                
+                totalStudents.textContent = students.length;
+                ks3Count.textContent = ks3;
+                ks4Count.textContent = ks4;
+                statsBar.style.display = 'flex';
+            }
         }
 
         // Load data on page load
