@@ -182,23 +182,40 @@
                 // Skip header row and parse data
                 for (let i = 1; i < rows1.length; i++) {
                     const row = rows1[i];
-                    const cells = row.querySelectorAll('td');
+                    // Skip hidden rows
+                    if (row.style.display === 'none' || row.getAttribute('height') === '0') continue;
                     
-                    if (cells.length >= 7) {
-                        const keyStage = cells[0]?.textContent?.trim() || '';
-                        const fullName = cells[1]?.textContent?.trim() || '';
-                        const yearGroup = cells[2]?.textContent?.trim() || '';
-                        const gender = cells[3]?.textContent?.trim() || '';
-                        const ethnicity = cells[4]?.textContent?.trim() || '';
-                        const bromcomAttendance = cells[5]?.textContent?.trim() || '';
-                        const school = cells[6]?.textContent?.trim() || '';
-                        const startDate = cells[7]?.textContent?.trim() || '';
-                        const endDate = cells[8]?.textContent?.trim() || '';
-                        const extraInfo = cells[9]?.textContent?.trim() || '';
-                        const schoolKeyContact = cells[11]?.textContent?.trim() || '';
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    
+                    // Handle colspan by expanding cells
+                    const expandedCells = [];
+                    cells.forEach(cell => {
+                        const colspan = parseInt(cell.getAttribute('colspan') || '1');
+                        const text = cell.textContent?.trim() || '';
+                        for (let j = 0; j < colspan; j++) {
+                            expandedCells.push(j === 0 ? text : '');
+                        }
+                    });
+                    
+                    if (expandedCells.length >= 7) {
+                        const keyStage = expandedCells[0] || '';
+                        const fullName = expandedCells[1] || '';
+                        const yearGroup = expandedCells[2] || '';
+                        const gender = expandedCells[3] || '';
+                        const ethnicity = expandedCells[4] || '';
+                        const bromcomAttendance = expandedCells[5] || '';
+                        const school = expandedCells[6] || '';
+                        const startDate = expandedCells[7] || '';
+                        const endDate = expandedCells[8] || '';
+                        const extraInfo = expandedCells[9] || '';
+                        const schoolKeyContact = expandedCells[11] || expandedCells[10] || '';
                         
-                        // Only add if we have a name
-                        if (fullName && fullName !== 'Full Name' && !fullName.includes('Archive')) {
+                        // Only add if we have a name and it's not a header
+                        if (fullName && 
+                            fullName !== 'Full Name' && 
+                            !fullName.includes('Archive') &&
+                            fullName.length > 1 &&
+                            keyStage !== 'Key Stage') {
                             students.push({
                                 keyStage,
                                 fullName,
@@ -231,18 +248,31 @@
                     
                     for (let i = 1; i < rows2.length; i++) {
                         const row = rows2[i];
-                        const cells = row.querySelectorAll('td');
+                        // Skip hidden rows
+                        if (row.style.display === 'none' || row.getAttribute('height') === '0') continue;
                         
-                        if (cells.length >= 7) {
-                            const keyStage = cells[0]?.textContent?.trim() || '';
-                            const fullName = cells[1]?.textContent?.trim() || '';
-                            const school = cells[2]?.textContent?.trim() || '';
-                            const externalAgencies = cells[3]?.textContent?.trim() || '';
-                            const contactPerson1 = cells[4]?.textContent?.trim() || '';
-                            const contactPerson2 = cells[5]?.textContent?.trim() || '';
-                            const contactPerson3 = cells[6]?.textContent?.trim() || '';
+                        const cells = Array.from(row.querySelectorAll('td'));
+                        
+                        // Handle colspan by expanding cells
+                        const expandedCells = [];
+                        cells.forEach(cell => {
+                            const colspan = parseInt(cell.getAttribute('colspan') || '1');
+                            const text = cell.textContent?.trim() || '';
+                            for (let j = 0; j < colspan; j++) {
+                                expandedCells.push(j === 0 ? text : '');
+                            }
+                        });
+                        
+                        if (expandedCells.length >= 4) {
+                            const keyStage = expandedCells[0] || '';
+                            const fullName = expandedCells[1] || '';
+                            const school = expandedCells[2] || '';
+                            const externalAgencies = expandedCells[3] || '';
+                            const contactPerson1 = expandedCells[4] || '';
+                            const contactPerson2 = expandedCells[5] || '';
+                            const contactPerson3 = expandedCells[6] || '';
                             
-                            if (fullName && fullName !== 'Full Name') {
+                            if (fullName && fullName !== 'Full Name' && fullName.length > 1) {
                                 // Find matching student by name and school if available
                                 const student = students.find(s => {
                                     const nameMatch = s.fullName.toLowerCase() === fullName.toLowerCase() ||
@@ -253,10 +283,10 @@
                                 });
                                 
                                 if (student) {
-                                    if (externalAgencies) student.externalAgencies = externalAgencies;
-                                    if (contactPerson1) student.contactPerson1 = contactPerson1;
-                                    if (contactPerson2) student.contactPerson2 = contactPerson2;
-                                    if (contactPerson3) student.contactPerson3 = contactPerson3;
+                                    if (externalAgencies && externalAgencies !== '&nbsp;') student.externalAgencies = externalAgencies;
+                                    if (contactPerson1 && contactPerson1 !== '&nbsp;' && contactPerson1 !== 'N/A') student.contactPerson1 = contactPerson1;
+                                    if (contactPerson2 && contactPerson2 !== '&nbsp;' && contactPerson2 !== 'N/A') student.contactPerson2 = contactPerson2;
+                                    if (contactPerson3 && contactPerson3 !== '&nbsp;' && contactPerson3 !== 'N/A') student.contactPerson3 = contactPerson3;
                                 }
                             }
                         }
