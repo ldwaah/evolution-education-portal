@@ -147,10 +147,6 @@
             font-weight: 700;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-        .student-details h2::before {
-            content: "👤";
-            font-size: 1.8rem;
-        }
         .details-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -183,12 +179,6 @@
             align-items: center;
             gap: 8px;
         }
-        .detail-section:nth-child(1) h3::before { content: "📋"; }
-        .detail-section:nth-child(2) h3::before { content: "🏫"; }
-        .detail-section:nth-child(3) h3::before { content: "💜"; }
-        .detail-section:nth-child(4) h3::before { content: "📅"; }
-        .detail-section:nth-child(5) h3::before { content: "🔗"; }
-        .detail-section:nth-child(6) h3::before { content: "ℹ️"; }
         .detail-item {
             margin-bottom: 16px;
             padding-bottom: 16px;
@@ -319,12 +309,12 @@
         
         <div class="header">
             <h1>Student Database</h1>
-            <p style="color: #666; margin-top: 10px;">Search and view comprehensive student information</p>
+            <p style="color: #ffffff; margin-top: 10px; text-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);">Search and view comprehensive student information</p>
         </div>
 
         <div class="search-section">
             <div class="search-input-wrapper">
-                <input type="text" id="studentSearch" class="search-input" placeholder="🔍 Type to search for a student by name, school, or year group..." autocomplete="off">
+                <input type="text" id="studentSearch" class="search-input" placeholder="Type to search for a student by name, school, or year group..." autocomplete="off">
                 <div id="studentDropdown" class="student-dropdown"></div>
             </div>
             <div id="statsBar" class="stats-bar" style="display: none;">
@@ -335,6 +325,29 @@
             </div>
             <div id="loadingMessage" class="loading" style="display: none;">Loading student data</div>
             <div id="errorMessage" class="error" style="display: none;"></div>
+        </div>
+
+        <div class="search-section" id="purpleRulerSection" style="display: none;">
+            <h2 style="color: #ffffff; margin-top: 0; margin-bottom: 20px; font-size: 1.8rem; font-weight: 700; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);">Purple Ruler Login Details</h2>
+            <div style="margin-bottom: 20px; position: relative;">
+                <input type="text" id="purpleRulerSearch" class="search-input" placeholder="Type to search for a student by name..." autocomplete="off">
+                <div id="purpleRulerDropdown" class="student-dropdown"></div>
+            </div>
+            <div id="purpleRulerDetails" style="display: none; background: rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); border-radius: 16px; padding: 24px; border: 1px solid rgba(255, 255, 255, 0.3);">
+                <h3 style="color: #1f2937; margin-top: 0; margin-bottom: 20px; font-size: 1.3rem; font-weight: 700;">Purple Ruler Login Information</h3>
+                <div class="detail-item">
+                    <span class="detail-label">Email Address</span>
+                    <span class="detail-value" id="prEmailDisplay"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Cohort</span>
+                    <span class="detail-value" id="prCohortDisplay"></span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Password</span>
+                    <span class="detail-value" id="prPasswordDisplay"></span>
+                </div>
+            </div>
         </div>
 
         <div id="studentDetails" class="student-details">
@@ -599,6 +612,8 @@
                 } else {
                     // Update stats
                     updateStats(students);
+                    // Show Purple Ruler section
+                    document.getElementById('purpleRulerSection').style.display = 'block';
                 }
             } catch (error) {
                 loadingEl.style.display = 'none';
@@ -866,6 +881,69 @@
             } finally {
                 document.body.removeChild(textarea);
             }
+        }
+
+        // Purple Ruler search functionality
+        const purpleRulerSearch = document.getElementById('purpleRulerSearch');
+        const purpleRulerDropdown = document.getElementById('purpleRulerDropdown');
+        const purpleRulerDetails = document.getElementById('purpleRulerDetails');
+        const prEmailDisplay = document.getElementById('prEmailDisplay');
+        const prCohortDisplay = document.getElementById('prCohortDisplay');
+        const prPasswordDisplay = document.getElementById('prPasswordDisplay');
+
+        if (purpleRulerSearch) {
+            purpleRulerSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                if (searchTerm.length === 0) {
+                    purpleRulerDropdown.style.display = 'none';
+                    purpleRulerDetails.style.display = 'none';
+                    return;
+                }
+                
+                const filtered = purpleRulerStudents.filter(student => 
+                    student.name.toLowerCase().includes(searchTerm) ||
+                    student.email.toLowerCase().includes(searchTerm)
+                );
+                
+                if (filtered.length === 0) {
+                    purpleRulerDropdown.innerHTML = '<div class="student-option" style="padding: 12px; color: #666; font-style: italic;">No students found</div>';
+                    purpleRulerDropdown.style.display = 'block';
+                } else {
+                    purpleRulerDropdown.innerHTML = filtered.map(student => 
+                        `<div class="student-option" data-pr-email="${student.email}" data-pr-cohort="${student.cohort}" data-pr-password="${student.password}">
+                            <strong>${student.name}</strong>
+                            <span>${student.email}</span>
+                        </div>`
+                    ).join('');
+                    purpleRulerDropdown.style.display = 'block';
+                    
+                    // Add click handlers
+                    purpleRulerDropdown.querySelectorAll('.student-option').forEach(option => {
+                        option.addEventListener('click', function() {
+                            const email = this.getAttribute('data-pr-email');
+                            const cohort = this.getAttribute('data-pr-cohort');
+                            const password = this.getAttribute('data-pr-password');
+                            
+                            purpleRulerSearch.value = this.querySelector('strong').textContent;
+                            purpleRulerDropdown.style.display = 'none';
+                            
+                            // Display login details
+                            prEmailDisplay.innerHTML = `<a href="mailto:${email}">${email}</a> <button class="copy-btn" onclick="copyToClipboard('${email}', this)" style="margin-left: 8px; padding: 4px 8px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Copy</button>`;
+                            prCohortDisplay.textContent = cohort;
+                            prPasswordDisplay.innerHTML = `${password} <button class="copy-btn" onclick="copyToClipboard('${password}', this)" style="margin-left: 8px; padding: 4px 8px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Copy</button>`;
+                            purpleRulerDetails.style.display = 'block';
+                        });
+                    });
+                }
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!purpleRulerSearch.contains(event.target) && !purpleRulerDropdown.contains(event.target)) {
+                    purpleRulerDropdown.style.display = 'none';
+                }
+            });
         }
 
         // Load data on page load
