@@ -735,6 +735,14 @@
                     <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
                 </div>
             </section>
+            
+            <section class="section" id="studentDatabase" style="cursor: pointer;">
+                <h2 class="section-heading">Student Database</h2>
+                <div class="section-content">
+                    <p>Access comprehensive student information and details.</p>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view database</p>
+                </div>
+            </section>
                 </div>
             </div>
             
@@ -802,6 +810,30 @@
                                 <span style="font-size: 0.9rem; font-weight: normal;">All successful mentoring interventions should result in this AQA unit being achieved. Click to view unit details and requirements.</span>
                             </a>
                         </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Student Database Modal -->
+            <div id="studentDatabaseModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-breadcrumb">
+                        <button class="breadcrumb-back" onclick="closeModal('studentDatabaseModal')">← Back to Dashboard</button>
+                        <span class="breadcrumb-separator">|</span>
+                        <span class="breadcrumb-current">Student Management → Student Database</span>
+                    </div>
+                    <span class="close" id="closeStudentDatabase">&times;</span>
+                    <h2>Student Database</h2>
+                    
+                    <div style="margin-top: 30px; margin-bottom: 20px;">
+                        <label for="studentDatabaseSelect" style="display: block; margin-bottom: 10px; font-weight: 600; color: #333; font-size: 1.1rem;">Select Student:</label>
+                        <select id="studentDatabaseSelect" style="width: 100%; padding: 12px; border: 2px solid #667eea; border-radius: 6px; font-size: 1rem; margin-bottom: 20px; background: white; cursor: pointer;">
+                            <option value="">-- Select a student --</option>
+                        </select>
+                    </div>
+                    
+                    <div id="studentDatabaseDetails" style="display: none; background: #f8f9fa; padding: 25px; border-radius: 8px; border: 2px solid #667eea; margin-top: 20px;">
+                        <div id="studentDetailsContent"></div>
                     </div>
                 </div>
             </div>

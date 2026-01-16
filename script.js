@@ -148,6 +148,27 @@ if (behaviourSection && behaviourModal) {
     });
 }
 
+// Student Database Modal functionality
+const studentDatabaseSection = document.getElementById('studentDatabase');
+const studentDatabaseModal = document.getElementById('studentDatabaseModal');
+const closeStudentDatabaseModal = document.getElementById('closeStudentDatabase');
+
+// Open modal when clicking on Student Database section
+if (studentDatabaseSection && studentDatabaseModal) {
+    studentDatabaseSection.addEventListener('click', function() {
+        studentDatabaseModal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    });
+}
+
+// Close Student Database modal when clicking the X
+if (closeStudentDatabaseModal) {
+    closeStudentDatabaseModal.addEventListener('click', function() {
+        studentDatabaseModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    });
+}
+
 // Close Behaviour modal when clicking the X
 if (closeBehaviourModal) {
     closeBehaviourModal.addEventListener('click', function() {
@@ -1893,6 +1914,315 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = this.getAttribute('data-password');
             if (password) {
                 copyToClipboard(this, password);
+            }
+        });
+    }
+});
+
+// Student Database functionality
+let studentDatabase = [];
+
+// Load student database from JSON file
+async function loadStudentDatabase() {
+    try {
+        const response = await fetch('students.json');
+        if (!response.ok) {
+            throw new Error('Failed to load student database');
+        }
+        studentDatabase = await response.json();
+        populateStudentDropdown();
+    } catch (error) {
+        console.error('Error loading student database:', error);
+        // Fallback: show error message
+        const select = document.getElementById('studentDatabaseSelect');
+        if (select) {
+            select.innerHTML = '<option value="">Error loading database. Please refresh the page.</option>';
+        }
+    }
+}
+
+// Populate student dropdown
+function populateStudentDropdown() {
+    const select = document.getElementById('studentDatabaseSelect');
+    if (!select) return;
+    
+    // Clear existing options except the first one
+    select.innerHTML = '<option value="">-- Select a student --</option>';
+    
+    // Sort students by name
+    const sortedStudents = [...studentDatabase].sort((a, b) => a.name.localeCompare(b.name));
+    
+    // Add students to dropdown
+    sortedStudents.forEach(student => {
+        const option = document.createElement('option');
+        option.value = student.id;
+        option.textContent = student.name;
+        select.appendChild(option);
+    });
+}
+
+// Display student details
+function displayStudentDetails(studentId) {
+    const student = studentDatabase.find(s => s.id === studentId);
+    if (!student) return;
+    
+    const detailsDiv = document.getElementById('studentDatabaseDetails');
+    const contentDiv = document.getElementById('studentDetailsContent');
+    
+    if (!detailsDiv || !contentDiv) return;
+    
+    // Build HTML for student details
+    let html = `
+        <h3 style="color: #667eea; margin-top: 0; margin-bottom: 20px; font-size: 1.3rem;">${student.name}</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+    `;
+    
+    // Basic Information
+    html += `
+        <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
+            <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Basic Information</h4>
+            <div class="login-details">
+    `;
+    
+    if (student.yearGroup) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Year Group:</span>
+                <span class="login-value">Year ${student.yearGroup}</span>
+            </div>
+        `;
+    }
+    
+    if (student.cohort) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Cohort:</span>
+                <span class="login-value">${student.cohort}</span>
+            </div>
+        `;
+    }
+    
+    if (student.dateOfBirth) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Date of Birth:</span>
+                <span class="login-value">${student.dateOfBirth}</span>
+            </div>
+        `;
+    }
+    
+    if (student.startDate) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Start Date:</span>
+                <span class="login-value">${student.startDate}</span>
+            </div>
+        `;
+    }
+    
+    if (student.status) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Status:</span>
+                <span class="login-value" style="color: ${student.status === 'Active' ? '#28a745' : '#dc3545'}; font-weight: 600;">${student.status}</span>
+            </div>
+        `;
+    }
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    // Contact Information
+    html += `
+        <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
+            <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Contact Information</h4>
+            <div class="login-details">
+    `;
+    
+    if (student.email) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Email:</span>
+                <span class="login-value">${student.email}</span>
+                <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.email}')">Copy</button>
+            </div>
+        `;
+    }
+    
+    if (student.phone) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Phone:</span>
+                <span class="login-value">${student.phone}</span>
+                <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.phone}')">Copy</button>
+            </div>
+        `;
+    }
+    
+    if (student.address) {
+        html += `
+            <div class="login-item">
+                <span class="login-label">Address:</span>
+                <span class="login-value">${student.address}</span>
+            </div>
+        `;
+    }
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    // Parent/Carer Information
+    if (student.parentCarer && (student.parentCarer.name || student.parentCarer.phone || student.parentCarer.email)) {
+        html += `
+            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
+                <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Parent/Carer Information</h4>
+                <div class="login-details">
+        `;
+        
+        if (student.parentCarer.name) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Name:</span>
+                    <span class="login-value">${student.parentCarer.name}</span>
+                </div>
+            `;
+        }
+        
+        if (student.parentCarer.relationship) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Relationship:</span>
+                    <span class="login-value">${student.parentCarer.relationship}</span>
+                </div>
+            `;
+        }
+        
+        if (student.parentCarer.phone) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Phone:</span>
+                    <span class="login-value">${student.parentCarer.phone}</span>
+                    <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.parentCarer.phone}')">Copy</button>
+                </div>
+            `;
+        }
+        
+        if (student.parentCarer.email) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Email:</span>
+                    <span class="login-value">${student.parentCarer.email}</span>
+                    <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.parentCarer.email}')">Copy</button>
+                </div>
+            `;
+        }
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    // Academic Information
+    if (student.pathway || student.keyStaff) {
+        html += `
+            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
+                <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Academic Information</h4>
+                <div class="login-details">
+        `;
+        
+        if (student.pathway) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Pathway:</span>
+                    <span class="login-value">${student.pathway}</span>
+                </div>
+            `;
+        }
+        
+        if (student.keyStaff) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Key Staff:</span>
+                    <span class="login-value">${student.keyStaff}</span>
+                </div>
+            `;
+        }
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    // Additional Information
+    if (student.sen || student.medical || student.notes) {
+        html += `
+            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb; grid-column: 1 / -1;">
+                <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Additional Information</h4>
+                <div class="login-details">
+        `;
+        
+        if (student.sen) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">SEN:</span>
+                    <span class="login-value">${student.sen}</span>
+                </div>
+            `;
+        }
+        
+        if (student.medical) {
+            html += `
+                <div class="login-item">
+                    <span class="login-label">Medical:</span>
+                    <span class="login-value">${student.medical}</span>
+                </div>
+            `;
+        }
+        
+        if (student.notes) {
+            html += `
+                <div class="login-item" style="flex-direction: column; align-items: flex-start;">
+                    <span class="login-label" style="margin-bottom: 5px;">Notes:</span>
+                    <span class="login-value" style="white-space: pre-wrap;">${student.notes}</span>
+                </div>
+            `;
+        }
+        
+        html += `
+                </div>
+            </div>
+        `;
+    }
+    
+    html += `
+        </div>
+    `;
+    
+    contentDiv.innerHTML = html;
+    detailsDiv.style.display = 'block';
+}
+
+// Handle student database selection
+document.addEventListener('DOMContentLoaded', function() {
+    loadStudentDatabase();
+    
+    const studentSelect = document.getElementById('studentDatabaseSelect');
+    if (studentSelect) {
+        studentSelect.addEventListener('change', function() {
+            const selectedId = this.value;
+            if (selectedId) {
+                displayStudentDetails(selectedId);
+            } else {
+                const detailsDiv = document.getElementById('studentDatabaseDetails');
+                if (detailsDiv) {
+                    detailsDiv.style.display = 'none';
+                }
             }
         });
     }

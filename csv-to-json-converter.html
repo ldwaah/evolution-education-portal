@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to JSON Converter - Student Database</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        .instructions code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .input-section, .output-section {
+            margin-bottom: 30px;
+        }
+        
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .output-section {
+            display: none;
+        }
+        
+        .output-section.active {
+            display: block;
+        }
+        
+        .preview {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #c3e6cb;
+            margin-top: 15px;
+        }
+        
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #f5c6cb;
+            margin-top: 15px;
+        }
+        
+        .field-mapping {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #ffc107;
+            margin-top: 20px;
+        }
+        
+        .field-mapping h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .field-mapping p {
+            color: #856404;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 CSV to JSON Converter</h1>
+        <p class="subtitle">Convert your Excel student data to JSON format for the Student Database</p>
+        
+        <div class="instructions">
+            <h3>📋 Instructions:</h3>
+            <ol>
+                <li>Open your Excel spreadsheet</li>
+                <li>Go to <strong>File → Save As</strong> and choose <strong>CSV (Comma delimited) (*.csv)</strong></li>
+                <li>Open the CSV file in a text editor (or Excel) and copy all the data</li>
+                <li>Paste the CSV data into the box below</li>
+                <li>Click <strong>"Convert to JSON"</strong></li>
+                <li>Copy the generated JSON and replace the contents of <code>students.json</code></li>
+            </ol>
+        </div>
+        
+        <div class="input-section">
+            <label for="csvInput">Paste your CSV data here:</label>
+            <textarea id="csvInput" placeholder="Name,Year Group,Cohort,Email,Phone,Address,Parent Name,Parent Phone,Parent Email,Relationship,Pathway,Key Staff,Start Date,Status,SEN,Medical,Notes,Purple Ruler Password&#10;John Doe,11,Year 11 Class,john.doe@evolution-education.com,01234567890,..."></textarea>
+            <div class="button-group">
+                <button class="btn-primary" onclick="convertCSV()">Convert to JSON</button>
+                <button class="btn-secondary" onclick="clearInput()">Clear</button>
+            </div>
+        </div>
+        
+        <div class="field-mapping">
+            <h4>💡 Expected CSV Columns (in any order):</h4>
+            <p>
+                <strong>Required:</strong> Name (or Student Name)<br>
+                <strong>Optional:</strong> Year Group, Cohort, Email, Phone, Address, Parent Name, Parent Phone, Parent Email, Relationship, Pathway, Key Staff, Start Date, Status, SEN, Medical, Notes, Purple Ruler Password, Date of Birth, DOB
+            </p>
+        </div>
+        
+        <div class="output-section" id="outputSection">
+            <label for="jsonOutput">Generated JSON:</label>
+            <textarea id="jsonOutput" readonly></textarea>
+            <div class="button-group">
+                <button class="btn-success" onclick="copyJSON()">Copy JSON</button>
+                <button class="btn-secondary" onclick="downloadJSON()">Download JSON File</button>
+            </div>
+            <div id="message"></div>
+        </div>
+    </div>
+    
+    <script>
+        function convertCSV() {
+            const csvInput = document.getElementById('csvInput').value.trim();
+            const outputSection = document.getElementById('outputSection');
+            const jsonOutput = document.getElementById('jsonOutput');
+            const messageDiv = document.getElementById('message');
+            
+            if (!csvInput) {
+                showMessage('Please paste CSV data first', 'error');
+                return;
+            }
+            
+            try {
+                const lines = csvInput.split('\n').filter(line => line.trim());
+                if (lines.length < 2) {
+                    showMessage('CSV must have at least a header row and one data row', 'error');
+                    return;
+                }
+                
+                // Parse header row
+                const headers = parseCSVLine(lines[0]);
+                const normalizedHeaders = headers.map(h => normalizeHeader(h));
+                
+                // Find column indices
+                const columnMap = {
+                    name: findColumn(normalizedHeaders, ['name', 'student name', 'full name']),
+                    yearGroup: findColumn(normalizedHeaders, ['year group', 'year', 'yeargroup']),
+                    cohort: findColumn(normalizedHeaders, ['cohort', 'class']),
+                    email: findColumn(normalizedHeaders, ['email', 'email address']),
+                    phone: findColumn(normalizedHeaders, ['phone', 'telephone', 'mobile']),
+                    address: findColumn(normalizedHeaders, ['address', 'home address']),
+                    parentName: findColumn(normalizedHeaders, ['parent name', 'parent', 'carer name', 'guardian']),
+                    parentPhone: findColumn(normalizedHeaders, ['parent phone', 'parent telephone', 'carer phone']),
+                    parentEmail: findColumn(normalizedHeaders, ['parent email', 'carer email']),
+                    relationship: findColumn(normalizedHeaders, ['relationship', 'relation']),
+                    pathway: findColumn(normalizedHeaders, ['pathway', 'programme']),
+                    keyStaff: findColumn(normalizedHeaders, ['key staff', 'staff', 'mentor']),
+                    startDate: findColumn(normalizedHeaders, ['start date', 'admission date', 'joined']),
+                    status: findColumn(normalizedHeaders, ['status', 'current status']),
+                    sen: findColumn(normalizedHeaders, ['sen', 'special needs', 'send']),
+                    medical: findColumn(normalizedHeaders, ['medical', 'medical needs', 'health']),
+                    notes: findColumn(normalizedHeaders, ['notes', 'note', 'comments']),
+                    purpleRulerPassword: findColumn(normalizedHeaders, ['purple ruler password', 'purple ruler', 'password']),
+                    dateOfBirth: findColumn(normalizedHeaders, ['date of birth', 'dob', 'birth date'])
+                };
+                
+                if (columnMap.name === -1) {
+                    showMessage('Could not find a "Name" column. Please ensure your CSV has a name/student name column.', 'error');
+                    return;
+                }
+                
+                // Parse data rows
+                const students = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const values = parseCSVLine(lines[i]);
+                    if (values.length === 0) continue;
+                    
+                    const name = values[columnMap.name]?.trim();
+                    if (!name) continue; // Skip rows without names
+                    
+                    const student = {
+                        id: `student${String(i).padStart(3, '0')}`,
+                        name: name,
+                        yearGroup: getValue(values, columnMap.yearGroup),
+                        cohort: getValue(values, columnMap.cohort),
+                        dateOfBirth: getValue(values, columnMap.dateOfBirth),
+                        email: getValue(values, columnMap.email),
+                        phone: getValue(values, columnMap.phone),
+                        address: getValue(values, columnMap.address),
+                        parentCarer: {
+                            name: getValue(values, columnMap.parentName),
+                            phone: getValue(values, columnMap.parentPhone),
+                            email: getValue(values, columnMap.parentEmail),
+                            relationship: getValue(values, columnMap.relationship)
+                        },
+                        pathway: getValue(values, columnMap.pathway),
+                        keyStaff: getValue(values, columnMap.keyStaff),
+                        startDate: getValue(values, columnMap.startDate),
+                        status: getValue(values, columnMap.status) || 'Active',
+                        sen: getValue(values, columnMap.sen),
+                        medical: getValue(values, columnMap.medical),
+                        notes: getValue(values, columnMap.notes),
+                        purpleRulerPassword: getValue(values, columnMap.purpleRulerPassword)
+                    };
+                    
+                    // Remove empty parentCarer object if all fields are empty
+                    if (!student.parentCarer.name && !student.parentCarer.phone && 
+                        !student.parentCarer.email && !student.parentCarer.relationship) {
+                        student.parentCarer = {};
+                    }
+                    
+                    students.push(student);
+                }
+                
+                if (students.length === 0) {
+                    showMessage('No valid student data found. Please check your CSV format.', 'error');
+                    return;
+                }
+                
+                // Generate JSON
+                const json = JSON.stringify(students, null, 2);
+                jsonOutput.value = json;
+                outputSection.classList.add('active');
+                showMessage(`Successfully converted ${students.length} student(s) to JSON!`, 'success');
+                
+                // Scroll to output
+                setTimeout(() => {
+                    outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+                
+            } catch (error) {
+                showMessage('Error converting CSV: ' + error.message, 'error');
+                console.error(error);
+            }
+        }
+        
+        function parseCSVLine(line) {
+            const values = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    values.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            values.push(current.trim());
+            
+            return values;
+        }
+        
+        function normalizeHeader(header) {
+            return header.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+        
+        function findColumn(headers, possibleNames) {
+            for (let i = 0; i < headers.length; i++) {
+                const header = headers[i];
+                if (possibleNames.some(name => header.includes(name))) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        
+        function getValue(values, index) {
+            if (index === -1 || index >= values.length) return '';
+            const value = values[index]?.trim();
+            return value || '';
+        }
+        
+        function showMessage(message, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.className = type === 'error' ? 'error-message' : 'success-message';
+            messageDiv.textContent = message;
+            messageDiv.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+        
+        function copyJSON() {
+            const jsonOutput = document.getElementById('jsonOutput');
+            jsonOutput.select();
+            jsonOutput.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                showMessage('JSON copied to clipboard!', 'success');
+            } catch (err) {
+                showMessage('Failed to copy. Please select and copy manually.', 'error');
+            }
+        }
+        
+        function downloadJSON() {
+            const jsonOutput = document.getElementById('jsonOutput').value;
+            if (!jsonOutput) {
+                showMessage('No JSON to download', 'error');
+                return;
+            }
+            
+            const blob = new Blob([jsonOutput], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'students.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showMessage('JSON file downloaded!', 'success');
+        }
+        
+        function clearInput() {
+            document.getElementById('csvInput').value = '';
+            document.getElementById('outputSection').classList.remove('active');
+            document.getElementById('message').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+
