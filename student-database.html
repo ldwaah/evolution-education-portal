@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Database</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .student-db-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .search-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            box-sizing: border-box;
+        }
+        .student-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid #667eea;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .student-option {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background 0.2s;
+        }
+        .student-option:hover {
+            background: #f3f4f6;
+        }
+        .student-option strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .student-option span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .student-details {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        .student-details h2 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .detail-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+        .detail-section h3 {
+            color: #667eea;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .detail-item {
+            margin-bottom: 12px;
+        }
+        .detail-label {
+            font-weight: 600;
+            color: #333;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .detail-value {
+            color: #666;
+            word-wrap: break-word;
+        }
+        .detail-value a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .detail-value a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-db-container">
+        <a href="index.html" class="back-link">← Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>Student Database</h1>
+            <p style="color: #666; margin-top: 10px;">Search and view comprehensive student information</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-input-wrapper">
+                <input type="text" id="studentSearch" class="search-input" placeholder="Type to search for a student by name..." autocomplete="off">
+                <div id="studentDropdown" class="student-dropdown"></div>
+            </div>
+            <div id="loadingMessage" class="loading" style="display: none;">Loading student data...</div>
+            <div id="errorMessage" class="error" style="display: none;"></div>
+        </div>
+
+        <div id="studentDetails" class="student-details">
+            <h2 id="studentName"></h2>
+            <div class="details-grid" id="detailsGrid"></div>
+        </div>
+    </div>
+
+    <script>
+        let allStudents = [];
+        let selectedStudent = null;
+
+        // Load and parse student data from HTML files
+        async function loadStudentData() {
+            const loadingEl = document.getElementById('loadingMessage');
+            const errorEl = document.getElementById('errorMessage');
+            
+            loadingEl.style.display = 'block';
+            errorEl.style.display = 'none';
+
+            try {
+                // Load sheet001.htm (main student data)
+                const response1 = await fetch('sheet001.htm');
+                const html1 = await response1.text();
+                const parser1 = new DOMParser();
+                const doc1 = parser1.parseFromString(html1, 'text/html');
+                
+                // Parse table rows
+                const rows1 = doc1.querySelectorAll('table tr');
+                const students = [];
+                
+                // Skip header row and parse data
+                for (let i = 1; i < rows1.length; i++) {
+                    const row = rows1[i];
+                    const cells = row.querySelectorAll('td');
+                    
+                    if (cells.length >= 7) {
+                        const keyStage = cells[0]?.textContent?.trim() || '';
+                        const fullName = cells[1]?.textContent?.trim() || '';
+                        const yearGroup = cells[2]?.textContent?.trim() || '';
+                        const gender = cells[3]?.textContent?.trim() || '';
+                        const ethnicity = cells[4]?.textContent?.trim() || '';
+                        const bromcomAttendance = cells[5]?.textContent?.trim() || '';
+                        const school = cells[6]?.textContent?.trim() || '';
+                        const startDate = cells[7]?.textContent?.trim() || '';
+                        const endDate = cells[8]?.textContent?.trim() || '';
+                        const extraInfo = cells[9]?.textContent?.trim() || '';
+                        const schoolKeyContact = cells[11]?.textContent?.trim() || '';
+                        
+                        // Only add if we have a name
+                        if (fullName && fullName !== 'Full Name' && !fullName.includes('Archive')) {
+                            students.push({
+                                keyStage,
+                                fullName,
+                                yearGroup,
+                                gender,
+                                ethnicity,
+                                bromcomAttendance,
+                                school,
+                                startDate,
+                                endDate,
+                                extraInfo,
+                                schoolKeyContact,
+                                externalAgencies: '',
+                                contactPerson1: '',
+                                contactPerson2: '',
+                                contactPerson3: ''
+                            });
+                        }
+                    }
+                }
+
+                // Load sheet002.htm (external agencies and contacts)
+                try {
+                    const response2 = await fetch('sheet002.htm');
+                    const html2 = await response2.text();
+                    const parser2 = new DOMParser();
+                    const doc2 = parser2.parseFromString(html2, 'text/html');
+                    
+                    const rows2 = doc2.querySelectorAll('table tr');
+                    
+                    for (let i = 1; i < rows2.length; i++) {
+                        const row = rows2[i];
+                        const cells = row.querySelectorAll('td');
+                        
+                        if (cells.length >= 7) {
+                            const keyStage = cells[0]?.textContent?.trim() || '';
+                            const fullName = cells[1]?.textContent?.trim() || '';
+                            const school = cells[2]?.textContent?.trim() || '';
+                            const externalAgencies = cells[3]?.textContent?.trim() || '';
+                            const contactPerson1 = cells[4]?.textContent?.trim() || '';
+                            const contactPerson2 = cells[5]?.textContent?.trim() || '';
+                            const contactPerson3 = cells[6]?.textContent?.trim() || '';
+                            
+                            if (fullName && fullName !== 'Full Name') {
+                                // Find matching student by name and school if available
+                                const student = students.find(s => {
+                                    const nameMatch = s.fullName.toLowerCase() === fullName.toLowerCase() ||
+                                        s.fullName.toLowerCase().includes(fullName.toLowerCase()) ||
+                                        fullName.toLowerCase().includes(s.fullName.toLowerCase());
+                                    const schoolMatch = !school || !s.school || s.school.toLowerCase() === school.toLowerCase();
+                                    return nameMatch && (schoolMatch || !school || !s.school);
+                                });
+                                
+                                if (student) {
+                                    if (externalAgencies) student.externalAgencies = externalAgencies;
+                                    if (contactPerson1) student.contactPerson1 = contactPerson1;
+                                    if (contactPerson2) student.contactPerson2 = contactPerson2;
+                                    if (contactPerson3) student.contactPerson3 = contactPerson3;
+                                }
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Could not load sheet002.htm:', e);
+                }
+
+                // Load sheet003.htm (school contacts)
+                try {
+                    const response3 = await fetch('sheet003.htm');
+                    const html3 = await response3.text();
+                    const parser3 = new DOMParser();
+                    const doc3 = parser3.parseFromString(html3, 'text/html');
+                    
+                    // Store school contacts in a map for reference
+                    const schoolContacts = {};
+                    const rows3 = doc3.querySelectorAll('table tr');
+                    
+                    // Parse school contact information
+                    // This would need custom parsing based on the structure
+                } catch (e) {
+                    console.warn('Could not load sheet003.htm:', e);
+                }
+
+                allStudents = students;
+                loadingEl.style.display = 'none';
+                
+                if (students.length === 0) {
+                    errorEl.textContent = 'No student data found. Please check that sheet001.htm is available.';
+                    errorEl.style.display = 'block';
+                }
+            } catch (error) {
+                loadingEl.style.display = 'none';
+                errorEl.textContent = `Error loading student data: ${error.message}`;
+                errorEl.style.display = 'block';
+                console.error('Error loading student data:', error);
+            }
+        }
+
+        // Search functionality
+        const studentSearch = document.getElementById('studentSearch');
+        const studentDropdown = document.getElementById('studentDropdown');
+
+        if (studentSearch) {
+            studentSearch.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                if (searchTerm.length === 0) {
+                    studentDropdown.style.display = 'none';
+                    return;
+                }
+                
+                const filtered = allStudents.filter(student => 
+                    student.fullName.toLowerCase().includes(searchTerm) ||
+                    student.school.toLowerCase().includes(searchTerm) ||
+                    student.yearGroup.includes(searchTerm)
+                );
+                
+                if (filtered.length === 0) {
+                    studentDropdown.innerHTML = '<div class="student-option" style="padding: 12px; color: #666; font-style: italic;">No students found</div>';
+                    studentDropdown.style.display = 'block';
+                } else {
+                    studentDropdown.innerHTML = filtered.slice(0, 20).map(student => 
+                        `<div class="student-option" data-student-index="${allStudents.indexOf(student)}">
+                            <strong>${student.fullName}</strong>
+                            <span>${student.school} • Year ${student.yearGroup} • ${student.keyStage}</span>
+                        </div>`
+                    ).join('');
+                    studentDropdown.style.display = 'block';
+                    
+                    // Add click handlers
+                    studentDropdown.querySelectorAll('.student-option').forEach(option => {
+                        option.addEventListener('click', function() {
+                            const index = parseInt(this.getAttribute('data-student-index'));
+                            displayStudentDetails(allStudents[index]);
+                            studentSearch.value = allStudents[index].fullName;
+                            studentDropdown.style.display = 'none';
+                        });
+                    });
+                }
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!studentSearch.contains(event.target) && !studentDropdown.contains(event.target)) {
+                    studentDropdown.style.display = 'none';
+                }
+            });
+        }
+
+        // Display student details
+        function displayStudentDetails(student) {
+            selectedStudent = student;
+            const detailsEl = document.getElementById('studentDetails');
+            const nameEl = document.getElementById('studentName');
+            const gridEl = document.getElementById('detailsGrid');
+            
+            nameEl.textContent = student.fullName;
+            
+            gridEl.innerHTML = `
+                <div class="detail-section">
+                    <h3>Basic Information</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Key Stage:</span>
+                        <span class="detail-value">${student.keyStage || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Year Group:</span>
+                        <span class="detail-value">${student.yearGroup || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Gender:</span>
+                        <span class="detail-value">${student.gender || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Ethnicity:</span>
+                        <span class="detail-value">${student.ethnicity || 'N/A'}</span>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>School Information</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">School:</span>
+                        <span class="detail-value">${student.school || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">School Key Contact:</span>
+                        <span class="detail-value">${student.schoolKeyContact || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Bromcom Attendance Sent:</span>
+                        <span class="detail-value">${student.bromcomAttendance || 'N/A'}</span>
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3>Dates</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Start Date:</span>
+                        <span class="detail-value">${student.startDate || 'N/A'}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">End Date / Review Date:</span>
+                        <span class="detail-value">${student.endDate || 'N/A'}</span>
+                    </div>
+                </div>
+                
+                ${student.externalAgencies || student.contactPerson1 || student.contactPerson2 || student.contactPerson3 ? `
+                <div class="detail-section">
+                    <h3>External Agencies & Contacts</h3>
+                    ${student.externalAgencies ? `
+                    <div class="detail-item">
+                        <span class="detail-label">External Agencies:</span>
+                        <span class="detail-value">${student.externalAgencies}</span>
+                    </div>
+                    ` : ''}
+                    ${student.contactPerson1 ? `
+                    <div class="detail-item">
+                        <span class="detail-label">Contact Person 1:</span>
+                        <span class="detail-value">${formatContact(student.contactPerson1)}</span>
+                    </div>
+                    ` : ''}
+                    ${student.contactPerson2 ? `
+                    <div class="detail-item">
+                        <span class="detail-label">Contact Person 2:</span>
+                        <span class="detail-value">${formatContact(student.contactPerson2)}</span>
+                    </div>
+                    ` : ''}
+                    ${student.contactPerson3 ? `
+                    <div class="detail-item">
+                        <span class="detail-label">Contact Person 3:</span>
+                        <span class="detail-value">${formatContact(student.contactPerson3)}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                ` : ''}
+                
+                ${student.extraInfo ? `
+                <div class="detail-section">
+                    <h3>Additional Information</h3>
+                    <div class="detail-item">
+                        <span class="detail-value">${student.extraInfo}</span>
+                    </div>
+                </div>
+                ` : ''}
+            `;
+            
+            detailsEl.style.display = 'block';
+            detailsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Format contact information (extract emails as links)
+        function formatContact(contact) {
+            if (!contact) return 'N/A';
+            
+            // Check for email addresses
+            const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/g;
+            let formatted = contact;
+            
+            formatted = formatted.replace(emailRegex, (email) => {
+                return `<a href="mailto:${email}">${email}</a>`;
+            });
+            
+            return formatted;
+        }
+
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadStudentData();
+        });
+    </script>
+</body>
+</html>
+
