@@ -157,9 +157,10 @@
         }
         .detail-section:nth-child(1) h3::before { content: "📋"; }
         .detail-section:nth-child(2) h3::before { content: "🏫"; }
-        .detail-section:nth-child(3) h3::before { content: "📅"; }
-        .detail-section:nth-child(4) h3::before { content: "🔗"; }
-        .detail-section:nth-child(5) h3::before { content: "ℹ️"; }
+        .detail-section:nth-child(3) h3::before { content: "💜"; }
+        .detail-section:nth-child(4) h3::before { content: "📅"; }
+        .detail-section:nth-child(5) h3::before { content: "🔗"; }
+        .detail-section:nth-child(6) h3::before { content: "ℹ️"; }
         .detail-item {
             margin-bottom: 16px;
             padding-bottom: 16px;
@@ -195,6 +196,13 @@
         .detail-value a:hover {
             color: #764ba2;
             text-decoration: underline;
+        }
+        .copy-btn {
+            transition: all 0.2s ease;
+        }
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
         }
         .loading {
             text-align: center;
@@ -267,14 +275,6 @@
                     <span class="stat-number" id="totalStudents">0</span>
                     <span class="stat-label">Total Students</span>
                 </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
-                    <span class="stat-number" id="ks3Count">0</span>
-                    <span class="stat-label">KS3 Students</span>
-                </div>
-                <div class="stat-card" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
-                    <span class="stat-number" id="ks4Count">0</span>
-                    <span class="stat-label">KS4 Students</span>
-                </div>
             </div>
             <div id="loadingMessage" class="loading" style="display: none;">Loading student data</div>
             <div id="errorMessage" class="error" style="display: none;"></div>
@@ -289,6 +289,29 @@
     <script>
         let allStudents = [];
         let selectedStudent = null;
+        
+        // Purple Ruler login details
+        const purpleRulerStudents = [
+            { name: 'Amishael Mufata', email: 'amishael.mufata@evolution-education.com', cohort: 'Year 11 Class', password: 'AmishaelM100%' },
+            { name: 'Charlie Archer', email: 'charlie.archer@evolution-education.com', cohort: 'Year 11 Class', password: 'CharlieA100%' },
+            { name: 'Connor Azzaro', email: 'connor.azzaro@evolution-education.com', cohort: 'Year 9 Class', password: 'ConnorA100%' },
+            { name: 'Korey Browne', email: 'korey.browne@evolution-education.com', cohort: 'Year 9 Class', password: 'CoreyB100%' },
+            { name: 'Harry Igwilo', email: 'harry.igwilo@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryI100%' },
+            { name: 'Harry Reed', email: 'harry.reed@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryR100%' },
+            { name: 'Josiah Stcyr', email: 'josiah.stcyr@evolution-education.com', cohort: 'Year 9 Class', password: 'JosiahSC100%' },
+            { name: 'Kayden Strose', email: 'kayden.strose@evolution-education.com', cohort: 'Year 9 Class', password: 'KaydenS100%' },
+            { name: 'Lexi Penny', email: 'lexi.penny@evolution-education.com', cohort: 'Year 11 Class', password: 'LexiP100%' },
+            { name: 'Mason Taylor', email: 'mason.taylor@evolution-education.com', cohort: 'Year 10 Class', password: 'MasonT100%' },
+            { name: 'Ronnie Burletson', email: 'ronnie.burletson@evolution-education.com', cohort: 'Year 10 Class', password: 'RonnyB100%' },
+            { name: 'Ronny Cooper', email: 'ronny.cooper@evolution-education.com', cohort: 'Year 10 Class', password: 'RonnyC100%' },
+            { name: 'Stacey Grail', email: 'stacey.grail@evolution-education.com', cohort: 'Year 10 Class', password: 'StaceyG100%' },
+            { name: 'Tyrell Allassan', email: 'tyrell.allassan@evolution-education.com', cohort: 'Year 10 Class', password: 'TyrellA100%' },
+            { name: 'Vinnie Lane', email: 'vinnie.lane@evolution-education.com', cohort: 'Year 11 Class', password: 'VinnieL100%' },
+            { name: 'Yousef Tahir', email: 'yousef.tahir@evolution-education.com', cohort: 'Year 9 Class', password: 'YousafT100%' },
+            { name: 'Bradley Hughes', email: 'bradley.hughes@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'BHughes100%' },
+            { name: 'H Jones', email: 'hjones16@robertclack.com', cohort: 'Year 10 Class', password: 'RC School Set' },
+            { name: 'Lucy Madgwick', email: 'lucy.madgwick@evolution-education.com', cohort: 'Year 9 Class', password: 'LucyM100%' }
+        ];
 
         // Load and parse student data from HTML files
         async function loadStudentData() {
@@ -489,6 +512,22 @@
                                 student.schoolContacts = schoolContacts[matchingSchool];
                             }
                         }
+                        
+                        // Match Purple Ruler login details
+                        const prMatch = purpleRulerStudents.find(pr => {
+                            const studentName = student.fullName.toLowerCase();
+                            const prName = pr.name.toLowerCase();
+                            return studentName === prName || 
+                                   studentName.includes(prName) || 
+                                   prName.includes(studentName) ||
+                                   (studentName.split(' ')[0] === prName.split(' ')[0] && 
+                                    studentName.split(' ')[studentName.split(' ').length - 1] === prName.split(' ')[prName.split(' ').length - 1]);
+                        });
+                        if (prMatch) {
+                            student.purpleRulerEmail = prMatch.email;
+                            student.purpleRulerPassword = prMatch.password;
+                            student.purpleRulerCohort = prMatch.cohort;
+                        }
                     });
                 } catch (e) {
                     console.warn('Could not load sheet003.htm:', e);
@@ -575,37 +614,49 @@
             gridEl.innerHTML = `
                 <div class="detail-section">
                     <h3>Basic Information</h3>
+                    ${student.keyStage ? `
                     <div class="detail-item">
-                        <span class="detail-label">Key Stage:</span>
-                        <span class="detail-value">${student.keyStage || 'N/A'}</span>
+                        <span class="detail-label">Key Stage</span>
+                        <span class="detail-value">${student.keyStage}</span>
                     </div>
+                    ` : ''}
+                    ${student.yearGroup ? `
                     <div class="detail-item">
-                        <span class="detail-label">Year Group:</span>
-                        <span class="detail-value">${student.yearGroup || 'N/A'}</span>
+                        <span class="detail-label">Year Group</span>
+                        <span class="detail-value">${student.yearGroup}</span>
                     </div>
+                    ` : ''}
+                    ${student.gender ? `
                     <div class="detail-item">
-                        <span class="detail-label">Gender:</span>
-                        <span class="detail-value">${student.gender || 'N/A'}</span>
+                        <span class="detail-label">Gender</span>
+                        <span class="detail-value">${student.gender}</span>
                     </div>
+                    ` : ''}
+                    ${student.ethnicity ? `
                     <div class="detail-item">
-                        <span class="detail-label">Ethnicity:</span>
-                        <span class="detail-value">${student.ethnicity || 'N/A'}</span>
+                        <span class="detail-label">Ethnicity</span>
+                        <span class="detail-value">${student.ethnicity}</span>
                     </div>
+                    ` : ''}
                 </div>
                 
                 <div class="detail-section">
                     <h3>School Information</h3>
+                    ${student.school ? `
                     <div class="detail-item">
-                        <span class="detail-label">School:</span>
-                        <span class="detail-value">${student.school || 'N/A'}</span>
+                        <span class="detail-label">School</span>
+                        <span class="detail-value">${student.school}</span>
                     </div>
+                    ` : ''}
+                    ${student.schoolKeyContact ? `
                     <div class="detail-item">
-                        <span class="detail-label">School Key Contact:</span>
-                        <span class="detail-value">${student.schoolKeyContact || 'N/A'}</span>
+                        <span class="detail-label">School Key Contact</span>
+                        <span class="detail-value">${student.schoolKeyContact}</span>
                     </div>
+                    ` : ''}
                     ${student.schoolContacts && student.schoolContacts.length > 0 ? `
                     <div class="detail-item">
-                        <span class="detail-label">School Contacts:</span>
+                        <span class="detail-label">School Contacts</span>
                         <span class="detail-value">
                             ${student.schoolContacts.map(contact => 
                                 contact.email ? 
@@ -617,42 +668,76 @@
                     ` : ''}
                 </div>
                 
+                ${student.purpleRulerEmail ? `
+                <div class="detail-section">
+                    <h3>Purple Ruler Login</h3>
+                    <div class="detail-item">
+                        <span class="detail-label">Email Address</span>
+                        <span class="detail-value">
+                            <a href="mailto:${student.purpleRulerEmail}">${student.purpleRulerEmail}</a>
+                            <button class="copy-btn" onclick="copyToClipboard('${student.purpleRulerEmail}', this)" style="margin-left: 8px; padding: 4px 8px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Copy</button>
+                        </span>
+                    </div>
+                    ${student.purpleRulerCohort ? `
+                    <div class="detail-item">
+                        <span class="detail-label">Cohort</span>
+                        <span class="detail-value">${student.purpleRulerCohort}</span>
+                    </div>
+                    ` : ''}
+                    ${student.purpleRulerPassword ? `
+                    <div class="detail-item">
+                        <span class="detail-label">Password</span>
+                        <span class="detail-value">
+                            ${student.purpleRulerPassword}
+                            <button class="copy-btn" onclick="copyToClipboard('${student.purpleRulerPassword}', this)" style="margin-left: 8px; padding: 4px 8px; background: #667eea; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.85rem;">Copy</button>
+                        </span>
+                    </div>
+                    ` : ''}
+                </div>
+                ` : ''}
+                
+                ${student.startDate || student.endDate ? `
                 <div class="detail-section">
                     <h3>Dates</h3>
+                    ${student.startDate ? `
                     <div class="detail-item">
-                        <span class="detail-label">Start Date:</span>
-                        <span class="detail-value">${student.startDate || 'N/A'}</span>
+                        <span class="detail-label">Start Date</span>
+                        <span class="detail-value">${student.startDate}</span>
                     </div>
+                    ` : ''}
+                    ${student.endDate ? `
                     <div class="detail-item">
-                        <span class="detail-label">End Date / Review Date:</span>
-                        <span class="detail-value">${student.endDate || 'N/A'}</span>
+                        <span class="detail-label">End Date / Review Date</span>
+                        <span class="detail-value">${student.endDate}</span>
                     </div>
+                    ` : ''}
                 </div>
+                ` : ''}
                 
                 ${student.externalAgencies || student.contactPerson1 || student.contactPerson2 || student.contactPerson3 ? `
                 <div class="detail-section">
                     <h3>External Agencies & Contacts</h3>
                     ${student.externalAgencies ? `
                     <div class="detail-item">
-                        <span class="detail-label">External Agencies:</span>
+                        <span class="detail-label">External Agencies</span>
                         <span class="detail-value">${student.externalAgencies}</span>
                     </div>
                     ` : ''}
                     ${student.contactPerson1 ? `
                     <div class="detail-item">
-                        <span class="detail-label">Contact Person 1:</span>
+                        <span class="detail-label">Contact Person 1</span>
                         <span class="detail-value">${formatContact(student.contactPerson1)}</span>
                     </div>
                     ` : ''}
                     ${student.contactPerson2 ? `
                     <div class="detail-item">
-                        <span class="detail-label">Contact Person 2:</span>
+                        <span class="detail-label">Contact Person 2</span>
                         <span class="detail-value">${formatContact(student.contactPerson2)}</span>
                     </div>
                     ` : ''}
                     ${student.contactPerson3 ? `
                     <div class="detail-item">
-                        <span class="detail-label">Contact Person 3:</span>
+                        <span class="detail-label">Contact Person 3</span>
                         <span class="detail-value">${formatContact(student.contactPerson3)}</span>
                     </div>
                     ` : ''}
@@ -692,17 +777,37 @@
         function updateStats(students) {
             const statsBar = document.getElementById('statsBar');
             const totalStudents = document.getElementById('totalStudents');
-            const ks3Count = document.getElementById('ks3Count');
-            const ks4Count = document.getElementById('ks4Count');
             
-            if (statsBar && totalStudents && ks3Count && ks4Count) {
-                const ks3 = students.filter(s => s.keyStage && s.keyStage.toLowerCase().includes('ks3')).length;
-                const ks4 = students.filter(s => s.keyStage && s.keyStage.toLowerCase().includes('ks4')).length;
-                
+            if (statsBar && totalStudents) {
                 totalStudents.textContent = students.length;
-                ks3Count.textContent = ks3;
-                ks4Count.textContent = ks4;
                 statsBar.style.display = 'flex';
+            }
+        }
+        
+        // Copy to clipboard function
+        function copyToClipboard(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#667eea';
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy:', err);
+                alert('Failed to copy. Please select and copy manually.');
+            } finally {
+                document.body.removeChild(textarea);
             }
         }
 
