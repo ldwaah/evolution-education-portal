@@ -177,6 +177,38 @@
                     </div>
                 </div>
                 
+                <h3 style="margin-top: 40px; margin-bottom: 20px;">Purple Ruler Student Login Details</h3>
+                
+                <div class="assessments-list">
+                    <div class="assessment-group">
+                        <div style="margin-bottom: 20px; position: relative;">
+                            <label for="purpleRulerStudentSelect" style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Select Student:</label>
+                            <input type="text" id="purpleRulerStudentSelect" placeholder="Type to search for a student..." style="width: 100%; padding: 12px; border: 2px solid #667eea; border-radius: 8px; font-size: 1rem; box-sizing: border-box;">
+                            <div id="purpleRulerStudentDropdown" style="display: none; position: absolute; top: 100%; left: 0; right: 0; background: white; border: 2px solid #667eea; border-top: none; border-radius: 0 0 8px 8px; max-height: 300px; overflow-y: auto; z-index: 1000; box-sizing: border-box; box-shadow: 0 4px 6px rgba(0,0,0,0.1);"></div>
+                        </div>
+                        
+                        <div id="purpleRulerLoginDetails" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px solid #667eea; margin-top: 20px;">
+                            <h4 style="margin-top: 0; color: #667eea; margin-bottom: 15px;">Student Login Information</h4>
+                            <div class="login-details">
+                                <div class="login-item">
+                                    <span class="login-label">Email Address:</span>
+                                    <span class="login-value" id="prEmail"></span>
+                                    <button class="copy-btn-small" id="copyPrEmail">Copy</button>
+                                </div>
+                                <div class="login-item">
+                                    <span class="login-label">Cohort:</span>
+                                    <span class="login-value" id="prCohort"></span>
+                                </div>
+                                <div class="login-item">
+                                    <span class="login-label">Password:</span>
+                                    <span class="login-value" id="prPassword"></span>
+                                    <button class="copy-btn-small" id="copyPrPassword">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3 style="margin-top: 40px; margin-bottom: 20px;">Individual Learning Plans</h3>
                 
                 <div class="assessments-list">
@@ -345,54 +377,6 @@
                                 <span class="login-label">Password:</span>
                                 <span class="login-value" data-copy="Uefa1618!">•••••••••</span>
                                 <button class="copy-btn-small" onclick="copyToClipboard(this, 'Uefa1618!')">Copy</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="assessment-group">
-                        <h4>6a. Purple Ruler Student Login Details</h4>
-                        <div style="margin-top: 15px;">
-                            <label for="purpleRulerStudentSelect" style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Select Student:</label>
-                            <select id="purpleRulerStudentSelect" style="width: 100%; padding: 10px; border: 2px solid #667eea; border-radius: 6px; font-size: 1rem; margin-bottom: 20px; background: white; cursor: pointer;">
-                                <option value="">-- Select a student --</option>
-                                <option value="amishael.mufata">Amishael Mufata</option>
-                                <option value="charlie.archer">Charlie Archer</option>
-                                <option value="connor.azzaro">Connor Azzaro</option>
-                                <option value="korey.browne">Korey Browne</option>
-                                <option value="harry.igwilo">Harry Igwilo</option>
-                                <option value="harry.reed">Harry Reed</option>
-                                <option value="josiah.stcyr">Josiah Stcyr</option>
-                                <option value="kayden.strose">Kayden Strose</option>
-                                <option value="lexi.penny">Lexi Penny</option>
-                                <option value="mason.taylor">Mason Taylor</option>
-                                <option value="ronnie.burletson">Ronnie Burletson</option>
-                                <option value="ronny.cooper">Ronny Cooper</option>
-                                <option value="stacey.grail">Stacey Grail</option>
-                                <option value="tyrell.allassan">Tyrell Allassan</option>
-                                <option value="vinnie.lane">Vinnie Lane</option>
-                                <option value="yousef.tahir">Yousef Tahir</option>
-                                <option value="bradley.hughes">Bradley Hughes</option>
-                                <option value="hjones16">H Jones (Robert Clack)</option>
-                                <option value="lucy.madgwick">Lucy Madgwick</option>
-                            </select>
-                            
-                            <div id="purpleRulerStudentDetails" style="display: none; background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px solid #667eea;">
-                                <div class="login-details">
-                                    <div class="login-item">
-                                        <span class="login-label">Email Address:</span>
-                                        <span class="login-value" id="prEmail"></span>
-                                        <button class="copy-btn-small" id="prEmailCopy">Copy</button>
-                                    </div>
-                                    <div class="login-item">
-                                        <span class="login-label">Cohort:</span>
-                                        <span class="login-value" id="prCohort"></span>
-                                    </div>
-                                    <div class="login-item">
-                                        <span class="login-label">Password:</span>
-                                        <span class="login-value" id="prPassword"></span>
-                                        <button class="copy-btn-small" id="prPasswordCopy">Copy</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -735,14 +719,6 @@
                     <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view options</p>
                 </div>
             </section>
-            
-            <section class="section" id="studentDatabase" style="cursor: pointer;">
-                <h2 class="section-heading">Student Database</h2>
-                <div class="section-content">
-                    <p>Access comprehensive student information and details.</p>
-                    <p style="margin-top: 10px; font-size: 0.9rem; color: #667eea; font-weight: 500;">Click to view database</p>
-                </div>
-            </section>
                 </div>
             </div>
             
@@ -810,30 +786,6 @@
                                 <span style="font-size: 0.9rem; font-weight: normal;">All successful mentoring interventions should result in this AQA unit being achieved. Click to view unit details and requirements.</span>
                             </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Student Database Modal -->
-            <div id="studentDatabaseModal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-breadcrumb">
-                        <button class="breadcrumb-back" onclick="closeModal('studentDatabaseModal')">← Back to Dashboard</button>
-                        <span class="breadcrumb-separator">|</span>
-                        <span class="breadcrumb-current">Student Management → Student Database</span>
-                    </div>
-                    <span class="close" id="closeStudentDatabase">&times;</span>
-                    <h2>Student Database</h2>
-                    
-                    <div style="margin-top: 30px; margin-bottom: 20px;">
-                        <label for="studentDatabaseSelect" style="display: block; margin-bottom: 10px; font-weight: 600; color: #333; font-size: 1.1rem;">Select Student:</label>
-                        <select id="studentDatabaseSelect" style="width: 100%; padding: 12px; border: 2px solid #667eea; border-radius: 6px; font-size: 1rem; margin-bottom: 20px; background: white; cursor: pointer;">
-                            <option value="">-- Select a student --</option>
-                        </select>
-                    </div>
-                    
-                    <div id="studentDatabaseDetails" style="display: none; background: #f8f9fa; padding: 25px; border-radius: 8px; border: 2px solid #667eea; margin-top: 20px;">
-                        <div id="studentDetailsContent"></div>
                     </div>
                 </div>
             </div>

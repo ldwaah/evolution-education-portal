@@ -93,6 +93,123 @@ if (closeAdminModal) {
     });
 }
 
+// Purple Ruler Student Login Details
+const purpleRulerStudents = [
+    { name: 'Amishael Mufata', email: 'amishael.mufata@evolution-education.com', cohort: 'Year 11 Class', password: 'AmishaelM100%' },
+    { name: 'Charlie Archer', email: 'charlie.archer@evolution-education.com', cohort: 'Year 11 Class', password: 'CharlieA100%' },
+    { name: 'Connor Azzaro', email: 'connor.azzaro@evolution-education.com', cohort: 'Year 9 Class', password: 'ConnorA100%' },
+    { name: 'Korey Browne', email: 'korey.browne@evolution-education.com', cohort: 'Year 9 Class', password: 'CoreyB100%' },
+    { name: 'Harry Igwilo', email: 'harry.igwilo@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryI100%' },
+    { name: 'Harry Reed', email: 'harry.reed@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryR100%' },
+    { name: 'Josiah Stcyr', email: 'josiah.stcyr@evolution-education.com', cohort: 'Year 9 Class', password: 'JosiahSC100%' },
+    { name: 'Kayden Strose', email: 'kayden.strose@evolution-education.com', cohort: 'Year 9 Class', password: 'KaydenS100%' },
+    { name: 'Lexi Penny', email: 'lexi.penny@evolution-education.com', cohort: 'Year 11 Class', password: 'LexiP100%' },
+    { name: 'Mason Taylor', email: 'mason.taylor@evolution-education.com', cohort: 'Year 10 Class', password: 'MasonT100%' },
+    { name: 'Ronnie Burletson', email: 'ronnie.burletson@evolution-education.com', cohort: 'Year 10 Class', password: 'RonnyB100%' },
+    { name: 'Ronny Cooper', email: 'ronny.cooper@evolution-education.com', cohort: 'Year 10 Class', password: 'RonnyC100%' },
+    { name: 'Stacey Grail', email: 'stacey.grail@evolution-education.com', cohort: 'Year 10 Class', password: 'StaceyG100%' },
+    { name: 'Tyrell Allassan', email: 'tyrell.allassan@evolution-education.com', cohort: 'Year 10 Class', password: 'TyrellA100%' },
+    { name: 'Vinnie Lane', email: 'vinnie.lane@evolution-education.com', cohort: 'Year 11 Class', password: 'VinnieL100%' },
+    { name: 'Yousef Tahir', email: 'yousef.tahir@evolution-education.com', cohort: 'Year 9 Class', password: 'YousafT100%' },
+    { name: 'Bradley Hughes', email: 'bradley.hughes@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'BHughes100%' },
+    { name: 'H Jones', email: 'hjones16@robertclack.com', cohort: 'Year 10 Class', password: 'RC School Set' },
+    { name: 'Lucy Madgwick', email: 'lucy.madgwick@evolution-education.com', cohort: 'Year 9 Class', password: 'LucyM100%' }
+];
+
+const purpleRulerStudentSelect = document.getElementById('purpleRulerStudentSelect');
+const purpleRulerStudentDropdown = document.getElementById('purpleRulerStudentDropdown');
+const purpleRulerLoginDetails = document.getElementById('purpleRulerLoginDetails');
+const prEmail = document.getElementById('prEmail');
+const prCohort = document.getElementById('prCohort');
+const prPassword = document.getElementById('prPassword');
+const copyPrEmail = document.getElementById('copyPrEmail');
+const copyPrPassword = document.getElementById('copyPrPassword');
+
+let selectedStudent = null;
+
+if (purpleRulerStudentSelect) {
+    purpleRulerStudentSelect.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase().trim();
+        
+        if (searchTerm.length === 0) {
+            purpleRulerStudentDropdown.style.display = 'none';
+            purpleRulerLoginDetails.style.display = 'none';
+            selectedStudent = null;
+            return;
+        }
+        
+        // Filter students
+        const filtered = purpleRulerStudents.filter(student => 
+            student.name.toLowerCase().includes(searchTerm) ||
+            student.email.toLowerCase().includes(searchTerm)
+        );
+        
+        if (filtered.length === 0) {
+            purpleRulerStudentDropdown.innerHTML = '<div style="padding: 12px; color: #666; font-style: italic;">No students found</div>';
+            purpleRulerStudentDropdown.style.display = 'block';
+        } else {
+            purpleRulerStudentDropdown.innerHTML = filtered.map(student => 
+                `<div class="student-option" style="padding: 12px; cursor: pointer; border-bottom: 1px solid #e5e7eb; transition: background 0.2s;" 
+                      onmouseover="this.style.background='#f3f4f6'" 
+                      onmouseout="this.style.background='white'"
+                      data-email="${student.email}"
+                      data-cohort="${student.cohort}"
+                      data-password="${student.password}">
+                    <strong>${student.name}</strong><br>
+                    <span style="font-size: 0.85rem; color: #666;">${student.email}</span>
+                </div>`
+            ).join('');
+            purpleRulerStudentDropdown.style.display = 'block';
+            
+            // Add click handlers to options
+            purpleRulerStudentDropdown.querySelectorAll('.student-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectedStudent = {
+                        name: this.querySelector('strong').textContent,
+                        email: this.getAttribute('data-email'),
+                        cohort: this.getAttribute('data-cohort'),
+                        password: this.getAttribute('data-password')
+                    };
+                    
+                    purpleRulerStudentSelect.value = selectedStudent.name;
+                    purpleRulerStudentDropdown.style.display = 'none';
+                    
+                    // Display login details
+                    prEmail.textContent = selectedStudent.email;
+                    prCohort.textContent = selectedStudent.cohort;
+                    prPassword.textContent = selectedStudent.password;
+                    purpleRulerLoginDetails.style.display = 'block';
+                });
+            });
+        }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!purpleRulerStudentSelect.contains(event.target) && 
+            !purpleRulerStudentDropdown.contains(event.target)) {
+            purpleRulerStudentDropdown.style.display = 'none';
+        }
+    });
+    
+    // Handle copy buttons
+    if (copyPrEmail) {
+        copyPrEmail.addEventListener('click', function() {
+            if (selectedStudent) {
+                copyToClipboard(this, selectedStudent.email);
+            }
+        });
+    }
+    
+    if (copyPrPassword) {
+        copyPrPassword.addEventListener('click', function() {
+            if (selectedStudent) {
+                copyToClipboard(this, selectedStudent.password);
+            }
+        });
+    }
+}
+
 // Assessments Modal functionality
 const assessmentsSection = document.getElementById('assessments');
 const assessmentsModal = document.getElementById('assessmentsModal');
@@ -145,27 +262,6 @@ if (behaviourSection && behaviourModal) {
     behaviourSection.addEventListener('click', function() {
         behaviourModal.style.display = 'block';
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    });
-}
-
-// Student Database Modal functionality
-const studentDatabaseSection = document.getElementById('studentDatabase');
-const studentDatabaseModal = document.getElementById('studentDatabaseModal');
-const closeStudentDatabaseModal = document.getElementById('closeStudentDatabase');
-
-// Open modal when clicking on Student Database section
-if (studentDatabaseSection && studentDatabaseModal) {
-    studentDatabaseSection.addEventListener('click', function() {
-        studentDatabaseModal.style.display = 'block';
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-    });
-}
-
-// Close Student Database modal when clicking the X
-if (closeStudentDatabaseModal) {
-    closeStudentDatabaseModal.addEventListener('click', function() {
-        studentDatabaseModal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restore scrolling
     });
 }
 
@@ -1761,469 +1857,5 @@ window.addEventListener('load', function() {
 document.addEventListener('DOMContentLoaded', function() {
     if (passwordModal && passwordModal.style.display !== 'block') {
         document.body.style.overflow = 'auto';
-    }
-});
-
-// Purple Ruler Student Login Details
-const purpleRulerStudents = {
-    'amishael.mufata': {
-        email: 'amishael.mufata@evolution-education.com',
-        cohort: 'Year 11 Class',
-        password: 'AmishaelM100%'
-    },
-    'charlie.archer': {
-        email: 'charlie.archer@evolution-education.com',
-        cohort: 'Year 11 Class',
-        password: 'CharlieA100%'
-    },
-    'connor.azzaro': {
-        email: 'connor.azzaro@evolution-education.com',
-        cohort: 'Year 9 Class',
-        password: 'ConnorA100%'
-    },
-    'korey.browne': {
-        email: 'korey.browne@evolution-education.com',
-        cohort: 'Year 9 Class',
-        password: 'CoreyB100%'
-    },
-    'harry.igwilo': {
-        email: 'harry.igwilo@evolution-education.com',
-        cohort: 'Year 7 & 8 Class',
-        password: 'HarryI100%'
-    },
-    'harry.reed': {
-        email: 'harry.reed@evolution-education.com',
-        cohort: 'Year 7 & 8 Class',
-        password: 'HarryR100%'
-    },
-    'josiah.stcyr': {
-        email: 'josiah.stcyr@evolution-education.com',
-        cohort: 'Year 9 Class',
-        password: 'JosiahSC100%'
-    },
-    'kayden.strose': {
-        email: 'kayden.strose@evolution-education.com',
-        cohort: 'Year 9 Class',
-        password: 'KaydenS100%'
-    },
-    'lexi.penny': {
-        email: 'lexi.penny@evolution-education.com',
-        cohort: 'Year 11 Class',
-        password: 'LexiP100%'
-    },
-    'mason.taylor': {
-        email: 'mason.taylor@evolution-education.com',
-        cohort: 'Year 10 Class',
-        password: 'MasonT100%'
-    },
-    'ronnie.burletson': {
-        email: 'ronnie.burletson@evolution-education.com',
-        cohort: 'Year 10 Class',
-        password: 'RonnyB100%'
-    },
-    'ronny.cooper': {
-        email: 'ronny.cooper@evolution-education.com',
-        cohort: 'Year 10 Class',
-        password: 'RonnyC100%'
-    },
-    'stacey.grail': {
-        email: 'stacey.grail@evolution-education.com',
-        cohort: 'Year 10 Class',
-        password: 'StaceyG100%'
-    },
-    'tyrell.allassan': {
-        email: 'tyrell.allassan@evolution-education.com',
-        cohort: 'Year 10 Class',
-        password: 'TyrellA100%'
-    },
-    'vinnie.lane': {
-        email: 'vinnie.lane@evolution-education.com',
-        cohort: 'Year 11 Class',
-        password: 'VinnieL100%'
-    },
-    'yousef.tahir': {
-        email: 'yousef.tahir@evolution-education.com',
-        cohort: 'Year 9 Class',
-        password: 'YousafT100%'
-    },
-    'bradley.hughes': {
-        email: 'bradley.hughes@evolution-education.com',
-        cohort: 'Year 7 & 8 Class',
-        password: 'BHughes100%'
-    },
-    'hjones16': {
-        email: 'hjones16@robertclack.com',
-        cohort: 'Year 10 Class',
-        password: 'RC School Set'
-    },
-    'lucy.madgwick': {
-        email: 'lucy.madgwick@evolution-education.com',
-        cohort: 'Year 9 Class',
-        password: 'LucyM100%'
-    }
-};
-
-// Handle Purple Ruler student selection
-document.addEventListener('DOMContentLoaded', function() {
-    const studentSelect = document.getElementById('purpleRulerStudentSelect');
-    const studentDetails = document.getElementById('purpleRulerStudentDetails');
-    const prEmail = document.getElementById('prEmail');
-    const prCohort = document.getElementById('prCohort');
-    const prPassword = document.getElementById('prPassword');
-    const prEmailCopy = document.getElementById('prEmailCopy');
-    const prPasswordCopy = document.getElementById('prPasswordCopy');
-
-    if (studentSelect) {
-        studentSelect.addEventListener('change', function() {
-            const selectedValue = this.value;
-            
-            if (selectedValue && purpleRulerStudents[selectedValue]) {
-                const student = purpleRulerStudents[selectedValue];
-                
-                // Update display
-                prEmail.textContent = student.email;
-                prCohort.textContent = student.cohort;
-                prPassword.textContent = student.password;
-                
-                // Update copy button data
-                prEmailCopy.setAttribute('data-email', student.email);
-                prPasswordCopy.setAttribute('data-password', student.password);
-                
-                // Show details
-                studentDetails.style.display = 'block';
-            } else {
-                // Hide details if no student selected
-                studentDetails.style.display = 'none';
-            }
-        });
-    }
-
-    // Handle email copy
-    if (prEmailCopy) {
-        prEmailCopy.addEventListener('click', function() {
-            const email = this.getAttribute('data-email');
-            if (email) {
-                copyToClipboard(this, email);
-            }
-        });
-    }
-
-    // Handle password copy
-    if (prPasswordCopy) {
-        prPasswordCopy.addEventListener('click', function() {
-            const password = this.getAttribute('data-password');
-            if (password) {
-                copyToClipboard(this, password);
-            }
-        });
-    }
-});
-
-// Student Database functionality
-let studentDatabase = [];
-
-// Load student database from JSON file
-async function loadStudentDatabase() {
-    try {
-        const response = await fetch('students.json');
-        if (!response.ok) {
-            throw new Error('Failed to load student database');
-        }
-        studentDatabase = await response.json();
-        populateStudentDropdown();
-    } catch (error) {
-        console.error('Error loading student database:', error);
-        // Fallback: show error message
-        const select = document.getElementById('studentDatabaseSelect');
-        if (select) {
-            select.innerHTML = '<option value="">Error loading database. Please refresh the page.</option>';
-        }
-    }
-}
-
-// Populate student dropdown
-function populateStudentDropdown() {
-    const select = document.getElementById('studentDatabaseSelect');
-    if (!select) return;
-    
-    // Clear existing options except the first one
-    select.innerHTML = '<option value="">-- Select a student --</option>';
-    
-    // Sort students by name
-    const sortedStudents = [...studentDatabase].sort((a, b) => a.name.localeCompare(b.name));
-    
-    // Add students to dropdown
-    sortedStudents.forEach(student => {
-        const option = document.createElement('option');
-        option.value = student.id;
-        option.textContent = student.name;
-        select.appendChild(option);
-    });
-}
-
-// Display student details
-function displayStudentDetails(studentId) {
-    const student = studentDatabase.find(s => s.id === studentId);
-    if (!student) return;
-    
-    const detailsDiv = document.getElementById('studentDatabaseDetails');
-    const contentDiv = document.getElementById('studentDetailsContent');
-    
-    if (!detailsDiv || !contentDiv) return;
-    
-    // Build HTML for student details
-    let html = `
-        <h3 style="color: #667eea; margin-top: 0; margin-bottom: 20px; font-size: 1.3rem;">${student.name}</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-    `;
-    
-    // Basic Information
-    html += `
-        <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
-            <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Basic Information</h4>
-            <div class="login-details">
-    `;
-    
-    if (student.yearGroup) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Year Group:</span>
-                <span class="login-value">Year ${student.yearGroup}</span>
-            </div>
-        `;
-    }
-    
-    if (student.cohort) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Cohort:</span>
-                <span class="login-value">${student.cohort}</span>
-            </div>
-        `;
-    }
-    
-    if (student.dateOfBirth) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Date of Birth:</span>
-                <span class="login-value">${student.dateOfBirth}</span>
-            </div>
-        `;
-    }
-    
-    if (student.startDate) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Start Date:</span>
-                <span class="login-value">${student.startDate}</span>
-            </div>
-        `;
-    }
-    
-    if (student.status) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Status:</span>
-                <span class="login-value" style="color: ${student.status === 'Active' ? '#28a745' : '#dc3545'}; font-weight: 600;">${student.status}</span>
-            </div>
-        `;
-    }
-    
-    html += `
-            </div>
-        </div>
-    `;
-    
-    // Contact Information
-    html += `
-        <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
-            <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Contact Information</h4>
-            <div class="login-details">
-    `;
-    
-    if (student.email) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Email:</span>
-                <span class="login-value">${student.email}</span>
-                <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.email}')">Copy</button>
-            </div>
-        `;
-    }
-    
-    if (student.phone) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Phone:</span>
-                <span class="login-value">${student.phone}</span>
-                <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.phone}')">Copy</button>
-            </div>
-        `;
-    }
-    
-    if (student.address) {
-        html += `
-            <div class="login-item">
-                <span class="login-label">Address:</span>
-                <span class="login-value">${student.address}</span>
-            </div>
-        `;
-    }
-    
-    html += `
-            </div>
-        </div>
-    `;
-    
-    // Parent/Carer Information
-    if (student.parentCarer && (student.parentCarer.name || student.parentCarer.phone || student.parentCarer.email)) {
-        html += `
-            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
-                <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Parent/Carer Information</h4>
-                <div class="login-details">
-        `;
-        
-        if (student.parentCarer.name) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Name:</span>
-                    <span class="login-value">${student.parentCarer.name}</span>
-                </div>
-            `;
-        }
-        
-        if (student.parentCarer.relationship) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Relationship:</span>
-                    <span class="login-value">${student.parentCarer.relationship}</span>
-                </div>
-            `;
-        }
-        
-        if (student.parentCarer.phone) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Phone:</span>
-                    <span class="login-value">${student.parentCarer.phone}</span>
-                    <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.parentCarer.phone}')">Copy</button>
-                </div>
-            `;
-        }
-        
-        if (student.parentCarer.email) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Email:</span>
-                    <span class="login-value">${student.parentCarer.email}</span>
-                    <button class="copy-btn-small" onclick="copyToClipboard(this, '${student.parentCarer.email}')">Copy</button>
-                </div>
-            `;
-        }
-        
-        html += `
-                </div>
-            </div>
-        `;
-    }
-    
-    // Academic Information
-    if (student.pathway || student.keyStaff) {
-        html += `
-            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb;">
-                <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Academic Information</h4>
-                <div class="login-details">
-        `;
-        
-        if (student.pathway) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Pathway:</span>
-                    <span class="login-value">${student.pathway}</span>
-                </div>
-            `;
-        }
-        
-        if (student.keyStaff) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Key Staff:</span>
-                    <span class="login-value">${student.keyStaff}</span>
-                </div>
-            `;
-        }
-        
-        html += `
-                </div>
-            </div>
-        `;
-    }
-    
-    // Additional Information
-    if (student.sen || student.medical || student.notes) {
-        html += `
-            <div style="background: white; padding: 15px; border-radius: 6px; border: 1px solid #e5e7eb; grid-column: 1 / -1;">
-                <h4 style="color: #667eea; margin-top: 0; margin-bottom: 15px; font-size: 1.1rem;">Additional Information</h4>
-                <div class="login-details">
-        `;
-        
-        if (student.sen) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">SEN:</span>
-                    <span class="login-value">${student.sen}</span>
-                </div>
-            `;
-        }
-        
-        if (student.medical) {
-            html += `
-                <div class="login-item">
-                    <span class="login-label">Medical:</span>
-                    <span class="login-value">${student.medical}</span>
-                </div>
-            `;
-        }
-        
-        if (student.notes) {
-            html += `
-                <div class="login-item" style="flex-direction: column; align-items: flex-start;">
-                    <span class="login-label" style="margin-bottom: 5px;">Notes:</span>
-                    <span class="login-value" style="white-space: pre-wrap;">${student.notes}</span>
-                </div>
-            `;
-        }
-        
-        html += `
-                </div>
-            </div>
-        `;
-    }
-    
-    html += `
-        </div>
-    `;
-    
-    contentDiv.innerHTML = html;
-    detailsDiv.style.display = 'block';
-}
-
-// Handle student database selection
-document.addEventListener('DOMContentLoaded', function() {
-    loadStudentDatabase();
-    
-    const studentSelect = document.getElementById('studentDatabaseSelect');
-    if (studentSelect) {
-        studentSelect.addEventListener('change', function() {
-            const selectedId = this.value;
-            if (selectedId) {
-                displayStudentDetails(selectedId);
-            } else {
-                const detailsDiv = document.getElementById('studentDatabaseDetails');
-                if (detailsDiv) {
-                    detailsDiv.style.display = 'none';
-                }
-            }
-        });
     }
 });
