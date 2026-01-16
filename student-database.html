@@ -231,7 +231,8 @@
                                 externalAgencies: '',
                                 contactPerson1: '',
                                 contactPerson2: '',
-                                contactPerson3: ''
+                                contactPerson3: '',
+                                schoolContacts: []
                             });
                         }
                     }
@@ -306,8 +307,59 @@
                     const schoolContacts = {};
                     const rows3 = doc3.querySelectorAll('table tr');
                     
-                    // Parse school contact information
-                    // This would need custom parsing based on the structure
+                    // First row contains school names
+                    let schoolNames = [];
+                    if (rows3.length > 1) {
+                        const headerRow = rows3[1];
+                        const headerCells = Array.from(headerRow.querySelectorAll('td'));
+                        schoolNames = headerCells.map(cell => cell.textContent?.trim() || '').filter(name => name && name !== '&nbsp;');
+                    }
+                    
+                    // Parse contact information for each school
+                    for (let i = 2; i < rows3.length; i++) {
+                        const row = rows3[i];
+                        if (row.style.display === 'none' || row.getAttribute('height') === '0') continue;
+                        
+                        const cells = Array.from(row.querySelectorAll('td'));
+                        
+                        // Each cell in a row corresponds to a school column
+                        cells.forEach((cell, index) => {
+                            if (index < schoolNames.length && schoolNames[index]) {
+                                const schoolName = schoolNames[index];
+                                const contactInfo = cell.textContent?.trim() || '';
+                                
+                                // Extract email if present
+                                const emailMatch = contactInfo.match(/([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/);
+                                const email = emailMatch ? emailMatch[1] : '';
+                                
+                                if (contactInfo && contactInfo !== '&nbsp;' && contactInfo.length > 0) {
+                                    if (!schoolContacts[schoolName]) {
+                                        schoolContacts[schoolName] = [];
+                                    }
+                                    schoolContacts[schoolName].push({
+                                        email: email,
+                                        fullInfo: contactInfo
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    
+                    // Update students with school contact information
+                    students.forEach(student => {
+                        if (student.school && schoolContacts[student.school]) {
+                            student.schoolContacts = schoolContacts[student.school];
+                        } else {
+                            // Try fuzzy matching for school names
+                            const matchingSchool = Object.keys(schoolContacts).find(school => {
+                                return school.toLowerCase().includes(student.school?.toLowerCase() || '') ||
+                                       student.school?.toLowerCase().includes(school.toLowerCase() || '');
+                            });
+                            if (matchingSchool) {
+                                student.schoolContacts = schoolContacts[matchingSchool];
+                            }
+                        }
+                    });
                 } catch (e) {
                     console.warn('Could not load sheet003.htm:', e);
                 }
@@ -418,6 +470,18 @@
                         <span class="detail-label">School Key Contact:</span>
                         <span class="detail-value">${student.schoolKeyContact || 'N/A'}</span>
                     </div>
+                    ${student.schoolContacts && student.schoolContacts.length > 0 ? `
+                    <div class="detail-item">
+                        <span class="detail-label">School Contacts:</span>
+                        <span class="detail-value">
+                            ${student.schoolContacts.map(contact => 
+                                contact.email ? 
+                                    `<a href="mailto:${contact.email}">${contact.fullInfo}</a>` : 
+                                    contact.fullInfo
+                            ).join('<br>')}
+                        </span>
+                    </div>
+                    ` : ''}
                     <div class="detail-item">
                         <span class="detail-label">Bromcom Attendance Sent:</span>
                         <span class="detail-value">${student.bromcomAttendance || 'N/A'}</span>
