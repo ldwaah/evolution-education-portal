@@ -470,7 +470,7 @@
                     <select>
                         <option value="LD">LD</option>
                         <option value="SA">SA</option>
-                        <option value="DC">DC</option>
+                        <option value="LI">LI</option>
                         <option value="JC">JC</option>
                         <option value="DJ">DJ</option>
                         <option value="LR">LR</option>
@@ -484,7 +484,7 @@
                         <option value="">Select mentor...</option>
                         <option value="LD">LD</option>
                         <option value="SA">SA</option>
-                        <option value="DC">DC</option>
+                        <option value="LI">LI</option>
                         <option value="JC">JC</option>
                         <option value="DJ">DJ</option>
                         <option value="LR">LR</option>
@@ -608,9 +608,9 @@
             <table class="action-table">
                 <thead><tr><th style="width: 50%;">Action</th><th style="width: 25%;">Lead Staff</th><th style="width: 25%;">Timescale</th></tr></thead>
                 <tbody id="actionTableBody">
-                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
-                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
-                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
+                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="LI">LI</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
+                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="LI">LI</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
+                    <tr><td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="LI">LI</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td></tr>
                 </tbody>
             </table>
             <button class="add-action-btn" onclick="addActionRow()">+ Add Another Action</button>
@@ -628,7 +628,7 @@
         function addActionRow() {
             const tbody = document.getElementById('actionTableBody');
             const newRow = document.createElement('tr');
-            newRow.innerHTML = `<td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="DC">DC</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td>`;
+            newRow.innerHTML = `<td><input type="text" placeholder="Enter action..."></td><td><select><option value="">Select staff...</option><option value="LD">LD</option><option value="SA">SA</option><option value="LI">LI</option><option value="JC">JC</option><option value="DJ">DJ</option><option value="LR">LR</option><option value="MC">MC</option><option value="AB">AB</option></select></td><td><input type="text" placeholder="e.g. 2 weeks"></td>`;
             tbody.appendChild(newRow);
         }
         
@@ -641,5 +641,12 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
 
 

@@ -633,8 +633,8 @@
             background: rgba(245, 158, 11, 0.08);
         }
 
-        /* DC Timetable Styles */
-        .dc-header {
+        /* LI Timetable Styles */
+        .li-header {
             text-align: center;
             margin-bottom: 0.75rem;
             padding: 0.75rem;
@@ -643,21 +643,21 @@
             border: 1px solid var(--border-color);
         }
 
-        .dc-header h2 {
+        .li-header h2 {
             font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
             color: var(--text-primary);
             margin-bottom: 0.15rem;
         }
 
-        .dc-header .role-title {
+        .li-header .role-title {
             color: var(--thursday-color);
             font-weight: 600;
             font-size: 0.8rem;
             margin-bottom: 0.25rem;
         }
 
-        .dc-header p {
+        .li-header p {
             color: var(--text-secondary);
             font-size: 0.75rem;
         }
@@ -842,17 +842,17 @@
             color: #92400e;
         }
 
-        .dc-monday .day-name { color: var(--monday-color); }
-        .dc-tuesday .day-name { color: var(--tuesday-color); }
-        .dc-wednesday .day-name { color: var(--wednesday-color); }
-        .dc-thursday .day-name { color: var(--thursday-color); }
-        .dc-friday .day-name { color: var(--friday-color); }
+        .li-monday .day-name { color: var(--monday-color); }
+        .li-tuesday .day-name { color: var(--tuesday-color); }
+        .li-wednesday .day-name { color: var(--wednesday-color); }
+        .li-thursday .day-name { color: var(--thursday-color); }
+        .li-friday .day-name { color: var(--friday-color); }
 
-        .dc-monday .timetable { border-top: 3px solid var(--monday-color); }
-        .dc-tuesday .timetable { border-top: 3px solid var(--tuesday-color); }
-        .dc-wednesday .timetable { border-top: 3px solid var(--wednesday-color); }
-        .dc-thursday .timetable { border-top: 3px solid var(--thursday-color); }
-        .dc-friday .timetable { border-top: 3px solid var(--friday-color); }
+        .li-monday .timetable { border-top: 3px solid var(--monday-color); }
+        .li-tuesday .timetable { border-top: 3px solid var(--tuesday-color); }
+        .li-wednesday .timetable { border-top: 3px solid var(--wednesday-color); }
+        .li-thursday .timetable { border-top: 3px solid var(--thursday-color); }
+        .li-friday .timetable { border-top: 3px solid var(--friday-color); }
 
         .role-maths {
             color: var(--ks3-color);
@@ -1181,7 +1181,7 @@
                 <button class="tab-btn active" onclick="showTab('master')">Master Timetable</button>
                 <button class="tab-btn" onclick="showTab('ld')">LD</button>
                 <button class="tab-btn" onclick="showTab('mc')">MC</button>
-                <button class="tab-btn" onclick="showTab('dc')">DC</button>
+                <button class="tab-btn" onclick="showTab('li')">LI</button>
                 <button class="tab-btn" onclick="showTab('lg')">LG</button>
                 <button class="tab-btn" onclick="showTab('ad')">AD</button>
                 <button class="tab-btn" onclick="showTab('jc')">JC</button>
@@ -1251,7 +1251,7 @@
                         <tr>
                             <td class="time-cell">09:35–10:25</td>
                             <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">AD</td>
 
@@ -1259,7 +1259,7 @@
                         <tr>
                             <td class="time-cell">10:25–11:05</td>
                             <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">MC</td>
 
@@ -1281,15 +1281,15 @@
                             <td class="time-cell">12:55–13:35</td>
                             <td class="period-cell"><span class="period-badge">P5</span></td>
                             <td class="ks3-cell"><span class="subject-name">Group Intervention</span> <span class="staff-name">– JC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Vocational</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Vocational</span> <span class="staff-name">– LI</span></td>
                             <td class="reflection-cell">AD</td>
 
                         </tr>
                         <tr>
                             <td class="time-cell">13:35–14:45</td>
                             <td class="period-cell"><span class="period-badge">P6</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Sport</span> <span class="staff-name">– DC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Sport</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Sport</span> <span class="staff-name">– LI</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Sport</span> <span class="staff-name">– LI</span></td>
                             <td class="reflection-cell">AD</td>
 
                         </tr>
@@ -1332,7 +1332,7 @@
                         <tr>
                             <td class="time-cell">09:35–10:25</td>
                             <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">AD</td>
 
@@ -1340,7 +1340,7 @@
                         <tr>
                             <td class="time-cell">10:25–11:05</td>
                             <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">MC</td>
 
@@ -1362,15 +1362,15 @@
                             <td class="time-cell">12:55–13:35</td>
                             <td class="period-cell"><span class="period-badge">P5</span></td>
                             <td class="ks3-cell"><span class="subject-name">Mentoring</span> <span class="staff-name">– JC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Vocational</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Vocational</span> <span class="staff-name">– LI</span></td>
                             <td class="reflection-cell">AD</td>
 
                         </tr>
                         <tr>
                             <td class="time-cell">13:35–14:45</td>
                             <td class="period-cell"><span class="period-badge">P6</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Sport</span> <span class="staff-name">– DC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Sport</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Sport</span> <span class="staff-name">– LI</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Sport</span> <span class="staff-name">– LI</span></td>
                             <td class="reflection-cell">AD</td>
 
                         </tr>
@@ -1414,7 +1414,7 @@
                         <tr>
                             <td class="time-cell">09:05–10:00</td>
                             <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="ks3-cell"><span class="subject-name">AQA Unit</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">AQA Unit</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">Maths</span> <span class="staff-name">– SA</span></td>
                             <td class="reflection-cell">LD ↔ LG</td>
 
@@ -1427,7 +1427,7 @@
                         <tr>
                             <td class="time-cell">10:15–11:10</td>
                             <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="ks3-cell"><span class="subject-name">AQA</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">AQA</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">SA ↔ MC</td>
 
@@ -1437,7 +1437,7 @@
                             <td class="period-cell"><span class="period-badge">P4</span></td>
                             <td class="ks3-cell"><span class="subject-name">PSHE</span> <span class="staff-name">– SA</span></td>
                             <td class="ks4-cell"><span class="subject-name">PSHE</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">LD ↔ DC</td>
+                            <td class="reflection-cell">LD ↔ LI</td>
 
                         </tr>
                         <tr class="lunch-row">
@@ -1448,7 +1448,7 @@
                         <tr>
                             <td class="time-cell">12:30–13:45</td>
                             <td class="period-cell"><span class="period-badge">P5</span></td>
-                            <td class="ks3-cell" colspan="2" style="text-align: center;"><span class="subject-name">Physical Activity / Sports</span> <span class="staff-name">– DC (Lead), SA & LG (Support)</span></td>
+                            <td class="ks3-cell" colspan="2" style="text-align: center;"><span class="subject-name">Physical Activity / Sports</span> <span class="staff-name">– LI (Lead), SA & LG (Support)</span></td>
                             <td class="reflection-cell">MC (Supervision)</td>
 
                         </tr>
@@ -1492,7 +1492,7 @@
                         <tr>
                             <td class="time-cell">09:35–10:25</td>
                             <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">AD</td>
 
@@ -1500,7 +1500,7 @@
                         <tr>
                             <td class="time-cell">10:25–11:05</td>
                             <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">MC</td>
 
@@ -1521,7 +1521,7 @@
                         <tr>
                             <td class="time-cell">12:35–13:30</td>
                             <td class="period-cell"><span class="period-badge">P5</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Behaviour</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Behaviour</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">SEMH Intervention</span> <span class="staff-name">– LD</span></td>
                             <td class="reflection-cell">AD</td>
 
@@ -1573,7 +1573,7 @@
                         <tr>
                             <td class="time-cell">09:35–10:25</td>
                             <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– DC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">Maths</span> <span class="staff-name">– LG</span></td>
                             <td class="reflection-cell">AD</td>
 
@@ -1808,7 +1808,7 @@
                         <tr>
                             <td class="time-cell">11:10–12:00</td>
                             <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-busy">Line Management (LD ↔ DC)</td>
+                            <td class="role-cell role-busy">Line Management (LD ↔ LI)</td>
                         </tr>
                         <tr class="lunch-row">
                             <td class="time-cell">12:00–12:30</td>
@@ -2316,17 +2316,17 @@
             </section>
         </main>
 
-        <!-- DC TIMETABLE TAB -->
-        <main id="dc-tab" class="tab-content">
-            <div class="dc-header">
-                <h2>Dejuane's Schedule</h2>
+        <!-- LI TIMETABLE TAB -->
+        <main id="li-tab" class="tab-content">
+            <div class="li-header">
+                <h2>Laurent's Schedule</h2>
                 <p class="role-title">Sports Lead & KS3 Intervention Practitioner</p>
                 <p>Core Maths & English • Sports provision • Targeted KS3 intervention</p>
-                <button id="dcResponsibilityBtn" class="responsibility-btn">Responsibility</button>
+                <button id="liResponsibilityBtn" class="responsibility-btn">Responsibility</button>
             </div>
 
-            <!-- DC MONDAY -->
-            <section class="day-section dc-monday" data-day="monday">
+            <!-- LI MONDAY -->
+            <section class="day-section li-monday" data-day="monday">
                 <div class="day-header">
                     <h2 class="day-name"><span class="day-emoji">🟧</span>Monday</h2>
                 </div>
@@ -2335,7 +2335,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Period</th>
-                            <th>DC Role</th>
+                            <th>LI Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2403,8 +2403,8 @@
                 </table>
             </section>
 
-            <!-- DC TUESDAY -->
-            <section class="day-section dc-tuesday" data-day="tuesday">
+            <!-- LI TUESDAY -->
+            <section class="day-section li-tuesday" data-day="tuesday">
                 <div class="day-header">
                     <h2 class="day-name"><span class="day-emoji">🟨</span>Tuesday</h2>
                 </div>
@@ -2413,7 +2413,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Period</th>
-                            <th>DC Role</th>
+                            <th>LI Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2481,8 +2481,8 @@
                 </table>
             </section>
 
-            <!-- DC WEDNESDAY -->
-            <section class="day-section dc-wednesday" data-day="wednesday">
+            <!-- LI WEDNESDAY -->
+            <section class="day-section li-wednesday" data-day="wednesday">
                 <div class="day-header">
                     <h2 class="day-name"><span class="day-emoji">🟩</span>Wednesday</h2>
                     <span class="day-tag" style="background: rgba(5, 150, 105, 0.2); color: var(--wednesday-color); border: 1px solid rgba(5, 150, 105, 0.3);">@ Jo Richardson</span>
@@ -2492,7 +2492,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Period</th>
-                            <th>DC Role</th>
+                            <th>LI Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2519,7 +2519,7 @@
                         <tr>
                             <td class="time-cell">11:10–12:00</td>
                             <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-busy">Line Management (LD ↔ DC)</td>
+                            <td class="role-cell role-busy">Line Management (LD ↔ LI)</td>
                         </tr>
                         <tr class="lunch-row">
                             <td class="time-cell">12:00–12:30</td>
@@ -2555,8 +2555,8 @@
                 </table>
             </section>
 
-            <!-- DC THURSDAY -->
-            <section class="day-section dc-thursday" data-day="thursday">
+            <!-- LI THURSDAY -->
+            <section class="day-section li-thursday" data-day="thursday">
                 <div class="day-header">
                     <h2 class="day-name"><span class="day-emoji">🟦</span>Thursday</h2>
                     <span class="day-tag tag-early">Early Finish</span>
@@ -2567,7 +2567,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Period</th>
-                            <th>DC Role</th>
+                            <th>LI Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2635,8 +2635,8 @@
                 </table>
             </section>
 
-            <!-- DC FRIDAY -->
-            <section class="day-section dc-friday" data-day="friday">
+            <!-- LI FRIDAY -->
+            <section class="day-section li-friday" data-day="friday">
                 <div class="day-header">
                     <h2 class="day-name"><span class="day-emoji">🟪</span>Friday</h2>
                     <span class="day-tag tag-early">Early Finish</span>
@@ -2646,7 +2646,7 @@
                         <tr>
                             <th>Time</th>
                             <th>Period</th>
-                            <th>DC Role</th>
+                            <th>LI Role</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -3998,7 +3998,7 @@
                 'MASTER': 'Master Timetable',
                 'LD': 'Lloyd Timetable',
                 'MC': 'Malikah Timetable',
-                'DC': 'Dejuane Timetable',
+                'LI': 'Laurent Timetable',
                 'LG': 'Lorelle Timetable',
                 'AD': 'Amy Timetable'
             };
@@ -4140,9 +4140,9 @@
         // Initialize Responsibility Modals
         document.addEventListener('DOMContentLoaded', function() {
             // Get all modal elements first
-            const dcResponsibilityBtn = document.getElementById('dcResponsibilityBtn');
-            const dcResponsibilityModal = document.getElementById('dcResponsibilityModal');
-            const closeDcResponsibilityModal = document.getElementById('closeDcResponsibilityModal');
+            const liResponsibilityBtn = document.getElementById('liResponsibilityBtn');
+            const liResponsibilityModal = document.getElementById('liResponsibilityModal');
+            const closeLiResponsibilityModal = document.getElementById('closeLiResponsibilityModal');
 
             const ldResponsibilityBtn = document.getElementById('ldResponsibilityBtn');
             const ldResponsibilityModal = document.getElementById('ldResponsibilityModal');
@@ -4172,17 +4172,17 @@
             const lgResponsibilityModal = document.getElementById('lgResponsibilityModal');
             const closeLgResponsibilityModal = document.getElementById('closeLgResponsibilityModal');
 
-            // DC Responsibility Modal
-            if (dcResponsibilityBtn && dcResponsibilityModal) {
-                dcResponsibilityBtn.addEventListener('click', function() {
-                    dcResponsibilityModal.style.display = 'block';
+            // LI Responsibility Modal
+            if (liResponsibilityBtn && liResponsibilityModal) {
+                liResponsibilityBtn.addEventListener('click', function() {
+                    liResponsibilityModal.style.display = 'block';
                     document.body.style.overflow = 'hidden';
                 });
             }
 
-            if (closeDcResponsibilityModal && dcResponsibilityModal) {
-                closeDcResponsibilityModal.addEventListener('click', function() {
-                    dcResponsibilityModal.style.display = 'none';
+            if (closeLiResponsibilityModal && liResponsibilityModal) {
+                closeLiResponsibilityModal.addEventListener('click', function() {
+                    liResponsibilityModal.style.display = 'none';
                     document.body.style.overflow = 'auto';
                 });
             }
@@ -4293,7 +4293,7 @@
             }
 
             // Close modal when clicking outside (for all modals)
-            const allModals = [dcResponsibilityModal, ldResponsibilityModal, mcResponsibilityModal, adResponsibilityModal, jcResponsibilityModal, allStaffResponsibilityModal, saResponsibilityModal, lgResponsibilityModal];
+            const allModals = [liResponsibilityModal, ldResponsibilityModal, mcResponsibilityModal, adResponsibilityModal, jcResponsibilityModal, allStaffResponsibilityModal, saResponsibilityModal, lgResponsibilityModal];
             
             window.addEventListener('click', function(event) {
                 allModals.forEach(modal => {
@@ -4318,12 +4318,12 @@
         });
     </script>
 
-    <!-- DC Responsibility Modal -->
-    <div id="dcResponsibilityModal" class="responsibility-modal">
+    <!-- LI Responsibility Modal -->
+    <div id="liResponsibilityModal" class="responsibility-modal">
         <div class="responsibility-modal-content">
             <div class="responsibility-modal-header">
-                <h2>DE'JUANE – KS3 PATHWAY LEAD / HEAD OF SPORT / SEMH AQA</h2>
-                <button class="close-responsibility-modal" id="closeDcResponsibilityModal">&times;</button>
+                <h2>LAURENT IRISH – KS3 PATHWAY LEAD / HEAD OF SPORT / SEMH AQA</h2>
+                <button class="close-responsibility-modal" id="closeLiResponsibilityModal">&times;</button>
             </div>
             <div class="responsibility-modal-body">
                 <div class="responsibility-section">
