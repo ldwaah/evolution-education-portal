@@ -554,46 +554,6 @@
         .ld-thursday .timetable { border-top: 3px solid var(--thursday-color); }
         .ld-friday .timetable { border-top: 3px solid var(--friday-color); }
 
-        /* MC Timetable Styles */
-        .mc-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%);
-            border-radius: 16px;
-            border: 1px solid var(--border-color);
-        }
-
-        .mc-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .mc-header .role-title {
-            color: var(--reflection-color);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .mc-header p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        .mc-monday .day-name { color: var(--monday-color); }
-        .mc-tuesday .day-name { color: var(--tuesday-color); }
-        .mc-wednesday .day-name { color: var(--wednesday-color); }
-        .mc-thursday .day-name { color: var(--thursday-color); }
-        .mc-friday .day-name { color: var(--friday-color); }
-
-        .mc-monday .timetable { border-top: 3px solid var(--monday-color); }
-        .mc-tuesday .timetable { border-top: 3px solid var(--tuesday-color); }
-        .mc-wednesday .timetable { border-top: 3px solid var(--wednesday-color); }
-        .mc-thursday .timetable { border-top: 3px solid var(--thursday-color); }
-        .mc-friday .timetable { border-top: 3px solid var(--friday-color); }
 
         .role-reset {
             color: var(--accent-teal);
@@ -1180,7 +1140,6 @@
             <nav class="tab-nav">
                 <button class="tab-btn active" onclick="showTab('master')">Master Timetable</button>
                 <button class="tab-btn" onclick="showTab('ld')">LD</button>
-                <button class="tab-btn" onclick="showTab('mc')">MC</button>
                 <button class="tab-btn" onclick="showTab('li')">LI</button>
                 <button class="tab-btn" onclick="showTab('lg')">LG</button>
                 <button class="tab-btn" onclick="showTab('ad')">AD</button>
@@ -1243,8 +1202,8 @@
                         <tr>
                             <td class="time-cell">09:00–09:35</td>
                             <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Reset</span> <span class="staff-name">– MC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Reset</span> <span class="staff-name">– MC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Reset</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Reset</span></td>
                             <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
@@ -1261,7 +1220,7 @@
                             <td class="period-cell"><span class="period-badge">P3</span></td>
                             <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr>
@@ -1269,7 +1228,7 @@
                             <td class="period-cell"><span class="period-badge">P4</span></td>
                             <td class="ks3-cell"><span class="subject-name">Group Intervention</span> <span class="staff-name">– JC</span></td>
                             <td class="ks4-cell"><span class="subject-name">King's Trust</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr class="lunch-row">
@@ -1342,7 +1301,7 @@
                             <td class="period-cell"><span class="period-badge">P3</span></td>
                             <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr>
@@ -1350,7 +1309,7 @@
                             <td class="period-cell"><span class="period-badge">P4</span></td>
                             <td class="ks3-cell"><span class="subject-name">Art</span> <span class="staff-name">– SA</span></td>
                             <td class="ks4-cell"><span class="subject-name">DofE</span> <span class="staff-name">– LD</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr class="lunch-row">
@@ -1429,7 +1388,7 @@
                             <td class="period-cell"><span class="period-badge">P3</span></td>
                             <td class="ks3-cell"><span class="subject-name">AQA</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">SA ↔ MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr>
@@ -1449,7 +1408,7 @@
                             <td class="time-cell">12:30–13:45</td>
                             <td class="period-cell"><span class="period-badge">P5</span></td>
                             <td class="ks3-cell" colspan="2" style="text-align: center;"><span class="subject-name">Physical Activity / Sports</span> <span class="staff-name">– LI (Lead), SA & LG (Support)</span></td>
-                            <td class="reflection-cell">MC (Supervision)</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr>
@@ -1484,8 +1443,8 @@
                         <tr>
                             <td class="time-cell">09:00–09:35</td>
                             <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Reset</span> <span class="staff-name">– MC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Reset</span> <span class="staff-name">– MC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Reset</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Reset</span></td>
                             <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
@@ -1502,7 +1461,7 @@
                             <td class="period-cell"><span class="period-badge">P3</span></td>
                             <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– LI</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr>
@@ -1510,7 +1469,7 @@
                             <td class="period-cell"><span class="period-badge">P4</span></td>
                             <td class="ks3-cell"><span class="subject-name">Food Tech</span> <span class="staff-name">– SA</span></td>
                             <td class="ks4-cell"><span class="subject-name">SEMH Intervention</span> <span class="staff-name">– LD</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr class="lunch-row">
@@ -1565,8 +1524,8 @@
                         <tr>
                             <td class="time-cell">09:00–09:35</td>
                             <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="ks3-cell"><span class="subject-name">Reset</span> <span class="staff-name">– MC</span></td>
-                            <td class="ks4-cell"><span class="subject-name">Reset</span> <span class="staff-name">– MC</span></td>
+                            <td class="ks3-cell"><span class="subject-name">Reset</span></td>
+                            <td class="ks4-cell"><span class="subject-name">Reset</span></td>
                             <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
@@ -1583,7 +1542,7 @@
                             <td class="period-cell"><span class="period-badge">P3</span></td>
                             <td class="ks3-cell"><span class="subject-name">English</span> <span class="staff-name">– SA</span></td>
                             <td class="ks4-cell"><span class="subject-name">English</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr>
@@ -1591,7 +1550,7 @@
                             <td class="period-cell"><span class="period-badge">P4</span></td>
                             <td class="ks3-cell"><span class="subject-name">SEMH Intervention</span> <span class="staff-name">– SA</span></td>
                             <td class="ks4-cell"><span class="subject-name">King's Trust</span> <span class="staff-name">– LG</span></td>
-                            <td class="reflection-cell">MC</td>
+                            <td class="reflection-cell empty-cell">—</td>
 
                         </tr>
                         <tr class="lunch-row">
@@ -1953,358 +1912,6 @@
                             <td class="time-cell">12:35–13:00</td>
                             <td class="period-cell"><span class="period-badge">P&P</span></td>
                             <td class="role-cell role-free">Centre Duties</td>
-                        </tr>
-                        <tr class="finish-row">
-                            <td class="time-cell">13:00</td>
-                            <td class="period-cell"><span class="period-badge">Finish</span></td>
-                            <td class="role-cell finish-cell">End of day</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-
-        <!-- MC TIMETABLE TAB -->
-        <main id="mc-tab" class="tab-content">
-            <div class="mc-header">
-                <h2>Malikah's Schedule</h2>
-                <p class="role-title">Mentoring & Teaching Assistant (SEMH)</p>
-                <p>Regulation, relationships, re-engagement, catch-up • Targeted intervention specialist</p>
-                <button id="mcResponsibilityBtn" class="responsibility-btn">Responsibility</button>
-            </div>
-
-            <!-- MC MONDAY -->
-            <section class="day-section mc-monday" data-day="monday">
-                <div class="day-header">
-                    <h2 class="day-name"><span class="day-emoji">🟧</span>Monday</h2>
-                </div>
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Period</th>
-                            <th>Malikah's Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>                        <tr class="briefing-row">
-                            <td class="time-cell">08:30–09:00</td>
-                            <td class="period-cell"><span class="period-badge">Briefing</span></td>
-                            <td class="role-cell role-support">Staff Briefing</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">09:00–09:35</td>
-                            <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="role-cell role-reset">Reset (KS3 & KS4)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">09:35–10:25</td>
-                            <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">10:25–11:05</td>
-                            <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">11:05–11:25</td>
-                            <td class="period-cell"><span class="period-badge">Break</span></td>
-                            <td class="role-cell role-support">Break Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">11:25–12:15</td>
-                            <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="lunch-row">
-                            <td class="time-cell">12:15–12:55</td>
-                            <td class="period-cell"><span class="period-badge">Lunch</span></td>
-                            <td class="role-cell role-support">Lunch Supervision</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">12:55–13:35</td>
-                            <td class="period-cell"><span class="period-badge">P5</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision / Mentoring</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">13:35–14:45</td>
-                            <td class="period-cell"><span class="period-badge">P6</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision / Mentoring</td>
-                        </tr>
-                        <tr class="pp-row">
-                            <td class="time-cell">14:45–15:00</td>
-                            <td class="period-cell"><span class="period-badge">P&P</span></td>
-                            <td class="role-cell role-support">Support / Debrief Students</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">15:00–15:30</td>
-                            <td class="period-cell"><span class="period-badge">Staff Break</span></td>
-                            <td class="role-cell role-support">Staff Break</td>
-                        </tr>
-                        <tr class="finish-row">
-                            <td class="time-cell">15:30</td>
-                            <td class="period-cell"><span class="period-badge">Finish</span></td>
-                            <td class="role-cell finish-cell">End of day</td>
-                        </tr></tbody>
-                </table>
-            </section>
-
-            <!-- MC TUESDAY -->
-            <section class="day-section mc-tuesday" data-day="tuesday">
-                <div class="day-header">
-                    <h2 class="day-name"><span class="day-emoji">🟨</span>Tuesday</h2>
-                </div>
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Period</th>
-                            <th>Malikah's Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-cell">09:00–09:35</td>
-                            <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="role-cell role-support">See Assembly Rota</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">09:35–10:25</td>
-                            <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">10:25–11:05</td>
-                            <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">11:05–11:25</td>
-                            <td class="period-cell"><span class="period-badge">Break</span></td>
-                            <td class="role-cell role-support">Break Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">11:25–12:20</td>
-                            <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="lunch-row">
-                            <td class="time-cell">12:20–12:55</td>
-                            <td class="period-cell"><span class="period-badge">Lunch</span></td>
-                            <td class="role-cell role-support">Lunch Supervision</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">12:55–13:35</td>
-                            <td class="period-cell"><span class="period-badge">P5</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision / Mentoring</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">13:35–14:45</td>
-                            <td class="period-cell"><span class="period-badge">P6</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision / Mentoring</td>
-                        </tr>
-                        <tr class="pp-row">
-                            <td class="time-cell">14:45–15:00</td>
-                            <td class="period-cell"><span class="period-badge">P&P</span></td>
-                            <td class="role-cell role-support">Pause & Progress</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">15:00–15:30</td>
-                            <td class="period-cell"><span class="period-badge">Staff Break</span></td>
-                            <td class="role-cell role-support">Staff Break</td>
-                        </tr>
-                        <tr class="finish-row">
-                            <td class="time-cell">15:30</td>
-                            <td class="period-cell"><span class="period-badge">Finish</span></td>
-                            <td class="role-cell finish-cell">End of day</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- MC WEDNESDAY -->
-            <section class="day-section mc-wednesday" data-day="wednesday">
-                <div class="day-header">
-                    <h2 class="day-name"><span class="day-emoji">🟩</span>Wednesday</h2>
-                    <span class="day-tag" style="background: rgba(5, 150, 105, 0.2); color: var(--wednesday-color); border: 1px solid rgba(5, 150, 105, 0.3);">@ Jo Richardson</span>
-                </div>
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Period</th>
-                            <th>Malikah's Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-cell">08:50–09:05</td>
-                            <td class="period-cell"><span class="period-badge">Reg</span></td>
-                            <td class="role-cell role-support">Morning Registration</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">09:05–10:00</td>
-                            <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="role-cell role-busy">Support</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">10:00–10:15</td>
-                            <td class="period-cell"><span class="period-badge">Break</span></td>
-                            <td class="role-cell role-support">Break – On duty</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">10:15–11:10</td>
-                            <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="role-cell role-busy">Line Management (SA ↔ MC)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">11:10–12:00</td>
-                            <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-mentoring">1-1 Mentoring</td>
-                        </tr>
-                        <tr class="lunch-row">
-                            <td class="time-cell">12:00–12:30</td>
-                            <td class="period-cell"><span class="period-badge">Lunch</span></td>
-                            <td class="role-cell role-support">Lunch Supervision</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">12:30–14:00</td>
-                            <td class="period-cell"><span class="period-badge">P5</span></td>
-                            <td class="role-cell role-reflection">Reflection</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">14:00–15:00</td>
-                            <td class="period-cell"><span class="period-badge">Team Meeting</span></td>
-                            <td class="role-cell role-busy">Team Meeting</td>
-                        </tr>
-                        <tr class="finish-row">
-                            <td class="time-cell">15:30</td>
-                            <td class="period-cell"><span class="period-badge">Finish</span></td>
-                            <td class="role-cell finish-cell">End of day</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- MC THURSDAY -->
-            <section class="day-section mc-thursday" data-day="thursday">
-                <div class="day-header">
-                    <h2 class="day-name"><span class="day-emoji">🟦</span>Thursday</h2>
-                    <span class="day-tag tag-early">Early Finish</span>
-                    <span class="day-tag tag-thrive">Thrive</span>
-                </div>
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Period</th>
-                            <th>Malikah's Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-cell">09:00–09:35</td>
-                            <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="role-cell role-reset">Headstart</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">09:35–10:25</td>
-                            <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">10:25–11:05</td>
-                            <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">11:05–11:25</td>
-                            <td class="period-cell"><span class="period-badge">Break</span></td>
-                            <td class="role-cell role-support">Break Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">11:25–12:15</td>
-                            <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="lunch-row">
-                            <td class="time-cell">12:15–12:35</td>
-                            <td class="period-cell"><span class="period-badge">Lunch</span></td>
-                            <td class="role-cell role-support">Lunch Supervision</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">12:35–13:30</td>
-                            <td class="period-cell"><span class="period-badge">P5</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision / Mentoring</td>
-                        </tr>
-                        <tr class="pp-row">
-                            <td class="time-cell">13:30–14:00</td>
-                            <td class="period-cell"><span class="period-badge">P&P</span></td>
-                            <td class="role-cell role-support">SEMH Assessments</td>
-                        </tr>
-                        <tr class="thrive-row">
-                            <td class="time-cell">14:00–15:00</td>
-                            <td class="period-cell"><span class="period-badge">Thrive</span></td>
-                            <td class="role-cell thrive-cell">Staff Thrive</td>
-                        </tr>
-                        <tr class="finish-row">
-                            <td class="time-cell">15:30</td>
-                            <td class="period-cell"><span class="period-badge">Finish</span></td>
-                            <td class="role-cell finish-cell">End of day</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-
-            <!-- MC FRIDAY -->
-            <section class="day-section mc-friday" data-day="friday">
-                <div class="day-header">
-                    <h2 class="day-name"><span class="day-emoji">🟪</span>Friday</h2>
-                    <span class="day-tag tag-early">Early Finish</span>
-                </div>
-                <table class="timetable">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Period</th>
-                            <th>Malikah's Role</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="time-cell">09:00–09:35</td>
-                            <td class="period-cell"><span class="period-badge">P1</span></td>
-                            <td class="role-cell role-reset">Reset (KS3 & KS4)</td>
-                        </tr>
-                        <tr>
-                            <td class="time-cell">09:35–10:25</td>
-                            <td class="period-cell"><span class="period-badge">P2</span></td>
-                            <td class="role-cell role-busy">FLZ Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">10:25–11:05</td>
-                            <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="break-row">
-                            <td class="time-cell">11:05–11:25</td>
-                            <td class="period-cell"><span class="period-badge">Break</span></td>
-                            <td class="role-cell role-support">Break Supervision</td>
-                        </tr>
-                        <tr class="reflection-row">
-                            <td class="time-cell">11:25–12:15</td>
-                            <td class="period-cell"><span class="period-badge">P4</span></td>
-                            <td class="role-cell role-reflection">Reflection Room</td>
-                        </tr>
-                        <tr class="lunch-row">
-                            <td class="time-cell">12:15–12:35</td>
-                            <td class="period-cell"><span class="period-badge">Lunch</span></td>
-                            <td class="role-cell role-support">Lunch Supervision</td>
-                        </tr>
-                        <tr class="pp-row">
-                            <td class="time-cell">12:35–13:00</td>
-                            <td class="period-cell"><span class="period-badge">P&P</span></td>
-                            <td class="role-cell role-support">SEMH Assessments</td>
                         </tr>
                         <tr class="finish-row">
                             <td class="time-cell">13:00</td>
@@ -3674,7 +3281,7 @@
                         <tr>
                             <td class="time-cell">10:15–11:10</td>
                             <td class="period-cell"><span class="period-badge">P3</span></td>
-                            <td class="role-cell role-busy">Line Management (SA ↔ MC)</td>
+                            <td class="role-cell role-busy">Line Management</td>
                         </tr>
                         <tr>
                             <td class="time-cell">11:10–12:00</td>
@@ -3701,7 +3308,7 @@
                             <td class="period-cell"><span class="period-badge">Staff Break</span></td>
                             <td class="role-cell role-support">Staff Break</td>
                         </tr>
-<tr class="finish-row">
+                        <tr class="finish-row">
                             <td class="time-cell">15:30</td>
                             <td class="period-cell"><span class="period-badge">Finish</span></td>
                             <td class="role-cell finish-cell">End of day</td>
@@ -3997,7 +3604,6 @@
             const tabNames = {
                 'MASTER': 'Master Timetable',
                 'LD': 'Lloyd Timetable',
-                'MC': 'Malikah Timetable',
                 'LI': 'Laurent Timetable',
                 'LG': 'Lorelle Timetable',
                 'AD': 'Amy Timetable'
@@ -4148,9 +3754,6 @@
             const ldResponsibilityModal = document.getElementById('ldResponsibilityModal');
             const closeLdResponsibilityModal = document.getElementById('closeLdResponsibilityModal');
 
-            const mcResponsibilityBtn = document.getElementById('mcResponsibilityBtn');
-            const mcResponsibilityModal = document.getElementById('mcResponsibilityModal');
-            const closeMcResponsibilityModal = document.getElementById('closeMcResponsibilityModal');
 
             const adResponsibilityBtn = document.getElementById('adResponsibilityBtn');
             const adResponsibilityModal = document.getElementById('adResponsibilityModal');
@@ -4202,20 +3805,6 @@
                 });
             }
 
-            // MC Responsibility Modal
-            if (mcResponsibilityBtn && mcResponsibilityModal) {
-                mcResponsibilityBtn.addEventListener('click', function() {
-                    mcResponsibilityModal.style.display = 'block';
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-
-            if (closeMcResponsibilityModal && mcResponsibilityModal) {
-                closeMcResponsibilityModal.addEventListener('click', function() {
-                    mcResponsibilityModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                });
-            }
 
             // AD Responsibility Modal
             if (adResponsibilityBtn && adResponsibilityModal) {
@@ -4618,59 +4207,6 @@
         </div>
     </div>
 
-    <!-- MC Responsibility Modal -->
-    <div id="mcResponsibilityModal" class="responsibility-modal">
-        <div class="responsibility-modal-content">
-            <div class="responsibility-modal-header" style="background: linear-gradient(135deg, var(--reflection-color) 0%, #b45309 100%);">
-                <h2>MALIKAH — GIRLS MENTOR / SEMH ASSESSMENTS / ILP LEAD</h2>
-                <button class="close-responsibility-modal" id="closeMcResponsibilityModal">&times;</button>
-            </div>
-            <div class="responsibility-modal-body">
-                <div class="responsibility-section">
-                    <h3 style="color: var(--reflection-color); border-left-color: var(--reflection-color);">Core Duties</h3>
-                </div>
-
-                <div class="responsibility-section">
-                    <h3 style="color: var(--reflection-color); border-left-color: var(--reflection-color);">1. SEMH Assessments</h3>
-                    <ul>
-                        <li>Complete Day-1 SEMH assessment</li>
-                        <li>Use this to create student ILP</li>
-                    </ul>
-                </div>
-
-                <div class="responsibility-section">
-                    <h3 style="color: var(--reflection-color); border-left-color: var(--reflection-color);">2. ILP Creation</h3>
-                    <ul>
-                        <li>Produce ILP on Day 1</li>
-                        <li>Share with Centre Manager, staff team, and Bromcom</li>
-                    </ul>
-                </div>
-
-                <div class="responsibility-section">
-                    <h3 style="color: var(--reflection-color); border-left-color: var(--reflection-color);">3. Girls Mentoring</h3>
-                    <ul>
-                        <li>Daily mentoring for identified female students</li>
-                        <li>Record progress</li>
-                    </ul>
-                </div>
-
-                <div class="responsibility-section">
-                    <h3 style="color: var(--reflection-color); border-left-color: var(--reflection-color);">4. Group Sessions</h3>
-                    <ul>
-                        <li>Deliver 1 girls group per half term</li>
-                    </ul>
-                </div>
-
-                <div class="responsibility-section">
-                    <h3 style="color: var(--reflection-color); border-left-color: var(--reflection-color);">5. Thrive & SEMH Tracking</h3>
-                    <ul>
-                        <li>Contribute to Thrive meetings</li>
-                        <li>Flag students in crisis</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- AD Responsibility Modal -->
     <div id="adResponsibilityModal" class="responsibility-modal">
@@ -4760,7 +4296,7 @@
                 <div class="responsibility-section">
                     <h3 style="color: var(--accent-sage); border-left-color: var(--accent-sage);">3. Group Work</h3>
                     <ul>
-                        <li>Support Sacha & Malikah with group sessions</li>
+                        <li>Support Sacha with group sessions</li>
                     </ul>
                 </div>
 
