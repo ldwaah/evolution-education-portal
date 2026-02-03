@@ -41,6 +41,19 @@
         font-weight: 600;
         margin-top: 10px;
     }
+    .info-banner {
+        background: #ecfdf5;
+        border: 2px solid #10b981;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: #065f46;
+    }
+    .info-banner h4 {
+        color: #10b981;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
     .form-section {
         background: white;
         padding: 30px;
@@ -68,7 +81,6 @@
     }
     .form-group input[type="text"],
     .form-group input[type="date"],
-    .form-group input[type="time"],
     .form-group select,
     .form-group textarea {
         width: 100%;
@@ -79,13 +91,13 @@
         font-family: inherit;
         transition: all 0.3s;
         box-sizing: border-box;
+        background: #f9fafb;
+        color: #374151;
     }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-        outline: none;
-        border-color: #10b981;
-        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    .form-group input[readonly],
+    .form-group textarea[readonly] {
+        background: #f3f4f6;
+        cursor: not-allowed;
     }
     .form-group textarea {
         min-height: 120px;
@@ -100,6 +112,25 @@
         .form-row {
             grid-template-columns: 1fr;
         }
+    }
+    .sig-pad {
+        border: 2px solid #d1d9e0;
+        border-radius: 8px;
+        cursor: crosshair;
+        display: block;
+        width: 100%;
+        height: 150px;
+        background: white;
+        margin-top: 10px;
+    }
+    .sig-pad:focus {
+        border-color: #10b981;
+        outline: none;
+    }
+    .sig-controls {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
     }
     .btn {
         border: none;
@@ -125,6 +156,20 @@
     }
     .btn-secondary:hover {
         background: #4b5563;
+    }
+    .btn-small {
+        padding: 8px 16px;
+        font-size: 0.9em;
+        background: #e5e7eb;
+        color: #374151;
+    }
+    .btn-small:hover {
+        background: #d1d5db;
+    }
+    .btn-primary:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
     }
     .back-link {
         display: inline-block;
@@ -155,6 +200,11 @@
             grid-template-columns: 1fr;
         }
     }
+    .signature-required {
+        color: #ef4444;
+        font-size: 0.9em;
+        margin-top: 5px;
+    }
     </style>
 </head>
 <body>
@@ -167,18 +217,23 @@
             <span class="tier-badge">Tier 1 - Initial Support</span>
         </div>
 
+        <div class="info-banner">
+            <h4>📋 Form Information</h4>
+            <p>This form has been pre-populated with standard Tier 1 content. Please review all sections and complete the signature at the bottom to finalize the form.</p>
+        </div>
+
         <form id="tier1Form">
             <!-- Student Information -->
             <div class="form-section">
                 <h3>Student Information</h3>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="studentName">Student Name *</label>
-                        <input type="text" id="studentName" name="studentName" required>
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" readonly value="[To be completed by staff]">
                     </div>
                     <div class="form-group">
-                        <label for="yearGroup">Year Group *</label>
-                        <select id="yearGroup" name="yearGroup" required>
+                        <label for="yearGroup">Year Group</label>
+                        <select id="yearGroup" name="yearGroup" readonly disabled style="background: #f3f4f6; cursor: not-allowed;">
                             <option value="">Select Year Group</option>
                             <option value="Year 7">Year 7</option>
                             <option value="Year 8">Year 8</option>
@@ -191,11 +246,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="formTutor">Form Tutor</label>
-                        <input type="text" id="formTutor" name="formTutor">
+                        <input type="text" id="formTutor" name="formTutor" readonly value="[To be completed by staff]">
                     </div>
                     <div class="form-group">
-                        <label for="dateOfMeeting">Date of Meeting *</label>
-                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" required>
+                        <label for="dateOfMeeting">Date of Meeting</label>
+                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" readonly>
                     </div>
                 </div>
             </div>
@@ -204,12 +259,12 @@
             <div class="form-section">
                 <h3>Meeting Details</h3>
                 <div class="form-group">
-                    <label for="attendees">Attendees *</label>
-                    <textarea id="attendees" name="attendees" placeholder="List all attendees (e.g., Student, Parent/Carer, Form Tutor, Head of Year)" required></textarea>
+                    <label for="attendees">Attendees</label>
+                    <textarea id="attendees" name="attendees" readonly>Student, Parent/Carer, Form Tutor, Head of Year</textarea>
                 </div>
                 <div class="form-group">
                     <label for="meetingLocation">Meeting Location</label>
-                    <input type="text" id="meetingLocation" name="meetingLocation" placeholder="e.g., School Office, Meeting Room">
+                    <input type="text" id="meetingLocation" name="meetingLocation" readonly value="School Office / Meeting Room">
                 </div>
             </div>
 
@@ -217,16 +272,16 @@
             <div class="form-section">
                 <h3>Concerns and Issues</h3>
                 <div class="form-group">
-                    <label for="behaviourConcerns">Behaviour Concerns *</label>
-                    <textarea id="behaviourConcerns" name="behaviourConcerns" placeholder="Describe the specific behaviour concerns that have led to this Tier 1 review..." required></textarea>
+                    <label for="behaviourConcerns">Behaviour Concerns</label>
+                    <textarea id="behaviourConcerns" name="behaviourConcerns" readonly>Initial concerns regarding student behaviour have been identified. This Tier 1 review meeting has been arranged to address these concerns at an early stage and implement appropriate support strategies. The focus is on early intervention and prevention of escalation.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="impactOnLearning">Impact on Learning</label>
-                    <textarea id="impactOnLearning" name="impactOnLearning" placeholder="How is this behaviour impacting the student's learning and progress?"></textarea>
+                    <textarea id="impactOnLearning" name="impactOnLearning" readonly>The identified behaviour concerns may be impacting the student's ability to fully engage with learning opportunities. Early intervention is key to ensuring the student can access the curriculum effectively and make expected progress.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="previousActions">Previous Actions Taken</label>
-                    <textarea id="previousActions" name="previousActions" placeholder="What actions have already been taken to address these concerns?"></textarea>
+                    <textarea id="previousActions" name="previousActions" readonly>Initial discussions with the student and form tutor have taken place. This Tier 1 review represents the formal first step in addressing the identified concerns.</textarea>
                 </div>
             </div>
 
@@ -234,20 +289,24 @@
             <div class="form-section">
                 <h3>Support Plan</h3>
                 <div class="form-group">
-                    <label for="agreedActions">Agreed Actions *</label>
-                    <textarea id="agreedActions" name="agreedActions" placeholder="List the specific actions that have been agreed upon..." required></textarea>
+                    <label for="agreedActions">Agreed Actions</label>
+                    <textarea id="agreedActions" name="agreedActions" readonly>1. Regular check-ins with form tutor to monitor progress
+2. Implementation of positive behaviour strategies in lessons
+3. Clear communication of expectations and boundaries
+4. Parent/carer support and engagement with home-school communication
+5. Monitoring and review of progress within 4-6 weeks</textarea>
                 </div>
                 <div class="form-group">
                     <label for="responsiblePerson">Person(s) Responsible</label>
-                    <input type="text" id="responsiblePerson" name="responsiblePerson" placeholder="Who will be responsible for implementing these actions?">
+                    <input type="text" id="responsiblePerson" name="responsiblePerson" readonly value="Form Tutor, Head of Year, Teaching Staff">
                 </div>
                 <div class="form-group">
-                    <label for="reviewDate">Review Date *</label>
-                    <input type="date" id="reviewDate" name="reviewDate" required>
+                    <label for="reviewDate">Review Date</label>
+                    <input type="date" id="reviewDate" name="reviewDate" readonly>
                 </div>
                 <div class="form-group">
                     <label for="supportStrategies">Support Strategies</label>
-                    <textarea id="supportStrategies" name="supportStrategies" placeholder="What specific support strategies will be put in place?"></textarea>
+                    <textarea id="supportStrategies" name="supportStrategies" readonly>Support strategies will focus on positive reinforcement, clear expectations, and regular communication. The student will be supported to understand the impact of their behaviour and develop strategies for self-regulation. Additional support may include mentoring, targeted interventions, or referral to internal support services as appropriate.</textarea>
                 </div>
             </div>
 
@@ -256,11 +315,11 @@
                 <h3>Student Voice</h3>
                 <div class="form-group">
                     <label for="studentViews">Student's Views and Feelings</label>
-                    <textarea id="studentViews" name="studentViews" placeholder="What are the student's views on the situation?"></textarea>
+                    <textarea id="studentViews" name="studentViews" readonly>The student has been given the opportunity to share their views and feelings during this meeting. Their perspective has been considered in developing the support plan.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="studentGoals">Student's Goals</label>
-                    <textarea id="studentGoals" name="studentGoals" placeholder="What goals does the student have for improvement?"></textarea>
+                    <textarea id="studentGoals" name="studentGoals" readonly>The student has agreed to work towards improving their behaviour and engagement. Specific goals have been discussed and agreed upon during this meeting.</textarea>
                 </div>
             </div>
 
@@ -269,70 +328,222 @@
                 <h3>Parent/Carer Input</h3>
                 <div class="form-group">
                     <label for="parentViews">Parent/Carer Views</label>
-                    <textarea id="parentViews" name="parentViews" placeholder="What are the parent/carer's views and concerns?"></textarea>
+                    <textarea id="parentViews" name="parentViews" readonly>Parent/carer views and concerns have been discussed during this meeting. Their input has been valuable in understanding the context and developing appropriate support strategies.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="homeSupport">Home Support Offered</label>
-                    <textarea id="homeSupport" name="homeSupport" placeholder="What support can be provided at home?"></textarea>
+                    <textarea id="homeSupport" name="homeSupport" readonly>Regular communication between home and school will be maintained. Parent/carer support in reinforcing expectations and celebrating positive progress is welcomed and encouraged.</textarea>
                 </div>
             </div>
 
             <!-- Signatures -->
             <div class="form-section">
-                <h3>Signatures</h3>
-                <div class="signature-section">
-                    <div class="form-group">
-                        <label for="studentSignature">Student Signature</label>
-                        <input type="text" id="studentSignature" name="studentSignature" placeholder="Student name">
-                    </div>
-                    <div class="form-group">
-                        <label for="parentSignature">Parent/Carer Signature</label>
-                        <input type="text" id="parentSignature" name="parentSignature" placeholder="Parent/Carer name">
-                    </div>
-                    <div class="form-group">
-                        <label for="staffSignature">Staff Member Signature *</label>
-                        <input type="text" id="staffSignature" name="staffSignature" placeholder="Staff member name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signatureDate">Date Signed</label>
-                        <input type="date" id="signatureDate" name="signatureDate">
+                <h3>Signatures *</h3>
+                <p class="signature-required">* Signature is required to complete this form</p>
+                
+                <div class="form-group">
+                    <label for="studentSignature">Student Signature</label>
+                    <canvas class="sig-pad" id="sigStudent"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigStudent')">Clear</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Additional Notes -->
-            <div class="form-section">
-                <h3>Additional Notes</h3>
+                
                 <div class="form-group">
-                    <label for="additionalNotes">Any Additional Notes or Comments</label>
-                    <textarea id="additionalNotes" name="additionalNotes" placeholder="Any other relevant information..."></textarea>
+                    <label for="parentSignature">Parent/Carer Signature</label>
+                    <canvas class="sig-pad" id="sigParent"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigParent')">Clear</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="staffSignature">Staff Member Signature *</label>
+                    <canvas class="sig-pad" id="sigStaff" style="border-color: #ef4444;"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigStaff')">Clear</button>
+                    </div>
+                    <p class="signature-required">This signature is required</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signatureDate">Date Signed</label>
+                    <input type="date" id="signatureDate" name="signatureDate" readonly>
                 </div>
             </div>
 
             <div style="text-align: center; margin-top: 40px;">
-                <button type="button" class="btn btn-primary" onclick="printForm()">Print Form</button>
-                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+                <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitForm()" disabled>Complete Form</button>
+                <button type="button" class="btn btn-secondary" onclick="printForm()">Print Form</button>
             </div>
         </form>
     </div>
 
     <script>
         // Set today's date as default
-        document.getElementById('dateOfMeeting').valueAsDate = new Date();
-        document.getElementById('signatureDate').valueAsDate = new Date();
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateOfMeeting').value = today;
+        document.getElementById('signatureDate').value = today;
+        
+        // Set review date to 6 weeks from today
+        const reviewDate = new Date();
+        reviewDate.setDate(reviewDate.getDate() + 42);
+        document.getElementById('reviewDate').value = reviewDate.toISOString().split('T')[0];
+
+        // Signature pad functionality
+        function initSignaturePad(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.strokeStyle = '#111';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            function getCoordinates(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                
+                if (e.touches) {
+                    return {
+                        x: (e.touches[0].clientX - rect.left) * scaleX,
+                        y: (e.touches[0].clientY - rect.top) * scaleY
+                    };
+                } else {
+                    return {
+                        x: (e.clientX - rect.left) * scaleX,
+                        y: (e.clientY - rect.top) * scaleY
+                    };
+                }
+            }
+
+            function startDrawing(e) {
+                e.preventDefault();
+                isDrawing = true;
+                const coords = getCoordinates(e);
+                lastX = coords.x;
+                lastY = coords.y;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                checkSignatures();
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                
+                const coords = getCoordinates(e);
+                const currentX = coords.x;
+                const currentY = coords.y;
+                
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+                
+                lastX = currentX;
+                lastY = currentY;
+                checkSignatures();
+            }
+
+            function stopDrawing() {
+                if (isDrawing) {
+                    isDrawing = false;
+                    checkSignatures();
+                }
+            }
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            // Touch events
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+            canvas.addEventListener('touchcancel', stopDrawing);
+        }
+
+        function clearSignature(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            checkSignatures();
+        }
+
+        function checkSignatures() {
+            const staffCanvas = document.getElementById('sigStaff');
+            if (!staffCanvas) return;
+            
+            const ctx = staffCanvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, staffCanvas.width, staffCanvas.height);
+            const hasSignature = imageData.data.some(channel => channel !== 0);
+            
+            const submitBtn = document.getElementById('submitBtn');
+            if (hasSignature) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        function submitForm() {
+            const staffCanvas = document.getElementById('sigStaff');
+            if (!staffCanvas) {
+                alert('Please complete the staff signature');
+                return;
+            }
+            
+            const ctx = staffCanvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, staffCanvas.width, staffCanvas.height);
+            const hasSignature = imageData.data.some(channel => channel !== 0);
+            
+            if (!hasSignature) {
+                alert('Please complete the staff signature before submitting');
+                return;
+            }
+            
+            if (confirm('Are you ready to print and finalize this form?')) {
+                window.print();
+            }
+        }
 
         function printForm() {
             window.print();
         }
 
-        function resetForm() {
-            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
-                document.getElementById('tier1Form').reset();
-                document.getElementById('dateOfMeeting').valueAsDate = new Date();
-                document.getElementById('signatureDate').valueAsDate = new Date();
-            }
+        // Initialize signature pads
+        function initAllSignaturePads() {
+            initSignaturePad('sigStudent');
+            initSignaturePad('sigParent');
+            initSignaturePad('sigStaff');
         }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAllSignaturePads);
+        } else {
+            initAllSignaturePads();
+        }
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                initAllSignaturePads();
+            }, 250);
+        });
     </script>
 </body>
 </html>
-

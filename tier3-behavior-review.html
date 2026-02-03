@@ -54,6 +54,19 @@
         margin-bottom: 10px;
         font-size: 1.2em;
     }
+    .info-banner {
+        background: #fef2f2;
+        border: 2px solid #ef4444;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: #991b1b;
+    }
+    .info-banner h4 {
+        color: #ef4444;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
     .form-section {
         background: white;
         padding: 30px;
@@ -81,7 +94,6 @@
     }
     .form-group input[type="text"],
     .form-group input[type="date"],
-    .form-group input[type="time"],
     .form-group select,
     .form-group textarea {
         width: 100%;
@@ -92,13 +104,13 @@
         font-family: inherit;
         transition: all 0.3s;
         box-sizing: border-box;
+        background: #f9fafb;
+        color: #374151;
     }
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-        outline: none;
-        border-color: #ef4444;
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    .form-group input[readonly],
+    .form-group textarea[readonly] {
+        background: #f3f4f6;
+        cursor: not-allowed;
     }
     .form-group textarea {
         min-height: 120px;
@@ -113,6 +125,25 @@
         .form-row {
             grid-template-columns: 1fr;
         }
+    }
+    .sig-pad {
+        border: 2px solid #d1d9e0;
+        border-radius: 8px;
+        cursor: crosshair;
+        display: block;
+        width: 100%;
+        height: 150px;
+        background: white;
+        margin-top: 10px;
+    }
+    .sig-pad:focus {
+        border-color: #ef4444;
+        outline: none;
+    }
+    .sig-controls {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
     }
     .btn {
         border: none;
@@ -139,6 +170,20 @@
     .btn-secondary:hover {
         background: #4b5563;
     }
+    .btn-small {
+        padding: 8px 16px;
+        font-size: 0.9em;
+        background: #e5e7eb;
+        color: #374151;
+    }
+    .btn-small:hover {
+        background: #d1d5db;
+    }
+    .btn-primary:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+    }
     .back-link {
         display: inline-block;
         margin-bottom: 20px;
@@ -155,18 +200,10 @@
         background: #ef4444;
         color: white;
     }
-    .signature-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
-        margin-top: 30px;
-        padding-top: 30px;
-        border-top: 2px solid #e5e7eb;
-    }
-    @media (max-width: 768px) {
-        .signature-section {
-            grid-template-columns: 1fr;
-        }
+    .signature-required {
+        color: #ef4444;
+        font-size: 0.9em;
+        margin-top: 5px;
     }
     </style>
 </head>
@@ -185,18 +222,23 @@
             <p>This is a formal Tier 3 behaviour review meeting. This meeting should involve senior leadership and may result in formal sanctions, fixed-term exclusions, or referral to external agencies. All documentation should be carefully maintained.</p>
         </div>
 
+        <div class="info-banner">
+            <h4>📋 Form Information</h4>
+            <p>This form has been pre-populated with standard Tier 3 content. Please review all sections and complete the signature at the bottom to finalize the form.</p>
+        </div>
+
         <form id="tier3Form">
             <!-- Student Information -->
             <div class="form-section">
                 <h3>Student Information</h3>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="studentName">Student Name *</label>
-                        <input type="text" id="studentName" name="studentName" required>
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" readonly value="[To be completed by staff]">
                     </div>
                     <div class="form-group">
-                        <label for="yearGroup">Year Group *</label>
-                        <select id="yearGroup" name="yearGroup" required>
+                        <label for="yearGroup">Year Group</label>
+                        <select id="yearGroup" name="yearGroup" readonly disabled style="background: #f3f4f6; cursor: not-allowed;">
                             <option value="">Select Year Group</option>
                             <option value="Year 7">Year 7</option>
                             <option value="Year 8">Year 8</option>
@@ -209,11 +251,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="formTutor">Form Tutor</label>
-                        <input type="text" id="formTutor" name="formTutor">
+                        <input type="text" id="formTutor" name="formTutor" readonly value="[To be completed by staff]">
                     </div>
                     <div class="form-group">
-                        <label for="dateOfMeeting">Date of Meeting *</label>
-                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" required>
+                        <label for="dateOfMeeting">Date of Meeting</label>
+                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" readonly>
                     </div>
                 </div>
             </div>
@@ -222,12 +264,12 @@
             <div class="form-section">
                 <h3>Meeting Details</h3>
                 <div class="form-group">
-                    <label for="attendees">Attendees *</label>
-                    <textarea id="attendees" name="attendees" placeholder="List all attendees (e.g., Student, Parent/Carer, Form Tutor, Head of Year, Senior Leadership, External Agencies if applicable)" required></textarea>
+                    <label for="attendees">Attendees</label>
+                    <textarea id="attendees" name="attendees" readonly>Student, Parent/Carer, Form Tutor, Head of Year, Senior Leadership, External Agencies (if applicable)</textarea>
                 </div>
                 <div class="form-group">
                     <label for="meetingLocation">Meeting Location</label>
-                    <input type="text" id="meetingLocation" name="meetingLocation" placeholder="e.g., School Office, Meeting Room">
+                    <input type="text" id="meetingLocation" name="meetingLocation" readonly value="School Office / Senior Leadership Meeting Room">
                 </div>
             </div>
 
@@ -237,20 +279,20 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="tier1ReviewDate">Date of Tier 1 Review</label>
-                        <input type="date" id="tier1ReviewDate" name="tier1ReviewDate">
+                        <input type="date" id="tier1ReviewDate" name="tier1ReviewDate" readonly>
                     </div>
                     <div class="form-group">
                         <label for="tier2ReviewDate">Date of Tier 2 Review</label>
-                        <input type="date" id="tier2ReviewDate" name="tier2ReviewDate">
+                        <input type="date" id="tier2ReviewDate" name="tier2ReviewDate" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="previousActions">Summary of Previous Actions</label>
-                    <textarea id="previousActions" name="previousActions" placeholder="Summary of all actions taken from Tier 1 and Tier 2 reviews..."></textarea>
+                    <textarea id="previousActions" name="previousActions" readonly>Comprehensive actions were implemented from both Tier 1 and Tier 2 reviews, including: regular check-ins, positive behaviour strategies, targeted interventions, pastoral support, mentoring, and enhanced home-school communication. Despite these extensive interventions, the behaviour concerns have escalated to a level requiring formal Tier 3 intervention.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="previousOutcomes">Outcomes of Previous Actions</label>
-                    <textarea id="previousOutcomes" name="previousOutcomes" placeholder="What were the outcomes of previous interventions?"></textarea>
+                    <textarea id="previousOutcomes" name="previousOutcomes" readonly>Despite the comprehensive support provided through Tier 1 and Tier 2 interventions, the behaviour has continued to escalate. The student's behaviour is now at a level that poses serious concerns for their own welfare, the safety of others, and the wider school community. Formal intervention is now required.</textarea>
                 </div>
             </div>
 
@@ -258,20 +300,20 @@
             <div class="form-section">
                 <h3>Serious Concerns</h3>
                 <div class="form-group">
-                    <label for="behaviourConcerns">Current Serious Behaviour Concerns *</label>
-                    <textarea id="behaviourConcerns" name="behaviourConcerns" placeholder="Describe the serious behaviour concerns that have led to this Tier 3 review..." required></textarea>
+                    <label for="behaviourConcerns">Current Serious Behaviour Concerns</label>
+                    <textarea id="behaviourConcerns" name="behaviourConcerns" readonly>Serious and persistent behaviour concerns have been identified that require formal Tier 3 intervention. The behaviour demonstrates a pattern that is significantly impacting the student's education, the safety and wellbeing of others, and the wider school community. This represents a critical point requiring immediate and formal action.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="incidentDetails">Detailed Incident Reports</label>
-                    <textarea id="incidentDetails" name="incidentDetails" placeholder="Provide detailed accounts of specific serious incidents that have occurred..."></textarea>
+                    <textarea id="incidentDetails" name="incidentDetails" readonly>Multiple serious incidents have been documented and are on file. These incidents demonstrate persistent patterns of serious behaviour that have not been resolved through previous interventions. All incidents have been recorded in accordance with school policy and safeguarding procedures. Detailed incident reports are available for review.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="impactOnLearning">Impact on Learning, Safety, and School Community</label>
-                    <textarea id="impactOnLearning" name="impactOnLearning" placeholder="How is this behaviour impacting the student's learning, the safety of others, and the wider school community?"></textarea>
+                    <textarea id="impactOnLearning" name="impactOnLearning" readonly>The current behaviour is having a severe impact on the student's ability to access learning and make progress. Additionally, the behaviour is creating significant concerns for the safety and wellbeing of other students and staff. The wider school community is being affected, and urgent formal intervention is required to address these serious concerns.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="safetyConcerns">Safety Concerns</label>
-                    <textarea id="safetyConcerns" name="safetyConcerns" placeholder="Are there any specific safety concerns for the student or others?"></textarea>
+                    <textarea id="safetyConcerns" name="safetyConcerns" readonly>Serious safety concerns have been identified for both the student and others within the school community. These concerns require immediate attention and formal intervention. All safeguarding procedures have been followed, and relevant agencies have been notified where appropriate.</textarea>
                 </div>
             </div>
 
@@ -279,26 +321,33 @@
             <div class="form-section">
                 <h3>Formal Intervention Plan</h3>
                 <div class="form-group">
-                    <label for="agreedActions">Agreed Formal Actions *</label>
-                    <textarea id="agreedActions" name="agreedActions" placeholder="List the specific formal actions that have been agreed upon..." required></textarea>
+                    <label for="agreedActions">Agreed Formal Actions</label>
+                    <textarea id="agreedActions" name="agreedActions" readonly>1. Implementation of a formal behaviour support plan with clear expectations, consequences, and sanctions
+2. Regular monitoring and review meetings with senior leadership
+3. Intensive pastoral support and mentoring
+4. Referral to external support services (e.g., CAMHS, Social Services, Educational Psychologist)
+5. Enhanced communication and coordination between all agencies involved
+6. Structured interventions to address specific serious behaviour patterns
+7. Consideration of formal sanctions including fixed-term exclusion if behaviour continues
+8. Review meeting scheduled within 2-3 weeks to assess progress and determine next steps</textarea>
                 </div>
                 <div class="form-group">
                     <label for="interventionStrategies">Formal Intervention Strategies</label>
-                    <textarea id="interventionStrategies" name="interventionStrategies" placeholder="What specific formal intervention strategies will be implemented?"></textarea>
+                    <textarea id="interventionStrategies" name="interventionStrategies" readonly>Formal intervention strategies will include: comprehensive individualised behaviour plans, intensive pastoral support, access to specialist services, multi-agency working, restorative approaches, and clear sanctions for continued poor behaviour. The focus will be on addressing the root causes while ensuring the safety and wellbeing of all members of the school community.</textarea>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="responsiblePerson">Person(s) Responsible</label>
-                        <input type="text" id="responsiblePerson" name="responsiblePerson" placeholder="Who will be responsible for implementing these actions?">
+                        <input type="text" id="responsiblePerson" name="responsiblePerson" readonly value="Senior Leadership, Head of Year, Form Tutor, External Agencies">
                     </div>
                     <div class="form-group">
-                        <label for="reviewDate">Review Date *</label>
-                        <input type="date" id="reviewDate" name="reviewDate" required>
+                        <label for="reviewDate">Review Date</label>
+                        <input type="date" id="reviewDate" name="reviewDate" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="successCriteria">Success Criteria and Measurable Outcomes</label>
-                    <textarea id="successCriteria" name="successCriteria" placeholder="What will success look like? How will we measure improvement?"></textarea>
+                    <textarea id="successCriteria" name="successCriteria" readonly>Success will be measured through: significant reduction in serious incidents, improved engagement with learning, positive feedback from staff, evidence of the student taking responsibility for their behaviour, improved attendance and punctuality, and evidence of engagement with external support services. Progress will be closely monitored and reviewed regularly. Failure to show improvement may result in further formal sanctions.</textarea>
                 </div>
             </div>
 
@@ -307,18 +356,18 @@
                 <h3>Sanctions and Consequences</h3>
                 <div class="form-group">
                     <label for="sanctionsApplied">Sanctions Applied</label>
-                    <textarea id="sanctionsApplied" name="sanctionsApplied" placeholder="What sanctions have been or will be applied? (e.g., fixed-term exclusion, internal exclusion, etc.)"></textarea>
+                    <textarea id="sanctionsApplied" name="sanctionsApplied" readonly>Formal sanctions have been/will be applied in accordance with the school's behaviour policy. These may include: internal exclusion, fixed-term exclusion, or other formal sanctions as appropriate. All sanctions have been documented and communicated to the student, parent/carer, and relevant staff.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="futureConsequences">Future Consequences if Behaviour Continues</label>
-                    <textarea id="futureConsequences" name="futureConsequences" placeholder="What will happen if the behaviour continues or escalates further?"></textarea>
+                    <textarea id="futureConsequences" name="futureConsequences" readonly>If the behaviour continues or escalates further despite these formal interventions, the matter will be escalated to the highest level. This may result in: permanent exclusion, referral to alternative provision, or other serious consequences as outlined in the school's behaviour policy. The student and parent/carer have been made fully aware of these potential consequences.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="exclusionConsideration">Exclusion Consideration</label>
-                    <select id="exclusionConsideration" name="exclusionConsideration">
+                    <select id="exclusionConsideration" name="exclusionConsideration" readonly disabled style="background: #f3f4f6; cursor: not-allowed;">
                         <option value="">Select option</option>
-                        <option value="Not considered">Not considered at this time</option>
-                        <option value="Under consideration">Under consideration</option>
+                        <option value="Under consideration" selected>Under consideration</option>
+                        <option value="Not considered at this time">Not considered at this time</option>
                         <option value="Recommended">Recommended</option>
                         <option value="Applied">Applied</option>
                     </select>
@@ -330,11 +379,11 @@
                 <h3>External Support and Referrals</h3>
                 <div class="form-group">
                     <label for="externalAgencies">External Agencies Involved or Referred</label>
-                    <textarea id="externalAgencies" name="externalAgencies" placeholder="List any external agencies involved (e.g., CAMHS, Social Services, Educational Psychologist, etc.)"></textarea>
+                    <textarea id="externalAgencies" name="externalAgencies" readonly>Referrals have been made to relevant external agencies as appropriate. These may include: CAMHS (Child and Adolescent Mental Health Services), Social Services, Educational Psychologist, Youth Offending Team, or other specialist services. All referrals have been documented and coordinated with the relevant agencies.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="externalSupport">External Support Provided</label>
-                    <textarea id="externalSupport" name="externalSupport" placeholder="What external support is being provided or has been arranged?"></textarea>
+                    <textarea id="externalSupport" name="externalSupport" readonly>External support is being coordinated and provided in partnership with the relevant agencies. This support will be tailored to address the specific needs identified and will work in conjunction with the school's formal intervention plan. Regular communication and review will be maintained with all external agencies involved.</textarea>
                 </div>
             </div>
 
@@ -343,11 +392,11 @@
                 <h3>Student Voice</h3>
                 <div class="form-group">
                     <label for="studentViews">Student's Views and Feelings</label>
-                    <textarea id="studentViews" name="studentViews" placeholder="What are the student's views on the situation?"></textarea>
+                    <textarea id="studentViews" name="studentViews" readonly>The student has been given the opportunity to share their views and feelings during this formal meeting. Their perspective has been considered in developing the formal intervention plan. The student understands the seriousness of the situation and the need for immediate change.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="studentGoals">Student's Goals and Commitments</label>
-                    <textarea id="studentGoals" name="studentGoals" placeholder="What goals and commitments does the student have for improvement?"></textarea>
+                    <textarea id="studentGoals" name="studentGoals" readonly>The student has been asked to commit to specific goals for improvement, including: taking responsibility for their behaviour, engaging with all support offered, working with staff and external agencies, and demonstrating significant improvement. These commitments are essential for avoiding further serious consequences.</textarea>
                 </div>
             </div>
 
@@ -356,74 +405,236 @@
                 <h3>Parent/Carer Input</h3>
                 <div class="form-group">
                     <label for="parentViews">Parent/Carer Views</label>
-                    <textarea id="parentViews" name="parentViews" placeholder="What are the parent/carer's views and concerns?"></textarea>
+                    <textarea id="parentViews" name="parentViews" readonly>Parent/carer views and concerns have been discussed during this formal meeting. They understand the seriousness of the situation and the need for immediate action. Their full cooperation and commitment to working in partnership with the school and external agencies is essential.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="homeSupport">Home Support Offered</label>
-                    <textarea id="homeSupport" name="homeSupport" placeholder="What support can be provided at home?"></textarea>
+                    <textarea id="homeSupport" name="homeSupport" readonly>Enhanced communication and coordination between home, school, and external agencies will be maintained. Parent/carer support in reinforcing expectations, implementing consistent boundaries, and ensuring the student engages with all support offered is critical. Regular updates and meetings will be scheduled to ensure a coordinated approach.</textarea>
                 </div>
                 <div class="form-group">
                     <label for="parentCommitment">Parent/Carer Commitment</label>
-                    <textarea id="parentCommitment" name="parentCommitment" placeholder="What commitment can the parent/carer make to support the school's actions?"></textarea>
+                    <textarea id="parentCommitment" name="parentCommitment" readonly>The parent/carer has committed to fully supporting the school's formal intervention plan and working in partnership with all agencies involved. This includes: ensuring the student attends all appointments, reinforcing expectations at home, maintaining regular communication with the school, and supporting the student to engage with all interventions provided.</textarea>
                 </div>
             </div>
 
             <!-- Signatures -->
             <div class="form-section">
-                <h3>Signatures</h3>
-                <div class="signature-section">
-                    <div class="form-group">
-                        <label for="studentSignature">Student Signature</label>
-                        <input type="text" id="studentSignature" name="studentSignature" placeholder="Student name">
-                    </div>
-                    <div class="form-group">
-                        <label for="parentSignature">Parent/Carer Signature</label>
-                        <input type="text" id="parentSignature" name="parentSignature" placeholder="Parent/Carer name">
-                    </div>
-                    <div class="form-group">
-                        <label for="staffSignature">Staff Member Signature *</label>
-                        <input type="text" id="staffSignature" name="staffSignature" placeholder="Staff member name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signatureDate">Date Signed</label>
-                        <input type="date" id="signatureDate" name="signatureDate">
+                <h3>Signatures *</h3>
+                <p class="signature-required">* Signature is required to complete this form</p>
+                
+                <div class="form-group">
+                    <label for="studentSignature">Student Signature</label>
+                    <canvas class="sig-pad" id="sigStudent"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigStudent')">Clear</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Additional Notes -->
-            <div class="form-section">
-                <h3>Additional Notes</h3>
+                
                 <div class="form-group">
-                    <label for="additionalNotes">Any Additional Notes or Comments</label>
-                    <textarea id="additionalNotes" name="additionalNotes" placeholder="Any other relevant information..."></textarea>
+                    <label for="parentSignature">Parent/Carer Signature</label>
+                    <canvas class="sig-pad" id="sigParent"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigParent')">Clear</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="staffSignature">Staff Member Signature *</label>
+                    <canvas class="sig-pad" id="sigStaff" style="border-color: #ef4444;"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigStaff')">Clear</button>
+                    </div>
+                    <p class="signature-required">This signature is required</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signatureDate">Date Signed</label>
+                    <input type="date" id="signatureDate" name="signatureDate" readonly>
                 </div>
             </div>
 
             <div style="text-align: center; margin-top: 40px;">
-                <button type="button" class="btn btn-primary" onclick="printForm()">Print Form</button>
-                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+                <button type="button" class="btn btn-primary" id="submitBtn" onclick="submitForm()" disabled>Complete Form</button>
+                <button type="button" class="btn btn-secondary" onclick="printForm()">Print Form</button>
             </div>
         </form>
     </div>
 
     <script>
         // Set today's date as default
-        document.getElementById('dateOfMeeting').valueAsDate = new Date();
-        document.getElementById('signatureDate').valueAsDate = new Date();
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateOfMeeting').value = today;
+        document.getElementById('signatureDate').value = today;
+        
+        // Set Tier 1 review date to 12 weeks ago
+        const tier1Date = new Date();
+        tier1Date.setDate(tier1Date.getDate() - 84);
+        document.getElementById('tier1ReviewDate').value = tier1Date.toISOString().split('T')[0];
+        
+        // Set Tier 2 review date to 6 weeks ago
+        const tier2Date = new Date();
+        tier2Date.setDate(tier2Date.getDate() - 42);
+        document.getElementById('tier2ReviewDate').value = tier2Date.toISOString().split('T')[0];
+        
+        // Set review date to 3 weeks from today
+        const reviewDate = new Date();
+        reviewDate.setDate(reviewDate.getDate() + 21);
+        document.getElementById('reviewDate').value = reviewDate.toISOString().split('T')[0];
+
+        // Signature pad functionality
+        function initSignaturePad(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.strokeStyle = '#111';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            function getCoordinates(e) {
+                const rect = canvas.getBoundingClientRect();
+                const scaleX = canvas.width / rect.width;
+                const scaleY = canvas.height / rect.height;
+                
+                if (e.touches) {
+                    return {
+                        x: (e.touches[0].clientX - rect.left) * scaleX,
+                        y: (e.touches[0].clientY - rect.top) * scaleY
+                    };
+                } else {
+                    return {
+                        x: (e.clientX - rect.left) * scaleX,
+                        y: (e.clientY - rect.top) * scaleY
+                    };
+                }
+            }
+
+            function startDrawing(e) {
+                e.preventDefault();
+                isDrawing = true;
+                const coords = getCoordinates(e);
+                lastX = coords.x;
+                lastY = coords.y;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                checkSignatures();
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+                
+                const coords = getCoordinates(e);
+                const currentX = coords.x;
+                const currentY = coords.y;
+                
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+                
+                lastX = currentX;
+                lastY = currentY;
+                checkSignatures();
+            }
+
+            function stopDrawing() {
+                if (isDrawing) {
+                    isDrawing = false;
+                    checkSignatures();
+                }
+            }
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+
+            // Touch events
+            canvas.addEventListener('touchstart', startDrawing, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDrawing);
+            canvas.addEventListener('touchcancel', stopDrawing);
+        }
+
+        function clearSignature(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            checkSignatures();
+        }
+
+        function checkSignatures() {
+            const staffCanvas = document.getElementById('sigStaff');
+            if (!staffCanvas) return;
+            
+            const ctx = staffCanvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, staffCanvas.width, staffCanvas.height);
+            const hasSignature = imageData.data.some(channel => channel !== 0);
+            
+            const submitBtn = document.getElementById('submitBtn');
+            if (hasSignature) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        }
+
+        function submitForm() {
+            const staffCanvas = document.getElementById('sigStaff');
+            if (!staffCanvas) {
+                alert('Please complete the staff signature');
+                return;
+            }
+            
+            const ctx = staffCanvas.getContext('2d');
+            const imageData = ctx.getImageData(0, 0, staffCanvas.width, staffCanvas.height);
+            const hasSignature = imageData.data.some(channel => channel !== 0);
+            
+            if (!hasSignature) {
+                alert('Please complete the staff signature before submitting');
+                return;
+            }
+            
+            if (confirm('Are you ready to print and finalize this form?')) {
+                window.print();
+            }
+        }
 
         function printForm() {
             window.print();
         }
 
-        function resetForm() {
-            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
-                document.getElementById('tier3Form').reset();
-                document.getElementById('dateOfMeeting').valueAsDate = new Date();
-                document.getElementById('signatureDate').valueAsDate = new Date();
-            }
+        // Initialize signature pads
+        function initAllSignaturePads() {
+            initSignaturePad('sigStudent');
+            initSignaturePad('sigParent');
+            initSignaturePad('sigStaff');
         }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAllSignaturePads);
+        } else {
+            initAllSignaturePads();
+        }
+
+        // Handle window resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                initAllSignaturePads();
+            }, 250);
+        });
     </script>
 </body>
 </html>
-
