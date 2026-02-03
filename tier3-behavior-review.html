@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tier 3 Behaviour Review Meeting - Evolution Education</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+        overflow: auto;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+        padding: 20px;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+    .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 4px solid #ef4444;
+    }
+    .header h1 {
+        color: #ef4444;
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    .header .tier-badge {
+        display: inline-block;
+        background: #ef4444;
+        color: white;
+        padding: 8px 20px;
+        border-radius: 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 10px;
+    }
+    .warning-box {
+        background: #fef2f2;
+        border: 2px solid #ef4444;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        color: #991b1b;
+    }
+    .warning-box h4 {
+        color: #ef4444;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+    .form-section {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-left: 4px solid #ef4444;
+    }
+    .form-section h3 {
+        color: #ef4444;
+        margin-bottom: 25px;
+        font-size: 1.6em;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #ef4444;
+    }
+    .form-group {
+        margin-bottom: 25px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        font-weight: 600;
+        font-size: 1.05em;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="date"],
+    .form-group input[type="time"],
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #d1d9e0;
+        border-radius: 8px;
+        font-size: 1em;
+        font-family: inherit;
+        transition: all 0.3s;
+        box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #ef4444;
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+    .form-group textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+    @media (max-width: 768px) {
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+    }
+    .btn {
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-size: 1em;
+        font-weight: 600;
+        padding: 12px 30px;
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        color: white;
+    }
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+    }
+    .btn-secondary {
+        background: #6b7280;
+        color: white;
+        margin-left: 10px;
+    }
+    .btn-secondary:hover {
+        background: #4b5563;
+    }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 20px;
+        color: #ef4444;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 10px 20px;
+        background: white;
+        border-radius: 8px;
+        border: 2px solid #ef4444;
+        transition: all 0.3s;
+    }
+    .back-link:hover {
+        background: #ef4444;
+        color: white;
+    }
+    .signature-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 2px solid #e5e7eb;
+    }
+    @media (max-width: 768px) {
+        .signature-section {
+            grid-template-columns: 1fr;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Dashboard</a>
+        
+        <div class="header">
+            <h1>🔴 Tier 3 Behaviour Review Meeting</h1>
+            <p style="color: #666; font-size: 1.1rem;">Formal intervention and serious concern meeting</p>
+            <span class="tier-badge">Tier 3 - Formal Intervention</span>
+        </div>
+
+        <div class="warning-box">
+            <h4>⚠️ Important Notice</h4>
+            <p>This is a formal Tier 3 behaviour review meeting. This meeting should involve senior leadership and may result in formal sanctions, fixed-term exclusions, or referral to external agencies. All documentation should be carefully maintained.</p>
+        </div>
+
+        <form id="tier3Form">
+            <!-- Student Information -->
+            <div class="form-section">
+                <h3>Student Information</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentName">Student Name *</label>
+                        <input type="text" id="studentName" name="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="yearGroup">Year Group *</label>
+                        <select id="yearGroup" name="yearGroup" required>
+                            <option value="">Select Year Group</option>
+                            <option value="Year 7">Year 7</option>
+                            <option value="Year 8">Year 8</option>
+                            <option value="Year 9">Year 9</option>
+                            <option value="Year 10">Year 10</option>
+                            <option value="Year 11">Year 11</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="formTutor">Form Tutor</label>
+                        <input type="text" id="formTutor" name="formTutor">
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfMeeting">Date of Meeting *</label>
+                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" required>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Meeting Details -->
+            <div class="form-section">
+                <h3>Meeting Details</h3>
+                <div class="form-group">
+                    <label for="attendees">Attendees *</label>
+                    <textarea id="attendees" name="attendees" placeholder="List all attendees (e.g., Student, Parent/Carer, Form Tutor, Head of Year, Senior Leadership, External Agencies if applicable)" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="meetingLocation">Meeting Location</label>
+                    <input type="text" id="meetingLocation" name="meetingLocation" placeholder="e.g., School Office, Meeting Room">
+                </div>
+            </div>
+
+            <!-- Previous Reviews -->
+            <div class="form-section">
+                <h3>Previous Reviews</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tier1ReviewDate">Date of Tier 1 Review</label>
+                        <input type="date" id="tier1ReviewDate" name="tier1ReviewDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="tier2ReviewDate">Date of Tier 2 Review</label>
+                        <input type="date" id="tier2ReviewDate" name="tier2ReviewDate">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="previousActions">Summary of Previous Actions</label>
+                    <textarea id="previousActions" name="previousActions" placeholder="Summary of all actions taken from Tier 1 and Tier 2 reviews..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="previousOutcomes">Outcomes of Previous Actions</label>
+                    <textarea id="previousOutcomes" name="previousOutcomes" placeholder="What were the outcomes of previous interventions?"></textarea>
+                </div>
+            </div>
+
+            <!-- Serious Concerns -->
+            <div class="form-section">
+                <h3>Serious Concerns</h3>
+                <div class="form-group">
+                    <label for="behaviourConcerns">Current Serious Behaviour Concerns *</label>
+                    <textarea id="behaviourConcerns" name="behaviourConcerns" placeholder="Describe the serious behaviour concerns that have led to this Tier 3 review..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="incidentDetails">Detailed Incident Reports</label>
+                    <textarea id="incidentDetails" name="incidentDetails" placeholder="Provide detailed accounts of specific serious incidents that have occurred..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="impactOnLearning">Impact on Learning, Safety, and School Community</label>
+                    <textarea id="impactOnLearning" name="impactOnLearning" placeholder="How is this behaviour impacting the student's learning, the safety of others, and the wider school community?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="safetyConcerns">Safety Concerns</label>
+                    <textarea id="safetyConcerns" name="safetyConcerns" placeholder="Are there any specific safety concerns for the student or others?"></textarea>
+                </div>
+            </div>
+
+            <!-- Formal Intervention Plan -->
+            <div class="form-section">
+                <h3>Formal Intervention Plan</h3>
+                <div class="form-group">
+                    <label for="agreedActions">Agreed Formal Actions *</label>
+                    <textarea id="agreedActions" name="agreedActions" placeholder="List the specific formal actions that have been agreed upon..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="interventionStrategies">Formal Intervention Strategies</label>
+                    <textarea id="interventionStrategies" name="interventionStrategies" placeholder="What specific formal intervention strategies will be implemented?"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="responsiblePerson">Person(s) Responsible</label>
+                        <input type="text" id="responsiblePerson" name="responsiblePerson" placeholder="Who will be responsible for implementing these actions?">
+                    </div>
+                    <div class="form-group">
+                        <label for="reviewDate">Review Date *</label>
+                        <input type="date" id="reviewDate" name="reviewDate" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="successCriteria">Success Criteria and Measurable Outcomes</label>
+                    <textarea id="successCriteria" name="successCriteria" placeholder="What will success look like? How will we measure improvement?"></textarea>
+                </div>
+            </div>
+
+            <!-- Sanctions and Consequences -->
+            <div class="form-section">
+                <h3>Sanctions and Consequences</h3>
+                <div class="form-group">
+                    <label for="sanctionsApplied">Sanctions Applied</label>
+                    <textarea id="sanctionsApplied" name="sanctionsApplied" placeholder="What sanctions have been or will be applied? (e.g., fixed-term exclusion, internal exclusion, etc.)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="futureConsequences">Future Consequences if Behaviour Continues</label>
+                    <textarea id="futureConsequences" name="futureConsequences" placeholder="What will happen if the behaviour continues or escalates further?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="exclusionConsideration">Exclusion Consideration</label>
+                    <select id="exclusionConsideration" name="exclusionConsideration">
+                        <option value="">Select option</option>
+                        <option value="Not considered">Not considered at this time</option>
+                        <option value="Under consideration">Under consideration</option>
+                        <option value="Recommended">Recommended</option>
+                        <option value="Applied">Applied</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- External Support -->
+            <div class="form-section">
+                <h3>External Support and Referrals</h3>
+                <div class="form-group">
+                    <label for="externalAgencies">External Agencies Involved or Referred</label>
+                    <textarea id="externalAgencies" name="externalAgencies" placeholder="List any external agencies involved (e.g., CAMHS, Social Services, Educational Psychologist, etc.)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="externalSupport">External Support Provided</label>
+                    <textarea id="externalSupport" name="externalSupport" placeholder="What external support is being provided or has been arranged?"></textarea>
+                </div>
+            </div>
+
+            <!-- Student Voice -->
+            <div class="form-section">
+                <h3>Student Voice</h3>
+                <div class="form-group">
+                    <label for="studentViews">Student's Views and Feelings</label>
+                    <textarea id="studentViews" name="studentViews" placeholder="What are the student's views on the situation?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="studentGoals">Student's Goals and Commitments</label>
+                    <textarea id="studentGoals" name="studentGoals" placeholder="What goals and commitments does the student have for improvement?"></textarea>
+                </div>
+            </div>
+
+            <!-- Parent/Carer Input -->
+            <div class="form-section">
+                <h3>Parent/Carer Input</h3>
+                <div class="form-group">
+                    <label for="parentViews">Parent/Carer Views</label>
+                    <textarea id="parentViews" name="parentViews" placeholder="What are the parent/carer's views and concerns?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="homeSupport">Home Support Offered</label>
+                    <textarea id="homeSupport" name="homeSupport" placeholder="What support can be provided at home?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="parentCommitment">Parent/Carer Commitment</label>
+                    <textarea id="parentCommitment" name="parentCommitment" placeholder="What commitment can the parent/carer make to support the school's actions?"></textarea>
+                </div>
+            </div>
+
+            <!-- Signatures -->
+            <div class="form-section">
+                <h3>Signatures</h3>
+                <div class="signature-section">
+                    <div class="form-group">
+                        <label for="studentSignature">Student Signature</label>
+                        <input type="text" id="studentSignature" name="studentSignature" placeholder="Student name">
+                    </div>
+                    <div class="form-group">
+                        <label for="parentSignature">Parent/Carer Signature</label>
+                        <input type="text" id="parentSignature" name="parentSignature" placeholder="Parent/Carer name">
+                    </div>
+                    <div class="form-group">
+                        <label for="staffSignature">Staff Member Signature *</label>
+                        <input type="text" id="staffSignature" name="staffSignature" placeholder="Staff member name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="signatureDate">Date Signed</label>
+                        <input type="date" id="signatureDate" name="signatureDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="form-section">
+                <h3>Additional Notes</h3>
+                <div class="form-group">
+                    <label for="additionalNotes">Any Additional Notes or Comments</label>
+                    <textarea id="additionalNotes" name="additionalNotes" placeholder="Any other relevant information..."></textarea>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button type="button" class="btn btn-primary" onclick="printForm()">Print Form</button>
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset Form</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Set today's date as default
+        document.getElementById('dateOfMeeting').valueAsDate = new Date();
+        document.getElementById('signatureDate').valueAsDate = new Date();
+
+        function printForm() {
+            window.print();
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All data will be lost.')) {
+                document.getElementById('tier3Form').reset();
+                document.getElementById('dateOfMeeting').valueAsDate = new Date();
+                document.getElementById('signatureDate').valueAsDate = new Date();
+            }
+        }
+    </script>
+</body>
+</html>
+
