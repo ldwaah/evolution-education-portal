@@ -95,25 +95,27 @@ if (closeAdminModal) {
 
 // Purple Ruler Student Login Details
 const purpleRulerStudents = [
-    { name: 'Amishael Mufata', email: 'amishael.mufata@evolution-education.com', cohort: 'Year 11 Class', password: 'AmishaelM100%' },
-    { name: 'Charlie Archer', email: 'charlie.archer@evolution-education.com', cohort: 'Year 11 Class', password: 'CharlieA100%' },
-    { name: 'Connor Azzaro', email: 'connor.azzaro@evolution-education.com', cohort: 'Year 9 Class', password: 'ConnorA100%' },
-    { name: 'Korey Browne', email: 'korey.browne@evolution-education.com', cohort: 'Year 9 Class', password: 'CoreyB100%' },
-    { name: 'Harry Igwilo', email: 'harry.igwilo@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryI100%' },
-    { name: 'Harry Reed', email: 'harry.reed@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryR100%' },
-    { name: 'Josiah Stcyr', email: 'josiah.stcyr@evolution-education.com', cohort: 'Year 9 Class', password: 'JosiahSC100%' },
-    { name: 'Kayden Strose', email: 'kayden.strose@evolution-education.com', cohort: 'Year 9 Class', password: 'KaydenS100%' },
-    { name: 'Lexi Penny', email: 'lexi.penny@evolution-education.com', cohort: 'Year 11 Class', password: 'LexiP100%' },
     { name: 'Mason Taylor', email: 'mason.taylor@evolution-education.com', cohort: 'Year 10 Class', password: 'MasonT100%' },
     { name: 'Ronnie Burletson', email: 'ronnie.burletson@evolution-education.com', cohort: 'Year 10 Class', password: 'RonnyB100%' },
     { name: 'Ronny Cooper', email: 'ronny.cooper@evolution-education.com', cohort: 'Year 10 Class', password: 'RonnyC100%' },
     { name: 'Stacey Grail', email: 'stacey.grail@evolution-education.com', cohort: 'Year 10 Class', password: 'StaceyG100%' },
     { name: 'Tyrell Allassan', email: 'tyrell.allassan@evolution-education.com', cohort: 'Year 10 Class', password: 'TyrellA100%' },
-    { name: 'Vinnie Lane', email: 'vinnie.lane@evolution-education.com', cohort: 'Year 11 Class', password: 'VinnieL100%' },
-    { name: 'Yousef Tahir', email: 'yousef.tahir@evolution-education.com', cohort: 'Year 9 Class', password: 'YousafT100%' },
-    { name: 'Bradley Hughes', email: 'bradley.hughes@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'BHughes100%' },
     { name: 'H Jones', email: 'hjones16@robertclack.com', cohort: 'Year 10 Class', password: 'RC School Set' },
-    { name: 'Lucy Madgwick', email: 'lucy.madgwick@evolution-education.com', cohort: 'Year 9 Class', password: 'LucyM100%' }
+    { name: 'Jovan Lane-Ridge', email: 'jovan.lane-ridge@evolution-education.com', cohort: 'Year 10 Class', password: 'JovanL100%' },
+    { name: 'Amishael Mufata', email: 'amishael.mufata@evolution-education.com', cohort: 'Year 11 Class', password: 'AmishaelM100%' },
+    { name: 'Charlie Archer', email: 'charlie.archer@evolution-education.com', cohort: 'Year 11 Class', password: 'CharlieA100%' },
+    { name: 'Lexi Penny', email: 'lexi.penny@evolution-education.com', cohort: 'Year 11 Class', password: 'LexiP100%' },
+    { name: 'Vinnie Lane', email: 'vinnie.lane@evolution-education.com', cohort: 'Year 11 Class', password: 'VinnieL100%' },
+    { name: 'Slyvin Pun', email: 'slyvin.pun@evolution-education.com', cohort: 'Year 11 Class', password: 'SlyvinP100%' },
+    { name: 'Flynn Hurley', email: 'flynn.hurley@evolution-education.com', cohort: 'Year 11 Class', password: 'FlynnH100%' },
+    { name: 'Harry Igwilo', email: 'harry.igwilo@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'HarryI100%' },
+    { name: 'Bradley Hughes', email: 'bradley.hughes@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'BHughes100%' },
+    { name: 'Nailah Peters-Sharp', email: 'nailah.peters-sharp@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'NailahP100%' },
+    { name: 'Kayden Strose', email: 'kayden.strose@evolution-education.com', cohort: 'Year 7 & 8 Class', password: 'KaydenS100%' },
+    { name: 'Connor Azzaro', email: 'connor.azzaro@evolution-education.com', cohort: 'Year 9 Class', password: 'ConnorA100%' },
+    { name: 'Korey Browne', email: 'korey.browne@evolution-education.com', cohort: 'Year 9 Class', password: 'CoreyB100%' },
+    { name: 'Lucy Madgwick', email: 'lucy.madgwick@evolution-education.com', cohort: 'Year 9 Class', password: 'LucyM100%' },
+    { name: 'Albie Kittridge', email: 'albie.kittridge@evolution-education.com', cohort: 'Year 9 Class', password: 'AlbieK100%' }
 ];
 
 const purpleRulerStudentSelect = document.getElementById('purpleRulerStudentSelect');
