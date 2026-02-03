@@ -89,9 +89,19 @@
         color: #374151;
     }
     .form-group input[readonly],
-    .form-group textarea[readonly] {
+    .form-group textarea[readonly],
+    .form-group select[disabled] {
         background: #f3f4f6;
         cursor: not-allowed;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .readonly-field {
+        background: #f3f4f6 !important;
+        cursor: not-allowed !important;
+        pointer-events: none;
     }
     .form-group textarea {
         min-height: 150px;
@@ -199,7 +209,7 @@
 
         <div class="info-banner">
             <h4>📋 Form Information</h4>
-            <p>This form has been pre-populated with standard content. Please review all sections and complete the parent/carer signature at the bottom to finalize the form.</p>
+            <p><strong>This form is read-only.</strong> All fields are pre-populated and cannot be edited. Please review all sections and complete the parent/carer signature at the bottom to finalize the form.</p>
         </div>
 
         <form id="behaviorReviewForm">
@@ -209,11 +219,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="studentName">Student Name</label>
-                        <input type="text" id="studentName" name="studentName" readonly value="[To be completed by staff]">
+                        <input type="text" id="studentName" name="studentName" readonly value="[To be completed by staff]" class="readonly-field" tabindex="-1">
                     </div>
                     <div class="form-group">
                         <label for="yearGroup">Year Group</label>
-                        <select id="yearGroup" name="yearGroup" readonly disabled style="background: #f3f4f6; cursor: not-allowed;">
+                        <select id="yearGroup" name="yearGroup" disabled class="readonly-field" tabindex="-1">
                             <option value="">Select Year Group</option>
                             <option value="Year 7">Year 7</option>
                             <option value="Year 8">Year 8</option>
@@ -226,11 +236,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="formTutor">Form Tutor</label>
-                        <input type="text" id="formTutor" name="formTutor" readonly value="[To be completed by staff]">
+                        <input type="text" id="formTutor" name="formTutor" readonly value="[To be completed by staff]" class="readonly-field" tabindex="-1">
                     </div>
                     <div class="form-group">
                         <label for="dateOfMeeting">Date of Meeting</label>
-                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" readonly>
+                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" readonly class="readonly-field" tabindex="-1">
                     </div>
                 </div>
             </div>
@@ -240,7 +250,7 @@
                 <h3>What Has Happened?</h3>
                 <div class="form-group">
                     <label for="whatHappened">Behaviour Concerns and Incidents</label>
-                    <textarea id="whatHappened" name="whatHappened" readonly>Behaviour concerns have been identified that require review and intervention. Specific incidents have been documented and discussed with relevant staff members. The student's behaviour has been impacting their learning and/or the learning environment. This review meeting has been arranged to address these concerns and implement appropriate support strategies.</textarea>
+                    <textarea id="whatHappened" name="whatHappened" readonly class="readonly-field" tabindex="-1">Behaviour concerns have been identified that require review and intervention. Specific incidents have been documented and discussed with relevant staff members. The student's behaviour has been impacting their learning and/or the learning environment. This review meeting has been arranged to address these concerns and implement appropriate support strategies.</textarea>
                 </div>
             </div>
 
@@ -249,7 +259,7 @@
                 <h3>What Has Been Put in Place?</h3>
                 <div class="form-group">
                     <label for="interventions">Interventions and Support Strategies</label>
-                    <textarea id="interventions" name="interventions" readonly>The following interventions and support strategies have been put in place:
+                    <textarea id="interventions" name="interventions" readonly class="readonly-field" tabindex="-1">The following interventions and support strategies have been put in place:
 • Regular check-ins with form tutor and pastoral staff
 • Clear communication of expectations and boundaries
 • Positive behaviour strategies and reinforcement systems
@@ -278,7 +288,7 @@ These interventions are designed to support the student in making positive chang
                 
                 <div class="form-group">
                     <label for="signatureDate">Date Signed</label>
-                    <input type="date" id="signatureDate" name="signatureDate" readonly>
+                    <input type="date" id="signatureDate" name="signatureDate" readonly class="readonly-field" tabindex="-1">
                 </div>
             </div>
 
