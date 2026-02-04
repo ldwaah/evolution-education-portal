@@ -85,23 +85,15 @@
         font-family: inherit;
         transition: all 0.3s;
         box-sizing: border-box;
-        background: #f9fafb;
+        background: white;
         color: #374151;
     }
-    .form-group input[readonly],
-    .form-group textarea[readonly],
-    .form-group select[disabled] {
-        background: #f3f4f6;
-        cursor: not-allowed;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-    .readonly-field {
-        background: #f3f4f6 !important;
-        cursor: not-allowed !important;
-        pointer-events: none;
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        border-color: #667eea;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     .form-group textarea {
         min-height: 150px;
@@ -209,7 +201,7 @@
 
         <div class="info-banner">
             <h4>📋 Form Information</h4>
-            <p><strong>This form is read-only.</strong> All fields are pre-populated and cannot be edited. Please review all sections and complete the parent/carer signature at the bottom to finalize the form.</p>
+            <p>All fields are editable. Please complete all sections and ensure the parent/carer signature is provided at the bottom to finalize the form.</p>
         </div>
 
         <form id="behaviorReviewForm">
@@ -219,11 +211,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="studentName">Student Name</label>
-                        <input type="text" id="studentName" name="studentName" readonly value="[To be completed by staff]" class="readonly-field" tabindex="-1">
+                        <input type="text" id="studentName" name="studentName" value="">
                     </div>
                     <div class="form-group">
                         <label for="yearGroup">Year Group</label>
-                        <select id="yearGroup" name="yearGroup" disabled class="readonly-field" tabindex="-1">
+                        <select id="yearGroup" name="yearGroup">
                             <option value="">Select Year Group</option>
                             <option value="Year 7">Year 7</option>
                             <option value="Year 8">Year 8</option>
@@ -236,11 +228,11 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="formTutor">Form Tutor</label>
-                        <input type="text" id="formTutor" name="formTutor" readonly value="[To be completed by staff]" class="readonly-field" tabindex="-1">
+                        <input type="text" id="formTutor" name="formTutor" value="">
                     </div>
                     <div class="form-group">
                         <label for="dateOfMeeting">Date of Meeting</label>
-                        <input type="date" id="dateOfMeeting" name="dateOfMeeting" readonly class="readonly-field" tabindex="-1">
+                        <input type="date" id="dateOfMeeting" name="dateOfMeeting">
                     </div>
                 </div>
             </div>
@@ -250,7 +242,7 @@
                 <h3>What Has Happened?</h3>
                 <div class="form-group">
                     <label for="whatHappened">Behaviour Concerns and Incidents</label>
-                    <textarea id="whatHappened" name="whatHappened" readonly class="readonly-field" tabindex="-1">Behaviour concerns have been identified that require review and intervention. Specific incidents have been documented and discussed with relevant staff members. The student's behaviour has been impacting their learning and/or the learning environment. This review meeting has been arranged to address these concerns and implement appropriate support strategies.</textarea>
+                    <textarea id="whatHappened" name="whatHappened">Behaviour concerns have been identified that require review and intervention. Specific incidents have been documented and discussed with relevant staff members. The student's behaviour has been impacting their learning and/or the learning environment. This review meeting has been arranged to address these concerns and implement appropriate support strategies.</textarea>
                 </div>
             </div>
 
@@ -259,7 +251,7 @@
                 <h3>What Has Been Put in Place?</h3>
                 <div class="form-group">
                     <label for="interventions">Interventions and Support Strategies</label>
-                    <textarea id="interventions" name="interventions" readonly class="readonly-field" tabindex="-1">The following interventions and support strategies have been put in place:
+                    <textarea id="interventions" name="interventions">The following interventions and support strategies have been put in place:
 • Regular check-ins with form tutor and pastoral staff
 • Clear communication of expectations and boundaries
 • Positive behaviour strategies and reinforcement systems
@@ -269,6 +261,27 @@
 • Additional support services where necessary
 
 These interventions are designed to support the student in making positive changes and addressing the identified concerns.</textarea>
+                </div>
+            </div>
+
+            <!-- Discussion and Feedback -->
+            <div class="form-section">
+                <h3>Discussion and Feedback</h3>
+                <div class="form-group">
+                    <label for="parentFeedback">Parent/Carer Feedback and Comments</label>
+                    <textarea id="parentFeedback" name="parentFeedback" placeholder="Please share any feedback, concerns, or comments from the parent/carer perspective..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="staffFeedback">Staff Discussion and Feedback</label>
+                    <textarea id="staffFeedback" name="staffFeedback" placeholder="Record any discussion points, observations, or feedback from staff members..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="studentVoice">Student Voice</label>
+                    <textarea id="studentVoice" name="studentVoice" placeholder="Record the student's views, concerns, or feedback shared during the meeting..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="agreedActions">Agreed Actions and Next Steps</label>
+                    <textarea id="agreedActions" name="agreedActions" placeholder="Summarize any agreed actions, targets, or next steps from the discussion..."></textarea>
                 </div>
             </div>
 
@@ -288,7 +301,7 @@ These interventions are designed to support the student in making positive chang
                 
                 <div class="form-group">
                     <label for="signatureDate">Date Signed</label>
-                    <input type="date" id="signatureDate" name="signatureDate" readonly class="readonly-field" tabindex="-1">
+                    <input type="date" id="signatureDate" name="signatureDate">
                 </div>
             </div>
 
