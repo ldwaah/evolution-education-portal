@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Support & Mentoring — Evolution Education</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     body { font-family: Arial, sans-serif; margin: 40px; background: #fafafa; color: #333; }
     h1, h2 { color: #004080; }
@@ -16,6 +17,12 @@
     footer { margin-top: 40px; font-size: 0.9em; color: #777; }
     a { color: #004080; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    #pdfContent { display: none; }
+    @media print {
+      body * { visibility: hidden; }
+      #pdfContent, #pdfContent * { visibility: visible; }
+      #pdfContent { position: absolute; left: 0; top: 0; width: 100%; display: block !important; }
+    }
   </style>
 </head>
 <body>
@@ -103,9 +110,12 @@
   <div id="outputSection" style="display: none; margin-top: 30px; background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd; max-width: 900px;">
     <h2 style="color: #004080; margin-top: 0;">Generated Entry for Bromcom</h2>
     <textarea id="bromcomOutput" readonly style="width: 100%; min-height: 200px; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6;"></textarea>
-    <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;">
+    <div style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
       <button type="button" onclick="copyToClipboard()" style="background: #004080; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer;">
         Copy to Clipboard
+      </button>
+      <button type="button" onclick="downloadPDF()" style="background: #6c757d; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer;">
+        Download PDF
       </button>
       <a href="https://cloudmis.bromcom.com/Nucleus/Framework/Login.aspx" target="_blank" style="background: #28a745; color: white; border: none; padding: 10px 16px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block;">
         Go to Bromcom →
@@ -113,6 +123,8 @@
     </div>
     <span id="copyFeedback" style="margin-left: 10px; color: #28a745; font-weight: bold; display: none;">✓ Copied!</span>
   </div>
+
+  <div id="pdfContent"></div>
 
   <footer>
     v1.1 • Last updated 10 December 2025 • Evolution Education
@@ -231,6 +243,68 @@
       } catch (err) {
         alert('Failed to copy. Please select and copy manually (Ctrl+C or Cmd+C).');
       }
+    }
+
+    function downloadPDF() {
+      const student = document.getElementById('studentName').value.trim();
+      const year = document.getElementById('yearGroup').value;
+      const mentor = document.getElementById('mentorName').value;
+      const pathway = document.getElementById('pathwayLead').value;
+      const date = document.getElementById('sessionDate').value;
+      const mode = document.getElementById('sessionMode').value;
+      const focus = document.getElementById('focusArea').value.trim();
+      const engage = document.getElementById('engagement').value;
+      const progress = document.getElementById('progress').value;
+      const semh = document.getElementById('semhNotes').value.trim();
+      const actions = document.getElementById('actions').value.trim();
+      const support = document.getElementById('supportNeeded').value.trim();
+
+      if (!student || !year || !mentor || !pathway || !date) {
+        alert('Please complete all required fields (marked with *) and click "Generate Bromcom Entry" first, then download PDF.');
+        return;
+      }
+
+      let formattedDate = date;
+      try {
+        const dateObj = new Date(date + 'T00:00:00');
+        if (!isNaN(dateObj.getTime())) {
+          formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+      } catch (err) {
+        formattedDate = date;
+      }
+
+      const pdfContent = document.getElementById('pdfContent');
+      pdfContent.innerHTML = `
+        <div style="font-family: Arial, sans-serif; padding: 24px; color: #333; max-width: 700px;">
+          <h1 style="color: #004080; margin: 0 0 8px 0; font-size: 1.4em;">Student Support / Mentoring Session</h1>
+          <p style="margin: 0 0 20px 0; font-size: 0.9em; color: #666;">Evolution Education</p>
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 16px 0;" />
+          <p><strong>Student:</strong> ${student}</p>
+          <p><strong>Year Group:</strong> ${year}</p>
+          <p><strong>Session Date:</strong> ${formattedDate}</p>
+          <p><strong>Session Mode:</strong> ${mode}</p>
+          <p><strong>Mentor:</strong> ${mentor}</p>
+          <p><strong>Pathway Area:</strong> ${pathway}</p>
+          ${focus ? '<p><strong>Focus Area:</strong> ' + focus + '</p>' : ''}
+          <p><strong>Engagement:</strong> ${engage}</p>
+          <p><strong>Progress:</strong> ${progress}</p>
+          ${semh ? '<p><strong>Wellbeing / SEMH Notes:</strong></p><p style="white-space: pre-wrap; margin-top: 4px;">' + semh + '</p>' : ''}
+          ${actions ? '<p><strong>Actions / Targets:</strong></p><p style="white-space: pre-wrap; margin-top: 4px;">' + actions + '</p>' : ''}
+          ${support ? '<p><strong>Additional Support Required:</strong></p><p style="white-space: pre-wrap; margin-top: 4px;">' + support + '</p>' : ''}
+          <hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;" />
+          <p style="font-size: 0.85em; color: #777;">Generated from Evolution Education Portal – Student Support &amp; Mentoring Form</p>
+        </div>
+      `;
+
+      const opt = {
+        margin: 10,
+        filename: 'Mentoring_Session_' + student.replace(/\s+/g, '_') + '_' + date + '.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+      html2pdf().set(opt).from(pdfContent).save();
     }
   </script>
 
