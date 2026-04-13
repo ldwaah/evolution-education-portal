@@ -1031,42 +1031,9 @@ const searchDatabase = [
         section: 'pathways'
     },
     {
-        keywords: ['timetable', 'schedule', 'rota', 'rotas', 'wednesday', 'lunch', 'door duty', 'detention'],
+        keywords: ['timetable', 'schedule', 'schedules'],
         title: 'Schedules and Rotas',
-        description: 'View timetables, schedules, and staff rotas',
-        type: 'Section',
-        action: () => {
-            closeSearchModal();
-            setTimeout(() => document.getElementById('schedules').click(), 300);
-        },
-        section: 'schedules'
-    },
-    {
-        keywords: ['lunch rota', 'lunch time rota', 'lunch duty'],
-        title: 'Lunch Time Rota',
-        description: 'Lunch time rota (11:50am - 12:00pm)',
-        type: 'Section',
-        action: () => {
-            closeSearchModal();
-            setTimeout(() => document.getElementById('schedules').click(), 300);
-        },
-        section: 'schedules'
-    },
-    {
-        keywords: ['door duty', 'door rota'],
-        title: 'Door Duty Rota',
-        description: 'Daily door duty assignments',
-        type: 'Section',
-        action: () => {
-            closeSearchModal();
-            setTimeout(() => document.getElementById('schedules').click(), 300);
-        },
-        section: 'schedules'
-    },
-    {
-        keywords: ['detention rota', 'detention duty'],
-        title: 'Detention Rota',
-        description: 'Detention assignments and lunch time detentions',
+        description: 'View the master timetable',
         type: 'Section',
         action: () => {
             closeSearchModal();
