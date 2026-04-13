@@ -1167,6 +1167,22 @@ const searchDatabase = [
         section: 'trackers'
     },
     {
+        keywords: ['staff progress trackers', 'staff trackers', 'progress trackers staff', 'tracker sheet', 'google sheet trackers'],
+        title: 'Staff Progress Trackers (Sheet)',
+        description: 'Google Sheet: progress trackers for staff',
+        type: 'Link',
+        action: () => window.open('https://docs.google.com/spreadsheets/d/10k-3qKYZKLA3vfuB0NUNoPV_HF_jjYua/edit?gid=1853447337#gid=1853447337', '_blank', 'noopener,noreferrer'),
+        section: 'trackers'
+    },
+    {
+        keywords: ['aqa evidence', 'aqa drive', 'aqa folder', 'evidence folder', 'upload aqa evidence'],
+        title: 'AQA Evidence (Drive)',
+        description: 'Google Drive folder for AQA evidence',
+        type: 'Link',
+        action: () => window.open('https://drive.google.com/drive/folders/1fgOPOQYjofg7zd-WzK_ed4yAJf1-pe6n', '_blank', 'noopener,noreferrer'),
+        section: 'trackers'
+    },
+    {
         keywords: ['ks3 progress', 'ks3 spring 1', 'ks3 tracker spring'],
         title: 'KS3 Progress Tracker – Spring 1',
         description: 'Foundations: Self & Regulation progress tracker for Spring 1',
