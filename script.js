@@ -1046,7 +1046,7 @@ const searchDatabase = [
         title: 'JRCS Wednesday Timetable',
         description: 'Wednesday operational timetable with staffing, line management & provision. Includes Period 5 weather contingency.',
         type: 'Page',
-        action: () => window.location.href = 'jrcs-wednesday-timetable.html',
+        action: () => window.open('https://docs.google.com/spreadsheets/d/1nXvbja-s4T8KHFnqKrjoBLXBJFLpnRxf/edit?gid=1863036956#gid=1863036956', '_blank', 'noopener,noreferrer'),
         section: 'schedules'
     },
     {
@@ -1054,7 +1054,7 @@ const searchDatabase = [
         title: 'Focused Learning Zone Timetable',
         description: 'Individual staff timetables for FLZ supervision and mentoring sessions',
         type: 'Page',
-        action: () => window.location.href = 'flz-timetable.html',
+        action: () => window.open('https://docs.google.com/spreadsheets/d/1nXvbja-s4T8KHFnqKrjoBLXBJFLpnRxf/edit?gid=1863036956#gid=1863036956', '_blank', 'noopener,noreferrer'),
         section: 'schedules'
     },
     {
