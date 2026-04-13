@@ -1042,22 +1042,6 @@ const searchDatabase = [
         section: 'schedules'
     },
     {
-        keywords: ['wednesday schedule', 'line management', 'wet weather contingency'],
-        title: 'JRCS Wednesday Timetable',
-        description: 'Wednesday operational timetable with staffing, line management & provision. Includes Period 5 weather contingency.',
-        type: 'Page',
-        action: () => window.open('https://docs.google.com/spreadsheets/d/1nXvbja-s4T8KHFnqKrjoBLXBJFLpnRxf/edit?gid=1863036956#gid=1863036956', '_blank', 'noopener,noreferrer'),
-        section: 'schedules'
-    },
-    {
-        keywords: ['flz', 'focused learning zone', 'focused learning', 'flz timetable', 'flz rota', 'flz supervision', 'flz mentoring'],
-        title: 'Focused Learning Zone Timetable',
-        description: 'Individual staff timetables for FLZ supervision and mentoring sessions',
-        type: 'Page',
-        action: () => window.open('https://docs.google.com/spreadsheets/d/1nXvbja-s4T8KHFnqKrjoBLXBJFLpnRxf/edit?gid=1863036956#gid=1863036956', '_blank', 'noopener,noreferrer'),
-        section: 'schedules'
-    },
-    {
         keywords: ['lunch rota', 'lunch time rota', 'lunch duty'],
         title: 'Lunch Time Rota',
         description: 'Lunch time rota (11:50am - 12:00pm)',
