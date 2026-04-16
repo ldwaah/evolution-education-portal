@@ -369,6 +369,14 @@
                         <button type="button" class="btn btn-small" onclick="clearSignature('sigStaff')">Clear</button>
                     </div>
                 </div>
+
+                <div class="form-group" style="margin-top: 25px;">
+                    <label for="studentSignature">Student Signature</label>
+                    <canvas class="sig-pad" id="sigStudent"></canvas>
+                    <div class="sig-controls">
+                        <button type="button" class="btn btn-small" onclick="clearSignature('sigStudent')">Clear</button>
+                    </div>
+                </div>
                 
                 <div class="form-group">
                     <label for="signatureDate">Date Signed</label>
@@ -526,6 +534,7 @@
         function initAllSignaturePads() {
             initSignaturePad('sigParent');
             initSignaturePad('sigStaff');
+            initSignaturePad('sigStudent');
         }
 
         if (document.readyState === 'loading') {
